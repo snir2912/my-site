@@ -5,11 +5,21 @@ Template Name: Front Page Template
 ?>
 
 <?php get_header(); ?>
-
+<?php 
+    $h1 = jet_engine()->meta->get_field( 'h1' );
+    $hero_paragraph = jet_engine()->meta->get_field( 'hero_paragraph' );
+    $services_headline = jet_engine()->meta->get_field( 'services_headline' );
+    $service = jet_engine()->meta->get_field( 'service' );
+    $icon = jet_engine()->meta->get_field( 'icon' );
+    $service_headline = jet_engine()->meta->get_field( 'service_headline' );
+    $service_description = jet_engine()->meta->get_field( 'service_description' );
+    $why_us_headline = jet_engine()->meta->get_field( 'why_us_headline' );
+    $why_us_paragraph = jet_engine()->meta->get_field( 'why_us_paragraph' );
+    ?>
     <section class="hero-section" id="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>יוצר חוויות דיגיטליות<br>שמניעות עסקים קדימה.</h1>
+                <h1><?php echo $h1 ?></h1>
                 <p>
                     ברוכים הבאים! אני [שם שלך], מפתח אתרי וורדפרס המתמחה בבניית אתרים יפהפיים, פונקציונליים ומותאמים אישית. בעולם הדיגיטלי המודרני, נוכחות אינטרנטית היא כבר לא בגדר מותרות, אלא הכרח קיומי לכל עסק שרוצה לשגשג. אתר אינטרנט הוא כרטיס הביקור הדיגיטלי שלך, החלון הראווה הוירטואלי שמציג את העסק שלך לקהל עולמי, ופלטפורמה עוצמתית ליצירת קשר עם לקוחות פוטנציאליים.
                 </p>
