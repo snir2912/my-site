@@ -82,4 +82,5 @@ function snir_theme_breadcrumbs() {
     }
     echo '</div>';
 }
+
 ?>

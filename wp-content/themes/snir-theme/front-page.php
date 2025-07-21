@@ -11,16 +11,13 @@ Template Name: Front Page Template
 // ודא שהעמוד שהוגדר כעמוד הבית (Front Page) בהגדרות קריאה מכיל את השדות של JetEngine.
 if ( have_posts() ) :
     while ( have_posts() ) : the_post(); // The Loop מתחילה כאן!
-
-        // **הגדרת המשתנים מ-JetEngine - עכשיו זה בתוך הלולאה!**
-        $h1 = jet_engine()->meta->get_field('h1');
-        $hero_paragraph = jet_engine()->meta->get_field( 'hero_paragraph' );
-        $services_headline = jet_engine()->meta->get_field( 'services_headline' );
-        $service_items = jet_engine()->meta->get_field( 'service' );
-
-        $why_us_headline = jet_engine()->meta->get_field( 'why_us_headline' );
-        $why_us_paragraph = jet_engine()->meta->get_field( 'why_us_paragraph' );
-?>
+        $h1 = get_field('h1');
+        $hero_paragraph = get_field( 'hero_paragraph' );
+        $services_headline = get_field( 'services_headline' );
+        $service_items = get_field( 'service' );
+        $why_us_headline = get_field( 'why_us_headline' );
+        $why_us_paragraph = get_field( 'why_us_paragraph' );
+?> 
 
 <section class="hero-section" id="hero">
     <div class="container">
