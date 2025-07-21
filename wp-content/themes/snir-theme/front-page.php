@@ -5,79 +5,25 @@ Template Name: Front Page Template
 ?>
 
 <?php get_header(); ?>
-
-<?php
-// תחילת לולאת וורדפרס
-// ודא שהעמוד שהוגדר כעמוד הבית (Front Page) בהגדרות קריאה מכיל את השדות של JetEngine.
-if ( have_posts() ) :
-    while ( have_posts() ) : the_post(); // The Loop מתחילה כאן!
-        $h1 = get_field('h1');
-        $hero_paragraph = get_field( 'hero_paragraph' );
-        $services_headline = get_field( 'services_headline' );
-        $service_items = get_field( 'service' );
-        $why_us_headline = get_field( 'why_us_headline' );
-        $why_us_paragraph = get_field( 'why_us_paragraph' );
-?> 
-
-<section class="hero-section" id="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h1><?php
-                // הצגת ה-h1
-                if ( ! empty( $h1 ) ) {
-                    echo esc_html( $h1 ); // ללא תג <p> מיותר בתוך h1
-                } else {
-                    echo 'כותרת ראשית (H1) חסרה'; // הודעת ברירת מחדל אם השדה ריק
-                }
-            ?></h1>
-            <p>
-                <?php
-                // הצגת פסקת ההירו
-                if ( ! empty( $hero_paragraph ) ) {
-                    echo wp_kses_post( $hero_paragraph ); // השתמש ב-wp_kses_post אם מותר HTML
-                } else {
-                    echo 'תוכן פסקת הירו חסר.'; // הודעת ברירת מחדל
-                }
-                ?>
-            </p>
-            <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
+    <section class="hero-section" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><?php echo $h1 ?></h1>
+                <p>
+                    ברוכים הבאים! אני [שם שלך], מפתח אתרי וורדפרס המתמחה בבניית אתרים יפהפיים, פונקציונליים ומותאמים אישית. בעולם הדיגיטלי המודרני, נוכחות אינטרנטית היא כבר לא בגדר מותרות, אלא הכרח קיומי לכל עסק שרוצה לשגשג. אתר אינטרנט הוא כרטיס הביקור הדיגיטלי שלך, החלון הראווה הוירטואלי שמציג את העסק שלך לקהל עולמי, ופלטפורמה עוצמתית ליצירת קשר עם לקוחות פוטנציאליים.
+                </p>
+                <p>
+                    בין אם אתה עסק קטן שרק מתחיל את דרכו, יזם שמחפש להשיק רעיון פורץ דרך, או חברה גדולה שרוצה לרענן את נוכחותה הדיגיטלית – אתר אינטרנט מעוצב בקפידה, אינטואיטיבי ומהיר יכול להיות ההבדל בין הצלחה לקיפאון. הוא בונה אמון, מספק מידע חיוני, ואף יכול לשמש ככלי מכירה חזק 24/7. בוא נבנה יחד את הנוכחות הדיגיטלית הבאה שלך, כזו שתדבר בשפה של הלקוחות שלך ותהפוך אותם ממתעניינים ללקוחות נאמנים.
+                </p>
+                <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="services-section" id="services">
-    <div class="container">
-        <h2 class="section-title"><?php
-            // הצגת כותרת השירותים
-            if ( ! empty( $services_headline ) ) {
-                echo esc_html( $services_headline );
-            } else {
-                echo 'השירותים שלנו'; // כותרת ברירת מחדל
-            }
-        ?></h2>
-        <div class="services-grid">
-            <?php
-            // **לולאה על שדה הרפטר 'service'**
-            if ( ! empty( $service_items ) && is_array( $service_items ) ) {
-                foreach ( $service_items as $single_service ) {
-                    // גישה לשדות המשנה בתוך כל פריט רפטר
-                    // שימו לב לשמות השדות בתוך הרפטר: 'icon', 'service_headline', 'service_description'
-                    $icon_id = ! empty( $single_service['icon'] ) ? $single_service['icon'] : '';
-                    $service_title = ! empty( $single_service['service_headline'] ) ? $single_service['service_headline'] : '';
-                    $service_desc = ! empty( $single_service['service_description'] ) ? $single_service['service_description'] : '';
-            ?>
-                    <div class="service-item">
-                        <?php if ( $icon_id ) : ?>
-                            <?php echo wp_get_attachment_image( $icon_id, 'thumbnail' ); // מציג את התמונה לפי ה-ID שלה ?>
-                        <?php endif; ?>
-                        <h3><?php echo esc_html( $service_title ); ?></h3>
-                        <p><?php echo esc_html( $service_desc ); ?></p>
-                    </div>
-            <?php
-                } // סוף foreach
-            } else {
-                // תוכן ברירת מחדל אם אין שירותים מוגדרים דרך הרפטר
-                ?>
+    <section class="services-section" id="services">
+        <div class="container">
+            <h2 class="section-title">השירותים שלנו</h2>
+            <div class="services-grid">
                 <div class="service-item">
                     <h3>בניית דפי נחיתה</h3>
                     <p>דפי נחיתה ממוקדים ואפקטיביים המיועדים להמיר גולשים ללקוחות.</p>
@@ -106,56 +52,41 @@ if ( have_posts() ) :
                     <h3>אתר חנות (E-commerce)</h3>
                     <p>חנות מקוונת מתקדמת, מאובטחת וידידותית למשתמש למכירה ישירה של מוצרים.</p>
                 </div>
-                <?php
-            }
-            ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="about-our-service-section" id="why-us">
-    <div class="container">
-        <h2 class="section-title"><?php
-            // הצגת כותרת "למה לבחור בנו"
-            if ( ! empty( $why_us_headline ) ) {
-                echo esc_html( $why_us_headline );
-            } else {
-                echo 'למה לבחור בנו? חווית שירות יוצאת דופן'; // כותרת ברירת מחדל
-            }
-        ?></h2>
-        <p>
-            <?php
-            // הצגת פסקת "למה לבחור בנו"
-            if ( ! empty( $why_us_paragraph ) ) {
-                echo wp_kses_post( $why_us_paragraph ); // שימוש ב-wp_kses_post מאפשר HTML בטוח
-            } else {
-                echo 'תוכן "למה לבחור בנו" חסר.'; // הודעת ברירת מחדל
-            }
-            ?>
-        </p>
-    </div>
-</section>
+    <section class="about-our-service-section" id="why-us">
+        <div class="container">
+            <h2 class="section-title">למה לבחור בנו? חווית שירות יוצאת דופן</h2>
+            <p>
+                בבניית אתרים, אנו מאמינים לא רק ביצירת קוד, אלא בבניית שותפות ארוכת טווח המבוססת על אמון ומצוינות. השירות שלנו מתאפיין באיכות ללא פשרות, המבטיחה שהאתר שלך לא רק ייראה מדהים, אלא גם יתפקד בצורה חלקה ויעילה. אנו מקפידים על זמינות גבוהה לאורך כל תהליך העבודה ולאחריו, כך שתמיד יהיה לך למי לפנות עם שאלות או צרכים.
+            </p>
+            <p>
+                מעבר לכך, אנו מציעים שירותי תחזוקה שוטפת מקצועיים, הכוללים עדכוני אבטחה, גיבויים תכופים וניטור ביצועים, כדי שהאתר שלך יהיה תמיד עדכני, מאובטח ומהיר. אנו מבינים את חשיבות התוכן, ולכן אנו מציעים גם שירותי כתיבת תוכן איכותי ומקורי, מותאם באופן מושלם לקהל היעד שלך ולמטרות האתר. אנו כאן כדי להבטיח שהנוכחות הדיגיטלית שלך תהיה חזקה, מרשימה ותוביל לתוצאות עסקיות ממשיות. איתנו, אתה בידיים טובות.
+            </p>
+        </div>
+    </section>
 
-<section class="latest-blog-posts related-posts-section">
-    <div class="container">
+    <section class="latest-blog-posts related-posts-section"> <div class="container">
         <h2 class="section-title"><?php esc_html_e( 'החדשות בבלוג שלנו', 'snir-theme' ); ?></h2>
-
-        <div class="related-posts-grid">
-            <?php
+        
+        <div class="related-posts-grid"> <?php
             // שאילתה לפוסטים האחרונים
             $latest_posts_args = array(
                 'post_type'      => 'post',
-                'posts_per_page' => 3,
+                'posts_per_page' => 3, // כמה פוסטים להציג (כדי שיתאים ל-3 בעמודה)
                 'orderby'        => 'date',
                 'order'          => 'DESC',
-                'ignore_sticky_posts' => true,
+                'ignore_sticky_posts' => true, // לא להתייחס לפוסטים נעוצים
             );
 
             $latest_posts_query = new WP_Query( $latest_posts_args );
 
             if ( $latest_posts_query->have_posts() ) :
                 while ( $latest_posts_query->have_posts() ) : $latest_posts_query->the_post();
-            ?>
+                    // שימוש בקומפוננטת כרטיס המאמר הקיימת
+                    ?>
                     <div class="article-card">
                         <?php if ( has_post_thumbnail() ) : ?>
                             <a href="<?php the_permalink(); ?>">
@@ -183,33 +114,27 @@ if ( have_posts() ) :
                 endwhile;
                 wp_reset_postdata(); // חשוב לאפס את נתוני הפוסט לאחר לולאה משנית
             else :
+                // אם אין פוסטים להציג
                 ?>
                 <p><?php esc_html_e( 'אין עדיין פוסטים בבלוג.', 'snir-theme' ); ?></p>
             <?php endif; ?>
         </div>
-
-        <?php
-        $blog_page_id = get_option('page_for_posts');
+        
+        <?php 
+        // אופציונלי: כפתור "לכל הפוסטים"
+        $blog_page_id = get_option('page_for_posts'); // מזהה עמוד הבלוג הראשי אם הוגדר
         if ( $blog_page_id ) :
-        ?>
+            ?>
             <div style="text-align: center; margin-top: 40px;">
                 <a href="<?php echo esc_url( get_permalink( $blog_page_id ) ); ?>" class="card-button">
                     <?php esc_html_e( 'לכל הפוסטים בבלוג', 'snir-theme' ); ?>
                 </a>
             </div>
-        <?php
+            <?php
         endif;
         ?>
 
     </div>
 </section>
-
-<?php
-    endwhile; // The Loop מסתיימת כאן!
-else :
-    // תוכן שיוצג אם אין עמוד בית (או אם אין פוסטים כלל, במקרה של בלוג ראשי)
-    echo '<p>הגדר עמוד בית עבור האתר שלך בהגדרות &raquo; קריאה.</p>';
-endif; // סוף if ( have_posts() )
-?>
 
 <?php get_footer(); ?>
