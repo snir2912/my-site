@@ -19,9 +19,10 @@ Template Name: Front Page Template
     <section class="hero-section" id="hero">
         <div class="container">
             <div class="hero-content">
-                <h1><?php echo $h1 ?></h1>
+                <h1><?php if ( ! empty( $h1 ) ) {
+            echo '<p>כוח דחף: ' . esc_html( $h1 ) . '</p>';
+        }?></h1>
                 <p>
-                    <?php echo $h1 ?>
                 </p>
                 <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
             </div>
