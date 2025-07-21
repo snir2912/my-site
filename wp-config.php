@@ -23,16 +23,16 @@ define( 'WP_CACHE', true );
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'local' );
+define( 'DB_NAME', 'u588984589_my_sit_db' );
 
 /** Database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', 'u588984589_snir2912' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'root' );
+define( 'DB_PASSWORD', 'p]W0!:Er5yi' );
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', 'lightblue-eland-964577.hostingersite.com' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -94,6 +94,8 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 }
 
 define( 'WP_ENVIRONMENT_TYPE', 'local' );
+define('WP_HOME','https://lightblue-eland-964577.hostingersite.com/');
+define('WP_SITEURL','https://lightblue-eland-964577.hostingersite.com/');
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
