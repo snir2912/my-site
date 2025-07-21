@@ -32,7 +32,7 @@ define( 'DB_USER', 'u588984589_snir2912' );
 define( 'DB_PASSWORD', 'p]W0!:Er5yi' );
 
 /** Database hostname */
-define( 'DB_HOST', 'lightblue-eland-964577.hostingersite.com' );
+define( 'DB_HOST', 'https://lightblue-eland-964577.hostingersite.com' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
