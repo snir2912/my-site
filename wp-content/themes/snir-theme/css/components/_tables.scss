@@ -1,0 +1,167 @@
+// scss/components/_tables.scss
+
+.wp-block-table {
+    width: 100%;
+    margin: 40px 0; // מרווח מהתוכן מסביב
+    overflow-x: auto; // מאפשר גלילה אופקית במובייל
+    -webkit-overflow-scrolling: touch; // גלילה חלקה במובייל
+    position: relative; // חשוב עבור מיקום שכבות האינדיקטור
+    padding-bottom: 5px; // מרווח קל מלמטה אם נרצה בעתיד סקרובר מותאם אישית
+    
+    // אינדיקטור גלילה - צד ימין (התחלה)
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0;
+    //     right: 0;
+    //     width: 30px; // רוחב הגרדיאנט
+    //     height: 100%;
+    //     background: linear-gradient(to left, rgba(map-get($theme-colors, card-background), 0), map-get($theme-colors, card-background));
+    //     pointer-events: none; // מאפשר קליקים דרך השכבה
+    //     opacity: 1; // גלוי בהתחלה
+    //     transition: opacity 0.3s ease-out; // אנימציה להיעלמות
+    //     z-index: 15; // מעל הטבלה, מתחת לכותרות ה-sticky
+
+    //     body.light-mode & {
+    //         background: linear-gradient(to left, rgba(map-get($theme-colors, light-card-background), 0), map-get($theme-colors, light-card-background));
+    //     }
+
+    //     &.hidden {
+    //         opacity: 0; // נסתר כאשר אין צורך לגלול יותר
+    //     }
+    // }
+
+    // אינדיקטור גלילה - צד שמאל (סוף)
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px; // רוחב הגרדיאנט
+        height: 100%;
+        background: linear-gradient(to right, rgba(map-get($theme-colors, card-background), 0), map-get($theme-colors, card-background));
+        pointer-events: none;
+        opacity: 0; // נסתר בהתחלה (מניחים שהמשתמש מתחיל מימין)
+        transition: opacity 0.3s ease-out;
+        z-index: 15;
+
+        body.light-mode & {
+            background: linear-gradient(to right, rgba(map-get($theme-colors, light-card-background), 0), map-get($theme-colors, light-card-background));
+        }
+
+        &.visible {
+            opacity: 1; // גלוי כאשר יש עוד תוכן משמאל
+        }
+    }
+
+        // קלאס שיטפל במקרה שהטבלה אינה ניתנת לגלילה כלל
+    &.no-scroll {
+        &::before,
+        &::after {
+            opacity: 0 !important; // הסתר את שניהם
+        }
+    }
+    
+    // בתוך ה-wp-block-table, אנחנו מכוונים ישירות לאלמנט ה-table
+    table {
+        width: 100%;
+        min-width: 600px;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 0.9em;
+        box-shadow: 0 0 20px map-get($theme-colors, shadow-color);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: map-get($theme-colors, card-background);
+        color: map-get($theme-colors, text-color);
+        direction: rtl;
+
+        body.light-mode & {
+            box-shadow: 0 0 20px map-get($theme-colors, light-shadow-color);
+            background-color: map-get($theme-colors, light-card-background);
+            color: map-get($theme-colors, light-text-color);
+        }
+
+        /* כותרות הטבלה */
+        thead {
+            background-color: map-get($theme-colors, primary-color);
+            color: #ffffff;
+            text-align: right;
+            
+            tr {
+                th {
+                    padding: 12px 15px;
+                    
+                    &:first-child {
+                        border-top-right-radius: 10px;
+                    }
+                    &:last-child {
+                        border-top-left-radius: 10px;
+                    }
+
+                    @media (max-width: $breakpoint-tablet) {
+                        position: sticky;
+                        top: 0;
+                        z-index: 10;
+                        background-color: darken(map-get($theme-colors, primary-color), 5%);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    }
+                }
+            }
+        }
+
+        /* גוף הטבלה */
+        tbody {
+            tr {
+                border-bottom: 1px solid map-get($theme-colors, border-color);
+
+                body.light-mode & {
+                    border-bottom-color: map-get($theme-colors, light-border-color);
+                }
+
+                &:nth-of-type(even) {
+                    background-color: rgba(map-get($theme-colors, border-color), 0.3);
+                    
+                    body.light-mode & {
+                        background-color: rgba(map-get($theme-colors, light-border-color), 0.3);
+                    }
+                }
+
+                &:last-of-type {
+                    border-bottom: 2px solid map-get($theme-colors, primary-color);
+                }
+
+                &:hover {
+                    background-color: map-get($theme-colors, secondary-color);
+                    color: #ffffff;
+                    transition: background-color 0.3s ease, color 0.3s ease;
+
+                    body.light-mode & {
+                        background-color: map-get($theme-colors, secondary-color);
+                        color: #ffffff;
+                    }
+                }
+            }
+
+            td {
+                padding: 12px 15px;
+                text-align: right;
+                
+                @media (max-width: $breakpoint-tablet) {
+                    &:first-child {
+                        font-weight: bold;
+                        background-color: map-get($theme-colors, card-background);
+                        position: sticky;
+                        right: 0;
+                        z-index: 5;
+                        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+                        
+                        body.light-mode & {
+                            background-color: map-get($theme-colors, light-card-background);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

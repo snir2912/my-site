@@ -1,0 +1,69 @@
+// scss/layout/_post-banner.scss
+
+.post-banner {
+    position: relative;
+    width: 100%;
+    height: 50vh; 
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden; 
+    color: #fff;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+    }
+
+    .banner-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+
+        // *** השינוי כאן! ***
+        text-align: center; 
+
+        .post-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: map-get($theme-colors, light-color);
+        }
+
+        .breadcrumbs {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+
+            a {
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                &:hover {
+                    color: map-get($theme-colors, primary-color);
+                }
+            }
+            span.separator {
+                margin: 0 5px;
+            }
+            span.current {
+                font-weight: 600;
+            }
+        }
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+        height: 40vh;
+        .banner-content {
+            padding: 0 20px;
+        }
+    }
+}

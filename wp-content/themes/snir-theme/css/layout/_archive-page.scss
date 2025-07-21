@@ -1,0 +1,75 @@
+// scss/layout/_archive-page.scss
+
+.archive-banner {
+    background-color: map-get($theme-colors, primary-color); // צבע רקע לבאנר ארכיון
+    padding: 60px 0;
+    text-align: center;
+    color: #fff; // טקסט לבן על רקע כהה
+
+    .banner-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        .archive-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .archive-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+        }
+
+        .breadcrumbs {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+
+            a {
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                &:hover {
+                    color: map-get($theme-colors, primary-color);
+                }
+            }
+            span.separator {
+                margin: 0 5px;
+            }
+            span.current {
+                font-weight: 600;
+            }
+        }
+    }
+
+    body.light-mode & {
+        background-color: map-get($theme-colors, primary-color); // צבע אחר למצב בהיר
+        .banner-content {
+            .archive-title, .breadcrumbs a, .breadcrumbs span.current {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.archive-posts-grid {
+    padding: 60px 0;
+    max-width: 1200px;
+    margin: 60px auto 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px;
+    padding: 0 20px;
+
+    @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: 1fr; 
+    }
+    
+    @media (min-width: calc($breakpoint-tablet + 1px)) and (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

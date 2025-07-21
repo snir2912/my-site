@@ -1,0 +1,91 @@
+/* Responsive Design */
+@media (max-width: $breakpoint-tablet) { // $breakpoint-tablet is 768px
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main-header .logo {
+        flex-basis: auto;
+        margin-left: auto;
+    }
+
+    .header-controls {
+        order: 1;
+    }
+
+// .main-nav {
+//         // ה-display: none; ייקבע עכשיו במצב לא פעיל ע"י ה-JS
+//         // ולכן, נסיר את ההגדרה הזו מכאן
+//         // flex-basis: 100%;
+//         // order: 3;
+//         // display: none; // <<< הסר שורה זו! >>>
+//         // text-align: center;
+//         // background-color: map-get($theme-colors, background-color);
+//         // box-shadow: 0 5px 15px map-get($theme-colors, shadow-color);
+//         // padding: 20px 0;
+//         // margin-top: 15px;
+//         // border-radius: 8px;
+//         // position: absolute; // זה יהפוך ל-fixed ב-main-nav.active
+//         // top: 100%; // זה יהפוך ל-0 ב-main-nav.active
+//         // left: 0;
+//         // width: 100%;
+//         // z-index: 999; // זה יהפוך ל-1050 ב-main-nav.active
+        
+//         // נשמור רק את הסגנונות הכלליים למובייל שלא קשורים למצב פתוח/סגור
+//         // כברירת מחדל, הניווט הראשי יהיה מוסתר לגמרי מחוץ ל-active state, ונשתמש ב-JS כדי לשלוט בו
+//         // נגדיר זאת ב-JS על ידי הוספה/הסרה של הקלאס 'active'
+//     }
+
+        // כאשר ההמבורגר לא פעיל, נרצה להסתיר את התפריט
+    // נגדיר ב-JavaScript שה-main-nav יתחיל מוסתר, ורק כשקלאס 'active' יתווסף הוא יהיה גלוי
+    // אין צורך ב-main-nav.active כאן, הועבר ל-main-nav עצמו
+    // .main-nav.active {
+    //     display: block;
+    // }
+
+    .main-menu-list {
+        // שינויים אלה רלוונטיים גם כשהתפריט פתוח
+        flex-direction: column;
+        gap: 15px; // זה יהפוך ל-25px ב-main-nav.active
+
+        li a:after {
+            display: none;
+        }
+        li a:hover {
+            color: map-get($theme-colors, primary-color);
+        }
+    }
+
+    .hamburger-menu {
+        display: block; // נדאג שההמבורגר יהיה גלוי
+    }
+
+    /* Footer Responsive */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-left, .footer-right {
+        text-align: center;
+        flex: none;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .footer-nav {
+        // If you want the footer nav to disappear on mobile too, add:
+        // display: none;
+        width: 100%;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

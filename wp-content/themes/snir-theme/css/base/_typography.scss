@@ -1,0 +1,28 @@
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: map-get($theme-colors, primary-color);
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+    color: map-get($theme-colors, primary-color);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: map-get($theme-colors, primary-color);
+}
+
+p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}

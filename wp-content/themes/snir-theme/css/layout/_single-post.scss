@@ -1,0 +1,100 @@
+// scss/layout/_single-post.scss
+
+.single-post-content {
+    max-width: 800px;
+    margin: 40px auto; // מרווח מלמעלה/למטה ומרכוז
+    padding: 0 20px;
+    line-height: 1.8; // שיפור קריאות לתוכן
+
+    h1, h2, h3, h4, h5, h6 {
+        color: map-get($theme-colors, primary-color);
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+    }
+
+    p {
+        margin-bottom: 1em;
+        font-size: 1.05rem;
+    }
+
+    a {
+        color: map-get($theme-colors, primary-color);
+        text-decoration: underline;
+        &:hover {
+            color: map-get($theme-colors, secondary-color);
+        }
+    }
+
+    // רשימות
+    ul, ol {
+        margin-left: 20px;
+        margin-bottom: 1em;
+        li {
+            margin-bottom: 0.5em;
+        }
+    }
+
+    // תמונות בתוך תוכן הפוסט
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 20px auto;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px map-get($theme-colors, shadow-color);
+    }
+
+    // ציטוטים
+    blockquote {
+        border-left: 5px solid map-get($theme-colors, primary-color);
+        padding: 10px 20px;
+        margin: 20px 0;
+        background-color: map-get($theme-colors, card-background);
+        font-style: italic;
+        color: map-get($theme-colors, text-color);
+    }
+
+    // מעבר צבעים למצב בהיר
+    body.light-mode & {
+        background-color: map-get($theme-colors, light-background-color); // או רקע רגיל, תלוי אם נכניס את זה לתוך קארד
+        box-shadow: none; // אם נרצה שלא יהיה צל
+        
+        h1, h2, h3, h4, h5, h6, a {
+            color: map-get($theme-colors, primary-color); // או צבע כהה יותר, תלוי בהגדרות הבהירות
+        }
+        blockquote {
+            background-color: map-get($theme-colors, light-card-background);
+            color: map-get($theme-colors, light-text-color);
+        }
+    }
+}
+
+.related-posts-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: map-get($theme-colors, card-background);
+    border-top: 1px solid map-get($theme-colors, border-color);
+    border-bottom: 1px solid map-get($theme-colors, border-color);
+    margin-top: 60px; // מרווח מהתוכן
+
+    .section-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 40px;
+        color: map-get($theme-colors, primary-color);
+    }
+
+    .related-posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    body.light-mode & {
+        background-color: map-get($theme-colors, light-card-background);
+        border-top-color: map-get($theme-colors, light-border-color);
+        border-bottom-color: map-get($theme-colors, light-border-color);
+    }
+}

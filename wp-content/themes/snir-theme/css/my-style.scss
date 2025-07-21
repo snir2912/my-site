@@ -1,0 +1,34 @@
+// 1. Utilities - משתנים ומיקסינים
+@import 'utils/variables';
+// @import 'utils/mixins'; // נוכל להוסיף בעתיד אם נצטרך
+
+// 2. Base - איפוסים וטייפוגרפיה
+@import 'base/base';
+@import 'base/typography';
+
+// 3. Layout - מבנה כללי
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/hero';
+@import 'layout/sections';
+@import 'layout/theme-toggle'; 
+@import 'layout/post-banner'; 
+@import 'layout/single-post';  
+@import 'layout/archive-page';
+
+// 4. Components - רכיבים
+@import 'components/buttons'; 
+@import 'components/hamburger';
+@import 'components/article-card';
+@import 'components/pagination';
+@import 'components/tables';
+
+// 5. Pages - ספציפי לעמודים מסוימים (לא נשתמש כרגע, אבל כדי שתדע)
+// @import 'pages/front-page';
+
+// 6. Responsive - מדיה קווריות כלליות
+@import 'layout/responsive';
+// scss/style.scss
+// ... (שאר הייבואים) ...
+@import 'base/animations'; // ודא שזה קיים
+// ... (שאר הייבואים) ...

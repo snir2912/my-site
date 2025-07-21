@@ -1,0 +1,542 @@
+/* Variables - CSS Custom Properties */
+:root {
+    /* Dark Mode Defaults */
+    --background-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --primary-color: crimson; /* סגול עמוק, צבע המותג */
+    --secondary-color: rgb(238, 52, 89); /* סגול בהיר יותר */
+    --accent-color: #00bcd4; /* טורקיז, לצבעי הדגשה קטנים */
+    --border-color: #333;
+    --card-background: #2b2b2b;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --font-heebo: 'Heebo', sans-serif;
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+    --background-color: #f9f9f9;
+    --text-color: #333;
+    --border-color: #ddd;
+    --card-background: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* overflow-y: scroll; /* Ensures scrollbar is always present to prevent layout shift */
+}
+
+body {
+    font-family: var(--font-heebo);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+/* For no-scroll effect - to be added to body in JS */
+body.no-scroll {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Typography */
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+/* Header */
+.main-header {
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    color: var(--primary-color);
+}
+
+.main-nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.main-menu-list {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu-list li a {
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    color: var(--text-color);
+}
+
+.main-menu-list li a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 5px;
+    right: 0;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+.main-menu-list li a:hover:after {
+    width: 100%;
+    left: 0;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Theme Toggle Styling */
+.theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+.theme-toggle .icon-dark, .theme-toggle .icon-light {
+    line-height: 1;
+}
+
+body.dark-mode .theme-toggle .icon-dark {
+    display: inline-block;
+}
+body.dark-mode .theme-toggle .icon-light {
+    display: none;
+}
+body.light-mode .theme-toggle .icon-dark {
+    display: none;
+}
+body.light-mode .theme-toggle .icon-light {
+    display: inline-block;
+}
+
+/* Hamburger Menu Styling (for header) */
+.hamburger-menu {
+    display: none;
+    width: 30px;
+    height: 25px;
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1100;
+    flex-shrink: 0;
+}
+
+.hamburger-menu .line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger-menu .line-1 {
+    top: 0;
+}
+
+.hamburger-menu .line-2 {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hamburger-menu .line-3 {
+    bottom: 0;
+}
+
+/* Hamburger active state (X animation) */
+.hamburger-menu.active .line-1 {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.hamburger-menu.active .line-2 {
+    opacity: 0;
+}
+
+.hamburger-menu.active .line-3 {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.btn.primary-btn {
+    margin-top: 30px;
+}
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
+
+/* Sections */
+section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+
+.hero-section .hero-content {
+    max-width: 800px;
+    margin-left: auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section .hero-content h1,
+.hero-section .hero-content p,
+.hero-section .hero-content .btn {
+    opacity: 0;
+    animation: fadeInRight 1s ease-out forwards;
+}
+.hero-section .hero-content h1 { animation-delay: 0.2s; }
+.hero-section .hero-content p:nth-of-type(1) { animation-delay: 0.4s; }
+.hero-section .hero-content p:nth-of-type(2) { animation-delay: 0.6s; }
+.hero-section .hero-content .btn { animation-delay: 0.8s; }
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, transparent 70%);
+    opacity: 0.1;
+    z-index: 1;
+    animation: gradientFadeIn 2s ease-out forwards;
+}
+
+
+.services-section {
+    text-align: center;
+}
+.services-section .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+
+.service-item {
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px var(--shadow-shadow-hover); /* Adjust shadow variable as needed for hover */
+}
+.service-item h3 {
+    margin-bottom: 10px;
+}
+.service-item p {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+
+.service-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, var(--accent-color) 150%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+.service-item:hover::before {
+    opacity: 0.05;
+}
+
+
+.about-our-service-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: var(--card-background);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.about-our-service-section p {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    text-align: justify;
+}
+
+
+/* Footer */
+.main-footer {
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    transition: background-color 0.4s ease, color 0.4s ease, border-top-color 0.4s ease;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+    text-align: right;
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.copyright {
+    margin-bottom: 0;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+    justify-content: flex-start;
+    min-width: 200px;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.footer-nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main-header .logo {
+        flex-basis: auto;
+        margin-left: auto;
+    }
+
+    .header-controls {
+        order: 1;
+    }
+
+    .main-nav {
+        flex-basis: 100%;
+        order: 3;
+        display: none; /* Hide navigation by default on mobile */
+        text-align: center;
+        background-color: var(--background-color);
+        box-shadow: 0 5px 15px var(--shadow-color);
+        padding: 20px 0;
+        margin-top: 15px;
+        border-radius: 8px;
+        position: absolute; /* Position absolutely to overlay content */
+        top: 100%; /* Below the header */
+        left: 0;
+        width: 100%;
+        z-index: 999; /* Ensure it's above other page content */
+    }
+
+    .main-nav.active {
+        display: block; /* Show navigation when hamburger is active */
+    }
+
+    .main-menu-list {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .main-menu-list li a:after {
+        display: none;
+    }
+    .main-menu-list li a:hover {
+        color: var(--primary-color);
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* Footer Responsive */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-left, .footer-right {
+        text-align: center;
+        flex: none;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .footer-nav {
+        /* If you want the footer nav to disappear on mobile too, add: */
+        /* display: none; */
+        width: 100%;
+        text-align: center;
+        margin-top: 0; /* No need for extra margin if hamburger is gone */
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Animations */
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes gradientFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+}
