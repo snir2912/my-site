@@ -88,7 +88,7 @@ $table_prefix = 'wp_';
  * visit the documentation.
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
- */
+ */ 
 if ( ! defined( 'WP_DEBUG' ) ) {
 	define( 'WP_DEBUG', false );
 }
