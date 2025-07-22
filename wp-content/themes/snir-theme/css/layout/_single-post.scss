@@ -16,6 +16,12 @@
         margin-bottom: 1em;
         font-size: 1.05rem;
     }
+    /* בקובץ ה-CSS שלך, הוסף את הכלל הזה בסוף הקובץ כדי לדרוס הגדרות קודמות */
+    .entry-content p:first-of-type {
+    color: map-get($theme-colors, text-color); // צבע הטקסט הכללי שלך
+    /* או פשוט: color: #f0f0f0; אם במצב כהה */
+    /* ואם במצב בהיר: color: #333; */
+}
 
     a {
         color: map-get($theme-colors, primary-color);

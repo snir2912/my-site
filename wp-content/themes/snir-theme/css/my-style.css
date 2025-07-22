@@ -489,6 +489,7 @@ body.light-mode .theme-toggle .icon-light {
   margin: 40px auto;
   padding: 0 20px;
   line-height: 1.8;
+  /* בקובץ ה-CSS שלך, הוסף את הכלל הזה בסוף הקובץ כדי לדרוס הגדרות קודמות */
 }
 .single-post-content h1, .single-post-content h2, .single-post-content h3, .single-post-content h4, .single-post-content h5, .single-post-content h6 {
   color: crimson;
@@ -498,6 +499,11 @@ body.light-mode .theme-toggle .icon-light {
 .single-post-content p {
   margin-bottom: 1em;
   font-size: 1.05rem;
+}
+.single-post-content .entry-content p:first-of-type {
+  color: #f0f0f0;
+  /* או פשוט: color: #f0f0f0; אם במצב כהה */
+  /* ואם במצב בהיר: color: #333; */
 }
 .single-post-content a {
   color: crimson;
