@@ -79,19 +79,19 @@
         }
     }
 
-    .card-title {
+.card-title {
         font-size: 1.5rem; // קצת יותר גדול
         font-weight: 700;
         margin-bottom: 10px;
         line-height: 1.4; // רווח שורות טוב יותר
-        color: map-get($theme-colors, text-color); // צבע כותרת כהה/בהיר
-        transition: color 0.3s ease;
+        color: map-get($theme-colors, primary-color); // **שינוי כאן: צבע ברירת מחדל PRIMARY**
+        transition: color 0.3s ease; // עדיין יש מעבר חלק
 
         a {
-            color: inherit;
+            color: inherit; // יורש את צבע הכותרת
             text-decoration: none;
             &:hover {
-                color: map-get($theme-colors, primary-color); // צבע הכותרת משתנה בריחוף
+                color: map-get($theme-colors, secondary-color); // **שינוי כאן: צבע ב-hover הוא SECONDARY**
             }
         }
     }

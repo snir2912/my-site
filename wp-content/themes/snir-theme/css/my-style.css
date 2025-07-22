@@ -856,7 +856,7 @@ body.light-mode .article-card {
   font-weight: 700;
   margin-bottom: 10px;
   line-height: 1.4;
-  color: #f0f0f0;
+  color: crimson;
   transition: color 0.3s ease;
 }
 .article-card .card-title a {
@@ -864,7 +864,7 @@ body.light-mode .article-card {
   text-decoration: none;
 }
 .article-card .card-title a:hover {
-  color: crimson;
+  color: rgb(238, 52, 89);
 }
 .article-card .card-excerpt {
   font-size: 1rem;
