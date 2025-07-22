@@ -107,7 +107,7 @@ function snir_theme_add_table_of_contents( $content ) {
         $heading_id_count = [];
 
         foreach ( $headings as $heading ) {
-            $heading_text = trim( $heading->nodeValue );
+            $heading_text = trim( strip_tags( $dom->saveHTML($heading) ) );
             if ( ! empty( $heading_text ) ) {
                 // Sanitize heading text to create a URL-friendly anchor.
                 $id = sanitize_title( $heading_text );
