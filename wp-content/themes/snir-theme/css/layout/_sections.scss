@@ -1,62 +1,129 @@
 section {
     padding: 80px 0;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; // לוודא שאף תוכן לא גולש מחוץ לסקשן
 }
 
 .services-section {
     text-align: center;
+
+    .section-title {
+        font-size: 2.5em;
+        margin-bottom: 50px;
+        color: map-get($theme-colors, primary-color);
+        position: relative;
+        display: inline-block; // כדי שהפס יהיה ברוחב הכותרת
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 80px;
+            height: 4px;
+            background-color: map-get($theme-colors, accent-color);
+            border-radius: 2px;
+        }
+    }
+
     .services-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 30px;
         margin-top: 40px;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr; // עמודה אחת במובייל
+            padding: 0 15px; // ריווח מהצדדים
+        }
     }
 }
 
-.service-item .latest-blog-posts{
+.service-item { // הסרתי את .latest-blog-posts מכאן, זה נראה כשם קלאס של בלוג
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 12px; // מעט יותר עגול
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease;
     position: relative;
     overflow: hidden;
     background-color: map-get($theme-colors, card-background);
     border: 1px solid map-get($theme-colors, border-color);
-    box-shadow: 0 4px 8px map-get($theme-colors, shadow-color);
+    box-shadow: 0 6px 15px map-get($theme-colors, shadow-color);
+    cursor: pointer; // רמז שזה אינטראקטיבי
+    display: flex; // שימוש ב-flexbox ליישור תוכן
+    flex-direction: column;
+    justify-content: space-between; // ידחוף את הכותרת למעלה ואת הפסקה למטה
 
     body.light-mode & {
         background-color: map-get($theme-colors, light-card-background);
         border-color: map-get($theme-colors, light-border-color);
-        box-shadow: 0 4px 8px map-get($theme-colors, light-shadow-color);
+        box-shadow: 0 6px 15px map-get($theme-colors, light-shadow-color);
     }
 
+    // אפקט ריחוף (Hover Effect)
     &:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 16px map-get($theme-colors, shadow-color); // Using base shadow for hover too, can be separated
-    }
-    h3 {
-        margin-bottom: 10px;
-    }
-    p {
-        font-size: 0.95rem;
-        margin-bottom: 0;
+        transform: translateY(-15px); // קצת יותר גבוה
+        box-shadow: 0 12px 25px map-get($theme-colors, shadow-color);
+        // אפקט זוהר קל עם צבע ראשי
+        border-color: map-get($theme-colors, primary-color);
     }
 
+    // פס צבעוני קטן למעלה באפקט ריחוף
     &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent 0%, map-get($theme-colors, accent-color) 150%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 0;
+        height: 5px; // עובי הפס
+        background: linear-gradient(90deg, map-get($theme-colors, primary-color), map-get($theme-colors, secondary-color));
+        transform: translateY(-100%); // מוסתר למעלה
+        transition: transform 0.3s ease-out;
     }
+
     &:hover::before {
-        opacity: 0.05;
+        transform: translateY(0); // נכנס מלמעלה בריחוף
+    }
+
+    h3 {
+        margin-bottom: 10px;
+        font-size: 1.5em;
+        color: map-get($theme-colors, text-color);
+        transition: color 0.3s ease;
+    }
+
+    &:hover h3 {
+        color: map-get($theme-colors, primary-color); // צבע הכותרת משתנה בריחוף
+    }
+
+    p {
+        font-size: 1em; // קצת יותר גדול
+        margin-bottom: 0;
+        color: map-get($theme-colors, text-color);
+        opacity: 0.8;
+        line-height: 1.6; // ריווח שורות טוב יותר
+    }
+
+    // אפקט "בוהק" עדין כשעוברים עם העכבר (אופציונלי)
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(map-get($theme-colors, accent-color), 0.1); // בוהק עדין
+        border-radius: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+        z-index: 1; // ודא שהוא מתחת לתוכן
+    }
+    &:hover::after {
+        width: 200%;
+        height: 200%;
+        opacity: 1;
     }
 }
 
@@ -67,6 +134,7 @@ section {
     background-color: map-get($theme-colors, card-background);
     border-top: 1px solid map-get($theme-colors, border-color);
     border-bottom: 1px solid map-get($theme-colors, border-color);
+    font-family: $font-heebo;
 
     body.light-mode & {
         background-color: map-get($theme-colors, light-card-background);
@@ -74,9 +142,19 @@ section {
         border-bottom-color: map-get($theme-colors, light-border-color);
     }
 
+    h2 {
+        font-size: 2em;
+        color: map-get($theme-colors, text-color);
+        margin-bottom: 20px;
+    }
+
     p {
         max-width: 900px;
         margin: 0 auto 20px auto;
-        text-align: justify;
+        text-align: center; // יישור למרכז לקריאה נוחה יותר
+        font-size: 1.1em;
+        line-height: 1.8;
+        color: map-get($theme-colors, text-color);
+        opacity: 0.9;
     }
 }
