@@ -783,22 +783,42 @@ body.light-mode .hamburger-menu .line {
 .article-card {
   background-color: #2b2b2b;
   border: 1px solid #333;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, border-color 0.4s ease, background-color 0.4s ease;
   display: flex;
   flex-direction: column;
   text-align: right;
-}
-.article-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
 }
 body.light-mode .article-card {
   background-color: #fff;
   border-color: #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+.article-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+  border-color: crimson;
+  z-index: 2;
+}
+.article-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(220, 20, 60, 0.05), rgba(238, 52, 89, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.article-card:hover::before {
+  opacity: 1;
 }
 .article-card .card-image {
   width: 100%;
@@ -806,6 +826,10 @@ body.light-mode .article-card {
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
+  transition: transform 0.4s ease-out;
+}
+.article-card:hover .card-image {
+  transform: scale(1.05);
 }
 .article-card .card-content {
   padding: 20px;
@@ -814,58 +838,115 @@ body.light-mode .article-card {
   flex-direction: column;
 }
 .article-card .card-category {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 10px;
+  color: #00bcd4;
+  transition: color 0.3s ease;
 }
 .article-card .card-category a {
-  color: #00bcd4;
+  color: inherit;
   text-decoration: none;
 }
 .article-card .card-category a:hover {
-  text-decoration: underline;
+  color: crimson;
 }
 .article-card .card-title {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 10px;
-  line-height: 1.3;
-  color: crimson;
+  line-height: 1.4;
+  color: #f0f0f0;
+  transition: color 0.3s ease;
 }
 .article-card .card-title a {
   color: inherit;
   text-decoration: none;
 }
 .article-card .card-title a:hover {
-  color: rgb(238, 52, 89);
+  color: crimson;
 }
 .article-card .card-excerpt {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
   color: #f0f0f0;
+  opacity: 0.9;
   flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 body.light-mode .article-card .card-excerpt {
   color: #333;
 }
 .article-card .card-button {
-  align-self: flex-start;
+  align-self: flex-end;
   display: inline-block;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 12px 25px;
+  border-radius: 50px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  border: 2px solid crimson;
   cursor: pointer;
   background-color: crimson;
   color: #fff;
+  box-shadow: 0 4px 10px rgba(220, 20, 60, 0.3);
 }
 .article-card .card-button:hover {
   background-color: rgb(238, 52, 89);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(238, 52, 89, 0.4);
+  border-color: rgb(238, 52, 89);
+}
+.article-card .card-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(238, 52, 89, 0.2);
+}
+
+.latest-blog-section {
+  text-align: center;
+  padding: 80px 0;
+}
+.latest-blog-section .section-title {
+  font-size: 2.5em;
+  margin-bottom: 50px;
+  color: crimson;
+  position: relative;
+  display: inline-block;
+}
+.latest-blog-section .section-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+  width: 80px;
+  height: 4px;
+  background-color: #00bcd4;
+  border-radius: 2px;
+}
+.latest-blog-section .blog-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+@media (max-width: 992px) {
+  .latest-blog-section .blog-posts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .latest-blog-section .blog-posts-grid {
+    grid-template-columns: 1fr;
+    padding: 0 15px;
+  }
 }
 
 .pagination {
