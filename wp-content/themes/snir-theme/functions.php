@@ -1,37 +1,29 @@
 <?php
 
 // ----------------------------------------------------
-//  1. טעינת קבצי CSS ו-JavaScript
+//  1. טעינת קבצי CSS ו-JavaScript
+//      (שימו לב: snir_theme_enqueue_toc_assets() מופרדת למטה לבהירות)
 // ----------------------------------------------------
 function snir_theme_assets() {
     // טעינת פונטים של גוגל - Heebo
     wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap');
 
     // טעינת Font Awesome (גרסה עדכנית יותר מ-4.7)
-    // מומלץ להשתמש בגרסה עדכנית יותר אם אפשר, למשל 5.15.4 או 6
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', array(), '5.15.4', 'all');
 
     // טעינת קובץ ה-CSS הראשי שלך
-    // נתיב: wp-content/themes/snir-theme/css/my-style.css
     wp_enqueue_style('snir_main_styles', get_theme_file_uri('/css/my-style.css'), array(), filemtime(get_theme_file_path('/css/my-style.css')), 'all');
 
     // טעינת קובץ ה-JavaScript הראשי שלך
-    // נתיב: wp-content/themes/snir-theme/js/main.js
-    // תלוי ב-jQuery, נטען בפוטר (true)
     wp_enqueue_script('main-snir-js', get_theme_file_uri('/js/main.js'), array('jquery'), filemtime(get_theme_file_path('/js/main.js')), true);
 
-    // טעינת סקריפט תוכן העניינים רק בפוסטים בודדים
-    if ( is_singular( 'post' ) ) {
-        wp_enqueue_script( 'snir-theme-toc-script', get_theme_file_uri('/js/table-of-contents.js'), array(), filemtime(get_theme_file_path('/js/table-of-contents.js')), true );
-    }
-
-    // אם יש לך קובץ JS מתיקיית build/index.js, טען אותו כאן (כרגע מוגן בהערה)
-    // wp_enqueue_script('university-js-bundle', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
+    // הסרה של טעינת סקריפט תוכן העניינים מכאן.
+    // הוא יטען דרך הפונקציה snir_theme_enqueue_toc_assets() למטה, שם ה-jQuery מוגדר כתלות.
 }
 add_action('wp_enqueue_scripts', 'snir_theme_assets');
 
 // ----------------------------------------------------
-//  2. רישום מיקומי תפריטים
+//  2. רישום מיקומי תפריטים
 // ----------------------------------------------------
 function snir_theme_register_menus() {
     register_nav_menus(
@@ -44,13 +36,13 @@ function snir_theme_register_menus() {
 add_action( 'after_setup_theme', 'snir_theme_register_menus' );
 
 // ----------------------------------------------------
-//  3. תמיכה בתכונות תבנית
+//  3. תמיכה בתכונות תבנית
 // ----------------------------------------------------
 // הוספת תמיכה בתמונות ממוזערות (Featured Images)
 add_theme_support('post-thumbnails');
 
 // ----------------------------------------------------
-//  4. שינויים בתצוגה
+//  4. שינויים בתצוגה
 // ----------------------------------------------------
 // הסרת הכותרת "ארכיון" מפוסטים
 add_filter('get_the_archive_title_prefix', '__return_empty_string');
@@ -62,7 +54,7 @@ function my_excerpt_length($length) {
 add_filter('excerpt_length', 'my_excerpt_length');
 
 // ----------------------------------------------------
-//  5. פונקציית פירורי לחם (Breadcrumbs)
+//  5. פונקציית פירורי לחם (Breadcrumbs)
 // ----------------------------------------------------
 function snir_theme_breadcrumbs() {
     echo '<div class="breadcrumbs">';
@@ -83,9 +75,31 @@ function snir_theme_breadcrumbs() {
     echo '</div>';
 }
 
-?>
+// ----------------------------------------------------
+//  6. פונקציות לטבלת תוכן (Table of Contents - TOC)
+// ----------------------------------------------------
 
-<?php
+/**
+ * Helper function to create a clean, valid HTML ID from a string.
+ * This is more aggressive than sanitize_title() for problematic characters,
+ * ensuring jQuery selectors work correctly with Hebrew characters.
+ * @param string $string The input string.
+ * @return string The clean ID.
+ */
+function snir_theme_clean_id( $string ) {
+    // Remove common problematic characters for IDs (like Hebrew URL-encoded parts)
+    $string = remove_accents( $string ); // Remove accents from characters
+    $string = strtolower( $string ); // Convert to lowercase
+    $string = preg_replace( '/[^a-z0-9_\-]/', '-', $string ); // Replace non-alphanumeric (except hyphen and underscore) with hyphens
+    $string = preg_replace( '/-+/', '-', $string ); // Replace multiple hyphens with a single hyphen
+    $string = trim( $string, '-' ); // Trim hyphens from start/end
+    // If it's still empty or starts with a number, add a prefix (IDs cannot start with numbers)
+    if ( empty( $string ) || is_numeric( substr( $string, 0, 1 ) ) ) {
+        $string = 'toc-' . $string; // Add a prefix to ensure valid ID
+    }
+    return $string;
+}
+
 /**
  * Generates a Table of Contents (TOC) from h2 headings in post content.
  *
@@ -99,6 +113,7 @@ function snir_theme_add_table_of_contents( $content ) {
         $dom = new DOMDocument();
         // Suppress warnings for malformed HTML.
         libxml_use_internal_errors(true);
+        // Load HTML, converting encoding for proper parsing of non-ASCII characters.
         $dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
         libxml_clear_errors();
 
@@ -108,29 +123,22 @@ function snir_theme_add_table_of_contents( $content ) {
 
         foreach ( $headings as $heading ) {
             // Attempt to get just the direct text content, ignoring children elements that are not text nodes
-$heading_text = '';
-foreach ($heading->childNodes as $child) {
-    if ($child->nodeType === XML_TEXT_NODE) {
-        $heading_text .= $child->nodeValue;
-    }
-    // If you want to include text from direct <span> or <strong> tags inside H2
-    // you might need a more complex loop, but for now, we focus on direct text.
-}
-$heading_text = trim( $heading_text );
+            $heading_text = '';
+            foreach ($heading->childNodes as $child) {
+                if ($child->nodeType === XML_TEXT_NODE) {
+                    $heading_text .= $child->nodeValue;
+                }
+            }
+            $heading_text = trim( $heading_text );
 
-// Fallback if no direct text found, or if you still want to strip tags and limit length
-if ( empty( $heading_text ) ) {
-    $heading_text = trim( strip_tags( $dom->saveHTML($heading) ) );
-}
+            // Fallback if no direct text found (e.g., if H2 contains only wrapped elements like <strong>)
+            if ( empty( $heading_text ) ) {
+                $heading_text = trim( strip_tags( $dom->saveHTML($heading) ) );
+            }
 
-// Limit the length of the heading text for the TOC item to avoid long strings
-// Adjust 100 to a suitable character limit for your titles.
-if ( mb_strlen( $heading_text ) > 100 ) {
-    $heading_text = mb_substr( $heading_text, 0, 97 ) . '...';
-}
             if ( ! empty( $heading_text ) ) {
-                // Sanitize heading text to create a URL-friendly anchor.
-                $id = sanitize_title( $heading_text );
+                // Sanitize heading text to create a URL-friendly anchor using the custom clean ID function.
+                $id = snir_theme_clean_id( $heading_text ); // *** THIS IS THE KEY CHANGE ***
 
                 // Ensure unique IDs by appending a number if the ID already exists.
                 if ( isset( $heading_id_count[$id] ) ) {
@@ -144,10 +152,18 @@ if ( mb_strlen( $heading_text ) > 100 ) {
                 $heading->setAttribute( 'id', $id );
                 $toc_items[] = [
                     'id'   => $id,
-                    'text' => $heading_text,
+                    'text' => $heading_text, // Full text for display in TOC, will be truncated later if too long
                 ];
             }
         }
+
+        // Limit the length of the heading text for the TOC item to avoid long strings
+        foreach ( $toc_items as &$item ) { // Use & to modify the item directly
+            if ( mb_strlen( $item['text'] ) > 100 ) { // Adjust 100 to a suitable character limit for your titles.
+                $item['text'] = mb_substr( $item['text'], 0, 97 ) . '...';
+            }
+        }
+        unset($item); // Unset the reference after the loop
 
         // Only generate TOC if there are h2 headings found.
         if ( ! empty( $toc_items ) ) {
@@ -176,17 +192,15 @@ if ( mb_strlen( $heading_text ) > 100 ) {
 }
 add_filter( 'the_content', 'snir_theme_add_table_of_contents' );
 
-// Enqueue scripts and styles for the TOC
-// functions.php
-
+// Enqueue scripts and styles specifically for the TOC functionality.
+// This function ensures jQuery is loaded before the TOC script and handles its dependency.
 function snir_theme_enqueue_toc_assets() {
-    if ( is_single() ) {
-        // ודא ש-jQuery נטען לפני הסקריפט שלך
-        wp_enqueue_script( 'jquery' ); // ודא ש-jQuery רשום ונטען
+    if ( is_singular( 'post' ) ) { // Using is_singular('post') for better specificity (single post pages)
+        // Ensure jQuery is loaded first
+        wp_enqueue_script( 'jquery' );
 
-        // טען את הסקריפט שלך עם תלות ב-jQuery
-        wp_enqueue_script( 'snir-theme-toc-script', get_template_directory_uri() . '/js/toc.js', array('jquery'), null, true );
-        // הפרמטר הרביעי 'null' יכול להיות גם מספר גרסה, והפרמטר החמישי 'true' מבטיח שהסקריפט יטען בפוטר.
+        // Load your TOC script, with jQuery as a dependency.
+        wp_enqueue_script( 'snir-theme-toc-script', get_theme_file_uri( '/js/table-of-contents.js' ), array( 'jquery' ), filemtime(get_theme_file_path('/js/table-of-contents.js')), true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'snir_theme_enqueue_toc_assets' );
