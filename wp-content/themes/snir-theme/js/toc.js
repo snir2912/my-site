@@ -1,6 +1,7 @@
 // toc.js
 
-jQuery(document).ready(function($) {
+// שים לב: השינוי הוא רק בעטיפה של הפונקציה
+(function($) { // עוטפים את הקוד בפונקציה אנונימית ומעבירים אליה את jQuery כ-$
     const tocWrapper = $('.table-of-contents-wrapper');
     const tocHeader = tocWrapper.find('.toc-header');
     const tocList = tocWrapper.find('.toc-list');
@@ -17,12 +18,10 @@ jQuery(document).ready(function($) {
             // Collapse the TOC
             tocList.attr('aria-hidden', 'true');
             tocToggleButton.attr('aria-expanded', 'false');
-            // Additional styling for collapse animation if needed, though CSS handles it
         } else {
             // Expand the TOC
             tocList.attr('aria-hidden', 'false');
             tocToggleButton.attr('aria-expanded', 'true');
-            // Additional styling for expand animation if needed, though CSS handles it
         }
     });
 
@@ -43,4 +42,4 @@ jQuery(document).ready(function($) {
         // tocList.attr('aria-hidden', 'true');
         // tocToggleButton.attr('aria-expanded', 'false');
     });
-});
+})(jQuery); // מעבירים את jQuery לפונקציה האנונימית כדי שתוכל להשתמש בה כ-$

@@ -157,13 +157,16 @@ function snir_theme_add_table_of_contents( $content ) {
 add_filter( 'the_content', 'snir_theme_add_table_of_contents' );
 
 // Enqueue scripts and styles for the TOC
+// functions.php
+
 function snir_theme_enqueue_toc_assets() {
     if ( is_single() ) {
-        // Enqueue your main stylesheet (assuming it's already enqueued or compiled SCSS)
-        // If not, you might need to add: wp_enqueue_style( 'snir-theme-style', get_template_directory_uri() . '/style.css' );
+        // ודא ש-jQuery נטען לפני הסקריפט שלך
+        wp_enqueue_script( 'jquery' ); // ודא ש-jQuery רשום ונטען
 
-        // Enqueue your main JavaScript file
+        // טען את הסקריפט שלך עם תלות ב-jQuery
         wp_enqueue_script( 'snir-theme-toc-script', get_template_directory_uri() . '/js/toc.js', array('jquery'), null, true );
+        // הפרמטר הרביעי 'null' יכול להיות גם מספר גרסה, והפרמטר החמישי 'true' מבטיח שהסקריפט יטען בפוטר.
     }
 }
 add_action( 'wp_enqueue_scripts', 'snir_theme_enqueue_toc_assets' );
