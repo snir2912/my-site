@@ -1,3 +1,32 @@
+// table-of-contents.scss (או בתוך קובץ ה-SCSS הראשי שלך)
+
+// Variables - SCSS Map for better organization
+// ודא שמשתני הצבעים הללו נגישים לקובץ זה.
+// אם הם מוגדרים בקובץ נפרד (כמו _variables.scss), ודא שאתה מייבא אותם כאן:
+// @import 'variables';
+
+$theme-colors: (
+    // Dark Mode Defaults
+    background-color: #1a1a1a,
+    text-color: #f0f0f0,
+    primary-color: crimson,
+    secondary-color: rgb(238, 52, 89),
+    accent-color: #00bcd4,
+    border-color: #333,
+    card-background: #2b2b2b,
+    shadow-color: rgba(0, 0, 0, 0.4),
+
+    // Light Mode Overrides
+    light-background-color: #f9f9f9,
+    light-text-color: #333,
+    light-border-color: #ddd,
+    light-card-background: #fff,
+    light-shadow-color: rgba(0, 0, 0, 0.1)
+);
+
+// Global Font Variables
+$font-heebo: 'Heebo', sans-serif;
+
 .table-of-contents-wrapper {
     background-color: map-get($theme-colors, card-background);
     border: 1px solid map-get($theme-colors, border-color);
@@ -7,13 +36,14 @@
     box-shadow: 0 4px 12px map-get($theme-colors, shadow-color);
     font-family: $font-heebo;
     transition: all 0.3s ease-in-out;
+    direction: rtl; // מכלול הרכיב יהיה מימין לשמאל
 
     .toc-header {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between; // ידחוף את הכותרת ימינה ואת הכפתור שמאלה
         align-items: center;
         cursor: pointer;
-        padding-bottom: 10px; // Add some space below the header
+        padding-bottom: 10px;
         border-bottom: 1px solid map-get($theme-colors, border-color);
         margin-bottom: 10px;
 
@@ -21,6 +51,7 @@
             font-size: 1.2em;
             font-weight: bold;
             color: map-get($theme-colors, text-color);
+            // אין צורך ב-text-align כאן כי justify-content מטפל בזה
         }
 
         .toc-toggle {
@@ -43,10 +74,11 @@
                 border-right: 6px solid transparent;
                 border-top: 8px solid map-get($theme-colors, text-color);
                 transition: transform 0.3s ease;
+                transform: rotate(180deg); // כיוון חץ ברירת מחדל למעלה (סגור)
             }
 
             &[aria-expanded="true"] .arrow-icon {
-                transform: rotate(180deg);
+                transform: rotate(0deg); // כיוון חץ למטה (פתוח)
             }
         }
     }
@@ -59,35 +91,43 @@
         visibility: hidden;
 
         &[aria-hidden="false"] {
-            max-height: 500px; // Adjust based on expected content height
+            max-height: 500px; // ניתן להתאים
             opacity: 1;
             visibility: visible;
         }
 
         ul {
-              list-style: disc inside;
+            list-style: disc outside; // בולטים עגולים מחוץ לתוכן
             margin: 0;
-            padding-left: 20px;
+            padding: 0 20px 0 0; // ריווח ימני עבור הבולטים, 20px מומלץ
+            // padding-left: 0; // וודא שאין ריווח שמאלי שמונע מהבולטים להופיע
+        }
 
-            li {
-                margin-bottom: 8px;
+        li {
+            margin-bottom: 8px;
+            text-align: right; // יישור טקסט לימין
+            // padding-right: 20px; // הוספנו ל-ul, אז אין צורך כאן אלא אם נדרש ריווח נוסף ספציפי ל-li
+            // ה-padding על ה-ul מספיק כדי למקם את הבולט.
 
-                &:last-child {
-                    margin-bottom: 0;
-                }
+            &:last-child {
+                margin-bottom: 0;
+            }
 
-                a {
-                    color: map-get($theme-colors, text-color);
-                    text-decoration: none;
-                    font-size: 1em;
-                    display: block; // Make the whole area clickable
-                    padding: 5px 0;
-                    transition: color 0.2s ease;
+            a {
+                color: map-get($theme-colors, text-color);
+                text-decoration: none;
+                font-size: 1em;
+                display: inline-block; // שינוי ל-inline-block מאפשר שליטה טובה יותר במידות
+                padding: 5px 0;
+                transition: color 0.2s ease;
+                direction: rtl; // ודא כיווניות מימין לשמאל עבור הקישור
+                text-align: right; // יישור טקסט לימין עבור הקישור
+                width: 100%; // וודא שהקישור תופס את כל הרוחב הזמין בתוך ה-li
+                box-sizing: border-box; // לוודא ש-padding לא גורם לגלישה
 
-                    &:hover {
-                        color: map-get($theme-colors, primary-color);
-                        text-decoration: underline;
-                    }
+                &:hover {
+                    color: map-get($theme-colors, primary-color);
+                    text-decoration: underline;
                 }
             }
         }
@@ -96,7 +136,7 @@
 
 // Light Mode Overrides
 @media (prefers-color-scheme: light) {
-    body:not(.dark-mode-active) { // Apply only if dark mode is not explicitly active
+    body:not(.dark-mode-active) {
         .table-of-contents-wrapper {
             background-color: map-get($theme-colors, light-card-background);
             border-color: map-get($theme-colors, light-border-color);
@@ -121,7 +161,7 @@
                         a {
                             color: map-get($theme-colors, light-text-color);
                             &:hover {
-                                color: map-get($theme-colors, primary-color); // Primary color is usually bold enough for contrast
+                                color: map-get($theme-colors, primary-color);
                             }
                         }
                     }
