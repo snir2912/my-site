@@ -1,0 +1,132 @@
+.table-of-contents-wrapper {
+    background-color: map-get($theme-colors, card-background);
+    border: 1px solid map-get($theme-colors, border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px map-get($theme-colors, shadow-color);
+    font-family: $font-heebo;
+    transition: all 0.3s ease-in-out;
+
+    .toc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding-bottom: 10px; // Add some space below the header
+        border-bottom: 1px solid map-get($theme-colors, border-color);
+        margin-bottom: 10px;
+
+        span {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: map-get($theme-colors, text-color);
+        }
+
+        .toc-toggle {
+            background: none;
+            border: none;
+            color: map-get($theme-colors, text-color);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+
+            .arrow-icon {
+                display: inline-block;
+                width: 0;
+                height: 0;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 8px solid map-get($theme-colors, text-color);
+                transition: transform 0.3s ease;
+            }
+
+            &[aria-expanded="true"] .arrow-icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .toc-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+
+        &[aria-hidden="false"] {
+            max-height: 500px; // Adjust based on expected content height
+            opacity: 1;
+            visibility: visible;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin-bottom: 8px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                a {
+                    color: map-get($theme-colors, text-color);
+                    text-decoration: none;
+                    font-size: 1em;
+                    display: block; // Make the whole area clickable
+                    padding: 5px 0;
+                    transition: color 0.2s ease;
+
+                    &:hover {
+                        color: map-get($theme-colors, primary-color);
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Light Mode Overrides
+@media (prefers-color-scheme: light) {
+    body:not(.dark-mode-active) { // Apply only if dark mode is not explicitly active
+        .table-of-contents-wrapper {
+            background-color: map-get($theme-colors, light-card-background);
+            border-color: map-get($theme-colors, light-border-color);
+            box-shadow: 0 4px 12px map-get($theme-colors, light-shadow-color);
+
+            .toc-header {
+                border-color: map-get($theme-colors, light-border-color);
+                span {
+                    color: map-get($theme-colors, light-text-color);
+                }
+                .toc-toggle {
+                    color: map-get($theme-colors, light-text-color);
+                    .arrow-icon {
+                        border-top-color: map-get($theme-colors, light-text-color);
+                    }
+                }
+            }
+
+            .toc-list {
+                ul {
+                    li {
+                        a {
+                            color: map-get($theme-colors, light-text-color);
+                            &:hover {
+                                color: map-get($theme-colors, primary-color); // Primary color is usually bold enough for contrast
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

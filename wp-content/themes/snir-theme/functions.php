@@ -84,3 +84,86 @@ function snir_theme_breadcrumbs() {
 }
 
 ?>
+
+<?php
+/**
+ * Generates a Table of Contents (TOC) from h2 headings in post content.
+ *
+ * @param string $content The post content.
+ * @return string The post content with the TOC prepended.
+ */
+function snir_theme_add_table_of_contents( $content ) {
+    // Check if it's a single post and if the content is not empty.
+    if ( is_single() && ! empty( $content ) ) {
+        // Use DOMDocument to parse the HTML content.
+        $dom = new DOMDocument();
+        // Suppress warnings for malformed HTML.
+        libxml_use_internal_errors(true);
+        $dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+        libxml_clear_errors();
+
+        $headings = $dom->getElementsByTagName('h2');
+        $toc_items = [];
+        $heading_id_count = [];
+
+        foreach ( $headings as $heading ) {
+            $heading_text = trim( $heading->nodeValue );
+            if ( ! empty( $heading_text ) ) {
+                // Sanitize heading text to create a URL-friendly anchor.
+                $id = sanitize_title( $heading_text );
+
+                // Ensure unique IDs by appending a number if the ID already exists.
+                if ( isset( $heading_id_count[$id] ) ) {
+                    $heading_id_count[$id]++;
+                    $id .= '-' . $heading_id_count[$id];
+                } else {
+                    $heading_id_count[$id] = 1;
+                }
+
+                // Set the 'id' attribute for the heading element.
+                $heading->setAttribute( 'id', $id );
+                $toc_items[] = [
+                    'id'   => $id,
+                    'text' => $heading_text,
+                ];
+            }
+        }
+
+        // Only generate TOC if there are h2 headings found.
+        if ( ! empty( $toc_items ) ) {
+            $toc_html = '<div class="table-of-contents-wrapper">';
+            $toc_html .= '<div class="toc-header">';
+            $toc_html .= '<span>תוכן עניינים</span>';
+            $toc_html .= '<button class="toc-toggle" aria-expanded="false" aria-controls="toc-list">';
+            $toc_html .= '<span class="arrow-icon"></span>'; // Icon for toggle
+            $toc_html .= '</button>';
+            $toc_html .= '</div>'; // End toc-header
+            $toc_html .= '<nav class="toc-list" id="toc-list" aria-hidden="true">';
+            $toc_html .= '<ul>';
+            foreach ( $toc_items as $item ) {
+                $toc_html .= '<li><a href="#' . esc_attr( $item['id'] ) . '">' . esc_html( $item['text'] ) . '</a></li>';
+            }
+            $toc_html .= '</ul>';
+            $toc_html .= '</nav>';
+            $toc_html .= '</div>'; // End table-of-contents-wrapper
+
+            // Convert DOMDocument back to HTML and prepend the TOC.
+            $content = $dom->saveHTML();
+            return $toc_html . $content;
+        }
+    }
+    return $content;
+}
+add_filter( 'the_content', 'snir_theme_add_table_of_contents' );
+
+// Enqueue scripts and styles for the TOC
+function snir_theme_enqueue_toc_assets() {
+    if ( is_single() ) {
+        // Enqueue your main stylesheet (assuming it's already enqueued or compiled SCSS)
+        // If not, you might need to add: wp_enqueue_style( 'snir-theme-style', get_template_directory_uri() . '/style.css' );
+
+        // Enqueue your main JavaScript file
+        wp_enqueue_script( 'snir-theme-toc-script', get_template_directory_uri() . '/js/toc.js', array('jquery'), null, true );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'snir_theme_enqueue_toc_assets' );
