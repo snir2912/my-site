@@ -354,7 +354,6 @@ section {
   transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease;
   position: relative;
   overflow: hidden;
-  color: #f0f0f0;
   background-color: #2b2b2b;
   border: 1px solid #333;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);

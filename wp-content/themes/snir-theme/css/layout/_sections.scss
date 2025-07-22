@@ -47,7 +47,6 @@ section {
     transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease;
     position: relative;
     overflow: hidden;
-    color: map-get($theme-colors, text-color);
     background-color: map-get($theme-colors, card-background);
     border: 1px solid map-get($theme-colors, border-color);
     box-shadow: 0 6px 15px map-get($theme-colors, shadow-color);
