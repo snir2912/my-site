@@ -107,7 +107,27 @@ function snir_theme_add_table_of_contents( $content ) {
         $heading_id_count = [];
 
         foreach ( $headings as $heading ) {
-            $heading_text = trim( strip_tags( $dom->saveHTML($heading) ) );
+            // Attempt to get just the direct text content, ignoring children elements that are not text nodes
+$heading_text = '';
+foreach ($heading->childNodes as $child) {
+    if ($child->nodeType === XML_TEXT_NODE) {
+        $heading_text .= $child->nodeValue;
+    }
+    // If you want to include text from direct <span> or <strong> tags inside H2
+    // you might need a more complex loop, but for now, we focus on direct text.
+}
+$heading_text = trim( $heading_text );
+
+// Fallback if no direct text found, or if you still want to strip tags and limit length
+if ( empty( $heading_text ) ) {
+    $heading_text = trim( strip_tags( $dom->saveHTML($heading) ) );
+}
+
+// Limit the length of the heading text for the TOC item to avoid long strings
+// Adjust 100 to a suitable character limit for your titles.
+if ( mb_strlen( $heading_text ) > 100 ) {
+    $heading_text = mb_substr( $heading_text, 0, 97 ) . '...';
+}
             if ( ! empty( $heading_text ) ) {
                 // Sanitize heading text to create a URL-friendly anchor.
                 $id = sanitize_title( $heading_text );

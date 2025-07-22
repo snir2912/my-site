@@ -1027,9 +1027,9 @@ body.light-mode .wp-block-table table tbody tr:hover {
   visibility: visible;
 }
 .table-of-contents-wrapper .toc-list ul {
-  list-style: none;
+  list-style: disc inside;
   margin: 0;
-  padding: 0;
+  padding-left: 20px;
 }
 .table-of-contents-wrapper .toc-list ul li {
   margin-bottom: 8px;
