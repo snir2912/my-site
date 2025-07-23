@@ -1,4 +1,26 @@
 // Variables - SCSS Map for better organization
+:root {
+    // Dark Mode Defaults
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --primary-color: crimson;
+    --secondary-color: rgb(238, 52, 89);
+    --accent-color: #00bcd4;
+    --border-color: #333;
+    --card-background: #2b2b2b;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-mode {
+    // Light Mode Overrides
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --border-color: #ddd;
+    --card-background: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    // Primary, secondary, and accent colors might remain the same or be adjusted
+    // Example: --primary-color: #ff4500;
+} 
 $theme-colors: (
     // Dark Mode Defaults
     background-color: #1a1a1a,

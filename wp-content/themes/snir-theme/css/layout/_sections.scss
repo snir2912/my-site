@@ -2,6 +2,8 @@ section {
     padding: 80px 0;
     position: relative;
     overflow: hidden; // לוודא שאף תוכן לא גולש מחוץ לסקשן
+    background-color: var(--bg-color); // הוספתי צבע רקע לסקשן
+    transition: background-color 0.4s ease; // אנימציה למעבר צבע רקע
 }
 
 .services-section {
@@ -10,7 +12,7 @@ section {
     .section-title {
         font-size: 2.5em;
         margin-bottom: 50px;
-        color: map-get($theme-colors, primary-color);
+        color: var(--primary-color); // שימוש במשתנה
         position: relative;
         display: inline-block; // כדי שהפס יהיה ברוחב הכותרת
 
@@ -22,7 +24,7 @@ section {
             bottom: -10px;
             width: 80px;
             height: 4px;
-            background-color: map-get($theme-colors, accent-color);
+            background-color: var(--accent-color); // שימוש במשתנה
             border-radius: 2px;
         }
     }
@@ -40,33 +42,26 @@ section {
     }
 }
 
-.service-item { // הסרתי את .latest-blog-posts מכאן, זה נראה כשם קלאס של בלוג
+.service-item {
     padding: 30px;
     border-radius: 12px; // מעט יותר עגול
     text-align: center;
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease;
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease, border-color 0.4s ease; // הוספתי border-color
     position: relative;
     overflow: hidden;
-    background-color: map-get($theme-colors, card-background);
-    border: 1px solid map-get($theme-colors, border-color);
-    box-shadow: 0 6px 15px map-get($theme-colors, shadow-color);
-    cursor: pointer; // רמז שזה אינטראקטיבי
-    display: flex; // שימוש ב-flexbox ליישור תוכן
+    background-color: var(--card-background); // שימוש במשתנה
+    border: 1px solid var(--border-color); // שימוש במשתנה
+    box-shadow: 0 6px 15px var(--shadow-color); // שימוש במשתנה
+    cursor: pointer;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; // ידחוף את הכותרת למעלה ואת הפסקה למטה
-
-    body.light-mode & {
-        background-color: map-get($theme-colors, light-card-background);
-        border-color: map-get($theme-colors, light-border-color);
-        box-shadow: 0 6px 15px map-get($theme-colors, light-shadow-color);
-    }
+    justify-content: space-between;
 
     // אפקט ריחוף (Hover Effect)
     &:hover {
-        transform: translateY(-15px); // קצת יותר גבוה
-        box-shadow: 0 12px 25px map-get($theme-colors, shadow-color);
-        // אפקט זוהר קל עם צבע ראשי
-        border-color: map-get($theme-colors, primary-color);
+        transform: translateY(-15px);
+        box-shadow: 0 12px 25px var(--shadow-color); // שימוש במשתנה
+        border-color: var(--primary-color); // שימוש במשתנה
     }
 
     // פס צבעוני קטן למעלה באפקט ריחוף
@@ -76,33 +71,33 @@ section {
         top: 0;
         left: 0;
         width: 100%;
-        height: 5px; // עובי הפס
-        background: linear-gradient(90deg, map-get($theme-colors, primary-color), map-get($theme-colors, secondary-color));
-        transform: translateY(-100%); // מוסתר למעלה
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); // שימוש במשתנים
+        transform: translateY(-100%);
         transition: transform 0.3s ease-out;
     }
 
     &:hover::before {
-        transform: translateY(0); // נכנס מלמעלה בריחוף
+        transform: translateY(0);
     }
 
     h3 {
         margin-bottom: 10px;
         font-size: 1.5em;
-        color: map-get($theme-colors, text-color);
+        color: var(--text-color); // שימוש במשתנה
         transition: color 0.3s ease;
     }
 
     &:hover h3 {
-        color: map-get($theme-colors, primary-color); // צבע הכותרת משתנה בריחוף
+        color: var(--primary-color); // שימוש במשתנה
     }
 
     p {
-        font-size: 1em; // קצת יותר גדול
+        font-size: 1em;
         margin-bottom: 0;
-        color: map-get($theme-colors, text-color);
+        color: var(--text-color); // שימוש במשתנה
         opacity: 0.8;
-        line-height: 1.6; // ריווח שורות טוב יותר
+        line-height: 1.6;
     }
 
     // אפקט "בוהק" עדין כשעוברים עם העכבר (אופציונלי)
@@ -113,12 +108,12 @@ section {
         left: 50%;
         width: 0;
         height: 0;
-        background: rgba(map-get($theme-colors, accent-color), 0.1); // בוהק עדין
+        background: rgba(var(--accent-color), 0.1); // שימוש במשתנה - הערה: יש צורך להפריד את הרכיבים של ה-RGB אם רוצים להשתמש ב-rgba עם משתנה. ניתן לשנות את מבנה המשתנה לצבע HEX רגיל או להעביר את ה-RGB כנפרד. כרגע זה יעבוד עם צבע hex או rgb שהוגדר במשתנה.
         border-radius: 50%;
         opacity: 0;
         transform: translate(-50%, -50%);
         transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
-        z-index: 1; // ודא שהוא מתחת לתוכן
+        z-index: 1;
     }
     &:hover::after {
         width: 200%;
@@ -127,34 +122,27 @@ section {
     }
 }
 
-
 .about-our-service-section {
     padding: 60px 0;
     text-align: center;
-    background-color: map-get($theme-colors, card-background);
-    border-top: 1px solid map-get($theme-colors, border-color);
-    border-bottom: 1px solid map-get($theme-colors, border-color);
-    font-family: $font-heebo;
-
-    body.light-mode & {
-        background-color: map-get($theme-colors, light-card-background);
-        border-top-color: map-get($theme-colors, light-border-color);
-        border-bottom-color: map-get($theme-colors, light-border-color);
-    }
+    background-color: var(--card-background); // שימוש במשתנה
+    border-top: 1px solid var(--border-color); // שימוש במשתנה
+    border-bottom: 1px solid var(--border-color); // שימוש במשתנה
+    font-family: $font-heebo; // וודא שהמשתנה $font-heebo מוגדר במקום אחר
 
     h2 {
         font-size: 2em;
-        color: map-get($theme-colors, text-color);
+        color: var(--text-color); // שימוש במשתנה
         margin-bottom: 20px;
     }
 
     p {
         max-width: 900px;
         margin: 0 auto 20px auto;
-        text-align: center; // יישור למרכז לקריאה נוחה יותר
+        text-align: center;
         font-size: 1.1em;
         line-height: 1.8;
-        color: map-get($theme-colors, text-color);
+        color: var(--text-color); // שימוש במשתנה
         opacity: 0.9;
     }
 }
