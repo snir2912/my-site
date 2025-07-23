@@ -1,4 +1,23 @@
 @charset "UTF-8";
+:root {
+  --bg-color: #1a1a1a;
+  --text-color: #f0f0f0;
+  --primary-color: crimson;
+  --secondary-color: rgb(238, 52, 89);
+  --accent-color: rgb(0, 188, 212);
+  --border-color: #333;
+  --card-background: #2b2b2b;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-mode {
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --border-color: #ddd;
+  --card-background: #fff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -311,6 +330,8 @@ section {
   padding: 80px 0;
   position: relative;
   overflow: hidden;
+  background-color: var(--bg-color);
+  transition: background-color 0.4s ease;
 }
 
 .services-section {
@@ -319,7 +340,7 @@ section {
 .services-section .section-title {
   font-size: 2.5em;
   margin-bottom: 50px;
-  color: crimson;
+  color: var(--primary-color);
   position: relative;
   display: inline-block;
 }
@@ -331,7 +352,7 @@ section {
   bottom: -10px;
   width: 80px;
   height: 4px;
-  background-color: #00bcd4;
+  background-color: var(--accent-color);
   border-radius: 2px;
 }
 .services-section .services-grid {
@@ -351,26 +372,21 @@ section {
   padding: 30px;
   border-radius: 12px;
   text-align: center;
-  transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease;
+  transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease, border-color 0.4s ease;
   position: relative;
   overflow: hidden;
-  background-color: #2b2b2b;
-  border: 1px solid #333;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 15px var(--shadow-color);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-body.light-mode .service-item {
-  background-color: #fff;
-  border-color: #ddd;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
 .service-item:hover {
   transform: translateY(-15px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-  border-color: crimson;
+  box-shadow: 0 12px 25px var(--shadow-color);
+  border-color: var(--primary-color);
 }
 .service-item::before {
   content: "";
@@ -379,7 +395,7 @@ body.light-mode .service-item {
   left: 0;
   width: 100%;
   height: 5px;
-  background: linear-gradient(90deg, crimson, rgb(238, 52, 89));
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   transform: translateY(-100%);
   transition: transform 0.3s ease-out;
 }
@@ -389,16 +405,16 @@ body.light-mode .service-item {
 .service-item h3 {
   margin-bottom: 10px;
   font-size: 1.5em;
-  color: #f0f0f0;
+  color: var(--text-color);
   transition: color 0.3s ease;
 }
 .service-item:hover h3 {
-  color: crimson;
+  color: var(--primary-color);
 }
 .service-item p {
   font-size: 1em;
   margin-bottom: 0;
-  color: #f0f0f0;
+  color: var(--text-color);
   opacity: 0.8;
   line-height: 1.6;
 }
@@ -409,7 +425,7 @@ body.light-mode .service-item {
   left: 50%;
   width: 0;
   height: 0;
-  background: rgba(0, 188, 212, 0.1);
+  background: rgba(var(--accent-color), 0.1);
   border-radius: 50%;
   opacity: 0;
   transform: translate(-50%, -50%);
@@ -425,19 +441,14 @@ body.light-mode .service-item {
 .about-our-service-section {
   padding: 60px 0;
   text-align: center;
-  background-color: #2b2b2b;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
+  background-color: var(--card-background);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   font-family: "Heebo", sans-serif;
-}
-body.light-mode .about-our-service-section {
-  background-color: #fff;
-  border-top-color: #ddd;
-  border-bottom-color: #ddd;
 }
 .about-our-service-section h2 {
   font-size: 2em;
-  color: #f0f0f0;
+  color: var(--text-color);
   margin-bottom: 20px;
 }
 .about-our-service-section p {
@@ -446,7 +457,7 @@ body.light-mode .about-our-service-section {
   text-align: center;
   font-size: 1.1em;
   line-height: 1.8;
-  color: #f0f0f0;
+  color: var(--text-color);
   opacity: 0.9;
 }
 
