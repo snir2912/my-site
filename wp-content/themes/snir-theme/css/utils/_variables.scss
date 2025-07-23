@@ -5,7 +5,7 @@
     --text-color: #f0f0f0;
     --primary-color: crimson;
     --secondary-color: rgb(238, 52, 89);
-    --accent-color: #00bcd4;
+    --accent-color: rgb(0, 188, 212); // שיניתי ל-rgb כדי ש-rgba() יעבוד
     --border-color: #333;
     --card-background: #2b2b2b;
     --shadow-color: rgba(0, 0, 0, 0.4);
@@ -14,13 +14,16 @@
 body.light-mode {
     // Light Mode Overrides
     --bg-color: #f9f9f9;
-    --text-color: #333;
-    --border-color: #ddd;
-    --card-background: #fff;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    // Primary, secondary, and accent colors might remain the same or be adjusted
-    // Example: --primary-color: #ff4500;
-} 
+    --text-color: #333; // ודא שזה מוגדר!
+    --border-color: #ddd; // ודא שזה מוגדר!
+    --card-background: #fff; // ודא שזה מוגדר!
+    --shadow-color: rgba(0, 0, 0, 0.1); // ודא שזה מוגדר!
+    // ניתן גם לשנות את primary, secondary, accent אם רוצים צבעים שונים במצב בהיר
+    // לדוגמה:
+    // --primary-color: #FF5722;
+    // --secondary-color: #FF9800;
+    // --accent-color: rgb(76, 175, 80);
+}
 $theme-colors: (
     // Dark Mode Defaults
     background-color: #1a1a1a,

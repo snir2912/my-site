@@ -2,7 +2,7 @@ section {
     padding: 80px 0;
     position: relative;
     overflow: hidden; // לוודא שאף תוכן לא גולש מחוץ לסקשן
-    background-color: var(--bg-color); // הוספתי צבע רקע לסקשן
+    background-color: var(--bg-color); // שימוש במשתנה
     transition: background-color 0.4s ease; // אנימציה למעבר צבע רקע
 }
 
@@ -46,7 +46,7 @@ section {
     padding: 30px;
     border-radius: 12px; // מעט יותר עגול
     text-align: center;
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease, border-color 0.4s ease; // הוספתי border-color
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.4s ease, border-color 0.4s ease;
     position: relative;
     overflow: hidden;
     background-color: var(--card-background); // שימוש במשתנה
@@ -108,7 +108,7 @@ section {
         left: 50%;
         width: 0;
         height: 0;
-        background: rgba(var(--accent-color), 0.1); // שימוש במשתנה - הערה: יש צורך להפריד את הרכיבים של ה-RGB אם רוצים להשתמש ב-rgba עם משתנה. ניתן לשנות את מבנה המשתנה לצבע HEX רגיל או להעביר את ה-RGB כנפרד. כרגע זה יעבוד עם צבע hex או rgb שהוגדר במשתנה.
+        background: rgba(var(--accent-color), 0.1); // שימוש במשתנה
         border-radius: 50%;
         opacity: 0;
         transform: translate(-50%, -50%);
@@ -121,6 +121,7 @@ section {
         opacity: 1;
     }
 }
+
 
 .about-our-service-section {
     padding: 60px 0;
