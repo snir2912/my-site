@@ -461,6 +461,10 @@ section {
   opacity: 0.9;
 }
 
+.about-our-service-section.light-mode {
+  color: var(--text-color);
+}
+
 .latest-blog-posts {
   padding: 60px 0;
   text-align: center;
