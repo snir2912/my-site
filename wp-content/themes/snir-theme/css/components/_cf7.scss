@@ -1,0 +1,71 @@
+/* עיצוב כללי של הטופס */
+.wpcf7 {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* עיצוב שדות קלט וטקסט (טקסטאריאה) */
+.wpcf7-form-control {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* חשוב לוודא שהפאדינג לא יגדיל את רוחב השדה */
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.wpcf7-form-control:focus {
+    border-color: #0073aa; /* צבע הבלטה בפוקוס */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 115, 170, 0.2);
+}
+
+/* עיצוב כפתור השליחה */
+.wpcf7-submit {
+    background-color: #0073aa; /* צבע כחול של וורדפרס לדוגמה */
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.wpcf7-submit:hover {
+    background-color: #005f8c; /* צבע כהה יותר במעבר עכבר */
+}
+
+/* עיצוב תוויות (labels) */
+.wpcf7 label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* עיצוב הודעות שגיאה/הצלחה (דוגמאות) */
+.wpcf7-response-output.wpcf7-validation-errors {
+    color: #ff0000;
+    background-color: #ffebeb;
+    border: 1px solid #ff0000;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.wpcf7-response-output.wpcf7-mail-sent-ok {
+    color: #008000;
+    background-color: #ebffe9;
+    border: 1px solid #008000;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
