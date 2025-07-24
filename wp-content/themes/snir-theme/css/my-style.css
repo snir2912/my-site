@@ -457,12 +457,8 @@ section {
   text-align: center;
   font-size: 1.1em;
   line-height: 1.8;
-  color: var(--text-color);
+  color: #f0f0f0;
   opacity: 0.9;
-}
-
-.about-our-service-section.light-mode {
-  color: var(--text-color);
 }
 
 .latest-blog-posts {
