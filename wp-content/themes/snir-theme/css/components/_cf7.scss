@@ -9,7 +9,7 @@
 }
 
 /* עיצוב שדות קלט וטקסט (טקסטאריאה) */
-.wpcf7-form-control {
+.wpcf7-form-control-wrap {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
@@ -20,7 +20,7 @@
     line-height: 1.5;
 }
 
-.wpcf7-form-control:focus {
+.wpcf7-form-control-wrap:focus {
     border-color: #0073aa; /* צבע הבלטה בפוקוס */
     outline: none;
     box-shadow: 0 0 5px rgba(0, 115, 170, 0.2);
