@@ -69,7 +69,7 @@ Template Name: Front Page Template
         </div>
     </section>
 
-    <section class="latest-blog-posts related-posts-section"> <div class="container">
+    <section class="latest-blog-posts"> <div class="container">
         <h2 class="section-title"><?php esc_html_e( 'החדשות בבלוג שלנו', 'snir-theme' ); ?></h2>
         
         <div class="related-posts-grid"> <?php

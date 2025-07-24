@@ -126,7 +126,7 @@ section {
 .about-our-service-section {
     padding: 60px 0;
     text-align: center;
-    background-color: var(--card-background); // שימוש במשתנה
+    background-color: var(--primary-color); // שימוש במשתנה
     border-top: 1px solid var(--border-color); // שימוש במשתנה
     border-bottom: 1px solid var(--border-color); // שימוש במשתנה
     font-family: $font-heebo; // וודא שהמשתנה $font-heebo מוגדר במקום אחר
@@ -145,5 +145,34 @@ section {
         line-height: 1.8;
         color: var(--text-color); // שימוש במשתנה
         opacity: 0.9;
+    }
+}
+
+.latest-blog-posts {
+    padding: 60px 0;
+    text-align: center;
+    background-color: map-get($theme-colors, card-background);
+    border-top: 1px solid map-get($theme-colors, border-color);
+    border-bottom: 1px solid map-get($theme-colors, border-color);
+
+    .section-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 40px;
+        color: map-get($theme-colors, primary-color);
+    }
+
+    .related-posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    body.light-mode & {
+        background-color: map-get($theme-colors, light-card-background);
+        border-top-color: map-get($theme-colors, light-border-color);
+        border-bottom-color: map-get($theme-colors, light-border-color);
     }
 }
