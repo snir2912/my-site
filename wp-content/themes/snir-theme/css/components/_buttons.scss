@@ -9,7 +9,7 @@
     border: none;
     cursor: pointer;
     background-color: map-get($theme-colors, primary-color);
-    color: map-get($theme-colors, text-color);
+    color: #f0f0f0;
 
     body.light-mode & {
         color: map-get($theme-colors, light-text-color);
