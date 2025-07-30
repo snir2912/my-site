@@ -7,18 +7,17 @@ Template Name: Front Page Template
 <?php get_header(); ?>
     <?php 
     $h1 = get_field('h1');
+    $hero_paragraph = get_field('hero_paragraph');
+    $services_headline = get_field('services_headline');
+    $why_us_headline = get_field('why_us_headline');
+    $why_us_paragraph = get_field('why_us_paragraph');
     ?>
 
     <section class="hero-section" id="hero">
         <div class="container">
             <div class="hero-content">
                 <h1><?php echo $h1 ?></h1>
-                <p>
-                    ברוכים הבאים! אני [שם שלך], מפתח אתרי וורדפרס המתמחה בבניית אתרים יפהפיים, פונקציונליים ומותאמים אישית. בעולם הדיגיטלי המודרני, נוכחות אינטרנטית היא כבר לא בגדר מותרות, אלא הכרח קיומי לכל עסק שרוצה לשגשג. אתר אינטרנט הוא כרטיס הביקור הדיגיטלי שלך, החלון הראווה הוירטואלי שמציג את העסק שלך לקהל עולמי, ופלטפורמה עוצמתית ליצירת קשר עם לקוחות פוטנציאליים.
-                </p>
-                <p>
-                    בין אם אתה עסק קטן שרק מתחיל את דרכו, יזם שמחפש להשיק רעיון פורץ דרך, או חברה גדולה שרוצה לרענן את נוכחותה הדיגיטלית – אתר אינטרנט מעוצב בקפידה, אינטואיטיבי ומהיר יכול להיות ההבדל בין הצלחה לקיפאון. הוא בונה אמון, מספק מידע חיוני, ואף יכול לשמש ככלי מכירה חזק 24/7. בוא נבנה יחד את הנוכחות הדיגיטלית הבאה שלך, כזו שתדבר בשפה של הלקוחות שלך ותהפוך אותם ממתעניינים ללקוחות נאמנים.
-                </p>
+                <p><?php echo $hero_paragraph ?></p>
                 <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
             </div>
         </div>
@@ -26,7 +25,7 @@ Template Name: Front Page Template
 
     <section class="services-section" id="services">
         <div class="container">
-            <h2 class="section-title">השירותים שלנו</h2>
+            <h2 class="section-title"><?php echo $services_headline ?></h2>
             <div class="services-grid">
                 <div class="service-item">
                     <h3>בניית דפי נחיתה</h3>
@@ -62,13 +61,8 @@ Template Name: Front Page Template
 
     <section class="about-our-service-section" id="why-us">
         <div class="container">
-            <h2 class="section-title">למה לבחור בנו? חווית שירות יוצאת דופן</h2>
-            <p>
-                בבניית אתרים, אנו מאמינים לא רק ביצירת קוד, אלא בבניית שותפות ארוכת טווח המבוססת על אמון ומצוינות. השירות שלנו מתאפיין באיכות ללא פשרות, המבטיחה שהאתר שלך לא רק ייראה מדהים, אלא גם יתפקד בצורה חלקה ויעילה. אנו מקפידים על זמינות גבוהה לאורך כל תהליך העבודה ולאחריו, כך שתמיד יהיה לך למי לפנות עם שאלות או צרכים.
-            </p>
-            <p>
-                מעבר לכך, אנו מציעים שירותי תחזוקה שוטפת מקצועיים, הכוללים עדכוני אבטחה, גיבויים תכופים וניטור ביצועים, כדי שהאתר שלך יהיה תמיד עדכני, מאובטח ומהיר. אנו מבינים את חשיבות התוכן, ולכן אנו מציעים גם שירותי כתיבת תוכן איכותי ומקורי, מותאם באופן מושלם לקהל היעד שלך ולמטרות האתר. אנו כאן כדי להבטיח שהנוכחות הדיגיטלית שלך תהיה חזקה, מרשימה ותוביל לתוצאות עסקיות ממשיות. איתנו, אתה בידיים טובות.
-            </p>
+            <h2 class="section-title"><?php evho $why_us_headline ?></h2>
+           <p><?php echo $why_us_paragraph ?></p>
             <!-- <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?> -->
         </div>
     </section>
