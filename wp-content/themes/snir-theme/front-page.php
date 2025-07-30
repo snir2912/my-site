@@ -61,7 +61,7 @@ Template Name: Front Page Template
 
     <section class="about-our-service-section" id="why-us">
         <div class="container">
-            <h2 class="section-title"><?php evho $why_us_headline ?></h2>
+            <h2 class="section-title"><?php echo $why_us_headline ?></h2>
            <p><?php echo $why_us_paragraph ?></p>
             <!-- <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?> -->
         </div>
