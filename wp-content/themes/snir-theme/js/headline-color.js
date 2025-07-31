@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // לדוגמה, אם הכותרת נמצאת בתוך אלמנט עם ID "my-acf-title", השתמש ב: '#my-acf-title'
     // אם הכותרת נמצאת בתוך אלמנט עם קלאס "acf-title-field", השתמש ב: '.acf-title-field'
     // חשוב לוודא שהסלקטור הזה מפנה במדויק לאלמנט ה-HTML שמציג את התוכן של שדה ה-ACF.
-    const titleElement = document.querySelector('h1'); // דוגמה: שינוי ל-H1. שנה לפי הצורך!
+    const titleElement = document.querySelector('h2'); // דוגמה: שינוי ל-H1. שנה לפי הצורך!
 
     // ודא שהאלמנט קיים לפני שממשיכים
     if (titleElement) {
