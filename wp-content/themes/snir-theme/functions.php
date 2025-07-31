@@ -16,6 +16,15 @@ function snir_theme_assets() {
 
     // טעינת קובץ ה-JavaScript הראשי שלך
     wp_enqueue_script('main-snir-js', get_theme_file_uri('/js/main.js'), array('jquery'), filemtime(get_theme_file_path('/js/main.js')), true);
+    
+    wp_enqueue_script(
+        'custom-coloring', // שם ייחודי לסקריפט
+        get_stylesheet_directory_uri() . '/custom-script.js', // נתיב לקובץ ה-JS
+        array(), // מערך של תלויות (אם יש)
+        null, // גרסת קובץ (null לשימוש בגרסה של וורדפרס)
+        true // נכון: טען את הסקריפט בפוטר (מומלץ לביצועים)
+    );
+
 
     // הסרה של טעינת סקריפט תוכן העניינים מכאן.
     // הוא יטען דרך הפונקציה snir_theme_enqueue_toc_assets() למטה, שם ה-jQuery מוגדר כתלות.
