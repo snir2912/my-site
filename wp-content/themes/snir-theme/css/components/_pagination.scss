@@ -2,20 +2,22 @@
 
 .pagination {
     display: flex;
-    flex-direction: row; // הוספנו כדי להבטיח תצוגה אופקית
+    flex-direction: row; // מבטיח שהכפתורים יסודרו בשורה
     flex-wrap: wrap; // במקרה שיש הרבה עמודים והם לא נכנסים בשורה אחת
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
-    gap: 10px; // המרווח הקטן בין הכפתורים שביקשת
+    gap: 10px; // המרווח בין הכפתורים
     list-style: none;
     margin: 0;
 
     .page-numbers {
-        display: inline-flex; // שינוי מ-display: block כדי ליישר טוב יותר עם flex
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 15px;
+        width: 40px; // רוחב קבוע לכל כפתור
+        height: 40px; // גובה קבוע לכל כפתור
+        padding: 0; // ביטול padding כדי ש-width ו-height יחולו
         text-decoration: none;
         color: map-get($theme-colors, text-color);
         background-color: map-get($theme-colors, card-background);
@@ -23,7 +25,6 @@
         border-radius: 5px;
         transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
         font-weight: 500;
-        min-width: 40px; // כדי שכל הכפתורים יהיו באותו רוחב
         text-align: center; // יישור טקסט במרכז
 
         &:hover {
@@ -45,7 +46,10 @@
             border: none;
             cursor: default;
             color: map-get($theme-colors, text-color);
-            padding: 10px 5px; // הפחתת padding עבור הנקודות
+            // מבטלים את הרוחב והגובה הקבועים
+            width: auto;
+            height: auto;
+            padding: 10px 5px; // מחזירים padding כדי שיראה כמו שצריך
         }
     }
 
