@@ -19,7 +19,7 @@ function snir_theme_assets() {
     
     wp_enqueue_script(
         'custom-coloring', // שם ייחודי לסקריפט
-        get_stylesheet_directory_uri() . '/custom-script.js', // נתיב לקובץ ה-JS
+        get_stylesheet_directory_uri() . './js/headline-color.js', // נתיב לקובץ ה-JS
         array(), // מערך של תלויות (אם יש)
         null, // גרסת קובץ (null לשימוש בגרסה של וורדפרס)
         true // נכון: טען את הסקריפט בפוטר (מומלץ לביצועים)
