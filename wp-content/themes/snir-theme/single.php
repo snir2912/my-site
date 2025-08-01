@@ -35,14 +35,16 @@ while ( have_posts() ) :
         </div>
         <section class="single-post-content container">
             <section class="single-post-content container">
-    <div class="font-size-controls">
-        <button id="decrease-font-size" aria-label="הקטן גודל פונט">
-            <span class="font-icon">א</span>
-        </button>
-        <button id="increase-font-size" aria-label="הגדל גודל פונט">
-            <span class="font-icon">א</span>
-        </button>
-    </div>
+<div class="font-size-controls">
+    <button id="decrease-font-size" aria-label="הקטן גודל פונט">
+        <span class="font-icon smaller">א</span>
+        <span class="button-label">הקטן</span>
+    </button>
+    <button id="increase-font-size" aria-label="הגדל גודל פונט">
+        <span class="font-icon bigger">א</span>
+        <span class="button-label">הגדל</span>
+    </button>
+</div>
     <?php the_content(); ?>
 
             <?php

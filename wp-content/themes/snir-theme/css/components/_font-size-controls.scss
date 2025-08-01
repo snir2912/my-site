@@ -17,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px; /* מרווח בין האות לכיתוב */
 }
 
 .font-size-controls button:hover {
@@ -29,10 +30,14 @@
     font-weight: bold;
 }
 
-#decrease-font-size .font-icon {
+.font-size-controls .font-icon.smaller {
     font-size: 16px; /* גודל האות א' הקטנה */
 }
 
-#increase-font-size .font-icon {
+.font-size-controls .font-icon.bigger {
     font-size: 24px; /* גודל האות א' הגדולה */
+}
+
+.font-size-controls .button-label {
+    font-size: 14px; /* גודל הטקסט "הגדל" / "הקטן" */
 }
