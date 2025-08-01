@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // --- לוגיקת תפריט המבורגר ---
     const hamburger = document.querySelector('.hamburger-menu');
     const mainNav = document.querySelector('.main-nav');
     const body = document.body;
@@ -20,31 +21,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (navLinks.length > 0) {
             navLinks.forEach(link => {
                 link.addEventListener('click', function(event) {
-                    // **התיקון כאן:**
-                    // נבדוק אם כפתור ההמבורגר גלוי (כלומר, אנחנו במצב מובייל)
-                    // ואם התפריט במצב 'active' (פתוח).
-                    // זה יבטיח שהפונקציה toggleMenu() תופעל רק לסגירת תפריט המובייל.
                     const isMobileView = window.getComputedStyle(hamburger).display !== 'none';
-
                     if (isMobileView && mainNav.classList.contains('active')) {
                         toggleMenu(); // סוגר את תפריט המובייל רק אם הוא פתוח ובמצב מובייל
                     }
 
-                    // אם הקישור הוא עוגן (לדף הנוכחי), נטפל בגלילה חלקה
                     if (this.hash !== '') {
-                        // event.preventDefault(); // נשאיר את זה רק אם אין מעבר דף בפועל
-
                         const targetId = this.hash;
                         const targetElement = document.querySelector(targetId);
 
-                        // ודא שהאלמנט קיים לפני הגלילה
                         if (targetElement) {
-                            // מונע את פעולת ברירת המחדל רק אם יש אלמנט יעד וגלילה חלקה אפשרית
                             event.preventDefault();
                             targetElement.scrollIntoView({
                                 behavior: 'smooth'
                             });
-                            // history.pushState(null, null, targetId); // אופציונלי: מעדכן את ה-URL
                         }
                     }
                 });
@@ -54,11 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('One or more required elements for the hamburger menu were not found. Please check your HTML structure: .hamburger-menu, .main-nav');
     }
 
-
-    // Dark/Light Mode Toggle
+    // --- לוגיקת Dark/Light Mode ---
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
-        // קוד הדארק/לייט מוד נשאר ללא שינוי
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             if (document.body.classList.contains('light-mode')) {
@@ -79,9 +67,47 @@ document.addEventListener('DOMContentLoaded', function() {
     // (אופציונלי) טיפול בשינוי גודל חלון - לסגור את המובייל אם עוברים לדסקטופ
     window.addEventListener('resize', function() {
         const desktopBreakpoint = 768; // הגדר את נקודת השבירה שלך בפיקסלים
-        // אם רוחב המסך גדול מנקודת השבירה וגם התפריט פתוח
-        if (window.innerWidth > desktopBreakpoint && mainNav.classList.contains('active')) {
+        if (window.innerWidth > desktopBreakpoint && mainNav && mainNav.classList.contains('active')) {
             toggleMenu(); // סגור את התפריט
         }
     });
+
+    // --- לוגיקת הגדלה/הקטנה של הפונט ---
+    const contentContainer = document.querySelector('.single-post-content');
+    const increaseBtn = document.getElementById('increase-font-size');
+    const decreaseBtn = document.getElementById('decrease-font-size');
+    const storageKey = 'user-font-size';
+    
+    // בודק אם הכפתורים והקונטיינר קיימים בעמוד לפני שממשיך
+    if (contentContainer && increaseBtn && decreaseBtn) {
+        const pElements = contentContainer.querySelectorAll('p');
+        const defaultFontSize = 16;
+        let currentFontSize = parseFloat(localStorage.getItem(storageKey)) || defaultFontSize;
+
+        const setFontSize = (size) => {
+            pElements.forEach(p => {
+                p.style.fontSize = `${size}px`;
+            });
+            localStorage.setItem(storageKey, size);
+        };
+
+        if (currentFontSize !== defaultFontSize) {
+            setFontSize(currentFontSize);
+        }
+        
+        increaseBtn.addEventListener('click', () => {
+            currentFontSize += 1;
+            setFontSize(currentFontSize);
+        });
+
+        decreaseBtn.addEventListener('click', () => {
+            if (currentFontSize > 12) {
+                currentFontSize -= 1;
+                setFontSize(currentFontSize);
+            }
+        });
+    } else {
+        console.warn('Font size controls or content container not found. Font size functionality will not work.');
+    }
+
 });

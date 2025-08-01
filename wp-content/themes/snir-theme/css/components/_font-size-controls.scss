@@ -1,0 +1,38 @@
+.font-size-controls {
+    display: flex;
+    justify-content: flex-end; /* יישור לימין */
+    align-items: center;
+    gap: 10px; /* מרווח בין הכפתורים */
+    margin-bottom: 20px; /* מרווח מתחת לכפתורים */
+}
+
+.font-size-controls button {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-size-controls button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.font-size-controls .font-icon {
+    font-weight: bold;
+}
+
+#decrease-font-size .font-icon {
+    font-size: 16px; /* גודל האות א' הקטנה */
+}
+
+#increase-font-size .font-icon {
+    font-size: 24px; /* גודל האות א' הגדולה */
+}

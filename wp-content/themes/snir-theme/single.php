@@ -34,7 +34,16 @@ while ( have_posts() ) :
         </section>
         </div>
         <section class="single-post-content container">
-            <?php the_content(); ?>
+            <section class="single-post-content container">
+    <div class="font-size-controls">
+        <button id="decrease-font-size" aria-label="הקטן גודל פונט">
+            <span class="font-icon">א</span>
+        </button>
+        <button id="increase-font-size" aria-label="הגדל גודל פונט">
+            <span class="font-icon">א</span>
+        </button>
+    </div>
+    <?php the_content(); ?>
 
             <?php
             wp_link_pages( array(
