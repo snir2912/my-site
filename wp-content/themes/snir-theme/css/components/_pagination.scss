@@ -2,15 +2,19 @@
 
 .pagination {
     display: flex;
+    flex-direction: row; // הוספנו כדי להבטיח תצוגה אופקית
+    flex-wrap: wrap; // במקרה שיש הרבה עמודים והם לא נכנסים בשורה אחת
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
-    gap: 10px;
+    gap: 10px; // המרווח הקטן בין הכפתורים שביקשת
     list-style: none;
     margin: 0;
 
     .page-numbers {
-        display: block; // כדי לוודא ש-padding/margin עובדים
+        display: inline-flex; // שינוי מ-display: block כדי ליישר טוב יותר עם flex
+        align-items: center;
+        justify-content: center;
         padding: 10px 15px;
         text-decoration: none;
         color: map-get($theme-colors, text-color);
@@ -19,6 +23,8 @@
         border-radius: 5px;
         transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
         font-weight: 500;
+        min-width: 40px; // כדי שכל הכפתורים יהיו באותו רוחב
+        text-align: center; // יישור טקסט במרכז
 
         &:hover {
             background-color: map-get($theme-colors, primary-color);
@@ -39,6 +45,7 @@
             border: none;
             cursor: default;
             color: map-get($theme-colors, text-color);
+            padding: 10px 5px; // הפחתת padding עבור הנקודות
         }
     }
 
