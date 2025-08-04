@@ -1283,76 +1283,70 @@ body.light-mode .wp-block-table table tbody tr:hover {
     color: crimson;
   }
 }
-/* עיצוב כללי של הטופס */
+/* Custom Styles for Contact Form 7 */
+/* Container and overall form styling */
 .wpcf7 {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 30px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Heebo", sans-serif;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  transition: all 0.3s ease-in-out;
 }
 
-/* עיצוב שדות קלט וטקסט (טקסטאריאה) */
-.wpcf7-form-control-wrap {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box; /* חשוב לוודא שהפאדינג לא יגדיל את רוחב השדה */
-  font-size: 16px;
+/* Style for each form field and label */
+.wpcf7 label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
   line-height: 1.5;
 }
 
-.wpcf7-form-control-wrap:focus {
-  border-color: #0073aa; /* צבע הבלטה בפוקוס */
+/* Styling for input, textarea fields */
+.wpcf7 .form-field {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Focus state for form fields */
+.wpcf7 .form-field:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 115, 170, 0.2);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.2); /* Using a softer shadow based on crimson */
 }
 
-/* עיצוב כפתור השליחה */
-.wpcf7-submit {
-  background-color: #0073aa; /* צבע כחול של וורדפרס לדוגמה */
-  color: white;
-  padding: 15px 25px;
-  border: none;
-  border-radius: 5px;
+/* Styling for the submit button */
+.wpcf7 .btn-field {
+  width: 100%;
   cursor: pointer;
-  font-size: 18px;
+  background-color: var(--primary-color);
+  color: #fff;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.wpcf7-submit:hover {
-  background-color: #005f8c; /* צבע כהה יותר במעבר עכבר */
+/* Hover and active states for the button */
+.wpcf7 .btn-field:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
 }
 
-/* עיצוב תוויות (labels) */
-.wpcf7 label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* עיצוב הודעות שגיאה/הצלחה (דוגמאות) */
-.wpcf7-response-output.wpcf7-validation-errors {
-  color: #ff0000;
-  background-color: #ffebeb;
-  border: 1px solid #ff0000;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-
-.wpcf7-response-output.wpcf7-mail-sent-ok {
-  color: #008000;
-  background-color: #ebffe9;
-  border: 1px solid #008000;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
+.wpcf7 .btn-field:active {
+  transform: translateY(0);
 }
 
 .font-size-controls {
