@@ -11,6 +11,8 @@ $hero_paragraph = get_field('hero_paragraph');
 $services_headline = get_field('services_headline');
 $why_us_headline = get_field('why_us_headline');
 $why_us_paragraph = get_field('why_us_paragraph');
+$cf_headline = get_field('cf_headline');
+$cf_paragraph = get_field('cf_paragraph');
 ?>
 
 <section class="hero-section" id="hero">
@@ -138,8 +140,8 @@ $why_us_paragraph = get_field('why_us_paragraph');
 </section>
 <div class="contact-form" id="contact">
     <div class="cintainer">
-            <h2>רוצים לבנות את עסק שלכם בדיגיטל?</h2>
-            <p>מלאו את הטופס, ספרו לנו קצת על העסק שלכם ואנו נשמח לבנות עבורו נוכחות דיגיטלית מרשימה</p>
+            <h2?><?php echo $cf_headline ?></h2>
+            <p><?php echo $cf_paragraph ?></p>
             <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
 </div>
