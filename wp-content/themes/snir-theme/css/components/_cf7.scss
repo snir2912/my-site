@@ -18,6 +18,7 @@
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
+  color: var(--primary-color);
 }
 
 /* Styling for input, textarea fields */
@@ -37,7 +38,7 @@
 .wpcf7 .form-field:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.2); /* Using a softer shadow based on crimson */
+  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.2);
 }
 
 /* Styling for the submit button */
@@ -52,12 +53,13 @@
   border-radius: 8px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 /* Hover and active states for the button */
 .wpcf7 .btn-field:hover {
   background-color: var(--secondary-color);
+  box-shadow: 0 0 15px var(--primary-color);
   transform: translateY(-2px);
 }
 
