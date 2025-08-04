@@ -137,7 +137,7 @@ $why_us_paragraph = get_field('why_us_paragraph');
     </div>
 </section>
 <div>
-    [contact-form-7 id="285c83c" title="טופס צור קשר"]
+    <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
 </div>
 
 <?php get_footer(); ?>
