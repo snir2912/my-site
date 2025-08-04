@@ -140,7 +140,7 @@ $cf_paragraph = get_field('cf_paragraph');
 </section>
 <div class="contact-form" id="contact">
     <div class="cintainer">
-            <h2?><?php echo $cf_headline ?></h2>
+            <h2><?php echo $cf_headline ?></h2>
             <p><?php echo $cf_paragraph ?></p>
             <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
