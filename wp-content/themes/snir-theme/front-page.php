@@ -136,7 +136,7 @@ $why_us_paragraph = get_field('why_us_paragraph');
 
     </div>
 </section>
-<div class="services-section" id="contact">
+<div class="contact-form" id="contact">
     <div class="cintainer">
             <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
