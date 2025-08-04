@@ -1351,6 +1351,20 @@ body.light-mode .wp-block-table table tbody tr:hover {
   transform: translateY(0);
 }
 
+/* Styling for the contact form container */
+.contact-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+}
+
+/* Styling for the inner container (the form itself) */
+.contact-form .cintainer {
+  width: 100%;
+  max-width: 1200px;
+}
+
 .font-size-controls {
   display: flex;
   justify-content: flex-end; /* יישור לימין */
