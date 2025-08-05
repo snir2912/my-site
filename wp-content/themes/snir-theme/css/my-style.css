@@ -1466,14 +1466,16 @@ body.light-mode .faq-section .background-overlay {
   transition: all 0.3s ease;
 }
 
-.faq-question:hover {
-  background-color: var(--primary-color);
-  color: var(--light-text-color); /* הוספתי קלאס חדש עבור מצב בהיר, כי השדה text-color משתנה */
-}
-
+.faq-question:hover,
 .faq-question.active {
   background-color: var(--primary-color);
-  color: var(--light-text-color); /* הוספתי קלאס חדש עבור מצב בהיר, כי השדה text-color משתנה */
+  color: var(--light-text-color);
+}
+
+/* זה השינוי הראשון: צבע כותרת השאלה במעבר ובמצב פעיל */
+.faq-question:hover .question-text,
+.faq-question.active .question-text {
+  color: var(--light-text-color);
 }
 
 .faq-icon {
@@ -1487,10 +1489,7 @@ body.light-mode .faq-section .background-overlay {
   transition: color 0.3s ease;
 }
 
-.faq-question.active .faq-icon {
-  color: var(--light-text-color);
-}
-
+.faq-question.active .faq-icon,
 .faq-question:hover .faq-icon {
   color: var(--light-text-color);
 }
@@ -1500,6 +1499,7 @@ body.light-mode .faq-section .background-overlay {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 500;
+  transition: color 0.3s ease; /* הוספתי מעבר צבע חלק */
 }
 
 /* אייקון הפתיחה/סגירה */
@@ -1512,23 +1512,20 @@ body.light-mode .faq-section .background-overlay {
   justify-content: center;
 }
 
-.faq-question.active .toggle-icon {
-  transform: rotate(45deg);
-  color: var(--light-text-color);
-}
-
+.faq-question.active .toggle-icon,
 .faq-question:hover .toggle-icon {
   transform: rotate(45deg);
   color: var(--light-text-color);
 }
 
+/* זה השינוי השני: צבעי התשובה */
 .faq-answer {
   display: none;
   padding: 0 25px 0 65px;
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--light-text-color);
-  background-color: var(--light-border-color);
+  background-color: var(--border-color); /* צבע הרקע הוא --border-color */
+  color: var(--text-color); /* צבע הטקסט הוא --text-color */
   overflow: hidden;
   transition: all 0.3s ease;
 }

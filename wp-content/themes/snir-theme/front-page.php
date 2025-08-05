@@ -138,38 +138,7 @@ $cf_paragraph = get_field('cf_paragraph');
 
     </div>
 </section>
-<!-- <section class="faq-section" id="faq">
-    <div class="container">
-        <h2 class="section-title">שאלות נפוצות</h2>
-        <div class="faq-accordion">
-            <?php 
-            if (have_rows('faq')) :
-                while (have_rows('faq')) : the_row();
-                    $question = get_sub_field('question');
-                    $answer = get_sub_field('answer');
-                    ?>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span class="faq-icon">?</span>
-                            <h3 class="question-text"><?php echo esc_html($question); ?></h3>
-                            <div class="toggle-icon">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="faq-answer">
-                            <?php echo $answer; ?>
-                        </div>
-                    </div>
-                <?php
-                endwhile;
-            else :
-                // אפשרות להציג הודעה אם אין שאלות ותשובות
-            ?>
-                <p>אין עדיין שאלות נפוצות.</p>
-            <?php endif; ?>
-        </div>
-    </div>
-</section> -->
+
 <?php
 // בדיקה אם יש רקע וידאו או תמונה שהוגדרו ב-ACF
 $video_background = get_field('video_background');
