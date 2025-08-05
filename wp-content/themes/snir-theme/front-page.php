@@ -170,6 +170,59 @@ $cf_paragraph = get_field('cf_paragraph');
         </div>
     </div>
 </section>
+<?php
+// בדיקה אם יש רקע וידאו או תמונה שהוגדרו ב-ACF
+$video_background = get_field('video_background');
+$img_background = get_field('img_backgrond');
+
+$section_style = '';
+$has_background = false;
+
+if ($video_background) {
+    // אם יש וידאו, נגדיר אותו כרקע
+    $section_style .= 'background: url(' . esc_url($video_background['url']) . ') no-repeat center center / cover;';
+    $has_background = true;
+} elseif ($img_background) {
+    // אם אין וידאו אבל יש תמונה, נשתמש בה
+    $section_style .= 'background: url(' . esc_url($img_background['url']) . ') no-repeat center center / cover;';
+    $has_background = true;
+}
+?>
+
+<section class="faq-section" id="faq" style="<?php echo esc_attr($section_style); ?>">
+    <?php if ($has_background) : ?>
+    <div class="background-overlay"></div>
+    <?php endif; ?>
+    <div class="container">
+        <h2 class="section-title">שאלות נפוצות</h2>
+        <div class="faq-accordion">
+            <?php 
+            if (have_rows('faq')) :
+                while (have_rows('faq')) : the_row();
+                    $question = get_sub_field('question');
+                    $answer = get_sub_field('answer');
+                    ?>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span class="faq-icon">?</span>
+                            <h3 class="question-text"><?php echo esc_html($question); ?></h3>
+                            <div class="toggle-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <?php echo $answer; ?>
+                        </div>
+                    </div>
+                <?php
+                endwhile;
+            else :
+            ?>
+                <p>אין עדיין שאלות נפוצות.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
 <div class="contact-form" id="contact">
     <div class="cintainer">
             <h2><?php echo $cf_headline ?></h2>
