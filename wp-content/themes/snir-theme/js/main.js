@@ -111,3 +111,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+// --- לוגיקת אקורדיון FAQ ---
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isExpanded = question.classList.contains('active');
+                
+                // סגירת כל שאר השאלות הפתוחות
+                faqQuestions.forEach(otherQuestion => {
+                    if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                        otherQuestion.classList.remove('active');
+                        otherQuestion.nextElementSibling.style.maxHeight = null;
+                    }
+                });
+
+                // פתיחה או סגירה של השאלה הנוכחית
+                if (isExpanded) {
+                    question.classList.remove('active');
+                    answer.style.maxHeight = null; // סגירה חלקה
+                } else {
+                    question.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px'; // פתיחה חלקה
+                }
+            });
+        });
+    } else {
+        console.warn('FAQ questions were not found. Accordion functionality will not work.');
+    }

@@ -1,0 +1,97 @@
+/* --- FAQ Section Styling --- */
+.faq-section {
+    padding: 60px 0;
+    background-color: var(--card-background); /* שימוש בצבע רקע כרטיס כדי להתאים לעיצוב הכללי */
+    color: var(--text-color);
+}
+
+.faq-section .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px var(--shadow-color); /* שימוש בצבע צל */
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border-color); /* קו הפרדה בין השאלות */
+}
+
+.faq-item:last-child {
+    border-bottom: none; /* מסיר את הקו מהפריט האחרון */
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    cursor: pointer;
+    background-color: var(--card-background);
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: rgba(var(--primary-color), 0.1); /* הבהרה קלה בלחיצה */
+}
+
+.faq-question.active {
+    background-color: var(--border-color); /* רקע שונה כשהאקורדיון פתוח */
+}
+
+.faq-icon {
+    font-size: 20px;
+    color: var(--primary-color);
+    width: 30px;
+    text-align: center;
+    line-height: 1;
+    margin-left: 15px; /* מרווח בין האייקון לטקסט */
+    font-weight: bold;
+}
+
+.faq-question.active .faq-icon {
+    color: var(--secondary-color);
+}
+
+.question-text {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* אייקון הפתיחה/סגירה */
+.toggle-icon {
+    font-size: 20px;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+    display: flex; /* כדי למרכז את האייקון טוב יותר */
+    align-items: center;
+    justify-content: center;
+}
+
+.faq-question.active .toggle-icon {
+    transform: rotate(45deg); /* סיבוב האייקון כדי ליצור סימן X */
+    color: var(--secondary-color);
+}
+
+.faq-answer {
+    display: none; /* נסתר כברירת מחדל */
+    padding: 0 25px 20px 65px; /* הזחה של הטקסט */
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.faq-answer p {
+    margin: 0; /* הסרת שוליים מהפסקאות בתוך התשובה */
+}
+
+.faq-answer.show {
+    display: block; /* הצגה של התשובה בלחיצה */
+}
