@@ -1413,7 +1413,7 @@ body.light-mode .wp-block-table table tbody tr:hover {
 /* --- FAQ Section Styling --- */
 .faq-section {
   padding: 60px 0;
-  background-color: var(--card-background); /* שימוש בצבע רקע כרטיס כדי להתאים לעיצוב הכללי */
+  background-color: var(--text-color); /* שימוש בצבע רקע כרטיס כדי להתאים לעיצוב הכללי */
   color: var(--text-color);
 }
 
