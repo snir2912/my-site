@@ -109,9 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.warn('Font size controls or content container not found. Font size functionality will not work.');
     }
-
-});
-
 // --- לוגיקת אקורדיון FAQ ---
     const faqQuestions = document.querySelectorAll('.faq-question');
 
@@ -142,3 +139,4 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.warn('FAQ questions were not found. Accordion functionality will not work.');
     }
+});
