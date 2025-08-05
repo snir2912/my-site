@@ -117,22 +117,19 @@ document.addEventListener('DOMContentLoaded', function() {
             question.addEventListener('click', () => {
                 const answer = question.nextElementSibling;
                 const isExpanded = question.classList.contains('active');
-                
-                // סגירת כל שאר השאלות הפתוחות
-                faqQuestions.forEach(otherQuestion => {
-                    if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
-                        otherQuestion.classList.remove('active');
-                        otherQuestion.nextElementSibling.style.maxHeight = null;
-                    }
-                });
 
-                // פתיחה או סגירה של השאלה הנוכחית
                 if (isExpanded) {
                     question.classList.remove('active');
-                    answer.style.maxHeight = null; // סגירה חלקה
+                    answer.classList.remove('active');
                 } else {
+                    // סגירת כל שאר השאלות הפתוחות לפני הפתיחה הנוכחית
+                    faqQuestions.forEach(otherQuestion => {
+                        otherQuestion.classList.remove('active');
+                        otherQuestion.nextElementSibling.classList.remove('active');
+                    });
+                    
                     question.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + 'px'; // פתיחה חלקה
+                    answer.classList.add('active');
                 }
             });
         });
