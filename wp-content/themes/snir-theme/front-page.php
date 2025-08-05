@@ -138,7 +138,7 @@ $cf_paragraph = get_field('cf_paragraph');
 
     </div>
 </section>
-<section class="faq-section" id="faq">
+<!-- <section class="faq-section" id="faq">
     <div class="container">
         <h2 class="section-title">שאלות נפוצות</h2>
         <div class="faq-accordion">
@@ -169,7 +169,7 @@ $cf_paragraph = get_field('cf_paragraph');
             <?php endif; ?>
         </div>
     </div>
-</section>
+</section> -->
 <?php
 // בדיקה אם יש רקע וידאו או תמונה שהוגדרו ב-ACF
 $video_background = get_field('video_background');
