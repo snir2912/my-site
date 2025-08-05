@@ -55,7 +55,11 @@ color: var(--text-color);
 transition: all 0.3s ease;
 }
 
-.faq-question:hover,
+.faq-question:hover{
+background-color: var(--primary-color);
+color: var(--light-text-color); /* הוספתי קלאס חדש עבור מצב בהיר, כי השדה text-color משתנה */
+}
+
 .faq-question.active {
 background-color: var(--primary-color);
 color: var(--light-text-color); /* הוספתי קלאס חדש עבור מצב בהיר, כי השדה text-color משתנה */
@@ -72,7 +76,10 @@ font-weight: bold;
 transition: color 0.3s ease;
 }
 
-.faq-question.active .faq-icon,
+.faq-question.active .faq-icon{
+color: var(--light-text-color);
+}
+
 .faq-question:hover .faq-icon {
 color: var(--light-text-color);
 }
@@ -94,7 +101,11 @@ align-items: center;
 justify-content: center;
 }
 
-.faq-question.active .toggle-icon,
+.faq-question.active .toggle-icon {
+transform: rotate(45deg);
+color: var(--light-text-color);
+}
+
 .faq-question:hover .toggle-icon {
 transform: rotate(45deg);
 color: var(--light-text-color);
