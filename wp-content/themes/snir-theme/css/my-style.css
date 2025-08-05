@@ -1462,15 +1462,14 @@ body.light-mode .faq-section .background-overlay {
   padding: 20px 25px;
   cursor: pointer;
   background-color: var(--card-background);
-  transition: background-color 0.3s ease;
+  color: var(--text-color);
+  transition: all 0.3s ease;
 }
 
-.faq-question:hover {
-  background-color: rgba(var(--primary-color), 0.1);
-}
-
+.faq-question:hover,
 .faq-question.active {
-  background-color: var(--border-color);
+  background-color: var(--primary-color);
+  color: var(--light-text-color); /* הוספתי קלאס חדש עבור מצב בהיר, כי השדה text-color משתנה */
 }
 
 .faq-icon {
@@ -1481,10 +1480,12 @@ body.light-mode .faq-section .background-overlay {
   line-height: 1;
   margin-left: 15px;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.faq-question.active .faq-icon {
-  color: var(--secondary-color);
+.faq-question.active .faq-icon,
+.faq-question:hover .faq-icon {
+  color: var(--light-text-color);
 }
 
 .question-text {
@@ -1498,15 +1499,16 @@ body.light-mode .faq-section .background-overlay {
 .toggle-icon {
   font-size: 20px;
   color: var(--primary-color);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.faq-question.active .toggle-icon {
+.faq-question.active .toggle-icon,
+.faq-question:hover .toggle-icon {
   transform: rotate(45deg);
-  color: var(--secondary-color);
+  color: var(--light-text-color);
 }
 
 .faq-answer {
@@ -1514,7 +1516,8 @@ body.light-mode .faq-section .background-overlay {
   padding: 0 25px 0 65px;
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-color);
+  color: var(--light-text-color);
+  background-color: var(--light-border-color);
   overflow: hidden;
   transition: all 0.3s ease;
 }

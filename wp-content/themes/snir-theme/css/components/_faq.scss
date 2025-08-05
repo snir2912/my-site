@@ -1,118 +1,121 @@
 /* --- FAQ Section Styling --- */
 .faq-section {
-    padding: 60px 0;
-    color: var(--text-color);
-    position: relative; /* הוספה: חיוני למיקום שכבת הצבע */
-    z-index: 1; /* הוספה: מבטיח שהתוכן יהיה מעל השכבה */
-    overflow: hidden; /* הוספה: מבטיח שכל תוכן שחורג מהאזור לא יראה */
+padding: 60px 0;
+color: var(--text-color);
+position: relative; /* הוספה: חיוני למיקום שכבת הצבע */
+z-index: 1; /* הוספה: מבטיח שהתוכן יהיה מעל השכבה */
+overflow: hidden; /* הוספה: מבטיח שכל תוכן שחורג מהאזור לא יראה */
 }
 
 /* שכבת צבע שקופה לבנה שיושבת מעל הרקע הדינמי */
 .faq-section .background-overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1; /* ממוקם מתחת לתוכן של הסקשן */
-    background-color: rgba(51, 51, 51, 0.2); /* שימוש בצבע --text-color: #333 עם 20% אטימות */
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+z-index: -1; /* ממוקם מתחת לתוכן של הסקשן */
+background-color: rgba(51, 51, 51, 0.2); /* שימוש בצבע --text-color: #333 עם 20% אטימות */
 }
 
 /* התאמת שכבת הצבע למצב בהיר */
 body.light-mode .faq-section .background-overlay {
-    background-color: rgba(249, 249, 249, 0.2); /* צבע בהיר עם 20% אטימות */
+background-color: rgba(249, 249, 249, 0.2); /* צבע בהיר עם 20% אטימות */
 }
 
 
 .faq-section .section-title {
-    text-align: center;
-    margin-bottom: 40px;
+text-align: center;
+margin-bottom: 40px;
 }
 
 .faq-accordion {
-    max-width: 800px;
-    margin: 0 auto;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px var(--shadow-color);
+max-width: 800px;
+margin: 0 auto;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .faq-item {
-    border-bottom: 1px solid var(--border-color);
+border-bottom: 1px solid var(--border-color);
 }
 
 .faq-item:last-child {
-    border-bottom: none;
+border-bottom: none;
 }
 
 .faq-question {
-    display: flex;
-    align-items: center;
-    padding: 20px 25px;
-    cursor: pointer;
-    background-color: var(--card-background);
-    transition: background-color 0.3s ease;
+display: flex;
+align-items: center;
+padding: 20px 25px;
+cursor: pointer;
+background-color: var(--card-background);
+color: var(--text-color);
+transition: all 0.3s ease;
 }
 
-.faq-question:hover {
-    background-color: rgba(var(--primary-color), 0.1);
-}
-
+.faq-question:hover,
 .faq-question.active {
-    background-color: var(--border-color);
+background-color: var(--primary-color);
+color: var(--light-text-color); /* הוספתי קלאס חדש עבור מצב בהיר, כי השדה text-color משתנה */
 }
 
 .faq-icon {
-    font-size: 20px;
-    color: var(--primary-color);
-    width: 30px;
-    text-align: center;
-    line-height: 1;
-    margin-left: 15px;
-    font-weight: bold;
+font-size: 20px;
+color: var(--primary-color);
+width: 30px;
+text-align: center;
+line-height: 1;
+margin-left: 15px;
+font-weight: bold;
+transition: color 0.3s ease;
 }
 
-.faq-question.active .faq-icon {
-    color: var(--secondary-color);
+.faq-question.active .faq-icon,
+.faq-question:hover .faq-icon {
+color: var(--light-text-color);
 }
 
 .question-text {
-    flex-grow: 1;
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 500;
+flex-grow: 1;
+margin: 0;
+font-size: 1.1rem;
+font-weight: 500;
 }
 
 /* אייקון הפתיחה/סגירה */
 .toggle-icon {
-    font-size: 20px;
-    color: var(--primary-color);
-    transition: transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+font-size: 20px;
+color: var(--primary-color);
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
-.faq-question.active .toggle-icon {
-    transform: rotate(45deg);
-    color: var(--secondary-color);
+.faq-question.active .toggle-icon,
+.faq-question:hover .toggle-icon {
+transform: rotate(45deg);
+color: var(--light-text-color);
 }
 
 .faq-answer {
-    display: none;
-    padding: 0 25px 0 65px;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text-color);
-    overflow: hidden;
-    transition: all 0.3s ease;
+display: none;
+padding: 0 25px 0 65px;
+font-size: 1rem;
+line-height: 1.6;
+color: var(--light-text-color);
+background-color: var(--light-border-color);
+overflow: hidden;
+transition: all 0.3s ease;
 }
 
 .faq-answer p {
-    margin: 0;
+margin: 0;
 }
 
 .faq-answer.active {
-    display: block;
-    padding-top: 20px;
+display: block;
+padding-top: 20px;
 }
