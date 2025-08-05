@@ -81,10 +81,11 @@
 
 .faq-answer {
     display: none; /* נסתר כברירת מחדל */
-    padding: 0 25px 20px 65px; /* הזחה של הטקסט */
+    padding: 0 25px 0 65px; /* שינוי קל בריפוד העליון */
     font-size: 1rem;
     line-height: 1.6;
     color: var(--text-color);
+    overflow: hidden; /* מבטיח שכל תוכן בתוכו לא יגלוש החוצה */
     transition: all 0.3s ease;
 }
 
@@ -92,6 +93,7 @@
     margin: 0; /* הסרת שוליים מהפסקאות בתוך התשובה */
 }
 
-.faq-answer.show {
-    display: block; /* הצגה של התשובה בלחיצה */
+.faq-answer.active {
+    display: block;
+    padding-top: 20px; /* הוספת ריפוד עליון רק כשהתשובה מוצגת */
 }
