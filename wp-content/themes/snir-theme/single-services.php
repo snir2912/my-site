@@ -19,7 +19,7 @@ function generate_table_of_contents_list() {
     }
     
     $output = '<div class="table-of-contents-wrapper"><nav class="table-of-contents">';
-    $output .= '<h3>' . esc_html__('תוכן עניינים', 'snir-theme') . '</h3>';
+    $output .= '<h3 class="toc-title">' . esc_html__('בתוכן העמוד', 'snir-theme') . '</h3>';
     $output .= '<ul>';
     
     foreach ($matches[1] as $index => $title) {
@@ -50,11 +50,11 @@ while (have_posts()) :
             </div>
         </section>
         
-        <div class="container main-content-with-sidebar">
+        <div class="container main-content-single">
             <div class="main-content">
                 <section class="single-service-content">
                     <?php
-                    // הצגת תוכן עניינים
+                    // הצגת תוכן עניינים בצד העמוד
                     echo generate_table_of_contents_list();
                     
                     // הצגת תוכן הפוסט
@@ -74,44 +74,6 @@ while (have_posts()) :
                 </section>
             </div>
             
-            <aside class="sidebar">
-                <div class="related-services-widget">
-                    <h3><?php esc_html_e('שירותים נוספים', 'snir-theme'); ?></h3>
-                    <?php
-                    // לולאה שמציגה שירותים אחרים (לא כולל הנוכחי)
-                    $args = array(
-                        'post_type'      => 'services',
-                        'posts_per_page' => 5, // מציג 5 שירותים
-                        'post__not_in'   => array(get_the_ID()),
-                        'orderby'        => 'date',
-                        'order'          => 'DESC'
-                    );
-                    
-                    $services_query = new WP_Query($args);
-                    
-                    if ($services_query->have_posts()) :
-                        echo '<ul>';
-                        while ($services_query->have_posts()) :
-                            $services_query->the_post();
-                            echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
-                        endwhile;
-                        echo '</ul>';
-                        wp_reset_postdata();
-                    endif;
-                    ?>
-                </div>
-
-                <div class="contact-form-widget">
-                    <h3><?php esc_html_e('צרו קשר עוד היום', 'snir-theme'); ?></h3>
-                    <p><?php esc_html_e('מלאו את הפרטים ונחזור אליכם בהקדם.', 'snir-theme'); ?></p>
-                    <form action="#" method="post" class="placeholder-form">
-                        <input type="text" placeholder="שם מלא" required>
-                        <input type="email" placeholder="אימייל" required>
-                        <textarea placeholder="תוכן ההודעה..." required></textarea>
-                        <button type="submit">שלח</button>
-                    </form>
-                </div>
-            </aside>
         </div>
     </article>
 
