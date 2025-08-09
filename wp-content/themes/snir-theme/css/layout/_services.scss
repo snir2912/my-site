@@ -1,0 +1,210 @@
+/*
+ * קוד CSS עבור פוסט טייפ 'שירותים'
+ * יש להוסיף את הקוד הזה לקובץ ה-CSS הראשי של התבנית.
+ */
+
+/* מבנה העמוד עם הסיידבר */
+.main-content-with-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.main-content {
+    flex: 1 1 70%; /* 70% מהרוחב בדסקטופ */
+}
+
+.sidebar {
+    flex: 1 1 25%; /* 25% מהרוחב בדסקטופ */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .main-content-with-sidebar {
+        flex-direction: column;
+    }
+}
+
+/* באנר השירותים */
+.service-banner {
+    position: relative;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-color);
+    padding: 4rem 1rem;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        z-index: 1;
+    }
+    
+    .banner-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 1rem;
+    }
+    
+    .post-title {
+        font-size: 3rem;
+        text-shadow: 2px 2px 4px var(--shadow-color);
+        animation: fadeInDown 1s ease-in-out;
+    }
+}
+
+/* תוכן העניינים */
+.table-of-contents {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    animation: fadeInUp 1s ease-out;
+}
+
+.table-of-contents h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding-right: 0;
+}
+
+.table-of-contents li a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    border-right: 2px solid transparent;
+}
+
+.table-of-contents li a:hover,
+.table-of-contents li a:focus {
+    color: var(--accent-color);
+    transform: translateX(10px);
+    border-right: 2px solid var(--accent-color);
+}
+
+/* סיידבר - ווידג'טים */
+.related-services-widget,
+.contact-form-widget {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.related-services-widget h3,
+.contact-form-widget h3 {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-top: 0;
+}
+
+.related-services-widget ul {
+    list-style: none;
+    padding-right: 0;
+    margin: 0;
+}
+
+.related-services-widget li a {
+    display: block;
+    padding: 0.75rem 0;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.related-services-widget li:last-child a {
+    border-bottom: none;
+}
+
+.related-services-widget li a:hover {
+    color: var(--accent-color);
+}
+
+/* עיצוב טופס יצירת קשר (פלייס-הולדר) */
+.contact-form-widget p {
+    color: var(--text-color);
+}
+.placeholder-form input,
+.placeholder-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.placeholder-form input:focus,
+.placeholder-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.placeholder-form button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.placeholder-form button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* אנימציות עדינות */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

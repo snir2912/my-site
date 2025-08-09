@@ -213,3 +213,63 @@ function snir_theme_enqueue_toc_assets() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'snir_theme_enqueue_toc_assets' );
+?>
+<?php
+
+// קוד זה יירשם את ה-Custom Post Type החדש שנקרא 'services'
+function snir_theme_register_services_post_type() {
+    
+    $labels = array(
+        'name'                  => _x( 'שירותים', 'Post type general name', 'snir-theme' ),
+        'singular_name'         => _x( 'שירות', 'Post type singular name', 'snir-theme' ),
+        'menu_name'             => _x( 'שירותים', 'Admin Menu text', 'snir-theme' ),
+        'name_admin_bar'        => _x( 'שירות', 'Add New on Toolbar', 'snir-theme' ),
+        'add_new'               => __( 'הוסף שירות חדש', 'snir-theme' ),
+        'add_new_item'          => __( 'הוספת שירות חדש', 'snir-theme' ),
+        'new_item'              => __( 'שירות חדש', 'snir-theme' ),
+        'edit_item'             => __( 'ערוך שירות', 'snir-theme' ),
+        'view_item'             => __( 'צפה בשירות', 'snir-theme' ),
+        'all_items'             => __( 'כל השירותים', 'snir-theme' ),
+        'search_items'          => __( 'חפש שירותים', 'snir-theme' ),
+        'parent_item_colon'     => __( 'שירות הורה:', 'snir-theme' ),
+        'not_found'             => __( 'לא נמצאו שירותים', 'snir-theme' ),
+        'not_found_in_trash'    => __( 'לא נמצאו שירותים באשפה', 'snir-theme' ),
+        'featured_image'        => _x( 'תמונה ראשית של השירות', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'snir-theme' ),
+        'set_featured_image'    => _x( 'הגדר תמונה ראשית', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'snir-theme' ),
+        'remove_featured_image' => _x( 'הסר תמונה ראשית', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'snir-theme' ),
+        'use_featured_image'    => _x( 'השתמש כתמונה ראשית', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'snir-theme' ),
+        'archives'              => _x( 'ארכיון שירותים', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'snir-theme' ),
+        'insert_into_item'      => _x( 'הכנס לשירות', 'Overrides the “Insert into post” phrase for this post type. Added in 4.4', 'snir-theme' ),
+        'uploaded_to_this_item' => _x( 'הועלה לשירות זה', 'Overrides the “Uploaded to this post” phrase for this post type. Added in 4.4', 'snir-theme' ),
+        'filter_items_list'     => _x( 'סנן רשימת שירותים', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”. Added in 4.4', 'snir-theme' ),
+        'items_list_navigation' => _x( 'ניווט רשימת שירותים', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”. Added in 4.4', 'snir-theme' ),
+        'items_list'            => _x( 'רשימת שירותים', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”. Added in 4.4', 'snir-theme' ),
+    );
+    
+    $args = array(
+        'labels'                => $labels,
+        'public'                => true,
+        'has_archive'           => true,
+        'publicly_queryable'    => true,
+        'query_var'             => true,
+        'rewrite'               => array( 'slug' => 'services' ), // סלאג באנגלית
+        'capability_type'       => 'post',
+        'menu_icon'             => 'dashicons-hammer', // אייקון של פטיש שמתאים לנושא
+        'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'revisions' ),
+        'show_in_rest'          => true, // תמיכה בעורך גוטנברג
+        'hierarchical'          => false,
+    );
+    
+    register_post_type( 'services', $args );
+
+}
+add_action( 'init', 'snir_theme_register_services_post_type' );
+
+// כדי לוודא שוורדפרס מכיר את מבנה הקישורים החדש, יש לבצע ריענון
+// לאחר הוספת הקוד, יש להיכנס לפאנל הניהול -> הגדרות -> מבנה קישורים וללחוץ 'שמור שינויים'.
+// הפונקציה הזו מבצעת את הפעולה הזו אוטומטית.
+function snir_theme_flush_rewrite_rules_on_activation() {
+    snir_theme_register_services_post_type();
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'snir_theme_flush_rewrite_rules_on_activation' );
