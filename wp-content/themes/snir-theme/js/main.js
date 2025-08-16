@@ -168,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Function to check if an element is in the viewport
     function isElementInViewport(el) {
         var rect = el.getBoundingClientRect();
         var distance = (window.innerHeight || document.documentElement.clientHeight);
@@ -177,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
         );
     }
 
-    // Function to handle the scroll event
     function handleScroll() {
         var elements = document.querySelectorAll('.fade-in-up');
         elements.forEach(function(el) {
@@ -187,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Run the function once on load and add a scroll listener
     handleScroll();
     window.addEventListener('scroll', handleScroll);
 });

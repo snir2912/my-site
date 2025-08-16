@@ -20,6 +20,7 @@ $cta_button_text = get_field('cta_button_text');
 
 <div id="primary" class="content-area">
     <main id="main" class="site-main">
+
         <?php while ( have_posts() ) : the_post(); ?>
 
             <section class="service-banner" style="background-image: url('<?php echo esc_url($banner_image['url']); ?>');">
@@ -45,7 +46,7 @@ $cta_button_text = get_field('cta_button_text');
                 <div class="service-content-main">
                     <?php if ($section_1_title || $section_1_content || $atmosphere_image_1) : ?>
                         <section class="service-section">
-                            <div class="text-and-image-row first-row">
+                            <div class="content-area-max-width">
                                 <div class="text-col fade-in-up">
                                     <?php if ($section_1_title) : ?>
                                         <h2><?php echo esc_html($section_1_title); ?></h2>
@@ -71,18 +72,18 @@ $cta_button_text = get_field('cta_button_text');
 
                     <?php if ($section_2_title || $section_2_content || $atmosphere_image_2) : ?>
                         <section class="service-section">
-                            <div class="text-and-image-row second-row">
-                                <div class="image-col fade-in-up">
-                                    <?php if ($atmosphere_image_2) : ?>
-                                        <img src="<?php echo esc_url($atmosphere_image_2['sizes']['large']); ?>" alt="<?php echo esc_attr($atmosphere_image_2['alt']); ?>">
-                                    <?php endif; ?>
-                                </div>
+                            <div class="content-area-max-width">
                                 <div class="text-col fade-in-up">
                                     <?php if ($section_2_title) : ?>
                                         <h2><?php echo esc_html($section_2_title); ?></h2>
                                     <?php endif; ?>
                                     <?php if ($section_2_content) : ?>
                                         <div class="content-text"><?php echo $section_2_content; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="image-col fade-in-up">
+                                    <?php if ($atmosphere_image_2) : ?>
+                                        <img src="<?php echo esc_url($atmosphere_image_2['sizes']['large']); ?>" alt="<?php echo esc_attr($atmosphere_image_2['alt']); ?>">
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -98,7 +99,7 @@ $cta_button_text = get_field('cta_button_text');
                             <?php
                                 $args = array(
                                     'post_type' => 'service',
-                                    'posts_per_page' => -1,
+                                    'posts_per_page' => 5, // You can change this number
                                     'post__not_in' => array( get_the_ID() )
                                 );
                                 $other_services_query = new WP_Query( $args );
@@ -108,13 +109,10 @@ $cta_button_text = get_field('cta_button_text');
                                         $sidebar_thumbnail = get_field('banner_image');
                             ?>
                                     <li>
-                                        <a href="<?php the_permalink(); ?>">
-                                            <?php if ($sidebar_thumbnail) : ?>
-                                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['medium']); ?>');"></div>
-                                            <?php else : ?>
-                                                <div class="sidebar-thumbnail placeholder"></div>
-                                            <?php endif; ?>
+                                        <a href="<?php the_permalink(); ?>" class="service-link-item">
+                                            <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['thumbnail']); ?>');"></div>
                                             <h4><?php the_title(); ?></h4>
+                                            <span class="read-more-button">קרא עוד</span>
                                         </a>
                                     </li>
                             <?php
@@ -128,8 +126,10 @@ $cta_button_text = get_field('cta_button_text');
             </div>
 
             <section id="contact-form-section" class="contact-form-section">
-                <h2>צרו קשר</h2>
-                <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
+                <div class="content-area-max-width">
+                    <h2>צרו קשר</h2>
+                    <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
+                </div>
             </section>
 
         <?php endwhile; // End of the loop. ?>
