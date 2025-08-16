@@ -137,3 +137,31 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('FAQ questions were not found. Accordion functionality will not work.');
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to check if an element is in the viewport
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    // Function to handle the scroll event
+    function handleScroll() {
+        var elements = document.querySelectorAll('.image-col');
+        elements.forEach(function(el) {
+            if (isElementInViewport(el)) {
+                el.classList.add('visible');
+            }
+        });
+    }
+
+    // Run the function once on load and add a scroll listener
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+});
