@@ -104,10 +104,13 @@ $cta_button_text = get_field('cta_button_text');
                                         $sidebar_thumbnail = get_field('banner_image');
                             ?>
                                     <li>
-                                        <a href="<?php the_permalink(); ?>" class="service-link-item">
-                                            <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['thumbnail']); ?>');"></div>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php if ($sidebar_thumbnail) : ?>
+                                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['medium']); ?>');"></div>
+                                            <?php else : ?>
+                                                <div class="sidebar-thumbnail placeholder"></div>
+                                            <?php endif; ?>
                                             <h4><?php the_title(); ?></h4>
-                                            <span class="read-more-button">קרא עוד</span>
                                         </a>
                                     </li>
                             <?php
