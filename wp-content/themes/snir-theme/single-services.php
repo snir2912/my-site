@@ -7,7 +7,6 @@ get_header();
 
 // Get the ACF field values
 $banner_image = get_field('banner_image');
-$subtitle = get_field('subtitle');
 $section_1_title = get_field('section_1_title');
 $section_1_content = get_field('section_1_content');
 $atmosphere_image_1 = get_field('atmosphere_image_1');
@@ -26,9 +25,6 @@ $cta_button_text = get_field('cta_button_text');
             <section class="service-banner" style="background-image: url('<?php echo esc_url($banner_image['url']); ?>');">
                 <div class="banner-overlay"></div>
                 <div class="banner-content">
-                    <?php if ($subtitle) : ?>
-                        <p class="banner-subtitle"><?php echo esc_html($subtitle); ?></p>
-                    <?php endif; ?>
                     <h1 class="page-title"><?php the_title(); ?></h1>
                     <div class="breadcrumbs">
                         <?php
@@ -89,7 +85,6 @@ $cta_button_text = get_field('cta_button_text');
                             </div>
                         </section>
                     <?php endif; ?>
-
                 </div>
 
                 <aside class="service-sidebar">
@@ -99,7 +94,7 @@ $cta_button_text = get_field('cta_button_text');
                             <?php
                                 $args = array(
                                     'post_type' => 'service',
-                                    'posts_per_page' => 5, // You can change this number
+                                    'posts_per_page' => 5,
                                     'post__not_in' => array( get_the_ID() )
                                 );
                                 $other_services_query = new WP_Query( $args );

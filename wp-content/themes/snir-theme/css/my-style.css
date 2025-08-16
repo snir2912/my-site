@@ -836,7 +836,6 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   max-width: 25%;
 }
 
-/* This new class will contain all content to a max width of 800px */
 .content-area-max-width {
   max-width: 800px;
   margin: 0 auto;
@@ -861,18 +860,44 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #fff; /* Ensure text is visible on the banner */
+  color: #fff;
   overflow: hidden;
   animation: fadeIn 1s ease-in-out;
 }
 
 .banner-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Increased darkness for better contrast */
+  z-index: 1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: slideUp 1s forwards 0.5s;
 }
 
 .banner-content .page-title,
 .banner-content .breadcrumbs {
   color: #fff; /* Explicitly set color to white for visibility */
+}
+
+.banner-content .page-title {
+  font-family: var(--font-heebo, "Heebo", sans-serif);
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.banner-content .breadcrumbs {
+  font-size: 1rem;
 }
 
 /* Service Details Sections */
@@ -899,15 +924,11 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   margin-right: 0;
 }
 
-.text-and-image-row {
-  display: block; /* Change to block layout */
-}
-
-.text-and-image-row .text-col {
+.text-col {
   margin-bottom: 20px;
 }
 
-.text-and-image-row .image-col {
+.image-col {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 10px 30px var(--shadow-color);
@@ -921,123 +942,54 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   transform: translateY(0);
 }
 
-.text-and-image-row .image-col img {
+.image-col img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* CTA Button and Contact Form Sections */
+/* CTA Button Section */
 .cta-section {
+  text-align: center;
+  padding: 20px 0; /* Reduced padding for a more compact look */
   margin: 60px auto;
 }
 
-.contact-form-section {
-  margin: 40px auto;
-}
-
-/* Sidebar Styling - with new button design */
-.service-sidebar {
-  background-color: var(--card-background);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px var(--shadow-color);
-}
-
-.sidebar-block h3 {
-  font-size: 1.5rem;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  color: var(--text-color);
-}
-
-.other-services ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.other-services li {
-  margin-bottom: 15px;
-}
-
-.service-link-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px;
-  text-decoration: none;
-  background-color: var(--bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  box-shadow: 0 2px 10px var(--shadow-color);
-}
-
-.service-link-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px var(--shadow-color);
-  background-color: var(--card-background);
-}
-
-.service-link-item h4 {
-  flex-grow: 1;
-  color: var(--text-color);
-  margin: 0;
+.cta-button {
+  display: inline-block;
+  padding: 15px 35px;
   font-size: 1.1rem;
-}
-
-.read-more-button {
-  background-color: var(--primary-color);
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9rem;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  color: #fff; /* Light text for the button */
+  background-color: var(--primary-color);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 15px var(--primary-color); /* Glow shadow effect */
+  animation: glow 2s infinite alternate; /* Pulsing glow animation */
 }
 
-.service-link-item:hover .read-more-button {
+.cta-button:hover {
   background-color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px var(--secondary-color);
 }
 
-.sidebar-thumbnail {
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  background-size: cover;
-  background-position: center;
-  flex-shrink: 0;
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px var(--primary-color);
+  }
+  to {
+    box-shadow: 0 0 20px var(--primary-color);
+  }
 }
-
-.sidebar-thumbnail.placeholder {
-  background-color: var(--border-color);
-}
-
-/* Contact Form 7 Styling - to align labels to the right */
-.contact-form-section .wpcf7-form-control-wrap {
-  text-align: right;
-}
-
-.contact-form-section label {
-  display: block;
-  text-align: right; /* Align labels to the right */
-  margin-bottom: 5px;
-  color: var(--text-color);
-}
-
-.contact-form-section input[type=text],
-.contact-form-section input[type=email],
-.contact-form-section textarea {
-  width: 100%;
-  text-align: right;
-  direction: rtl;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  padding: 10px;
-  border-radius: 5px;
+/* Contact Form Section */
+.contact-form-section {
+  padding: 60px 20px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  margin: 40px auto;
+  text-align: center;
 }
 
 .btn {
