@@ -24,5 +24,6 @@
     <div id="spotlight">
         <span>לחץ עלי</span>
     </div>
+    <script src="./js/main.js"></script>
 </body>
 </html>
