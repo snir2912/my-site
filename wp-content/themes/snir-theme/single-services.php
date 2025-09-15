@@ -92,15 +92,17 @@ $cta_button_text = get_field('cta_button_text');
         <h3>שירותים נוספים</h3>
         <ul>
             <?php
-            $current_post_id = get_the_ID();
+            // שינוי 1: הסרנו את התנאי post__not_in לבדיקה
             $args = array(
-                'post_type' => 'service',
+                'post_type'      => 'service',
                 'posts_per_page' => 5,
-                'post__not_in' => array( $current_post_id ),
             );
             $other_services_query = new WP_Query( $args );
 
             if ( $other_services_query->have_posts() ) :
+                // הוספנו הדפסת בדיקה פשוטה
+                echo '';
+
                 while ( $other_services_query->have_posts() ) : $other_services_query->the_post();
                     $sidebar_thumbnail = get_field('banner_image');
             ?>
@@ -117,6 +119,9 @@ $cta_button_text = get_field('cta_button_text');
             <?php
                 endwhile;
                 wp_reset_postdata();
+            else :
+                // הוספנו הדפסת בדיקה אם לא נמצאו פוסטים
+                echo '';
             endif;
             ?>
         </ul>
