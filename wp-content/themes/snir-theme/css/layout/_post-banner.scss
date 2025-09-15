@@ -3,12 +3,17 @@
 .post-banner {
     position: relative;
     width: 100%;
-    height: 50vh; 
+    height: 50vh;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden; 
     color: #fff;
+    
+    /* השינויים כאן - שימוש ב-Flexbox */
+    display: flex;
+    justify-content: center; /* ממקם את התוכן במרכז אופקית */
+    align-items: center; /* ממקם את התוכן במרכז אנכית */
 
     &::before {
         content: '';
@@ -29,8 +34,8 @@
         margin: 0 auto;
         padding: 0 40px;
 
-        // *** השינוי כאן! ***
-        text-align: center; 
+        /* הסרת יישור הטקסט, כי הוא כבר ייושר על ידי Flexbox */
+        text-align: center; /* זה עדיין טוב לשמור, אבל flexbox עושה את העבודה העיקרית */
 
         .post-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);

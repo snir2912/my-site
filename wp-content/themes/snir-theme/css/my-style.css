@@ -535,6 +535,10 @@ body.light-mode .theme-toggle .icon-light {
   background-repeat: no-repeat;
   overflow: hidden;
   color: #fff;
+  /* השינויים כאן - שימוש ב-Flexbox */
+  display: flex;
+  justify-content: center; /* ממקם את התוכן במרכז אופקית */
+  align-items: center; /* ממקם את התוכן במרכז אנכית */
 }
 .post-banner::before {
   content: "";
@@ -553,7 +557,8 @@ body.light-mode .theme-toggle .icon-light {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 40px;
-  text-align: center;
+  /* הסרת יישור הטקסט, כי הוא כבר ייושר על ידי Flexbox */
+  text-align: center; /* זה עדיין טוב לשמור, אבל flexbox עושה את העבודה העיקרית */
 }
 .post-banner .banner-content .post-title {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -902,7 +907,7 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 
 /* Service Details Sections */
 .service-section {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
 .service-section h2 {
@@ -985,10 +990,10 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 }
 /* Contact Form Section */
 .contact-form-section {
-  padding: 60px 20px;
+  padding: 0px 20px;
   background-color: var(--card-background);
   border-radius: 10px;
-  margin: 40px auto;
+  margin: 10px auto;
   text-align: center;
 }
 
