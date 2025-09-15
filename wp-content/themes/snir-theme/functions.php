@@ -68,7 +68,7 @@ add_filter('excerpt_length', 'my_excerpt_length');
 function snir_theme_breadcrumbs() {
     echo '<div class="breadcrumbs">';
     if ( ! is_home() ) {
-        echo '<a href="' . esc_url( home_url() ) . '">' . esc_html__( 'Home', 'snir-theme' ) . '</a> <span class="separator">/</span> ';
+        echo '<a href="' . esc_url( home_url() ) . '">' . esc_html__( 'דף הבית', 'snir-theme' ) . '</a> <span class="separator">/</span> ';
         if ( is_single() ) {
             $categories = get_the_category();
             if ( ! empty( $categories ) ) {
