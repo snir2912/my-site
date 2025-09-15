@@ -95,7 +95,7 @@ $cta_button_text = get_field('cta_button_text');
                             <?php
                             $current_post_id = get_the_ID();
                             $args = array(
-                                'post_type'      => 'service',
+                                'post_type'      => 'שירותים',
                                 'posts_per_page' => 5,
                                 'post__not_in'   => array($current_post_id),
                             );
