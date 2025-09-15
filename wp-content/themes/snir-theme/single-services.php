@@ -95,7 +95,7 @@ $cta_button_text = get_field('cta_button_text');
             <?php
             $current_post_id = get_the_ID();
             $args = array(
-                'post_type'      => 'services', // שונה ל- 'services'
+                'post_type'      => 'services',
                 'posts_per_page' => 5,
                 'post__not_in'   => array($current_post_id),
             );
@@ -103,12 +103,13 @@ $cta_button_text = get_field('cta_button_text');
 
             if ($other_services_query->have_posts()) :
                 while ($other_services_query->have_posts()) : $other_services_query->the_post();
-                    $sidebar_thumbnail = get_field('banner_image');
+                    // שינוי כאן: בדיקה וקבלת התמונה הראשית
+                    $sidebar_thumbnail_url = get_the_post_thumbnail_url(null, 'medium');
             ?>
                     <li>
                         <a href="<?php the_permalink(); ?>">
-                            <?php if ($sidebar_thumbnail) : ?>
-                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['medium']); ?>');"></div>
+                            <?php if ($sidebar_thumbnail_url) : ?>
+                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail_url); ?>');"></div>
                             <?php else : ?>
                                 <div class="sidebar-thumbnail placeholder"></div>
                             <?php endif; ?>
