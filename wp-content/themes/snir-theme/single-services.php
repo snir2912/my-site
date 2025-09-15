@@ -88,46 +88,41 @@ $cta_button_text = get_field('cta_button_text');
                     <?php endif; ?>
                 </div>
 
-                <aside class="service-sidebar">
-                    <div class="sidebar-block other-services">
-                        <h3>שירותים נוספים</h3>
-                        <ul>
-                            <?php
-                            $current_post_id = get_the_ID();
-                            $args = array(
-                                'post_type'      => 'שירותים',
-                                'posts_per_page' => 5,
-                                'post__not_in'   => array($current_post_id),
-                            );
-                            $other_services_query = new WP_Query($args);
+<aside class="service-sidebar">
+    <div class="sidebar-block other-services">
+        <h3>שירותים נוספים</h3>
+        <ul>
+            <?php
+            $current_post_id = get_the_ID();
+            $args = array(
+                'post_type'      => 'services', // שונה ל- 'services'
+                'posts_per_page' => 5,
+                'post__not_in'   => array($current_post_id),
+            );
+            $other_services_query = new WP_Query($args);
 
-                            if ($other_services_query->have_posts()) :
-                                // הוספת הדפסת בדיקה
-                                echo '';
-
-                                while ($other_services_query->have_posts()) : $other_services_query->the_post();
-                                    $sidebar_thumbnail = get_field('banner_image');
-                            ?>
-                                    <li>
-                                        <a href="<?php the_permalink(); ?>">
-                                            <?php if ($sidebar_thumbnail) : ?>
-                                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['medium']); ?>');"></div>
-                                            <?php else : ?>
-                                                <div class="sidebar-thumbnail placeholder"></div>
-                                            <?php endif; ?>
-                                            <h4><?php the_title(); ?></h4>
-                                        </a>
-                                    </li>
-                            <?php
-                                endwhile;
-                                wp_reset_postdata();
-                            else :
-                                echo '';
-                            endif;
-                            ?>
-                        </ul>
-                    </div>
-                </aside>
+            if ($other_services_query->have_posts()) :
+                while ($other_services_query->have_posts()) : $other_services_query->the_post();
+                    $sidebar_thumbnail = get_field('banner_image');
+            ?>
+                    <li>
+                        <a href="<?php the_permalink(); ?>">
+                            <?php if ($sidebar_thumbnail) : ?>
+                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail['sizes']['medium']); ?>');"></div>
+                            <?php else : ?>
+                                <div class="sidebar-thumbnail placeholder"></div>
+                            <?php endif; ?>
+                            <h4><?php the_title(); ?></h4>
+                        </a>
+                    </li>
+            <?php
+                endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
+        </ul>
+    </div>
+</aside>
             </div>
 
             <section id="contact-form-section" class="contact-form-section">
