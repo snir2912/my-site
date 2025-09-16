@@ -884,12 +884,7 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   position: relative;
   z-index: 2;
   padding: 0 20px;
-  /* הוספתי את השורה הבאה כדי לבטל את האנימציה */
   opacity: 1;
-  /* ביטלתי את השורות הבאות כדי לבטל את האנימציה */
-  /* transform: translateY(20px); */
-  /* opacity: 0; */
-  /* animation: slideUp 1s forwards 0.5s; */
 }
 
 .banner-content .page-title,
@@ -922,6 +917,12 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   text-align: right;
 }
 
+/* Mobile-specific h2 font size */
+@media (max-width: 768px) {
+  .service-section h2 {
+    font-size: 1.7rem;
+  }
+}
 .service-section h2::after {
   content: "";
   display: block;
@@ -954,6 +955,15 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Content Lists Styling - Ensure bullets and numbers are visible */
+.service-content-main ul {
+  list-style: disc inside; /* For bullets */
+}
+
+.service-content-main ol {
+  list-style: decimal inside; /* For numbering */
 }
 
 /* CTA Button Section */
