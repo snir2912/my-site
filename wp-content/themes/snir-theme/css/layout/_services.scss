@@ -34,24 +34,6 @@
         max-width: 100%;
         padding: 0 10px; /* New mobile padding */
     }
-    .service-section h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-color);
-    margin-bottom: 20px;
-    position: relative;
-    text-align: right;
-}
-
-.service-section h2::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: var(--primary-color);
-    margin-top: 10px;
-    margin-right: 0;
-}
 }
 
 /* Banner Section */
@@ -257,4 +239,25 @@
 
 .sidebar-thumbnail.placeholder {
     background-color: var(--border-color);
+}
+
+@media(max-width: 768px) {
+    .service-section h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    position: relative;
+    text-align: right;
+}
+
+.service-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin-top: 10px;
+    margin-right: 0;
+}
 }
