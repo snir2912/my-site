@@ -23,7 +23,7 @@ $cta_button_text = get_field('cta_button_text');
 
         <?php while (have_posts()) : the_post(); ?>
 
-            <section class="service-banner" style="background-image: url('<?php echo esc_url($banner_image['url']); ?>');">
+            <!-- <section class="service-banner" style="background-image: url('<?php echo esc_url($banner_image['url']); ?>');">
                 <div class="banner-overlay"></div>
                 <div class="banner-content">
                     <h1 class="page-title"><?php the_title(); ?></h1>
@@ -36,6 +36,23 @@ $cta_button_text = get_field('cta_button_text');
                         }
                         ?>
                     </div>
+                </div>
+            </section> -->
+            <section class="post-banner"
+                <?php
+                // נמשוך את התמונה הראשית כ-inline style עבור background-image
+                if (has_post_thumbnail()) {
+                    echo 'style="background-image: url(\'' . esc_url(get_the_post_thumbnail_url(null, 'full')) . '\');"';
+                }
+                ?>>
+                <div class="banner-content">
+                    <h1 class="post-title"><?php the_title(); ?></h1>
+                    <?php
+                    // פירורי לחם (Breadcrumbs)
+                    if (function_exists('snir_theme_breadcrumbs')) {
+                        snir_theme_breadcrumbs();
+                    }
+                    ?>
                 </div>
             </section>
 
@@ -88,42 +105,42 @@ $cta_button_text = get_field('cta_button_text');
                     <?php endif; ?>
                 </div>
 
-<aside class="service-sidebar">
-    <div class="sidebar-block other-services">
-        <h3>שירותים נוספים</h3>
-        <ul>
-            <?php
-            $current_post_id = get_the_ID();
-            $args = array(
-                'post_type'      => 'services',
-                'posts_per_page' => 5,
-                'post__not_in'   => array($current_post_id),
-            );
-            $other_services_query = new WP_Query($args);
+                <aside class="service-sidebar">
+                    <div class="sidebar-block other-services">
+                        <h3>שירותים נוספים</h3>
+                        <ul>
+                            <?php
+                            $current_post_id = get_the_ID();
+                            $args = array(
+                                'post_type'      => 'services',
+                                'posts_per_page' => 5,
+                                'post__not_in'   => array($current_post_id),
+                            );
+                            $other_services_query = new WP_Query($args);
 
-            if ($other_services_query->have_posts()) :
-                while ($other_services_query->have_posts()) : $other_services_query->the_post();
-                    // שינוי כאן: בדיקה וקבלת התמונה הראשית
-                    $sidebar_thumbnail_url = get_the_post_thumbnail_url(null, 'medium');
-            ?>
-                    <li>
-                        <a href="<?php the_permalink(); ?>">
-                            <?php if ($sidebar_thumbnail_url) : ?>
-                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail_url); ?>');"></div>
-                            <?php else : ?>
-                                <div class="sidebar-thumbnail placeholder"></div>
-                            <?php endif; ?>
-                            <h4><?php the_title(); ?></h4>
-                        </a>
-                    </li>
-            <?php
-                endwhile;
-                wp_reset_postdata();
-            endif;
-            ?>
-        </ul>
-    </div>
-</aside>
+                            if ($other_services_query->have_posts()) :
+                                while ($other_services_query->have_posts()) : $other_services_query->the_post();
+                                    // שינוי כאן: בדיקה וקבלת התמונה הראשית
+                                    $sidebar_thumbnail_url = get_the_post_thumbnail_url(null, 'medium');
+                            ?>
+                                    <li>
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php if ($sidebar_thumbnail_url) : ?>
+                                                <div class="sidebar-thumbnail" style="background-image: url('<?php echo esc_url($sidebar_thumbnail_url); ?>');"></div>
+                                            <?php else : ?>
+                                                <div class="sidebar-thumbnail placeholder"></div>
+                                            <?php endif; ?>
+                                            <h4><?php the_title(); ?></h4>
+                                        </a>
+                                    </li>
+                            <?php
+                                endwhile;
+                                wp_reset_postdata();
+                            endif;
+                            ?>
+                        </ul>
+                    </div>
+                </aside>
             </div>
 
             <section id="contact-form-section" class="contact-form-section">
