@@ -1167,6 +1167,49 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   background-color: var(--border-color);
 }
 
+.service-item {
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.service-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px var(--shadow-shadow-hover); /* Adjust shadow variable as needed for hover */
+}
+
+.service-item h3 {
+  margin-bottom: 10px;
+}
+
+.service-item p {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.service-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent 0%, var(--accent-color) 150%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.service-item:hover::before {
+  opacity: 0.05;
+}
+
 .btn {
   display: inline-block;
   padding: 15px 30px;
