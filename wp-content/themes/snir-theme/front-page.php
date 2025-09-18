@@ -72,8 +72,7 @@ $cf_paragraph = get_field('cf_paragraph');
 <section class="latest-blog-posts">
     <div class="container">
         <h2 class="section-title"><?php esc_html_e('החדשות בבלוג שלנו', 'snir-theme'); ?></h2>
-        <div>
-                    <div class="related-posts-grid"> <?php
+        <div class="related-posts-grid"> <?php
                                             // שאילתה לפוסטים האחרונים
                                             $latest_posts_args = array(
                                                 'post_type'      => 'post',
@@ -121,22 +120,22 @@ $cf_paragraph = get_field('cf_paragraph');
                 <p><?php esc_html_e('אין עדיין פוסטים בבלוג.', 'snir-theme'); ?></p>
             <?php endif; ?>
         </div>
+    </div>
+
+
+    <?php
+    // אופציונלי: כפתור "לכל הפוסטים"
+    $blog_page_id = get_option('page_for_posts'); // מזהה עמוד הבלוג הראשי אם הוגדר
+    if ($blog_page_id) :
+    ?>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="<?php echo esc_url(get_permalink($blog_page_id)); ?>" class="card-button">
+                <?php esc_html_e('לכל הפוסטים בבלוג', 'snir-theme'); ?>
+            </a>
         </div>
-
-
-        <?php
-        // אופציונלי: כפתור "לכל הפוסטים"
-        $blog_page_id = get_option('page_for_posts'); // מזהה עמוד הבלוג הראשי אם הוגדר
-        if ($blog_page_id) :
-        ?>
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="<?php echo esc_url(get_permalink($blog_page_id)); ?>" class="card-button">
-                    <?php esc_html_e('לכל הפוסטים בבלוג', 'snir-theme'); ?>
-                </a>
-            </div>
-        <?php
-        endif;
-        ?>
+    <?php
+    endif;
+    ?>
 
     </div>
 </section>
@@ -162,17 +161,17 @@ if ($video_background) {
 
 <section class="faq-section" id="faq" style="<?php echo esc_attr($section_style); ?>">
     <?php if ($has_background) : ?>
-    <div class="background-overlay"></div>
+        <div class="background-overlay"></div>
     <?php endif; ?>
     <div class="container">
         <h2 class="section-title">שאלות נפוצות</h2>
         <div class="faq-accordion">
-            <?php 
+            <?php
             if (have_rows('faq')) :
                 while (have_rows('faq')) : the_row();
                     $question = get_sub_field('question');
                     $answer = get_sub_field('answer');
-                    ?>
+            ?>
                     <div class="faq-item">
                         <div class="faq-question">
                             <span class="faq-icon">?</span>
@@ -188,7 +187,7 @@ if ($video_background) {
                 <?php
                 endwhile;
             else :
-            ?>
+                ?>
                 <p>אין עדיין שאלות נפוצות.</p>
             <?php endif; ?>
         </div>
@@ -196,9 +195,9 @@ if ($video_background) {
 </section>
 <div class="contact-form" id="contact">
     <div class="cintainer">
-            <h2><?php echo $cf_headline ?></h2>
-            <p><?php echo $cf_paragraph ?></p>
-            <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
+        <h2><?php echo $cf_headline ?></h2>
+        <p><?php echo $cf_paragraph ?></p>
+        <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
 </div>
 
