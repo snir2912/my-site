@@ -80,7 +80,7 @@ $cta_button_text = get_field('cta_button_text');
 
                     <?php if ($cta_button_text) : ?>
                         <section class="cta-section">
-                            <a href="#contact-form-section" class="cta-button pulse-effect"><?php echo esc_html($cta_button_text); ?></a>
+                            <a href="#service-contact-form-section" class="cta-button pulse-effect"><?php echo esc_html($cta_button_text); ?></a>
                         </section>
                     <?php endif; ?>
 
@@ -143,7 +143,7 @@ $cta_button_text = get_field('cta_button_text');
                 </aside>
             </div>
 
-            <section id="contact-form-section" class="service-contact-form-section">
+            <section id="service-contact-form-section" class="service-contact-form-section">
                 <div class="service-content-area-max-width">
                     <h2>צרו קשר</h2>
                     <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
