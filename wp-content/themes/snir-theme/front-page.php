@@ -71,7 +71,7 @@ $cf_paragraph = get_field('cf_paragraph');
 
 <section class="latest-blog-posts">
     <div class="container">
-        <h2 class="section-title"><?php esc_html_e('החדשות בבלוג שלנו', 'snir-theme'); ?></h2>
+        <h2 class="section-title"><?php esc_html_e('מאמרים אחרונים', 'snir-theme'); ?></h2>
         <div class="related-posts-grid"> <?php
                                             // שאילתה לפוסטים האחרונים
                                             $latest_posts_args = array(
