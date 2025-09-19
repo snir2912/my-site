@@ -1392,14 +1392,14 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   display: flex;
   position: relative;
   border-radius: 50px;
-  overflow: hidden; /* מבטיח שהפינות המעוגלות יעבדו */
+  overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   background-color: var(--card-background);
   border: 1px solid var(--border-color);
 }
 
 .search-field {
-  flex-grow: 1; /* יגרום לשדה למלא את כל הרוחב הנותר */
+  flex-grow: 1;
   border: none;
   padding: 15px 25px;
   font-size: 1rem;
@@ -1421,10 +1421,12 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 }
 
 .search-submit {
+  /* נותנים לכפתור רוחב קבוע כדי למנוע ממנו להתפשט */
+  width: 60px;
+  height: 60px;
   background-color: var(--primary-color);
   border: none;
   cursor: pointer;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1454,16 +1456,62 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   padding: 15px;
   margin-top: 5px;
   z-index: 900;
-  display: none; /* נתחיל עם הסתרה מוחלטת */
+  visibility: hidden; /* השתמש ב-visibility כדי לשמר את המיקום */
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
 .search-results-live-panel.active {
-  display: block; /* נציג את החלונית רק כשיש תוצאות */
+  visibility: visible;
   opacity: 1;
   transform: translateY(0);
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.results-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.results-list li:last-child {
+  border-bottom: none;
+}
+.results-list a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  display: block;
+  transition: color 0.3s ease;
+}
+.results-list a:hover {
+  color: var(--primary-color);
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.all-results-link-container {
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.all-results-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+.all-results-link:hover {
+  color: var(--secondary-color);
 }
 
 .btn {
