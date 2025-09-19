@@ -79,6 +79,7 @@ p {
   line-height: 1.8;
 }
 
+/* --- Header Styles --- */
 .main-header {
   padding: 20px 0;
   position: sticky;
@@ -88,20 +89,20 @@ p {
   /* אפקט ה-Glassmorphism */
   background-color: rgba(26, 26, 26, 0.7);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפנים מבוססי WebKit */
   border-bottom: 1px solid #333;
-  /* סגנון כללי של תוכן ההאדר */
-  /* סגנונות ספציפיים לתפריט הניווט */
 }
 body.light-mode .main-header {
   background-color: rgba(249, 249, 249, 0.7);
   border-bottom-color: #ddd;
 }
-.main-header .header-content {
+
+.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .main-header .logo {
   font-size: 1.8rem;
   font-weight: 700;
@@ -109,29 +110,30 @@ body.light-mode .main-header {
   transition: color 0.3s ease;
   color: crimson;
 }
-.main-header .main-nav {
+
+.main-nav {
   flex-grow: 1;
   display: flex;
   justify-content: center;
 }
-.main-header .main-nav .main-menu-list {
+.main-nav .main-menu-list {
   list-style: none;
   display: flex;
   gap: 30px;
   padding: 0;
   margin: 0;
 }
-.main-header .main-nav .main-menu-list li a {
+.main-nav .main-menu-list li a {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
   color: #f0f0f0;
 }
-body.light-mode .main-header .main-nav .main-menu-list li a {
+body.light-mode .main-nav .main-menu-list li a {
   color: #333;
 }
-.main-header .main-nav .main-menu-list li a:after {
+.main-nav .main-menu-list li a:after {
   content: "";
   position: absolute;
   width: 0;
@@ -142,55 +144,40 @@ body.light-mode .main-header .main-nav .main-menu-list li a {
   background: crimson;
   transition: width 0.3s ease;
 }
-.main-header .main-nav .main-menu-list li a:hover:after {
+.main-nav .main-menu-list li a:hover:after {
   width: 100%;
   left: 0;
 }
 
-/* --- שינויים ספציפיים למובייל --- */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* --- Mobile Specific Styles (under 768px) --- */
 @media (max-width: 768px) {
+  /* סגנון הדר צף למובייל */
   .main-header {
-    /* סגנון הדר צף למובייל */
-    padding: 15px; /* מרווח פנימי קטן יותר במובייל */
+    padding: 15px;
     border-radius: 20px;
-    width: 90%; /* 90% רוחב כמו שביקשת */
-    margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
+    width: 90%;
+    margin: 15px auto;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
-    border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
+    box-shadow: 0 5px 20px var(--shadow-color);
+    border-bottom: none;
   }
-  /* כשהתפריט פעיל (class 'active') הוא ממלא את כל המסך */
-  .main-nav.active {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(26, 26, 26, 0.9);
-    z-index: 1050;
+  .main-header.menu-open {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.4s, opacity 0.4s;
   }
-  body.light-mode .main-nav.active {
-    background-color: rgba(249, 249, 249, 0.9);
-  }
-  .main-nav.active .main-menu-list {
-    flex-direction: column;
-    gap: 25px;
-  }
-  .main-nav.active .main-menu-list li a {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
-    font-weight: 700;
-    color: crimson;
-  }
-  /* הסגנון הישן שלך לתפריט ההמבורגר במובייל - נשאר כדי לאפשר את הטרנזיציה */
+  /* סגנונות לתפריט הניווט במובייל */
   .main-nav {
     position: fixed;
     top: 0;
-    left: 100%;
+    left: 100%; /* התפריט מוסתר מחוץ למסך */
     width: 100%;
     height: 100vh;
     background-color: #1a1a1a;
@@ -200,6 +187,7 @@ body.light-mode .main-header .main-nav .main-menu-list li a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* כשהקלאס 'active' נוסף, התפריט נכנס למסך */
   }
   body.light-mode .main-nav {
     background-color: #f9f9f9;
@@ -224,12 +212,6 @@ body.light-mode .main-header .main-nav .main-menu-list li a {
     color: rgb(238, 52, 89);
   }
 }
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
 .main-footer {
   padding: 30px 0;
   text-align: center;
