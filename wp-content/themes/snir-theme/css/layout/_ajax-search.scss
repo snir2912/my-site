@@ -1,3 +1,139 @@
+// /* --- חיפוש עם Ajax --- */
+// .search-form-container {
+//     position: relative;
+//     width: 100%;
+//     max-width: 500px;
+//     margin: 0 auto;
+// }
+
+// .search-form {
+//     display: flex;
+//     position: relative;
+//     border-radius: 50px;
+//     overflow: hidden;
+//     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+//     background-color: var(--card-background);
+//     border: 1px solid var(--border-color);
+// }
+
+// .search-field {
+//     flex-grow: 1;
+//     border: none;
+//     padding: 15px 25px;
+//     font-size: 1rem;
+//     color: var(--text-color);
+//     background: transparent;
+//     outline: none;
+//     transition: box-shadow 0.3s ease;
+
+//     &:focus {
+//         box-shadow: inset 0 0 0 2px var(--primary-color);
+//     }
+    
+//     &::placeholder {
+//         color: var(--text-color);
+//         opacity: 0.6;
+//     }
+// }
+
+// .search-submit {
+//     background-color: var(--primary-color);
+//     border: none;
+//     cursor: pointer;
+//     padding: 0 20px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     transition: background-color 0.3s ease;
+
+//     &:hover {
+//         background-color: var(--secondary-color);
+//     }
+// }
+
+// .search-icon {
+//     width: 20px;
+//     height: 20px;
+//     fill: #fff;
+// }
+
+// /* תוצאות חיפוש מיידיות */
+// .search-results-live-panel {
+//     position: absolute;
+//     top: 100%; /* מתחת לטופס החיפוש */
+//     left: 0;
+//     width: 100%;
+//     background-color: var(--card-background);
+//     border: 1px solid var(--border-color);
+//     border-top: none;
+//     border-radius: 0 0 12px 12px;
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+//     padding: 15px;
+//     margin-top: 5px;
+//     z-index: 900;
+//     visibility: hidden;
+//     opacity: 0;
+//     transform: translateY(10px);
+//     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+// }
+
+// .search-results-live-panel.active {
+//     visibility: visible;
+//     opacity: 1;
+//     transform: translateY(0);
+// }
+
+// .results-list {
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+    
+//     li {
+//         padding: 10px 0;
+//         border-bottom: 1px solid var(--border-color);
+        
+//         &:last-child {
+//             border-bottom: none;
+//         }
+//     }
+    
+//     a {
+//         text-decoration: none;
+//         color: var(--text-color);
+//         font-weight: 500;
+//         display: block;
+//         transition: color 0.3s ease;
+        
+//         &:hover {
+//             color: var(--primary-color);
+//         }
+//     }
+// }
+
+// .no-results {
+//     text-align: center;
+//     color: var(--text-color);
+//     margin: 0;
+// }
+
+// .all-results-link-container {
+//     text-align: center;
+//     padding-top: 15px;
+//     border-top: 1px solid var(--border-color);
+// }
+
+// .all-results-link {
+//     text-decoration: none;
+//     color: var(--primary-color);
+//     font-weight: bold;
+//     display: inline-block;
+//     transition: color 0.3s ease;
+    
+//     &:hover {
+//         color: var(--secondary-color);
+//     }
+// }
+
 /* --- חיפוש עם Ajax --- */
 .search-form-container {
     position: relative;
@@ -10,14 +146,14 @@
     display: flex;
     position: relative;
     border-radius: 50px;
-    overflow: hidden;
+    overflow: hidden; /* מבטיח שהפינות המעוגלות יעבדו */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     background-color: var(--card-background);
     border: 1px solid var(--border-color);
 }
 
 .search-field {
-    flex-grow: 1;
+    flex-grow: 1; /* יגרום לשדה למלא את כל הרוחב הנותר */
     border: none;
     padding: 15px 25px;
     font-size: 1rem;
@@ -60,7 +196,7 @@
 /* תוצאות חיפוש מיידיות */
 .search-results-live-panel {
     position: absolute;
-    top: 100%; /* מתחת לטופס החיפוש */
+    top: 100%;
     left: 0;
     width: 100%;
     background-color: var(--card-background);
@@ -71,65 +207,14 @@
     padding: 15px;
     margin-top: 5px;
     z-index: 900;
-    visibility: hidden;
+    display: none; /* נתחיל עם הסתרה מוחלטת */
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .search-results-live-panel.active {
-    visibility: visible;
+    display: block; /* נציג את החלונית רק כשיש תוצאות */
     opacity: 1;
     transform: translateY(0);
-}
-
-.results-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    
-    li {
-        padding: 10px 0;
-        border-bottom: 1px solid var(--border-color);
-        
-        &:last-child {
-            border-bottom: none;
-        }
-    }
-    
-    a {
-        text-decoration: none;
-        color: var(--text-color);
-        font-weight: 500;
-        display: block;
-        transition: color 0.3s ease;
-        
-        &:hover {
-            color: var(--primary-color);
-        }
-    }
-}
-
-.no-results {
-    text-align: center;
-    color: var(--text-color);
-    margin: 0;
-}
-
-.all-results-link-container {
-    text-align: center;
-    padding-top: 15px;
-    border-top: 1px solid var(--border-color);
-}
-
-.all-results-link {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: bold;
-    display: inline-block;
-    transition: color 0.3s ease;
-    
-    &:hover {
-        color: var(--secondary-color);
-    }
 }

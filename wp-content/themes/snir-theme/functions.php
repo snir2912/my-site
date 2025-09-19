@@ -276,13 +276,40 @@ register_activation_hook( __FILE__, 'snir_theme_flush_rewrite_rules_on_activatio
 
 // ajax search
 
-function custom_ajax_search_scripts() {
-    // טעינת קובץ ה-JavaScript של החיפוש
-    wp_enqueue_script( 'ajax-search', get_template_directory_uri() . '/js/ajax-search.js', array('jquery'), null, true );
+// קובץ: functions.php
+// פונקציית החיפוש של Ajax
+function my_ajax_search_callback() {
+    if (!isset($_POST['s'])) {
+        wp_send_json_error('No search query provided.');
+    }
     
-    // העברת נתוני PHP ל-JavaScript
-    wp_localize_script( 'ajax-search', 'ajax_search_object', array(
-        'ajax_url'   => admin_url( 'admin-ajax.php' )
-    ) );
+    $search_query = sanitize_text_field($_POST['s']);
+    
+    $args = array(
+        'post_type'      => array('post', 'services'),
+        's'              => $search_query,
+        'posts_per_page' => 3,
+        'post_status'    => 'publish',
+    );
+    
+    $query = new WP_Query($args);
+    
+    $results = array();
+    
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            $results[] = array(
+                'title'     => get_the_title(),
+                'permalink' => get_permalink(),
+                'post_type' => get_post_type($post_id),
+            );
+        }
+    }
+    
+    wp_reset_postdata();
+    wp_send_json_success($results);
 }
-add_action( 'wp_enqueue_scripts', 'custom_ajax_search_scripts' );
+add_action('wp_ajax_my_ajax_search', 'my_ajax_search_callback');
+add_action('wp_ajax_nopriv_my_ajax_search', 'my_ajax_search_callback');
