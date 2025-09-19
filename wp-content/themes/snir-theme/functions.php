@@ -278,6 +278,16 @@ register_activation_hook( __FILE__, 'snir_theme_flush_rewrite_rules_on_activatio
 
 // קובץ: functions.php
 // פונקציית החיפוש של Ajax
+function my_ajax_search_scripts() {
+    // טעינת קובץ ה-JavaScript של החיפוש
+    wp_enqueue_script( 'ajax-search', get_template_directory_uri() . './js/ajax-search.js', array('jquery'), null, true );
+    
+    // העברת נתוני PHP ל-JavaScript
+    wp_localize_script( 'ajax-search', 'ajax_search_object', array(
+        'ajax_url'   => admin_url( 'admin-ajax.php' )
+    ) );
+}
+add_action( 'wp_enqueue_scripts', 'custom_ajax_search_scripts' );
 function my_ajax_search_callback() {
     if (!isset($_POST['s'])) {
         wp_send_json_error('No search query provided.');
