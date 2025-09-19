@@ -10,7 +10,7 @@
                 $footer_text = get_field('footer_text', 'option'); 
                 if ( $footer_text ) : ?>
                     <div class="footer-text-area">
-                        <p><?php echo esc_html($footer_text); ?></p>
+                        <?php echo esc_html($footer_text); ?>
                     </div>
             <?php endif; ?>
         </div>
