@@ -224,9 +224,9 @@ body.light-mode .main-nav.active {
   gap: 15px;
 }
 
+/* --- Footer Styles --- */
 .main-footer {
   padding: 30px 0;
-  text-align: center;
   font-size: 0.9rem;
   transition: background-color 0.4s ease, color 0.4s ease, border-top-color 0.4s ease;
   background-color: #1a1a1a;
@@ -245,9 +245,19 @@ body.light-mode .main-footer {
   align-items: center;
   flex-wrap: wrap;
 }
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
 
-.footer-left {
-  text-align: right;
+/* כדי למרכז הכל, נגדיר את הקונטיינרים כ-flex ומרכוז */
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   flex: 1;
   min-width: 200px;
 }
@@ -263,13 +273,24 @@ body.light-mode .main-footer {
   margin-bottom: 0;
 }
 
-.footer-right {
+.footer-text-area {
+  margin-top: 15px;
+  max-width: 600px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.footer-nav-area {
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: center;
   flex: 1;
-  justify-content: flex-start;
   min-width: 200px;
+}
+@media (max-width: 768px) {
+  .footer-nav-area {
+    justify-content: center;
+  }
 }
 
 .footer-nav ul {
@@ -290,6 +311,60 @@ body.light-mode .footer-nav ul li a {
 }
 .footer-nav ul li a:hover {
   color: crimson;
+}
+
+/* --- WhatsApp Floating Button Styles --- */
+.whatsapp-float {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+}
+.whatsapp-float:hover {
+  transform: scale(1.05); /* אפקט ריחוף עדין */
+}
+
+.whatsapp-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25D366; /* הצבע הרשמי של וואטסאפ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+.whatsapp-icon svg {
+  fill: #fff;
+  width: 35px;
+  height: 35px;
+}
+
+.whatsapp-bubble {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  position: absolute;
+  right: -10px; /* מיקום בועת הטקסט */
+  background-color: white;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  white-space: nowrap; /* מונע שבירת שורות */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-float:hover .whatsapp-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(80px); /* מיקום מחדש כשהבועה מופיעה */
 }
 
 .hero-section {
