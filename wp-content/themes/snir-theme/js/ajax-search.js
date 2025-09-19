@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success) {
                 displayResults(data.data);
-                // עדכון הקישור לעמוד החיפוש הרגיל
                 allResultsLink.href = `<?php echo home_url('/'); ?>?s=${query}`;
             } else {
                 displayResults([]);

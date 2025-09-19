@@ -1456,7 +1456,7 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   padding: 15px;
   margin-top: 5px;
   z-index: 900;
-  visibility: hidden; /* השתמש ב-visibility כדי לשמר את המיקום */
+  visibility: hidden;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
