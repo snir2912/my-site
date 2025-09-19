@@ -188,3 +188,78 @@ document.addEventListener("DOMContentLoaded", function() {
     handleScroll();
     window.addEventListener('scroll', handleScroll);
 });
+
+// ajax search
+document.addEventListener('DOMContentLoaded', function() {
+    const searchField = document.querySelector('.search-field');
+    const resultsPanel = document.getElementById('search-results-live');
+    const resultsList = resultsPanel.querySelector('.results-list');
+    const allResultsLinkContainer = resultsPanel.querySelector('.all-results-link-container');
+    const allResultsLink = resultsPanel.querySelector('.all-results-link');
+    const noResultsText = resultsPanel.querySelector('.no-results');
+
+    let timeoutId;
+
+    // פונקציה לשליחת בקשת Ajax
+    function fetchResults(query) {
+        // הדרך המקובלת לבצע בקשות Ajax בוורדפרס
+        const ajaxUrl = '<?php echo home_url('/wp-content/themes/your-theme-name/ajax-search.php'); ?>'; // החלף בנתיב הנכון לקובץ שלך
+        const url = `${ajaxUrl}?s=${query}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data.data);
+                // עדכון הקישור לעמוד החיפוש הרגיל
+                allResultsLink.href = `<?php echo home_url('/'); ?>?s=${query}`;
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+                displayResults([]);
+            });
+    }
+
+    // פונקציה להצגת התוצאות
+    function displayResults(results) {
+        resultsList.innerHTML = ''; // מנקה תוצאות קודמות
+        if (results.length > 0) {
+            results.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = item.permalink;
+                a.textContent = item.title;
+                li.appendChild(a);
+                resultsList.appendChild(li);
+            });
+            allResultsLinkContainer.style.display = 'block';
+            noResultsText.style.display = 'none';
+            resultsPanel.classList.add('active');
+        } else {
+            noResultsText.style.display = 'block';
+            allResultsLinkContainer.style.display = 'none';
+            resultsPanel.classList.add('active');
+        }
+    }
+
+    // האזנה לאירוע הקלדה בשדה החיפוש
+    searchField.addEventListener('input', function() {
+        clearTimeout(timeoutId);
+        const query = this.value.trim();
+
+        if (query.length > 2) { // מתחיל לחפש רק אחרי 3 תווים
+            timeoutId = setTimeout(() => {
+                fetchResults(query);
+            }, 300); // השהייה קטנה למניעת עומס על השרת
+        } else {
+            // הסתרת החלונית אם הטקסט קצר מדי
+            resultsPanel.classList.remove('active');
+        }
+    });
+
+    // סגירת החלונית בלחיצה מחוץ לטופס
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-form-container')) {
+            resultsPanel.classList.remove('active');
+        }
+    });
+});
