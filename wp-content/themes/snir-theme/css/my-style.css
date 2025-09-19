@@ -218,19 +218,6 @@ body.light-mode .main-nav.active {
 }
 
 /* --- שינוי 2: סגנונות ספציפיים למובייל --- */
-@media (max-width: 768px) {
-  .main-header {
-    /* הסגנון הקיים שלך מתנגש עם הסגנון החדש ולכן צריך לבטל אותו */
-    padding: 15px; /* מרווח פנימי קטן יותר במובייל */
-    border-radius: 20px;
-    width: 90%; /* 90% רוחב כמו שביקשת */
-    margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
-    left: 50%;
-    transform: translateX(-50%);
-    border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
-    box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
-  }
-}
 .header-controls {
   display: flex;
   align-items: center;
