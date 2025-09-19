@@ -16,24 +16,17 @@
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-
-    @media (max-width: $breakpoint-tablet) {
-        flex-direction: column;
-        gap: 20px;
-    }
+    flex-direction: column; /* ממיר את הפוטר לתצוגה טורית */
+    align-items: center; /* ממקם את הפריטים במרכז */
+    text-align: center; /* ממקם את הטקסט במרכז */
+    gap: 20px;
+    padding: 0 20px; /* מוסיף ריפוד פנימי */
 }
 
-/* כדי למרכז הכל, נגדיר את הקונטיינרים כ-flex ומרכוז */
 .footer-center {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    flex: 1;
-    min-width: 200px;
 }
 
 .footer-logo {
@@ -50,25 +43,19 @@
 .footer-text-area {
     margin-top: 15px;
     max-width: 600px;
-    text-align: center;
     line-height: 1.6;
 }
 
 .footer-nav-area {
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex: 1;
-    min-width: 200px;
-
-    @media (max-width: $breakpoint-tablet) {
-        justify-content: center;
-    }
 }
 
 .footer-nav ul {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 25px;
     padding: 0;
     margin: 0;
@@ -101,7 +88,7 @@
     transition: transform 0.3s ease-in-out;
 
     &:hover {
-        transform: scale(1.05); /* אפקט ריחוף עדין */
+        transform: scale(1.05);
     }
 }
 
@@ -109,13 +96,13 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #25D366; /* הצבע הרשמי של וואטסאפ */
+    background-color: #25D366;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
-    
+
     svg {
         fill: #fff;
         width: 35px;
@@ -126,22 +113,22 @@
 .whatsapp-bubble {
     opacity: 0;
     visibility: hidden;
-    transform: translateX(10px);
+    position: absolute;
+    left: 80px; /* מיקום הבועה כשהיא מופיעה */
+    transform: translateX(0);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     
-    position: absolute;
-    right: -10px; /* מיקום בועת הטקסט */
     background-color: white;
     color: #333;
     padding: 10px 15px;
     border-radius: 20px;
     font-size: 14px;
-    white-space: nowrap; /* מונע שבירת שורות */
+    white-space: nowrap;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .whatsapp-float:hover .whatsapp-bubble {
     opacity: 1;
     visibility: visible;
-    transform: translateX(80px); /* מיקום מחדש כשהבועה מופיעה */
+    transform: translateX(0);
 }
