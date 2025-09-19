@@ -287,7 +287,7 @@ function my_ajax_search_scripts() {
         'ajax_url'   => admin_url( 'admin-ajax.php' )
     ) );
 }
-add_action( 'wp_enqueue_scripts', 'custom_ajax_search_scripts' );
+add_action( 'wp_enqueue_scripts', 'my_ajax_search_scripts' );
 function my_ajax_search_callback() {
     if (!isset($_POST['s'])) {
         wp_send_json_error('No search query provided.');
