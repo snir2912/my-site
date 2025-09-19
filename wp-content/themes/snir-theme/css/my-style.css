@@ -85,23 +85,23 @@ p {
   top: 0;
   z-index: 1000;
   transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
-  /* שינוי 1: אפקט ה-Glassmorphism */
+  /* אפקט ה-Glassmorphism */
   background-color: rgba(26, 26, 26, 0.7);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפנים מבוססי WebKit */
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid #333;
+  /* סגנון כללי של תוכן ההאדר */
+  /* סגנונות ספציפיים לתפריט הניווט */
 }
 body.light-mode .main-header {
   background-color: rgba(249, 249, 249, 0.7);
   border-bottom-color: #ddd;
 }
-
-.header-content {
+.main-header .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .main-header .logo {
   font-size: 1.8rem;
   font-weight: 700;
@@ -109,30 +109,29 @@ body.light-mode .main-header {
   transition: color 0.3s ease;
   color: crimson;
 }
-
-.main-nav {
+.main-header .main-nav {
   flex-grow: 1;
   display: flex;
   justify-content: center;
 }
-.main-nav .main-menu-list {
+.main-header .main-nav .main-menu-list {
   list-style: none;
   display: flex;
   gap: 30px;
   padding: 0;
   margin: 0;
 }
-.main-nav .main-menu-list li a {
+.main-header .main-nav .main-menu-list li a {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
   color: #f0f0f0;
 }
-body.light-mode .main-nav .main-menu-list li a {
+body.light-mode .main-header .main-nav .main-menu-list li a {
   color: #333;
 }
-.main-nav .main-menu-list li a:after {
+.main-header .main-nav .main-menu-list li a:after {
   content: "";
   position: absolute;
   width: 0;
@@ -143,43 +142,58 @@ body.light-mode .main-nav .main-menu-list li a {
   background: crimson;
   transition: width 0.3s ease;
 }
-.main-nav .main-menu-list li a:hover:after {
+.main-header .main-nav .main-menu-list li a:hover:after {
   width: 100%;
   left: 0;
 }
-.main-nav.active {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(26, 26, 26, 0.9); /* רקע מלא יותר כדי שהתפריט יהיה קריא */
-  z-index: 1050;
-}
-body.light-mode .main-nav.active {
-  background-color: rgba(249, 249, 249, 0.9);
-}
-.main-nav.active .main-menu-list {
-  flex-direction: column;
-  gap: 25px;
-}
-.main-nav.active .main-menu-list li a {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  font-weight: 700;
-  color: crimson;
-}
+
+/* --- שינויים ספציפיים למובייל --- */
 @media (max-width: 768px) {
+  .main-header {
+    /* סגנון הדר צף למובייל */
+    padding: 15px; /* מרווח פנימי קטן יותר במובייל */
+    border-radius: 20px;
+    width: 90%; /* 90% רוחב כמו שביקשת */
+    margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
+    border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
+  }
+  /* כשהתפריט פעיל (class 'active') הוא ממלא את כל המסך */
+  .main-nav.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(26, 26, 26, 0.9);
+    z-index: 1050;
+  }
+  body.light-mode .main-nav.active {
+    background-color: rgba(249, 249, 249, 0.9);
+  }
+  .main-nav.active .main-menu-list {
+    flex-direction: column;
+    gap: 25px;
+  }
+  .main-nav.active .main-menu-list li a {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: crimson;
+  }
+  /* הסגנון הישן שלך לתפריט ההמבורגר במובייל - נשאר כדי לאפשר את הטרנזיציה */
   .main-nav {
     position: fixed;
     top: 0;
     left: 100%;
     width: 100%;
     height: 100vh;
-    background-color: rgba(26, 26, 26, 0.9);
+    background-color: #1a1a1a;
     z-index: 1050;
     transition: left 0.4s ease-out;
     display: flex;
@@ -188,7 +202,7 @@ body.light-mode .main-nav.active {
     align-items: center;
   }
   body.light-mode .main-nav {
-    background-color: rgba(249, 249, 249, 0.9);
+    background-color: #f9f9f9;
   }
   .main-nav.active {
     left: 0;
@@ -208,21 +222,6 @@ body.light-mode .main-nav.active {
   }
   .main-nav .main-menu-list li a:hover {
     color: rgb(238, 52, 89);
-  }
-}
-
-/* --- שינוי 2: סגנונות ספציפיים למובייל --- */
-@media (max-width: 768px) {
-  .main-header {
-    /* הסגנון הקיים שלך מתנגש עם הסגנון החדש ולכן צריך לבטל אותו */
-    padding: 15px; /* מרווח פנימי קטן יותר במובייל */
-    border-radius: 20px;
-    width: 90%; /* 90% רוחב כמו שביקשת */
-    margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
-    left: 50%;
-    transform: translateX(-50%);
-    border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
-    box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
   }
 }
 .header-controls {
