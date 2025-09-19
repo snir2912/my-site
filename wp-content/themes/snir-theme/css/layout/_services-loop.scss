@@ -1,0 +1,87 @@
+/* --- Services Loop Styles --- */
+
+/* הגדרות כלליות למיכל של כל הכרטיסים */
+.services-loop-container {
+    display: grid;
+    gap: 3rem; /* רווח בין הכרטיסים */
+    padding: 2rem 0;
+
+    /* רספונסיביות: 3 כרטיסים בשורה בדסקטופ */
+    @media (min-width: $breakpoint-desktop) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* רספונסיביות: 1 כרטיס בשורה במובייל */
+    @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* סגנון כללי לכרטיס (התיקייה) */
+.service-card {
+    position: relative;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 25px var(--shadow-color);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    cursor: pointer;
+    overflow: hidden; /* כדי שהתמונה לא תצא מהגבולות לפני הריחוף */
+
+    &:hover {
+        transform: translateY(-8px); /* אפקט ריחוף עדין */
+        box-shadow: 0 15px 35px var(--shadow-color);
+    }
+}
+
+/* כותרת השירות - ממוקמת בתחתית הכרטיס */
+.service-card-title {
+    font-family: $font-heebo;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 2; /* כדי שיהיה מעל התמונה */
+}
+
+/* מיכל התמונה - המייצג את פנים התיקייה */
+.service-image-container {
+    position: relative;
+    width: 100%;
+    height: 250px; /* גובה קבוע לתמונה */
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transform-origin: bottom center; /* נקודת הסיבוב */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* אנימציה חלקה */
+    z-index: 1; /* מתחת לכותרת */
+
+    .service-card:hover & {
+        transform: translateY(-15%) rotate(-5deg); /* הזזה למעלה וסיבוב קל */
+    }
+}
+
+/* התמונה עצמה */
+.service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* חותך את התמונה כדי שתתאים */
+    display: block;
+}
+
+/* סגנון למכסה התיקייה - אפקט ויזואלי */
+.folder-cover {
+    position: absolute;
+    top: -10px;
+    left: 10%;
+    width: 80%;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    z-index: 3;
+    transition: background-color 0.3s ease-in-out;
+}
