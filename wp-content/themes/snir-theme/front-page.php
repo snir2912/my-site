@@ -21,25 +21,27 @@ $cf_paragraph = get_field('cf_paragraph');
             <h1><?php echo $h1 ?></h1>
             <p><?php echo $hero_paragraph ?></p>
             <div class="search-form-container">
-    <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-        <label>
-            <span class="screen-reader-text">חפש:</span>
-            <input type="search" class="search-field" placeholder="חפש באתר..." value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" />
-        </label>
-        <button type="submit" class="search-submit">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        </button>
-    </form>
+                <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
+                    <label>
+                        <span class="screen-reader-text">חפש:</span>
+                        <input type="search" class="search-field" placeholder="חפש באתר..." value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" />
+                    </label>
+                    <button type="submit" class="search-submit">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                        </svg>
+                    </button>
+                </form>
 
-    <div id="search-results-live" class="search-results-live-panel">
-        <ul class="results-list">
-            </ul>
-        <div class="all-results-link-container" style="display: none;">
-             <a href="#" class="all-results-link">הצג את כל התוצאות</a>
-        </div>
-        <p class="no-results" style="display: none;">לא נמצאו תוצאות.</p>
-    </div>
-</div>
+                <div id="search-results-live" class="search-results-live-panel">
+                    <ul class="results-list">
+                    </ul>
+                    <div class="all-results-link-container" style="display: none;">
+                        <a href="#" class="all-results-link">הצג את כל התוצאות</a>
+                    </div>
+                    <p class="no-results" style="display: none;">לא נמצאו תוצאות.</p>
+                </div>
+            </div>
             <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
         </div>
     </div>
@@ -49,52 +51,53 @@ $cf_paragraph = get_field('cf_paragraph');
     <div class="container">
         <h2 class="section-title"><?php echo $services_headline ?></h2>
         <?php
-// הגדרת הארגומנטים לשאילתה
-$args = array(
-    'post_type'      => 'services', // הפוסט טייפ שביקשת
-    'posts_per_page' => -1,         // הצגת כל הפוסטים מהפוסט טייפ הזה
-    'post_status'    => 'publish',
-);
+        // הגדרת הארגומנטים לשאילתה
+        $args = array(
+            'post_type'      => 'services', // הפוסט טייפ שביקשת
+            'posts_per_page' => -1,         // הצגת כל הפוסטים מהפוסט טייפ הזה
+            'post_status'    => 'publish',
+        );
 
-// יצירת שאילתה חדשה
-$services_query = new WP_Query( $args );
+        // יצירת שאילתה חדשה
+        $services_query = new WP_Query($args);
 
-// בדיקה אם יש פוסטים להציג
-if ( $services_query->have_posts() ) :
-?>
-
-    <div class="services-loop-container">
-        <?php
-        // התחלת הלולאה
-        while ( $services_query->have_posts() ) : $services_query->the_post();
-            // משתנים שימושיים
-            $service_link = get_permalink();
-            $service_title = get_the_title();
-            $thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' ); // אפשר גם 'large' או גודל מותאם אישית
+        // בדיקה אם יש פוסטים להציג
+        if ($services_query->have_posts()) :
         ?>
-            <a href="<?php echo esc_url( $service_link ); ?>" class="service-card" aria-label="<?php echo esc_attr( $service_title ); ?>">
-                <div class="folder-cover"></div> <div class="service-image-container">
-                    <?php if ( has_post_thumbnail() ) : ?>
-                        <img src="<?php echo esc_url( $thumbnail_url ); ?>" alt="<?php echo esc_attr( $service_title ); ?>" class="service-image">
-                    <?php else: ?>
-                        <div class="placeholder-image">אין תמונה</div>
-                    <?php endif; ?>
-                </div>
-                <h3 class="service-card-title"><?php echo esc_html( $service_title ); ?></h3>
-            </a>
 
-        <?php endwhile; ?>
-    </div>
+            <div class="services-loop-container">
+                <?php
+                // התחלת הלולאה
+                while ($services_query->have_posts()) : $services_query->the_post();
+                    // משתנים שימושיים
+                    $service_link = get_permalink();
+                    $service_title = get_the_title();
+                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'medium'); // אפשר גם 'large' או גודל מותאם אישית
+                ?>
+                    <a href="<?php echo esc_url($service_link); ?>" class="service-card" aria-label="<?php echo esc_attr($service_title); ?>">
+                        <div class="folder-cover"></div>
+                        <div class="service-image-container">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php echo esc_attr($service_title); ?>" class="service-image">
+                            <?php else: ?>
+                                <div class="placeholder-image">אין תמונה</div>
+                            <?php endif; ?>
+                        </div>
+                        <h3 class="service-card-title"><?php echo esc_html($service_title); ?></h3>
+                    </a>
 
-    <?php
-    // איפוס נתוני הפוסט
-    wp_reset_postdata();
+                <?php endwhile; ?>
+            </div>
 
-else :
-    // הודעה אם אין פוסטים
-    echo '<p>אין שירותים זמינים כרגע.</p>';
-endif;
-?>
+        <?php
+            // איפוס נתוני הפוסט
+            wp_reset_postdata();
+
+        else :
+            // הודעה אם אין פוסטים
+            echo '<p>אין שירותים זמינים כרגע.</p>';
+        endif;
+        ?>
         <div class="services-grid">
             <div class="service-item">
                 <h3>בניית דפי נחיתה</h3>
