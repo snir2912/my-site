@@ -28,6 +28,53 @@ $cf_paragraph = get_field('cf_paragraph');
 <section class="services-section" id="services">
     <div class="container">
         <h2 class="section-title"><?php echo $services_headline ?></h2>
+        <?php
+// הגדרת הארגומנטים לשאילתה
+$args = array(
+    'post_type'      => 'services', // הפוסט טייפ שביקשת
+    'posts_per_page' => -1,         // הצגת כל הפוסטים מהפוסט טייפ הזה
+    'post_status'    => 'publish',
+);
+
+// יצירת שאילתה חדשה
+$services_query = new WP_Query( $args );
+
+// בדיקה אם יש פוסטים להציג
+if ( $services_query->have_posts() ) :
+?>
+
+    <div class="services-loop-container">
+        <?php
+        // התחלת הלולאה
+        while ( $services_query->have_posts() ) : $services_query->the_post();
+            // משתנים שימושיים
+            $service_link = get_permalink();
+            $service_title = get_the_title();
+            $thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' ); // אפשר גם 'large' או גודל מותאם אישית
+        ?>
+            <a href="<?php echo esc_url( $service_link ); ?>" class="service-card" aria-label="<?php echo esc_attr( $service_title ); ?>">
+                <div class="folder-cover"></div> <div class="service-image-container">
+                    <?php if ( has_post_thumbnail() ) : ?>
+                        <img src="<?php echo esc_url( $thumbnail_url ); ?>" alt="<?php echo esc_attr( $service_title ); ?>" class="service-image">
+                    <?php else: ?>
+                        <div class="placeholder-image">אין תמונה</div>
+                    <?php endif; ?>
+                </div>
+                <h3 class="service-card-title"><?php echo esc_html( $service_title ); ?></h3>
+            </a>
+
+        <?php endwhile; ?>
+    </div>
+
+    <?php
+    // איפוס נתוני הפוסט
+    wp_reset_postdata();
+
+else :
+    // הודעה אם אין פוסטים
+    echo '<p>אין שירותים זמינים כרגע.</p>';
+endif;
+?>
         <div class="services-grid">
             <div class="service-item">
                 <h3>בניית דפי נחיתה</h3>
