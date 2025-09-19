@@ -143,182 +143,11 @@
 
 
 
-// .header-controls {
-//     display: flex;
-//     align-items: center;
-//     gap: 15px;
-// }
-
-// .main-header {
-//     padding: 20px 0;
-//     position: sticky;
-//     top: 0;
-//     z-index: 1000;
-//     transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
-
-//     /* שינוי 1: אפקט ה-Glassmorphism */
-//     background-color: rgba(map-get($theme-colors, background-color), 0.7);
-//     backdrop-filter: blur(10px);
-//     -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפנים מבוססי WebKit */
-
-//     border-bottom: 1px solid map-get($theme-colors, border-color);
-
-//     body.light-mode & {
-//         background-color: rgba(map-get($theme-colors, light-background-color), 0.7);
-//         border-bottom-color: map-get($theme-colors, light-border-color);
-//     }
-// }
-
-// .header-content {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-// }
-
-// .main-header .logo {
-//     font-size: 1.8rem;
-//     font-weight: 700;
-//     text-decoration: none;
-//     transition: color 0.3s ease;
-//     color: map-get($theme-colors, primary-color);
-// }
-
-// .main-nav {
-//     flex-grow: 1;
-//     display: flex;
-//     justify-content: center;
-
-//     .main-menu-list {
-//         list-style: none;
-//         display: flex;
-//         gap: 30px;
-//         padding: 0;
-//         margin: 0;
-
-//         li a {
-//             text-decoration: none;
-//             font-weight: 500;
-//             transition: color 0.3s ease;
-//             position: relative;
-//             color: map-get($theme-colors, text-color);
-
-//             body.light-mode & {
-//                 color: map-get($theme-colors, light-text-color);
-//             }
-
-//             &:after {
-//                 content: '';
-//                 position: absolute;
-//                 width: 0;
-//                 height: 2px;
-//                 display: block;
-//                 margin-top: 5px;
-//                 right: 0;
-//                 background: map-get($theme-colors, primary-color);
-//                 transition: width 0.3s ease;
-//             }
-//             &:hover:after {
-//                 width: 100%;
-//                 left: 0;
-//             }
-//         }
-//     }
-
-//     &.active {
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//         align-items: center;
-
-//         position: fixed;
-//         top: 0;
-//         left: 0;
-//         width: 100%;
-//         height: 100vh;
-//         background-color: rgba(map-get($theme-colors, background-color), 0.9); /* רקע מלא יותר כדי שהתפריט יהיה קריא */
-//         z-index: 1050;
-
-//         body.light-mode & {
-//             background-color: rgba(map-get($theme-colors, light-background-color), 0.9);
-//         }
-
-//         .main-menu-list {
-//             flex-direction: column;
-//             gap: 25px;
-
-//             li a {
-//                 font-size: clamp(1.8rem, 5vw, 2.5rem);
-//                 font-weight: 700;
-//                 color: map-get($theme-colors, primary-color);
-//             }
-//         }
-//     }
-
-//     @media (max-width: $breakpoint-tablet) {
-//         position: fixed;
-//         top: 0;
-//         left: 100%;
-//         width: 100%;
-//         height: 100vh;
-//         background-color: rgba(map-get($theme-colors, background-color), 0.9);
-//         z-index: 1050;
-//         transition: left 0.4s ease-out;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//         align-items: center;
-
-//         body.light-mode & {
-//             background-color: rgba(map-get($theme-colors, light-background-color), 0.9);
-//         }
-
-//         &.active {
-//             left: 0;
-//         }
-
-//         .main-menu-list {
-//             flex-direction: column;
-//             gap: 25px;
-//             text-align: center;
-
-//             li a {
-//                 font-size: clamp(1.8rem, 5vw, 2.5rem);
-//                 font-weight: 700;
-//                 color: map-get($theme-colors, primary-color);
-                
-//                 &:after {
-//                     display: none;
-//                 }
-//                 &:hover {
-//                     color: map-get($theme-colors, secondary-color);
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// /* --- שינוי 2: סגנונות ספציפיים למובייל --- */
-// @media (max-width: $breakpoint-tablet) {
-//     .main-header {
-//         /* הסגנון הקיים שלך מתנגש עם הסגנון החדש ולכן צריך לבטל אותו */
-//         padding: 15px; /* מרווח פנימי קטן יותר במובייל */
-//         border-radius: 20px;
-//         width: 90%; /* 90% רוחב כמו שביקשת */
-//         margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
-//         left: 50%;
-//         transform: translateX(-50%);
-//         border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
-//         box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
-//     }
-// }
-
-// .header-controls {
-//     display: flex;
-//     align-items: center;
-//     gap: 15px;
-// }
-
-/* --- Header Styles --- */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
 .main-header {
     padding: 20px 0;
@@ -327,7 +156,7 @@
     z-index: 1000;
     transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
 
-    /* אפקט ה-Glassmorphism */
+    /* שינוי 1: אפקט ה-Glassmorphism */
     background-color: rgba(map-get($theme-colors, background-color), 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפנים מבוססי WebKit */
@@ -394,42 +223,44 @@
             }
         }
     }
-}
 
-.header-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
+    &.active {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-/* --- Mobile Specific Styles (under 768px) --- */
-@media (max-width: $breakpoint-tablet) {
-    /* סגנון הדר צף למובייל */
-    .main-header {
-        padding: 15px;
-        border-radius: 20px;
-        width: 90%;
-        margin: 15px auto;
-        left: 50%;
-        transform: translateX(-50%);
-        box-shadow: 0 5px 20px var(--shadow-color);
-        border-bottom: none;
-        
-        &.menu-open {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.4s, opacity 0.4s;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(map-get($theme-colors, background-color), 0.9); /* רקע מלא יותר כדי שהתפריט יהיה קריא */
+        z-index: 1050;
+
+        body.light-mode & {
+            background-color: rgba(map-get($theme-colors, light-background-color), 0.9);
+        }
+
+        .main-menu-list {
+            flex-direction: column;
+            gap: 25px;
+
+            li a {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+                font-weight: 700;
+                color: map-get($theme-colors, primary-color);
+            }
         }
     }
 
-    /* סגנונות לתפריט הניווט במובייל */
-    .main-nav {
+    @media (max-width: $breakpoint-tablet) {
         position: fixed;
         top: 0;
-        left: 100%; /* התפריט מוסתר מחוץ למסך */
+        left: 100%;
         width: 100%;
         height: 100vh;
-        background-color: map-get($theme-colors, background-color);
+        background-color: rgba(map-get($theme-colors, background-color), 0.9);
         z-index: 1050;
         transition: left 0.4s ease-out;
         display: flex;
@@ -438,10 +269,9 @@
         align-items: center;
 
         body.light-mode & {
-            background-color: map-get($theme-colors, light-background-color);
+            background-color: rgba(map-get($theme-colors, light-background-color), 0.9);
         }
 
-        /* כשהקלאס 'active' נוסף, התפריט נכנס למסך */
         &.active {
             left: 0;
         }
@@ -465,4 +295,25 @@
             }
         }
     }
+}
+
+/* --- שינוי 2: סגנונות ספציפיים למובייל --- */
+@media (max-width: $breakpoint-tablet) {
+    .main-header {
+        /* הסגנון הקיים שלך מתנגש עם הסגנון החדש ולכן צריך לבטל אותו */
+        padding: 15px; /* מרווח פנימי קטן יותר במובייל */
+        border-radius: 20px;
+        width: 90%; /* 90% רוחב כמו שביקשת */
+        margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
+        left: 50%;
+        transform: translateX(-50%);
+        border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
+        box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
+    }
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }

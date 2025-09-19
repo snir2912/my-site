@@ -79,14 +79,19 @@ p {
   line-height: 1.8;
 }
 
-/* --- Header Styles --- */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .main-header {
   padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
   transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
-  /* אפקט ה-Glassmorphism */
+  /* שינוי 1: אפקט ה-Glassmorphism */
   background-color: rgba(26, 26, 26, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפנים מבוססי WebKit */
@@ -148,49 +153,48 @@ body.light-mode .main-nav .main-menu-list li a {
   width: 100%;
   left: 0;
 }
-
-.header-controls {
+.main-nav.active {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(26, 26, 26, 0.9); /* רקע מלא יותר כדי שהתפריט יהיה קריא */
+  z-index: 1050;
 }
-
-/* --- Mobile Specific Styles (under 768px) --- */
+body.light-mode .main-nav.active {
+  background-color: rgba(249, 249, 249, 0.9);
+}
+.main-nav.active .main-menu-list {
+  flex-direction: column;
+  gap: 25px;
+}
+.main-nav.active .main-menu-list li a {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: crimson;
+}
 @media (max-width: 768px) {
-  /* סגנון הדר צף למובייל */
-  .main-header {
-    padding: 15px;
-    border-radius: 20px;
-    width: 90%;
-    margin: 15px auto;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 5px 20px var(--shadow-color);
-    border-bottom: none;
-  }
-  .main-header.menu-open {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.4s, opacity 0.4s;
-  }
-  /* סגנונות לתפריט הניווט במובייל */
   .main-nav {
     position: fixed;
     top: 0;
-    left: 100%; /* התפריט מוסתר מחוץ למסך */
+    left: 100%;
     width: 100%;
     height: 100vh;
-    background-color: #1a1a1a;
+    background-color: rgba(26, 26, 26, 0.9);
     z-index: 1050;
     transition: left 0.4s ease-out;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* כשהקלאס 'active' נוסף, התפריט נכנס למסך */
   }
   body.light-mode .main-nav {
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, 0.9);
   }
   .main-nav.active {
     left: 0;
@@ -212,6 +216,27 @@ body.light-mode .main-nav .main-menu-list li a {
     color: rgb(238, 52, 89);
   }
 }
+
+/* --- שינוי 2: סגנונות ספציפיים למובייל --- */
+@media (max-width: 768px) {
+  .main-header {
+    /* הסגנון הקיים שלך מתנגש עם הסגנון החדש ולכן צריך לבטל אותו */
+    padding: 15px; /* מרווח פנימי קטן יותר במובייל */
+    border-radius: 20px;
+    width: 90%; /* 90% רוחב כמו שביקשת */
+    margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
+    box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
+  }
+}
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .main-footer {
   padding: 30px 0;
   text-align: center;
