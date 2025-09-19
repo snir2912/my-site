@@ -299,17 +299,23 @@
 
 /* --- שינוי 2: סגנונות ספציפיים למובייל --- */
 @media (max-width: $breakpoint-tablet) {
-    // .main-header {
-    //     /* הסגנון הקיים שלך מתנגש עם הסגנון החדש ולכן צריך לבטל אותו */
-    //     padding: 15px; /* מרווח פנימי קטן יותר במובייל */
-    //     border-radius: 20px;
-    //     width: 90%; /* 90% רוחב כמו שביקשת */
-    //     margin: 15px auto; /* מרכוז ויצירת מרווח מלמעלה */
-    //     left: 50%;
-    //     transform: translateX(-50%);
-    //     border-bottom: none; /* מסגרת תחתונה לא נחוצה כאן */
-    //     box-shadow: 0 5px 20px var(--shadow-color); /* הוספת צל יפה */
-    // }
+    .main-header {
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.4s 
+ease, border-bottom-color 0.4s 
+ease;
+    background-color: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #333;
+    width: 90%;
+    margin: 0px auto;
+    border-radius: 300px;
+    border: none;
+    }
 }
 
 .header-controls {
