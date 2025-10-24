@@ -13,7 +13,7 @@ get_header(); // כולל את קובץ ה-header.php
         <h1 class="archive-title">
             <?php
             // בדיקה האם מדובר בארכיון של סוג פוסט מותאם אישית
-            if ( is_post_type_archive( 'service' ) ) :
+            if ( is_post_type_archive( 'services' ) ) :
                 // נשתמש ב-post_type_archive_title() כדי להציג את כותרת הארכיון של השירותים
                 post_type_archive_title( '', true ); 
             // אם זהו ארכיון כללי אחר (כמו בקוד המקורי, אם תרצה להשתמש בקובץ זה גם עבור קטגוריות שירותים)
@@ -36,7 +36,6 @@ get_header(); // כולל את קובץ ה-header.php
         ?>
     </div>
 </section>
-<hr>
 
 <div class="site-content container">
     <?php if ( have_posts() ) : ?>
@@ -68,7 +67,7 @@ get_header(); // כולל את קובץ ה-header.php
                 ?>
             </div> 
         </section>
-        <hr>
+
 
         <?php
         // פגינציה (אם נדרש להצגה רגילה)
@@ -90,7 +89,7 @@ get_header(); // כולל את קובץ ה-header.php
         </section>
     <?php endif; ?>
 </div>
-<hr>
+
 
 <?php
 get_footer(); // כולל את קובץ ה-footer.php
