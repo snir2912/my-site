@@ -1,12 +1,8 @@
-
-.header-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
+/* -------------------- כללי Headear -------------------- */
 .main-header {
-    padding: 20px 0;
+    /* הסרת padding אנכי קשיח - נשתמש ב-padding של header-content */
+    padding: 0; 
+    
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -15,7 +11,7 @@
     /* שינוי 1: אפקט ה-Glassmorphism */
     background-color: rgba(map-get($theme-colors, background-color), 0.7);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* תמיכה בדפדפנים מבוססי WebKit */
+    -webkit-backdrop-filter: blur(10px); 
 
     border-bottom: 1px solid map-get($theme-colors, border-color);
 
@@ -28,9 +24,29 @@
 .header-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* יישור מרכז אנכי - קריטי לאיזון הלוגו */
+    
+    /* **שינוי:** padding אנכי כדי לתת מרווח סביב הלוגו */
+    padding: 15px 0; 
 }
 
+/* -------------------- לוגו -------------------- */
+/* קלאס הקישור המקיף את הלוגו */
+.custom-logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-inline-end: 30px; /* מרווח קצת יותר גדול אחרי הלוגו */
+}
+
+/* קלאס תמונת הלוגו בפועל */
+.custom-logo {
+    /* **התאמה:** הגבלת גובה הלוגו - קריטי לאיזון */
+    max-height: 80px; /* הגובה המדויק שיתאים לעיצוב שלך */
+    width: auto;      /* שמירה על פרופורציות רוחב */
+}
+
+/* עיצוב שם האתר כשהוא טקסטואלי (ברירת מחדל) */
 .main-header .logo {
     font-size: 1.8rem;
     font-weight: 700;
@@ -38,22 +54,10 @@
     transition: color 0.3s ease;
     color: map-get($theme-colors, primary-color);
 }
-/* קלאס הקישור המקיף את הלוגו */
-.custom-logo-link {
-    display: inline-flex; /* מאפשר יישור פנימי של תמונה וטקסט אם קיימים */
-    align-items: center; /* ליישור אנכי */
-    text-decoration: none; /* הסרת קו תחתון מקישור הלוגו */
-    margin-inline-end: 20px; /* רווח בין הלוגו לניווט/כפתורים הבאים */
-}
 
-/* קלאס תמונת הלוגו בפועל */
-.custom-logo {
-    /* הגבלת גודל הלוגו כדי לשלוט בגובה ההדר */
-    max-height: 100px; /* שנה את הערך הזה לגובה הרצוי בלבד */
-    width: auto;      /* שמירה על פרופורציות רוחב */
-}
+/* -------------------- ניווט וכפתורים -------------------- */
 .main-nav {
-    flex-grow: 1;
+    flex-grow: 1; /* תופס את המקום הפנוי במרכז */
     display: flex;
     justify-content: center;
 
@@ -104,7 +108,7 @@
         left: 0;
         width: 100%;
         height: 100vh;
-        background-color: rgba(map-get($theme-colors, background-color), 0.9); /* רקע מלא יותר כדי שהתפריט יהיה קריא */
+        background-color: rgba(map-get($theme-colors, background-color), 0.9); 
         z-index: 1050;
 
         body.light-mode & {
@@ -164,27 +168,6 @@
             }
         }
     }
-}
-
-/* --- שינוי 2: סגנונות ספציפיים למובייל --- */
-@media (max-width: $breakpoint-tablet) {
-//     .main-header {
-//     padding: 20px 0;
-//     position: sticky;
-//     top: 0;
-//     z-index: 1000;
-//     transition: background-color 0.4s 
-// ease, border-bottom-color 0.4s 
-// ease;
-//     background-color: rgba(26, 26, 26, 0.7);
-//     backdrop-filter: blur(10px);
-//     -webkit-backdrop-filter: blur(10px);
-//     border-bottom: 1px solid #333;
-//     width: 100%;
-//     margin: 0px auto;
-//     border-radius: 300px;
-//     border: none;
-//     }
 }
 
 .header-controls {
