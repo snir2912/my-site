@@ -1,147 +1,3 @@
-// .main-header {
-//     padding: 20px 0;
-//     position: sticky;
-//     top: 0;
-//     z-index: 1000;
-//     transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
-//     background-color: map-get($theme-colors, background-color);
-//     border-bottom: 1px solid map-get($theme-colors, border-color);
-
-//     body.light-mode & {
-//         background-color: map-get($theme-colors, light-background-color);
-//         border-bottom-color: map-get($theme-colors, light-border-color);
-//     }
-// }
-
-// .header-content {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-// }
-
-// .main-header .logo {
-//     font-size: 1.8rem;
-//     font-weight: 700;
-//     text-decoration: none;
-//     transition: color 0.3s ease;
-//     color: map-get($theme-colors, primary-color);
-// }
-
-// .main-nav {
-//     flex-grow: 1;
-//     display: flex; // נגדיר זאת כברירת מחדל כדי להשתמש בפלקסבוקס
-//     justify-content: center; // מרכוז אופקי במצב רגיל (דסקטופ)
-
-//     .main-menu-list {
-//         list-style: none;
-//         display: flex;
-//         gap: 30px;
-//         padding: 0;
-//         margin: 0;
-
-//         li a {
-//             text-decoration: none;
-//             font-weight: 500;
-//             transition: color 0.3s ease;
-//             position: relative;
-//             color: map-get($theme-colors, text-color);
-
-//             body.light-mode & {
-//                 color: map-get($theme-colors, light-text-color);
-//             }
-
-//             &:after {
-//                 content: '';
-//                 position: absolute;
-//                 width: 0;
-//                 height: 2px;
-//                 display: block;
-//                 margin-top: 5px;
-//                 right: 0;
-//                 background: map-get($theme-colors, primary-color);
-//                 transition: width 0.3s ease;
-//             }
-//             &:hover:after {
-//                 width: 100%;
-//                 left: 0;
-//             }
-//         }
-//     }
-// // סגנונות לתפריט המובייל כשהוא פתוח (יוחלו ע"י JS)
-//     &.active {
-//         display: flex; // נשתמש בפלקסבוקס למרכוז
-//         flex-direction: column;
-//         justify-content: center; // מרכוז אנכי
-//         align-items: center; // מרכוז אופקי
-
-//         position: fixed; // כדי לכסות את כל המסך
-//         top: 0;
-//         left: 0;
-//         width: 100%;
-//         height: 100vh; // 100% מגובה המסך
-//         background-color: map-get($theme-colors, background-color); // רקע התפריט
-//         z-index: 1050; // מעל ההדר וההמבורגר
-
-//         body.light-mode & {
-//             background-color: map-get($theme-colors, light-background-color);
-//         }
-
-//         .main-menu-list {
-//             flex-direction: column; // פריטים אחד מתחת לשני
-//             gap: 25px; // מרווח גדול יותר בין הפריטים
-
-//             li a {
-//                 font-size: clamp(1.8rem, 5vw, 2.5rem); // פונט גדול וקריא
-//                 font-weight: 700; // מודגש
-//                 color: map-get($theme-colors, primary-color); // צבע בולט
-//             }
-//         }
-//     }
-//     @media (max-width: $breakpoint-tablet) {
-//         position:fixed;
-//         top:0;
-//         left:100%;
-//         width:100%;
-//         height:100vh;
-//         background-color: map-get($theme-colors, background-color);
-//         z-index: 1050; // מעל ההדר וההמבורגר
-//         transition: left 0.4s ease-out;
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center; // מרכז אנכי
-//         align-items: center; // מרכז אופקי
-
-//         body.light-mode & {
-//             background-color: map-get($theme-colors, light-background-color);
-//         }
-
-//         &.active {
-//             left: 0; // כשהקלאס 'active' נוסף, הוא נכנס למסך
-//         }
-
-//         // סגנונות ספציפיים לאייטמים בתפריט המובייל
-//         .main-menu-list {
-//             flex-direction: column;
-//             gap: 25px;
-//             text-align: center;
-
-//             li a {
-//                 font-size: clamp(1.8rem, 5vw, 2.5rem);
-//                 font-weight: 700;
-//                 color: map-get($theme-colors, primary-color);
-                
-//                 &:after {
-//                     display: none;
-//                 }
-//                 &:hover {
-//                     color: map-get($theme-colors, secondary-color);
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
 
 .header-controls {
     display: flex;
@@ -182,7 +38,20 @@
     transition: color 0.3s ease;
     color: map-get($theme-colors, primary-color);
 }
+/* קלאס הקישור המקיף את הלוגו */
+.custom-logo-link {
+    display: inline-flex; /* מאפשר יישור פנימי של תמונה וטקסט אם קיימים */
+    align-items: center; /* ליישור אנכי */
+    text-decoration: none; /* הסרת קו תחתון מקישור הלוגו */
+    margin-inline-end: 20px; /* רווח בין הלוגו לניווט/כפתורים הבאים */
+}
 
+/* קלאס תמונת הלוגו בפועל */
+.custom-logo {
+    /* הגבלת גודל הלוגו כדי לשלוט בגובה ההדר */
+    max-height: 100px; /* שנה את הערך הזה לגובה הרצוי בלבד */
+    width: auto;      /* שמירה על פרופורציות רוחב */
+}
 .main-nav {
     flex-grow: 1;
     display: flex;
