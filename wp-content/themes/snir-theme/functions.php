@@ -4,6 +4,14 @@
 //  1. טעינת קבצי CSS ו-JavaScript
 //      (שימו לב: snir_theme_enqueue_toc_assets() מופרדת למטה לבהירות)
 // ----------------------------------------------------
+function mytheme_setup_logo() {
+    add_theme_support( 'custom-logo', array(
+        'flex-height' => true, // עדיין מומלץ לאפשר גמישות בגובה
+        'flex-width'  => true,  // עדיין מומלץ לאפשר גמישות ברוחב
+        'header-text' => array( 'site-title', 'site-description' ),
+    ) );
+}
+add_action( 'after_setup_theme', 'mytheme_setup_logo' );
 function snir_theme_assets() {
     // טעינת פונטים של גוגל - Heebo
     wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap');
