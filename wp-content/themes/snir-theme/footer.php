@@ -50,13 +50,21 @@
     </a>
 <?php endif; ?>
 <?php wp_footer(); ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" defer></script>
     
     <script>
-        // הפעלה של הלייטבוקס רק אם האלמנט קיים בעמוד
-        if (document.querySelector('.project-gallery-grid')) {
-            baguetteBox.run('.project-gallery-grid');
-        }
+        window.addEventListener('load', function() {
+            // בשלב זה, אנחנו בטוחים ב-100% שכל הסקריפטים נטענו
+            if (document.querySelector('.project-gallery-grid')) {
+                try {
+                    baguetteBox.run('.project-gallery-grid');
+                    // אם הגעת לפה, זה הצליח
+                } catch (e) {
+                    // אם עדיין יש שגיאה, נראה אותה בקונסול
+                    console.error("BaguetteBox failed to initialize: ", e);
+                }
+            }
+        });
     </script>
 </body>
 </html>
