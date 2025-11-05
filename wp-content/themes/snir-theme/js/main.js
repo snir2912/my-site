@@ -188,3 +188,54 @@ document.addEventListener("DOMContentLoaded", function() {
     handleScroll();
     window.addEventListener('scroll', handleScroll);
 });
+
+/**
+ * הפעלת גלריית לקוח בעמוד הנכון
+ *
+ * הקוד בודק אם אנחנו בעמוד הנכון (ע"י חיפוש הגלריה),
+ * ורק אז טוען ומפעיל את הלייטבוקס.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. בודק אם הגלריה (.project-gallery-grid) קיימת בעמוד הנוכחי
+    const galleryContainer = document.querySelector('.project-gallery-grid');
+    
+    if (galleryContainer) {
+        
+        // 2. אם הגלריה קיימת, בודק אם הספרייה 'baguetteBox' כבר נטענה
+        if (typeof baguetteBox === 'function') {
+            // אם כן, פשוט הפעל אותה
+            try {
+                baguetteBox.run('.project-gallery-grid');
+            } catch (e) {
+                console.error("BaguetteBox failed to run: ", e);
+            }
+        } else {
+            // 3. אם לא, טען דינמית את הקבצים ורק אז הפעל אותה
+            
+            // טעינת קובץ ה-CSS
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css';
+            document.head.appendChild(cssLink);
+
+            // טעינת קובץ ה-JS
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js';
+            script.async = true;
+            
+            // הפעלת הלייטבוקס *רק אחרי* שהסקריפט סיים להיטען
+            script.onload = function() {
+                try {
+                    baguetteBox.run('.project-gallery-grid');
+                } catch (e) {
+                    console.error("BaguetteBox failed to initialize and run: ", e);
+                }
+            };
+            
+            // הוספת הסקריפט לסוף העמוד
+            document.body.appendChild(script);
+        }
+    }
+
+}); // סוף 'DOMContentLoaded'

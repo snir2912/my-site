@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v8 - הדיבאג הסופי)
+ * (v9 - קוד נקי. הלוגיקה של הלייטבוקס עברה ל-main.js)
  */
 
 get_header(); 
@@ -11,7 +11,7 @@ $client_title = get_the_title();
 
 $client_description = get_field('client_description');
 $client_website_url = get_field('client_website_url');
-$project_gallery = get_field('project_gallery'); // קבלת הגלריה
+$project_gallery = get_field('project_gallery'); 
 
 $client_categories = get_the_terms($client_id, 'client_category');
 $primary_category = null;
@@ -67,11 +67,6 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
                 
                 <?php if ($project_gallery) : ?>
-
-                    <div style="background: #fff; color: #111; padding: 20px; border: 2px solid blue; text-align: left; direction: ltr; margin: 20px 0; overflow: auto; max-height: 400px;">
-                        <h3>-- פלט דיבאג: $project_gallery --</h3>
-                        <pre><?php var_dump($project_gallery); ?></pre>
-                    </div>
                     <section class="project-gallery-section">
                         <h2>תמונות מהפרויקט</h2>
                         <div class="project-gallery-grid">
@@ -79,6 +74,8 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                             <?php foreach ($project_gallery as $image_data) : ?>
                                 
                                 <?php
+                                // הנתונים שלך מושלמים, אבל נשאיר את הבדיקה ליתר ביטחון
+                                
                                 if (empty($image_data)) {
                                     continue; 
                                 }
@@ -89,11 +86,13 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                 $image_caption = '';
 
                                 if (is_array($image_data)) {
+                                    // זה המצב שלך - הנתונים הם "מערך תמונה"
                                     $image_full_url = $image_data['url'];
                                     $image_thumb_url = $image_data['sizes']['medium_large'];
                                     $image_alt = $image_data['alt'];
                                     $image_caption = $image_data['caption'];
                                 } else {
+                                    // גיבוי למקרה שהנתונים ישתבשו בעתיד
                                     $image_id = (int) $image_data;
                                     $image_full_url = wp_get_attachment_url($image_id);
                                     $image_thumb_url = wp_get_attachment_image_url($image_id, 'medium_large');
@@ -102,7 +101,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                 }
                                 ?>
 
-                                <?php if ($image_full_url && $image_thumb_url) : ?>
+                                <?php if ($image_full_url && $image_thumb_url) : // ודא שיש לנו קישורים לעבוד איתם ?>
                                     <a href="<?php echo esc_url($image_full_url); ?>" 
                                        class="gallery-item"
                                        data-caption="<?php echo esc_attr($image_caption); ?>">
