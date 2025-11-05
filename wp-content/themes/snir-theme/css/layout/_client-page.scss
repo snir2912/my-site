@@ -1,5 +1,5 @@
 /* =======================================
-   Single Client Page Styles (v2)
+   Single Client Page Styles (v3)
    ======================================= */
 
 // משתנים מקומיים לעמוד
@@ -9,7 +9,7 @@ $client-transition: all 0.3s ease-in-out;
 // שימוש במשתנים הגלובליים שהבאת
 // $font-heebo, $breakpoint-tablet, $breakpoint-desktop
 
-/* ======== 0. פירורי לחם (נוסף) ======== */
+/* ======== 0. פירורי לחם ======== */
 .client-breadcrumbs-container {
     max-width: 1300px;
     margin: 1.5rem auto 0;
@@ -19,27 +19,18 @@ $client-transition: all 0.3s ease-in-out;
         padding: 0 1rem;
         margin-top: 1rem;
     }
-    
-    // כאן תוכל לעצב את פירורי הלחם עצמם אם צריך, לדוגמה
-    // .breadcrumbs {
-    //     font-size: 0.9rem;
-    //     color: var(--text-color);
-    //     a {
-    //         color: var(--primary-color);
-    //     }
-    // }
 }
 
 
-.single-client-page {
+.single-client-page { // <--- כאן מתחיל ה-Scope
     width: 100%;
     font-family: $font-heebo;
 
     // ======== 1. הבאנר ========
     .client-banner {
-        height: 50vh; // באנר גבוה ומרשים
+        height: 50vh; 
         min-height: 300px;
-        background-color: var(--border-color); // צבע רקע למקרה שהתמונה לא נטענת
+        background-color: var(--border-color); 
         background-size: cover;
         background-position: center;
         position: relative;
@@ -51,12 +42,12 @@ $client-transition: all 0.3s ease-in-out;
 
         .banner-content {
             z-index: 2;
-            position: relative; // מעל האוברליי
+            position: relative;
         }
 
         .banner-title {
             font-size: 3.5rem;
-            color: #fff; // טקסט לבן תמיד על הבאנר
+            color: #fff; 
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
             margin: 0;
             font-weight: 900;
@@ -70,14 +61,14 @@ $client-transition: all 0.3s ease-in-out;
     // ======== 2. אזור התוכן הראשי ========
     .client-content-wrapper {
         display: grid;
-        grid-template-columns: 2fr 1fr; // חלוקה של 2/3 לתוכן ו-1/3 לטופס
+        grid-template-columns: 2fr 1fr; 
         gap: 3rem;
         max-width: 1300px;
-        margin: 4rem auto; // מרכוז וריווח
+        margin: 4rem auto; 
         padding: 0 2rem;
 
         @media (max-width: $breakpoint-desktop) {
-            grid-template-columns: 1fr; // עמודה אחת בדסקטופ קטן
+            grid-template-columns: 1fr; 
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -88,7 +79,6 @@ $client-transition: all 0.3s ease-in-out;
     }
 
     .client-main-content {
-        // 2a. מטא-דאטה (קטגוריה וקישור)
         .client-meta {
             display: flex;
             align-items: center;
@@ -100,7 +90,7 @@ $client-transition: all 0.3s ease-in-out;
 
             .client-category-badge {
                 background-color: var(--primary-color);
-                color: #fff; // טקסט לבן על צבע ראשי
+                color: #fff; 
                 padding: 0.4rem 0.8rem;
                 border-radius: $client-border-radius;
                 font-size: 0.9rem;
@@ -110,7 +100,7 @@ $client-transition: all 0.3s ease-in-out;
             .client-website-link {
                 display: inline-block;
                 background-color: var(--accent-color);
-                color: #fff; // טקסט לבן על צבע משני
+                color: #fff; 
                 text-decoration: none;
                 padding: 0.4rem 0.8rem;
                 border-radius: $client-border-radius;
@@ -124,7 +114,6 @@ $client-transition: all 0.3s ease-in-out;
             }
         }
 
-        // 2b. תיאור הלקוח
         .client-description {
             color: var(--text-color);
             line-height: 1.7;
@@ -152,40 +141,42 @@ $client-transition: all 0.3s ease-in-out;
         position: sticky;
         top: 2rem; 
         
-        // *** שינוי כאן (שינוי #2) ***
         .client-contact-form {
-            // רקע "פנינה" בהיר, גם במצב חשוך
-            background-color: #f9f9f9; 
-            border: 1px solid #ddd; // גבול בהיר
+            // *** שינוי (חזרה למשתנים) ***
+            background-color: var(--card-background); // ישתנה אוטומטית בין מצב בהיר לכהה
+            border: 1px solid var(--border-color);
             border-radius: $client-border-radius;
             padding: 2rem;
             box-shadow: 0 5px 15px var(--shadow-color);
 
             h3 {
-                color: var(--primary-color); // הכותרת נשארת בצבע הראשי
+                color: var(--primary-color);
                 margin-top: 0;
             }
             p {
-                color: #333; // טקסט כהה וקריא על הרקע הבהיר
+                color: var(--text-color); // ישתנה אוטומטית
                 font-size: 0.9rem;
                 margin-bottom: 1.5rem;
             }
             
-            // עיצוב שדות הטופס על הרקע הבהיר
+            // עיצוב שדות הטופס
             .wpcf7-form {
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
+                // *** שינוי (הקטנת רווח) ***
+                gap: 0.75rem; 
 
                 input[type="text"],
                 input[type="email"],
                 textarea {
                     width: 100%;
                     padding: 0.8rem;
-                    border: 1px solid #ccc; // גבול אפור לשדה
-                    background-color: #fff; // רקע לבן לשדה
-                    color: #333; // טקסט כהה בתוך השדה
+                    // *** שינוי (חזרה למשתנים) ***
+                    border: 1px solid var(--border-color);
+                    background-color: var(--bg-color); // רקע שונה מרקע הטופס
+                    color: var(--text-color);
                     border-radius: 4px;
+                    
                     &:focus {
                         outline: 1px solid var(--primary-color);
                         border-color: var(--primary-color);
@@ -211,7 +202,7 @@ $client-transition: all 0.3s ease-in-out;
 
     // ======== 3. אזור לקוחות נוספים ========
     .related-clients-section {
-        background-color: var(--card-background); // רקע עדין לאזור
+        background-color: var(--card-background); 
         border-top: 1px solid var(--border-color);
         padding: 4rem 0;
         margin-top: 4rem;
@@ -235,7 +226,7 @@ $client-transition: all 0.3s ease-in-out;
 
         .related-clients-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); // 3 כרטיסים בשורה
+            grid-template-columns: repeat(3, 1fr); 
             gap: 2rem;
 
             @media (max-width: $breakpoint-desktop) {
@@ -247,13 +238,13 @@ $client-transition: all 0.3s ease-in-out;
         }
     }
 
-    // "הכרטיס המושלם" (שינוי #3)
+    // "הכרטיס המושלם"
     .client-card {
         display: block;
         text-decoration: none;
-        background-color: var(--bg-color); // רקע הכרטיס
+        background-color: var(--bg-color); 
         border-radius: $client-border-radius;
-        overflow: hidden; // כדי לחתוך את התמונה יפה
+        overflow: hidden; 
         border: 1px solid var(--border-color);
         box-shadow: 0 4px 10px var(--shadow-color);
         transition: $client-transition;
@@ -265,18 +256,18 @@ $client-transition: all 0.3s ease-in-out;
 
         .card-image-wrapper {
             width: 100%;
-            height: 200px; // גובה קבוע לתמונה
+            height: 200px; 
             position: relative;
             overflow: hidden;
             
             img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover; // התמונה תמלא את השטח בלי להתעוות
+                object-fit: cover; 
                 transition: transform 0.4s ease;
             }
 
-            .card-image-overlay { // אוברליי עדין
+            .card-image-overlay { 
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -287,7 +278,7 @@ $client-transition: all 0.3s ease-in-out;
         }
         
         &:hover .card-image-wrapper img {
-             transform: scale(1.05); // זום קטן על התמונה בהובר
+             transform: scale(1.05);
         }
 
 
@@ -295,23 +286,23 @@ $client-transition: all 0.3s ease-in-out;
             padding: 1.5rem;
         }
 
-        // *** חדש ***: עיצוב תג הקטגוריה
         .card-category-badge {
             display: inline-block;
-            background-color: var(--accent-color); // צבע הדגשה
+            // *** שינוי (צבע התג) ***
+            background-color: var(--primary-color); // Crimson
             color: #fff;
             padding: 0.3rem 0.7rem;
-            border-radius: 50px; // צורת "גלולה"
+            border-radius: 50px; 
             font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 0.75rem; // ריווח מהכותרת
+            margin-bottom: 0.75rem; 
         }
 
         .card-title {
             color: var(--text-color);
             font-size: 1.25rem;
             font-weight: 700;
-            margin: 0; // איפוס margin שהיה קודם
+            margin: 0; 
         }
     }
-}
+} // <--- כאן נסגר ה-Scope

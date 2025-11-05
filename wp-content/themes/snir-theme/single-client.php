@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v2 - עם פירורי לחם וקטגוריות בכרטיסים)
+ * (v2)
  */
 
 get_header(); // טוען את ה-header של האתר
@@ -28,7 +28,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
 <div class="client-breadcrumbs-container">
     <?php
-    // פירורי לחם (Breadcrumbs) - כפי שביקשת
+    // פירורי לחם (Breadcrumbs)
     if (function_exists('snir_theme_breadcrumbs')) {
         snir_theme_breadcrumbs();
     }
@@ -58,7 +58,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
                     <?php if ($client_website_url) : ?>
                         <a href="<?php echo esc_url($client_website_url); ?>" class="client-website-link" target="_blank" rel="noopener noreferrer">
-                            בקר באתר הלקוח  visit site
+                            בקרו באתר הלקוח
                         </a>
                     <?php endif; ?>
                 </div>
@@ -73,8 +73,8 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
             <aside class="client-contact-sidebar">
                 <div class="client-contact-form">
-                    <h3>מעוניין בפרויקט דומה?</h3>
-                    <p>דבר איתנו ונשמח לעזור.</p>
+                    <h3>מעוניינים בפרויקט דומה?</h3>
+                    <p>דברו איתנו ונשמח לעזור.</p>
                     <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
                 </div>
             </aside>
@@ -108,7 +108,6 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                         <?php while ($related_clients_query->have_posts()) : $related_clients_query->the_post(); ?>
                             
                             <?php
-                            // *** חדש ***: קבלת הקטגוריה של הכרטיס הנוכחי
                             $related_id = get_the_ID();
                             $related_categories = get_the_terms($related_id, 'client_category');
                             $related_primary_category = null;
@@ -127,9 +126,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                     <div class="card-image-overlay"></div>
                                 </div>
                                 <div class="card-content">
-                                    <?php
-                                    // *** חדש ***: הדפסת תג הקטגוריה
-                                    if ($related_primary_category) : ?>
+                                    <?php if ($related_primary_category) : ?>
                                         <span class="card-category-badge">
                                             <?php echo esc_html($related_primary_category->name); ?>
                                         </span>
