@@ -1,5 +1,5 @@
 /* =======================================
-   Single Client Page Styles (v3)
+   Single Client Page Styles (v4)
    ======================================= */
 
 // משתנים מקומיים לעמוד
@@ -9,17 +9,8 @@ $client-transition: all 0.3s ease-in-out;
 // שימוש במשתנים הגלובליים שהבאת
 // $font-heebo, $breakpoint-tablet, $breakpoint-desktop
 
-/* ======== 0. פירורי לחם ======== */
-.client-breadcrumbs-container {
-    max-width: 1300px;
-    margin: 1.5rem auto 0;
-    padding: 0 2rem;
-    
-    @media (max-width: $breakpoint-tablet) {
-        padding: 0 1rem;
-        margin-top: 1rem;
-    }
-}
+/* ======== 0. פירורי לחם (הוסר) ======== */
+// .client-breadcrumbs-container { ... } - הבלוק הזה נמחק
 
 
 .single-client-page { // <--- כאן מתחיל ה-Scope
@@ -43,18 +34,44 @@ $client-transition: all 0.3s ease-in-out;
         .banner-content {
             z-index: 2;
             position: relative;
-        }
+        
+            .banner-title {
+                font-size: 3.5rem;
+                color: #fff; 
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+                margin: 0;
+                font-weight: 900;
 
-        .banner-title {
-            font-size: 3.5rem;
-            color: #fff; 
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-            margin: 0;
-            font-weight: 900;
-
-            @media (max-width: $breakpoint-tablet) {
-                font-size: 2.5rem;
+                @media (max-width: $breakpoint-tablet) {
+                    font-size: 2.5rem;
+                }
             }
+
+            // ======== *** שינוי: עיצוב פירורי לחם בתוך הבאנר *** ========
+            .banner-breadcrumbs {
+                margin-top: 1rem; // רווח מהכותרת
+                color: #f0f0f0; // צבע בהיר על רקע כהה
+                font-size: 0.9rem;
+                text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+
+                // עיצוב קישורים בתוך פירורי הלחם (בהנחה שהפונקציה שלך יוצרת <a>)
+                a {
+                    color: #fff; // צבע לבן לקישור
+                    text-decoration: none;
+                    transition: $client-transition;
+
+                    &:hover {
+                        color: var(--primary-color); // צבע קרימזון בהובר
+                        text-decoration: underline;
+                    }
+                }
+
+                // עיצוב הרכיב האחרון (העמוד הנוכחי)
+                span, strong {
+                    color: #f0f0f0; // צבע בהיר לא-לחיץ
+                }
+            }
+            // ======== *** סוף שינוי *** ========
         }
     }
 
@@ -142,8 +159,7 @@ $client-transition: all 0.3s ease-in-out;
         top: 2rem; 
         
         .client-contact-form {
-            // *** שינוי (חזרה למשתנים) ***
-            background-color: var(--card-background); // ישתנה אוטומטית בין מצב בהיר לכהה
+            background-color: var(--card-background); 
             border: 1px solid var(--border-color);
             border-radius: $client-border-radius;
             padding: 2rem;
@@ -154,16 +170,14 @@ $client-transition: all 0.3s ease-in-out;
                 margin-top: 0;
             }
             p {
-                color: var(--text-color); // ישתנה אוטומטית
+                color: var(--text-color); 
                 font-size: 0.9rem;
                 margin-bottom: 1.5rem;
             }
             
-            // עיצוב שדות הטופס
             .wpcf7-form {
                 display: flex;
                 flex-direction: column;
-                // *** שינוי (הקטנת רווח) ***
                 gap: 0.75rem; 
 
                 input[type="text"],
@@ -171,9 +185,8 @@ $client-transition: all 0.3s ease-in-out;
                 textarea {
                     width: 100%;
                     padding: 0.8rem;
-                    // *** שינוי (חזרה למשתנים) ***
                     border: 1px solid var(--border-color);
-                    background-color: var(--bg-color); // רקע שונה מרקע הטופס
+                    background-color: var(--bg-color); 
                     color: var(--text-color);
                     border-radius: 4px;
                     
@@ -288,7 +301,6 @@ $client-transition: all 0.3s ease-in-out;
 
         .card-category-badge {
             display: inline-block;
-            // *** שינוי (צבע התג) ***
             background-color: var(--primary-color); // Crimson
             color: #fff;
             padding: 0.3rem 0.7rem;

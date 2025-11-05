@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v2)
+ * (v4 - פירורי לחם מתחת לכותרת הבאנר)
  */
 
 get_header(); // טוען את ה-header של האתר
@@ -26,16 +26,6 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
 ?>
 
-<div class="client-breadcrumbs-container">
-    <?php
-    // פירורי לחם (Breadcrumbs)
-    if (function_exists('snir_theme_breadcrumbs')) {
-        snir_theme_breadcrumbs();
-    }
-    ?>
-</div>
-
-
 <main id="primary" class="site-main single-client-page">
 
     <?php while ( have_posts() ) : the_post(); ?>
@@ -43,7 +33,15 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
         <header class="client-banner" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('<?php echo esc_url($banner_image_url); ?>');">
             <div class="banner-content">
                 <h1 class="banner-title"><?php echo esc_html($client_title); ?></h1>
-            </div>
+                
+                <div class="banner-breadcrumbs">
+                    <?php
+                    if (function_exists('snir_theme_breadcrumbs')) {
+                        snir_theme_breadcrumbs();
+                    }
+                    ?>
+                </div>
+                </div>
         </header>
 
         <div class="client-content-wrapper">
