@@ -336,10 +336,10 @@ add_action('wp_ajax_nopriv_my_ajax_search', 'my_ajax_search_callback');
 
 function create_client_post_type() {
     $labels = array(
-        'name'               => _x( 'Clients', 'post type general name', 'your-theme-text-domain' ),
-        'singular_name'      => _x( 'Client', 'post type singular name', 'your-theme-text-domain' ),
-        'menu_name'          => _x( 'Clients', 'admin menu', 'your-theme-text-domain' ),
-        'name_admin_bar'     => _x( 'Client', 'add new on admin bar', 'your-theme-text-domain' ),
+        'name'               => _x( 'clients', 'post type general name', 'your-theme-text-domain' ),
+        'singular_name'      => _x( 'client', 'post type singular name', 'your-theme-text-domain' ),
+        'menu_name'          => _x( 'clients', 'admin menu', 'your-theme-text-domain' ),
+        'name_admin_bar'     => _x( 'client', 'add new on admin bar', 'your-theme-text-domain' ),
         'add_new'            => _x( 'Add New', 'client', 'your-theme-text-domain' ),
         'add_new_item'       => __( 'Add New Client', 'your-theme-text-domain' ),
         'new_item'           => __( 'New Client', 'your-theme-text-domain' ),
