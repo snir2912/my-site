@@ -1,29 +1,25 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v7.1 - תיקון גלריה לערכים ריקים + עדכון טקסטים)
+ * (v8 - הדיבאג הסופי)
  */
 
-get_header(); // טוען את ה-header של האתר
+get_header(); 
 
-// משתנים ראשיים לפוסט הנוכחי
 $client_id = get_the_ID();
 $client_title = get_the_title();
 
-// שדות ACF
 $client_description = get_field('client_description');
 $client_website_url = get_field('client_website_url');
 $project_gallery = get_field('project_gallery'); // קבלת הגלריה
 
-// טקסונומיה (קטגוריות)
 $client_categories = get_the_terms($client_id, 'client_category');
 $primary_category = null;
 if (!empty($client_categories) && !is_wp_error($client_categories)) {
-    $primary_category = $client_categories[0]; // לוקח את הקטגוריה הראשונה
+    $primary_category = $client_categories[0]; 
 }
 
-// תמונת באנר (תמונה ראשית)
-$banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id, 'full') : ''; // השתמש ב-full לגמישות
+$banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id, 'full') : ''; 
 
 ?>
 
@@ -65,11 +61,17 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
                 <?php if ($client_description) : ?>
                     <div class="client-description">
-                        <?php echo wp_kses_post($client_description); // משתמש ב-wp_kses_post כי זה מ-WYSIWYG ?>
+                        <?php echo wp_kses_post($client_description); ?>
                     </div>
                 <?php endif; ?>
 
+                
                 <?php if ($project_gallery) : ?>
+
+                    <div style="background: #fff; color: #111; padding: 20px; border: 2px solid blue; text-align: left; direction: ltr; margin: 20px 0; overflow: auto; max-height: 400px;">
+                        <h3>-- פלט דיבאג: $project_gallery --</h3>
+                        <pre><?php var_dump($project_gallery); ?></pre>
+                    </div>
                     <section class="project-gallery-section">
                         <h2>תמונות מהפרויקט</h2>
                         <div class="project-gallery-grid">
@@ -77,35 +79,30 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                             <?php foreach ($project_gallery as $image_data) : ?>
                                 
                                 <?php
-                                // --- *** התיקון הקריטי: דילוג על ערכים ריקים ("רוחות") *** ---
                                 if (empty($image_data)) {
-                                    continue; // דלג על הפריט הזה ועבור לבא בתור
+                                    continue; 
                                 }
 
-                                // --- לוגיקה לבדיקת סוג הנתונים (מ-v6) ---
                                 $image_full_url = '';
                                 $image_thumb_url = '';
                                 $image_alt = '';
                                 $image_caption = '';
 
                                 if (is_array($image_data)) {
-                                    // מצב תקין: הנתונים הם "מערך תמונה"
                                     $image_full_url = $image_data['url'];
                                     $image_thumb_url = $image_data['sizes']['medium_large'];
                                     $image_alt = $image_data['alt'];
                                     $image_caption = $image_data['caption'];
                                 } else {
-                                    // מצב תיקון: הנתונים הם "מזהה תמונה" (ID)
                                     $image_id = (int) $image_data;
                                     $image_full_url = wp_get_attachment_url($image_id);
                                     $image_thumb_url = wp_get_attachment_image_url($image_id, 'medium_large');
                                     $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
                                     $image_caption = wp_get_attachment_caption($image_id);
                                 }
-                                // --- סוף לוגיקה ---
                                 ?>
 
-                                <?php if ($image_full_url && $image_thumb_url) : // ודא שיש לנו קישורים לעבוד איתם ?>
+                                <?php if ($image_full_url && $image_thumb_url) : ?>
                                     <a href="<?php echo esc_url($image_full_url); ?>" 
                                        class="gallery-item"
                                        data-caption="<?php echo esc_attr($image_caption); ?>">
@@ -119,7 +116,9 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                         </div>
                     </section>
                 <?php endif; ?>
-                </div>
+
+
+            </div>
 
             <aside class="client-contact-sidebar">
                 <div class="client-contact-form">
@@ -135,8 +134,8 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
         if ($primary_category) {
             $args = array(
                 'post_type' => 'client',
-                'posts_per_page' => 3, // הצג עד 3 לקוחות נוספים
-                'post__not_in' => array($client_id), // אל תכלול את הלקוח הנוכחי
+                'posts_per_page' => 3, 
+                'post__not_in' => array($client_id), 
                 'tax_query' => array(
                     array(
                         'taxonomy' => 'client_category',
@@ -169,7 +168,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                             <a href="<?php the_permalink(); ?>" class="client-card">
                                 <div class="card-image-wrapper">
                                     <?php if (has_post_thumbnail()) : ?>
-                                        <?php the_post_thumbnail('medium_large'); // תמונה בגודל בינוני-גדול ?>
+                                        <?php the_post_thumbnail('medium_large'); ?>
                                     <?php else : ?>
                                         <div class="card-image-placeholder"></div>
                                     <?php endif; ?>
@@ -190,12 +189,12 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     </div>
                 </div>
             </section>
-            <?php wp_reset_postdata(); // חשוב לאפס את הלולאה ?>
+            <?php wp_reset_postdata(); ?>
         <?php endif; ?>
 
 
-    <?php endwhile; // end of the loop. ?>
+    <?php endwhile; ?>
 
 </main><?php
-get_footer(); // טוען את ה-footer
+get_footer(); 
 ?>
