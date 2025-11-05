@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v6 - תיקון גלריה לטיפול בנתוני ACF מעורבים)
+ * (v7.1 - תיקון גלריה לערכים ריקים + עדכון טקסטים)
  */
 
 get_header(); // טוען את ה-header של האתר
@@ -77,7 +77,12 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                             <?php foreach ($project_gallery as $image_data) : ?>
                                 
                                 <?php
-                                // --- לוגיקה חדשה: בדיקת סוג הנתונים ---
+                                // --- *** התיקון הקריטי: דילוג על ערכים ריקים ("רוחות") *** ---
+                                if (empty($image_data)) {
+                                    continue; // דלג על הפריט הזה ועבור לבא בתור
+                                }
+
+                                // --- לוגיקה לבדיקת סוג הנתונים (מ-v6) ---
                                 $image_full_url = '';
                                 $image_thumb_url = '';
                                 $image_alt = '';
@@ -97,7 +102,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                     $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
                                     $image_caption = wp_get_attachment_caption($image_id);
                                 }
-                                // --- סוף לוגיקה חדשה ---
+                                // --- סוף לוגיקה ---
                                 ?>
 
                                 <?php if ($image_full_url && $image_thumb_url) : // ודא שיש לנו קישורים לעבוד איתם ?>
@@ -185,12 +190,12 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     </div>
                 </div>
             </section>
-            <?php wp_reset_postdata();?>
+            <?php wp_reset_postdata(); // חשוב לאפס את הלולאה ?>
         <?php endif; ?>
 
 
-    <?php endwhile;  ?>
+    <?php endwhile; // end of the loop. ?>
 
 </main><?php
-get_footer(); 
+get_footer(); // טוען את ה-footer
 ?>
