@@ -1,6 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
+ * (v2 - עם פירורי לחם וקטגוריות בכרטיסים)
  */
 
 get_header(); // טוען את ה-header של האתר
@@ -24,6 +25,16 @@ if (!empty($client_categories) && !is_wp_error($client_categories)) {
 $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id, 'full') : ''; // השתמש ב-full לגמישות
 
 ?>
+
+<div class="client-breadcrumbs-container">
+    <?php
+    // פירורי לחם (Breadcrumbs) - כפי שביקשת
+    if (function_exists('snir_theme_breadcrumbs')) {
+        snir_theme_breadcrumbs();
+    }
+    ?>
+</div>
+
 
 <main id="primary" class="site-main single-client-page">
 
@@ -96,6 +107,16 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                         
                         <?php while ($related_clients_query->have_posts()) : $related_clients_query->the_post(); ?>
                             
+                            <?php
+                            // *** חדש ***: קבלת הקטגוריה של הכרטיס הנוכחי
+                            $related_id = get_the_ID();
+                            $related_categories = get_the_terms($related_id, 'client_category');
+                            $related_primary_category = null;
+                            if (!empty($related_categories) && !is_wp_error($related_categories)) {
+                                $related_primary_category = $related_categories[0];
+                            }
+                            ?>
+
                             <a href="<?php the_permalink(); ?>" class="client-card">
                                 <div class="card-image-wrapper">
                                     <?php if (has_post_thumbnail()) : ?>
@@ -106,6 +127,13 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                     <div class="card-image-overlay"></div>
                                 </div>
                                 <div class="card-content">
+                                    <?php
+                                    // *** חדש ***: הדפסת תג הקטגוריה
+                                    if ($related_primary_category) : ?>
+                                        <span class="card-category-badge">
+                                            <?php echo esc_html($related_primary_category->name); ?>
+                                        </span>
+                                    <?php endif; ?>
                                     <h3 class="card-title"><?php the_title(); ?></h3>
                                 </div>
                             </a>

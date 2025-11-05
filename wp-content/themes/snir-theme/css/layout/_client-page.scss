@@ -1,5 +1,5 @@
 /* =======================================
-   Single Client Page Styles
+   Single Client Page Styles (v2)
    ======================================= */
 
 // משתנים מקומיים לעמוד
@@ -8,6 +8,28 @@ $client-transition: all 0.3s ease-in-out;
 
 // שימוש במשתנים הגלובליים שהבאת
 // $font-heebo, $breakpoint-tablet, $breakpoint-desktop
+
+/* ======== 0. פירורי לחם (נוסף) ======== */
+.client-breadcrumbs-container {
+    max-width: 1300px;
+    margin: 1.5rem auto 0;
+    padding: 0 2rem;
+    
+    @media (max-width: $breakpoint-tablet) {
+        padding: 0 1rem;
+        margin-top: 1rem;
+    }
+    
+    // כאן תוכל לעצב את פירורי הלחם עצמם אם צריך, לדוגמה
+    // .breadcrumbs {
+    //     font-size: 0.9rem;
+    //     color: var(--text-color);
+    //     a {
+    //         color: var(--primary-color);
+    //     }
+    // }
+}
+
 
 .single-client-page {
     width: 100%;
@@ -127,28 +149,29 @@ $client-transition: all 0.3s ease-in-out;
 
     // 2c. טופס יצירת קשר (סיידבר)
     .client-contact-sidebar {
-        // קיבוע דביק (sticky) יהיה נחמד כאן
         position: sticky;
         top: 2rem; 
         
+        // *** שינוי כאן (שינוי #2) ***
         .client-contact-form {
-            background-color: var(--card-background);
-            border: 1px solid var(--border-color);
+            // רקע "פנינה" בהיר, גם במצב חשוך
+            background-color: #f9f9f9; 
+            border: 1px solid #ddd; // גבול בהיר
             border-radius: $client-border-radius;
             padding: 2rem;
             box-shadow: 0 5px 15px var(--shadow-color);
 
             h3 {
-                color: var(--primary-color);
+                color: var(--primary-color); // הכותרת נשארת בצבע הראשי
                 margin-top: 0;
             }
             p {
-                color: var(--text-color);
+                color: #333; // טקסט כהה וקריא על הרקע הבהיר
                 font-size: 0.9rem;
                 margin-bottom: 1.5rem;
             }
             
-            // עיצוב בסיסי ל-CF7
+            // עיצוב שדות הטופס על הרקע הבהיר
             .wpcf7-form {
                 display: flex;
                 flex-direction: column;
@@ -159,9 +182,9 @@ $client-transition: all 0.3s ease-in-out;
                 textarea {
                     width: 100%;
                     padding: 0.8rem;
-                    border: 1px solid var(--border-color);
-                    background-color: var(--bg-color);
-                    color: var(--text-color);
+                    border: 1px solid #ccc; // גבול אפור לשדה
+                    background-color: #fff; // רקע לבן לשדה
+                    color: #333; // טקסט כהה בתוך השדה
                     border-radius: 4px;
                     &:focus {
                         outline: 1px solid var(--primary-color);
@@ -224,7 +247,7 @@ $client-transition: all 0.3s ease-in-out;
         }
     }
 
-    // "הכרטיס המושלם"
+    // "הכרטיס המושלם" (שינוי #3)
     .client-card {
         display: block;
         text-decoration: none;
@@ -263,7 +286,7 @@ $client-transition: all 0.3s ease-in-out;
             }
         }
         
-        .client-card:hover .card-image-wrapper img {
+        &:hover .card-image-wrapper img {
              transform: scale(1.05); // זום קטן על התמונה בהובר
         }
 
@@ -272,11 +295,23 @@ $client-transition: all 0.3s ease-in-out;
             padding: 1.5rem;
         }
 
+        // *** חדש ***: עיצוב תג הקטגוריה
+        .card-category-badge {
+            display: inline-block;
+            background-color: var(--accent-color); // צבע הדגשה
+            color: #fff;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px; // צורת "גלולה"
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem; // ריווח מהכותרת
+        }
+
         .card-title {
             color: var(--text-color);
             font-size: 1.25rem;
             font-weight: 700;
-            margin: 0;
+            margin: 0; // איפוס margin שהיה קודם
         }
     }
 }

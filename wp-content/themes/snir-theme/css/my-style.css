@@ -1515,8 +1515,21 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 }
 
 /* =======================================
-   Single Client Page Styles
+   Single Client Page Styles (v2)
    ======================================= */
+/* ======== 0. פירורי לחם (נוסף) ======== */
+.client-breadcrumbs-container {
+  max-width: 1300px;
+  margin: 1.5rem auto 0;
+  padding: 0 2rem;
+}
+@media (max-width: 768px) {
+  .client-breadcrumbs-container {
+    padding: 0 1rem;
+    margin-top: 1rem;
+  }
+}
+
 .single-client-page {
   width: 100%;
   font-family: "Heebo", sans-serif;
@@ -1625,8 +1638,8 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   top: 2rem;
 }
 .single-client-page .client-contact-sidebar .client-contact-form {
-  background-color: var(--card-background);
-  border: 1px solid var(--border-color);
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 5px 15px var(--shadow-color);
@@ -1636,7 +1649,7 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   margin-top: 0;
 }
 .single-client-page .client-contact-sidebar .client-contact-form p {
-  color: var(--text-color);
+  color: #333;
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
 }
@@ -1650,9 +1663,9 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 .single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form textarea {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
   border-radius: 4px;
 }
 .single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=text]:focus,
@@ -1746,11 +1759,21 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   height: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
 }
-.single-client-page .client-card .client-card:hover .card-image-wrapper img {
+.single-client-page .client-card:hover .card-image-wrapper img {
   transform: scale(1.05);
 }
 .single-client-page .client-card .card-content {
   padding: 1.5rem;
+}
+.single-client-page .client-card .card-category-badge {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
 }
 .single-client-page .client-card .card-title {
   color: var(--text-color);
