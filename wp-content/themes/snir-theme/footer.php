@@ -51,11 +51,12 @@
 <?php endif; ?>
 <?php wp_footer(); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" async></script>
-<script>
-    // הפעלה של הלייטבוקס רק אם האלמנט קיים בעמוד
-    if (document.querySelector('.project-gallery-grid')) {
-        baguetteBox.run('.project-gallery-grid');
-    }
-</script>
+    
+    <script>
+        // הפעלה של הלייטבוקס רק אם האלמנט קיים בעמוד
+        if (document.querySelector('.project-gallery-grid')) {
+            baguetteBox.run('.project-gallery-grid');
+        }
+    </script>
 </body>
 </html>
