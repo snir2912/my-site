@@ -1514,6 +1514,251 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   color: var(--secondary-color);
 }
 
+/* =======================================
+   Single Client Page Styles
+   ======================================= */
+.single-client-page {
+  width: 100%;
+  font-family: "Heebo", sans-serif;
+}
+.single-client-page .client-banner {
+  height: 50vh;
+  min-height: 300px;
+  background-color: var(--border-color);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+.single-client-page .client-banner .banner-content {
+  z-index: 2;
+  position: relative;
+}
+.single-client-page .client-banner .banner-title {
+  font-size: 3.5rem;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  margin: 0;
+  font-weight: 900;
+}
+@media (max-width: 768px) {
+  .single-client-page .client-banner .banner-title {
+    font-size: 2.5rem;
+  }
+}
+.single-client-page .client-content-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  max-width: 1300px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+@media (max-width: 1024px) {
+  .single-client-page .client-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+}
+@media (max-width: 768px) {
+  .single-client-page .client-content-wrapper {
+    padding: 0 1rem;
+  }
+}
+.single-client-page .client-main-content .client-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+.single-client-page .client-main-content .client-meta .client-category-badge {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.single-client-page .client-main-content .client-meta .client-website-link {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+.single-client-page .client-main-content .client-meta .client-website-link:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+.single-client-page .client-main-content .client-description {
+  color: var(--text-color);
+  line-height: 1.7;
+}
+.single-client-page .client-main-content .client-description h2, .single-client-page .client-main-content .client-description h3, .single-client-page .client-main-content .client-description h4 {
+  color: var(--text-color);
+  font-weight: 700;
+  margin-top: 1.5em;
+}
+.single-client-page .client-main-content .client-description p {
+  margin-bottom: 1em;
+}
+.single-client-page .client-main-content .client-description a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+.single-client-page .client-main-content .client-description a:hover {
+  text-decoration: underline;
+}
+.single-client-page .client-contact-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+.single-client-page .client-contact-sidebar .client-contact-form {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+.single-client-page .client-contact-sidebar .client-contact-form h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+}
+.single-client-page .client-contact-sidebar .client-contact-form p {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=text],
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=email],
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 4px;
+}
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=text]:focus,
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=email]:focus,
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form textarea:focus {
+  outline: 1px solid var(--primary-color);
+  border-color: var(--primary-color);
+}
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=submit] {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease-in-out;
+}
+.single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=submit]:hover {
+  background-color: var(--secondary-color);
+}
+.single-client-page .related-clients-section {
+  background-color: var(--card-background);
+  border-top: 1px solid var(--border-color);
+  padding: 4rem 0;
+  margin-top: 4rem;
+}
+.single-client-page .related-clients-section .related-clients-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+@media (max-width: 768px) {
+  .single-client-page .related-clients-section .related-clients-wrapper {
+    padding: 0 1rem;
+  }
+}
+.single-client-page .related-clients-section .related-clients-wrapper h2 {
+  color: var(--text-color);
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+.single-client-page .related-clients-section .related-clients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 1024px) {
+  .single-client-page .related-clients-section .related-clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .single-client-page .related-clients-section .related-clients-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.single-client-page .client-card {
+  display: block;
+  text-decoration: none;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: all 0.3s ease-in-out;
+}
+.single-client-page .client-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+.single-client-page .client-card .card-image-wrapper {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+.single-client-page .client-card .card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.single-client-page .client-card .card-image-wrapper .card-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
+}
+.single-client-page .client-card .client-card:hover .card-image-wrapper img {
+  transform: scale(1.05);
+}
+.single-client-page .client-card .card-content {
+  padding: 1.5rem;
+}
+.single-client-page .client-card .card-title {
+  color: var(--text-color);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
 .btn {
   display: inline-block;
   padding: 15px 30px;
