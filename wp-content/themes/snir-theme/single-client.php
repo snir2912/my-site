@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v5 - נוספה גלריית פרויקט)
+ * (v6 - תיקון גלריה לטיפול בנתוני ACF מעורבים)
  */
 
 get_header(); // טוען את ה-header של האתר
@@ -13,7 +13,7 @@ $client_title = get_the_title();
 // שדות ACF
 $client_description = get_field('client_description');
 $client_website_url = get_field('client_website_url');
-$project_gallery = get_field('project_gallery'); // *** חדש: קבלת הגלריה ***
+$project_gallery = get_field('project_gallery'); // קבלת הגלריה
 
 // טקסונומיה (קטגוריות)
 $client_categories = get_the_terms($client_id, 'client_category');
@@ -58,7 +58,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
                     <?php if ($client_website_url) : ?>
                         <a href="<?php echo esc_url($client_website_url); ?>" class="client-website-link" target="_blank" rel="noopener noreferrer">
-                            בקרו באתר הלקוח
+                            בקרו באתר של <?php echo esc_html($client_title); ?>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -73,14 +73,43 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     <section class="project-gallery-section">
                         <h2>תמונות מהפרויקט</h2>
                         <div class="project-gallery-grid">
-                            <?php foreach ($project_gallery as $image) : ?>
-                                <a href="<?php echo esc_url($image['url']); // קישור לתמונה המלאה (ללייטבוקס) ?>" 
-                                   class="gallery-item"
-                                   data-caption="<?php echo esc_attr($image['caption']); // מוסיף כיתוב תמונה ללייטבוקס ?>">
-                                    
-                                    <img src="<?php echo esc_url($image['sizes']['medium_large']); // תמונה ממוזערת מרובעת (בזכות ה-CSS) ?>" 
-                                         alt="<?php echo esc_attr($image['alt']); ?>" />
-                                </a>
+                            
+                            <?php foreach ($project_gallery as $image_data) : ?>
+                                
+                                <?php
+                                // --- לוגיקה חדשה: בדיקת סוג הנתונים ---
+                                $image_full_url = '';
+                                $image_thumb_url = '';
+                                $image_alt = '';
+                                $image_caption = '';
+
+                                if (is_array($image_data)) {
+                                    // מצב תקין: הנתונים הם "מערך תמונה"
+                                    $image_full_url = $image_data['url'];
+                                    $image_thumb_url = $image_data['sizes']['medium_large'];
+                                    $image_alt = $image_data['alt'];
+                                    $image_caption = $image_data['caption'];
+                                } else {
+                                    // מצב תיקון: הנתונים הם "מזהה תמונה" (ID)
+                                    $image_id = (int) $image_data;
+                                    $image_full_url = wp_get_attachment_url($image_id);
+                                    $image_thumb_url = wp_get_attachment_image_url($image_id, 'medium_large');
+                                    $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
+                                    $image_caption = wp_get_attachment_caption($image_id);
+                                }
+                                // --- סוף לוגיקה חדשה ---
+                                ?>
+
+                                <?php if ($image_full_url && $image_thumb_url) : // ודא שיש לנו קישורים לעבוד איתם ?>
+                                    <a href="<?php echo esc_url($image_full_url); ?>" 
+                                       class="gallery-item"
+                                       data-caption="<?php echo esc_attr($image_caption); ?>">
+                                        
+                                        <img src="<?php echo esc_url($image_thumb_url); ?>" 
+                                             alt="<?php echo esc_attr($image_alt); ?>" />
+                                    </a>
+                                <?php endif; ?>
+
                             <?php endforeach; ?>
                         </div>
                     </section>
@@ -156,12 +185,12 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     </div>
                 </div>
             </section>
-            <?php wp_reset_postdata(); // חשוב לאפס את הלולאה ?>
+            <?php wp_reset_postdata();?>
         <?php endif; ?>
 
 
-    <?php endwhile; // end of the loop. ?>
+    <?php endwhile;  ?>
 
 </main><?php
-get_footer(); // טוען את ה-footer
+get_footer(); 
 ?>
