@@ -331,3 +331,73 @@ function my_ajax_search_callback() {
 }
 add_action('wp_ajax_my_ajax_search', 'my_ajax_search_callback');
 add_action('wp_ajax_nopriv_my_ajax_search', 'my_ajax_search_callback');
+
+// ===== 1. רישום Custom Post Type: Client =====
+
+function create_client_post_type() {
+    $labels = array(
+        'name'               => _x( 'Clients', 'post type general name', 'your-theme-text-domain' ),
+        'singular_name'      => _x( 'Client', 'post type singular name', 'your-theme-text-domain' ),
+        'menu_name'          => _x( 'Clients', 'admin menu', 'your-theme-text-domain' ),
+        'name_admin_bar'     => _x( 'Client', 'add new on admin bar', 'your-theme-text-domain' ),
+        'add_new'            => _x( 'Add New', 'client', 'your-theme-text-domain' ),
+        'add_new_item'       => __( 'Add New Client', 'your-theme-text-domain' ),
+        'new_item'           => __( 'New Client', 'your-theme-text-domain' ),
+        'edit_item'          => __( 'Edit Client', 'your-theme-text-domain' ),
+        'view_item'          => __( 'View Client', 'your-theme-text-domain' ),
+        'all_items'          => __( 'All Clients', 'your-theme-text-domain' ),
+        'search_items'       => __( 'Search Clients', 'your-theme-text-domain' ),
+        'parent_item_colon'  => __( 'Parent Clients:', 'your-theme-text-domain' ),
+        'not_found'          => __( 'No clients found.', 'your-theme-text-domain' ),
+        'not_found_in_trash' => __( 'No clients found in Trash.', 'your-theme-text-domain' )
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'clients' ), // הקישור ייראה: yoursite.com/clients/client-name
+        'capability_type'    => 'post',
+        'has_archive'        => true, // מאפשר עמוד ארכיון לכל הלקוחות
+        'hierarchical'       => false,
+        'menu_position'      => 5,
+        'menu_icon'          => 'dashicons-businesswoman', // אייקון נחמד
+        'supports'           => array( 'title', 'thumbnail' ) // כפי שביקשת: רק כותרת ותמונה ראשית
+    );
+
+    register_post_type( 'client', $args );
+}
+add_action( 'init', 'create_client_post_type' );
+
+// ===== 2. רישום טקסונומיה: Client Category =====
+
+function create_client_taxonomy() {
+    $labels = array(
+        'name'              => _x( 'Client Categories', 'taxonomy general name', 'your-theme-text-domain' ),
+        'singular_name'     => _x( 'Client Category', 'taxonomy singular name', 'your-theme-text-domain' ),
+        'search_items'      => __( 'Search Client Categories', 'your-theme-text-domain' ),
+        'all_items'         => __( 'All Client Categories', 'your-theme-text-domain' ),
+        'parent_item'       => __( 'Parent Client Category', 'your-theme-text-domain' ),
+        'parent_item_colon' => __( 'Parent Client Category:', 'your-theme-text-domain' ),
+        'edit_item'         => __( 'Edit Client Category', 'your-theme-text-domain' ),
+        'update_item'       => __( 'Update Client Category', 'your-theme-text-domain' ),
+        'add_new_item'      => __( 'Add New Client Category', 'your-theme-text-domain' ),
+        'new_item_name'     => __( 'New Client Category Name', 'your-theme-text-domain' ),
+        'menu_name'         => __( 'Client Categories', 'your-theme-text-domain' ),
+    );
+
+    $args = array(
+        'hierarchical'      => true, // זה הופך את זה לקטגוריה (במקום תגית)
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'client-category' ),
+    );
+
+    register_taxonomy( 'client_category', array( 'client' ), $args ); // משייך את הטקסונומיה לפוסט טייפ 'client'
+}
+add_action( 'init', 'create_client_taxonomy' );

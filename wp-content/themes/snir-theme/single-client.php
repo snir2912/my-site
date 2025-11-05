@@ -1,0 +1,126 @@
+<?php
+/**
+ * The template for displaying a single Client post.
+ */
+
+get_header(); // טוען את ה-header של האתר
+
+// משתנים ראשיים לפוסט הנוכחי
+$client_id = get_the_ID();
+$client_title = get_the_title();
+
+// שדות ACF
+$client_description = get_field('client_description');
+$client_website_url = get_field('client_website_url');
+
+// טקסונומיה (קטגוריות)
+$client_categories = get_the_terms($client_id, 'client_category');
+$primary_category = null;
+if (!empty($client_categories) && !is_wp_error($client_categories)) {
+    $primary_category = $client_categories[0]; // לוקח את הקטגוריה הראשונה
+}
+
+// תמונת באנר (תמונה ראשית)
+$banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id, 'full') : ''; // השתמש ב-full לגמישות
+
+?>
+
+<main id="primary" class="site-main single-client-page">
+
+    <?php while ( have_posts() ) : the_post(); ?>
+
+        <header class="client-banner" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('<?php echo esc_url($banner_image_url); ?>');">
+            <div class="banner-content">
+                <h1 class="banner-title"><?php echo esc_html($client_title); ?></h1>
+            </div>
+        </header>
+
+        <div class="client-content-wrapper">
+            <div class="client-main-content">
+                
+                <div class="client-meta">
+                    <?php if ($primary_category) : ?>
+                        <span class="client-category-badge">
+                            <?php echo esc_html($primary_category->name); ?>
+                        </span>
+                    <?php endif; ?>
+
+                    <?php if ($client_website_url) : ?>
+                        <a href="<?php echo esc_url($client_website_url); ?>" class="client-website-link" target="_blank" rel="noopener noreferrer">
+                            בקר באתר הלקוח  visit site
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <?php if ($client_description) : ?>
+                    <div class="client-description">
+                        <?php echo wp_kses_post($client_description); // משתמש ב-wp_kses_post כי זה מ-WYSIWYG ?>
+                    </div>
+                <?php endif; ?>
+
+            </div>
+
+            <aside class="client-contact-sidebar">
+                <div class="client-contact-form">
+                    <h3>מעוניין בפרויקט דומה?</h3>
+                    <p>דבר איתנו ונשמח לעזור.</p>
+                    <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
+                </div>
+            </aside>
+        </div>
+
+        <?php
+        $related_clients_query = null;
+        if ($primary_category) {
+            $args = array(
+                'post_type' => 'client',
+                'posts_per_page' => 3, // הצג עד 3 לקוחות נוספים
+                'post__not_in' => array($client_id), // אל תכלול את הלקוח הנוכחי
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'client_category',
+                        'field' => 'term_id',
+                        'terms' => $primary_category->term_id,
+                    ),
+                ),
+            );
+            $related_clients_query = new WP_Query($args);
+        }
+        ?>
+
+        <?php if ($related_clients_query && $related_clients_query->have_posts()) : ?>
+            <section class="related-clients-section">
+                <div class="related-clients-wrapper">
+                    <h2>לקוחות נוספים מ-<?php echo esc_html($primary_category->name); ?></h2>
+                    <div class="related-clients-grid">
+                        
+                        <?php while ($related_clients_query->have_posts()) : $related_clients_query->the_post(); ?>
+                            
+                            <a href="<?php the_permalink(); ?>" class="client-card">
+                                <div class="card-image-wrapper">
+                                    <?php if (has_post_thumbnail()) : ?>
+                                        <?php the_post_thumbnail('medium_large'); // תמונה בגודל בינוני-גדול ?>
+                                    <?php else : ?>
+                                        <div class="card-image-placeholder"></div>
+                                    <?php endif; ?>
+                                    <div class="card-image-overlay"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title"><?php the_title(); ?></h3>
+                                </div>
+                            </a>
+
+                        <?php endwhile; ?>
+
+                    </div>
+                </div>
+            </section>
+            <?php wp_reset_postdata(); // חשוב לאפס את הלולאה ?>
+        <?php endif; ?>
+
+
+    <?php endwhile; // end of the loop. ?>
+
+</main><?php
+get_footer(); // טוען את ה-footer
+?>
