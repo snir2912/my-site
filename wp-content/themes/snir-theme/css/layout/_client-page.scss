@@ -1,5 +1,5 @@
 /* =======================================
-   Single Client Page Styles (v4)
+   Single Client Page Styles (v5 - Gallery Added)
    ======================================= */
 
 // משתנים מקומיים לעמוד
@@ -8,10 +8,6 @@ $client-transition: all 0.3s ease-in-out;
 
 // שימוש במשתנים הגלובליים שהבאת
 // $font-heebo, $breakpoint-tablet, $breakpoint-desktop
-
-/* ======== 0. פירורי לחם (הוסר) ======== */
-// .client-breadcrumbs-container { ... } - הבלוק הזה נמחק
-
 
 .single-client-page { // <--- כאן מתחיל ה-Scope
     width: 100%;
@@ -47,31 +43,27 @@ $client-transition: all 0.3s ease-in-out;
                 }
             }
 
-            // ======== *** שינוי: עיצוב פירורי לחם בתוך הבאנר *** ========
             .banner-breadcrumbs {
-                margin-top: 1rem; // רווח מהכותרת
-                color: #f0f0f0; // צבע בהיר על רקע כהה
+                margin-top: 1rem; 
+                color: #f0f0f0; 
                 font-size: 0.9rem;
                 text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 
-                // עיצוב קישורים בתוך פירורי הלחם (בהנחה שהפונקציה שלך יוצרת <a>)
                 a {
-                    color: #fff; // צבע לבן לקישור
+                    color: #fff; 
                     text-decoration: none;
                     transition: $client-transition;
 
                     &:hover {
-                        color: var(--primary-color); // צבע קרימזון בהובר
+                        color: var(--primary-color); 
                         text-decoration: underline;
                     }
                 }
 
-                // עיצוב הרכיב האחרון (העמוד הנוכחי)
                 span, strong {
-                    color: #f0f0f0; // צבע בהיר לא-לחיץ
+                    color: #f0f0f0; 
                 }
             }
-            // ======== *** סוף שינוי *** ========
         }
     }
 
@@ -151,9 +143,63 @@ $client-transition: all 0.3s ease-in-out;
                 }
             }
         }
+
+        // ======== *** 2c. עיצוב גלריית פרויקט (חדש) *** ========
+        .project-gallery-section {
+            margin-top: 3rem; // רווח מהתיאור
+            border-top: 1px solid var(--border-color);
+            padding-top: 2.5rem;
+
+            h2 {
+                font-size: 1.8rem;
+                color: var(--text-color);
+                margin-bottom: 1.5rem;
+                font-weight: 700;
+            }
+
+            .project-gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); // 3 תמונות בשורה
+                gap: 1.2rem; // רווח בין התמונות
+
+                @media (max-width: $breakpoint-tablet) {
+                    grid-template-columns: repeat(2, 1fr); // 2 בשורה בטאבלט
+                }
+                @media (max-width: 480px) {
+                    grid-template-columns: 1fr; // 1 בעמודה במובייל
+                }
+            }
+
+            .gallery-item {
+                display: block;
+                aspect-ratio: 1 / 1; // *** קובע פרופורציה 1:1 (מרובע) ***
+                overflow: hidden;
+                border-radius: $client-border-radius;
+                background-color: var(--border-color); // רקע בזמן טעינת תמונה
+                box-shadow: 0 2px 8px var(--shadow-color);
+                transition: $client-transition;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover; // *** גורם לתמונה למלא את הריבוע בלי להתעוות ***
+                    transition: transform 0.35s ease-in-out;
+                }
+
+                &:hover {
+                    box-shadow: 0 6px 15px var(--shadow-color);
+                    transform: translateY(-3px);
+
+                    img {
+                        transform: scale(1.05); // אפקט זום קטן בהובר
+                    }
+                }
+            }
+        }
+        // ======== *** סוף עיצוב גלרייה *** ========
     }
 
-    // 2c. טופס יצירת קשר (סיידבר)
+    // 2d. טופס יצירת קשר (סיידבר)
     .client-contact-sidebar {
         position: sticky;
         top: 2rem; 

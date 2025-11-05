@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v4 - פירורי לחם מתחת לכותרת הבאנר)
+ * (v5 - נוספה גלריית פרויקט)
  */
 
 get_header(); // טוען את ה-header של האתר
@@ -13,6 +13,7 @@ $client_title = get_the_title();
 // שדות ACF
 $client_description = get_field('client_description');
 $client_website_url = get_field('client_website_url');
+$project_gallery = get_field('project_gallery'); // *** חדש: קבלת הגלריה ***
 
 // טקסונומיה (קטגוריות)
 $client_categories = get_the_terms($client_id, 'client_category');
@@ -41,7 +42,8 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     }
                     ?>
                 </div>
-                </div>
+
+            </div>
         </header>
 
         <div class="client-content-wrapper">
@@ -67,7 +69,23 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     </div>
                 <?php endif; ?>
 
-            </div>
+                <?php if ($project_gallery) : ?>
+                    <section class="project-gallery-section">
+                        <h2>תמונות מהפרויקט</h2>
+                        <div class="project-gallery-grid">
+                            <?php foreach ($project_gallery as $image) : ?>
+                                <a href="<?php echo esc_url($image['url']); // קישור לתמונה המלאה (ללייטבוקס) ?>" 
+                                   class="gallery-item"
+                                   data-caption="<?php echo esc_attr($image['caption']); // מוסיף כיתוב תמונה ללייטבוקס ?>">
+                                    
+                                    <img src="<?php echo esc_url($image['sizes']['medium_large']); // תמונה ממוזערת מרובעת (בזכות ה-CSS) ?>" 
+                                         alt="<?php echo esc_attr($image['alt']); ?>" />
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+                <?php endif; ?>
+                </div>
 
             <aside class="client-contact-sidebar">
                 <div class="client-contact-form">
