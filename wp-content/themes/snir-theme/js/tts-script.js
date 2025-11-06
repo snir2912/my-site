@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // איתור תיבת התוכן של המאמר.
     // '.entry-content' הוא שם נפוץ בוורדפרס, 
     // ייתכן שתצטרך לשנות את זה בהתאם לתבנית שלך!
-    const articleElement = document.querySelector('.entry-content');
+    const articleElement = document.querySelector('.single-post-content');
 
     // אם לא מצאנו את הכפתורים או את התוכן, נצא
     if (!playButton || !pauseButton || !stopButton || !articleElement) {
