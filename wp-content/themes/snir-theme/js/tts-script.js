@@ -1,5 +1,5 @@
 // נחכה שכל העמוד ייטען לפני שנריץ את הקוד
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
 
     // --- 1. בדיקת תמיכה בדפדפן ---
     if (!('speechSynthesis' in window)) {
