@@ -401,3 +401,48 @@ function create_client_taxonomy() {
     register_taxonomy( 'client_category', array( 'client' ), $args ); // משייך את הטקסונומיה לפוסט טייפ 'client'
 }
 add_action( 'init', 'create_client_taxonomy' );
+
+
+/**
+ * מוסיף כפתורי שליטה להקראת טקסט לפני תוכן המאמר.
+ */
+function add_tts_controls_before_content($content) {
+    
+    // אנחנו רוצים להוסיף את הכפתורים רק בעמודי מאמר (לא בעמוד הבית או ארכיונים)
+    // ורק בתוך הלולאה הראשית.
+    if (is_single() && in_the_loop() && is_main_query()) {
+        
+        $tts_controls_html = '
+        <div class="tts-controls" style="padding: 10px; border: 1px solid #eee; margin-bottom: 20px; background: #f9f9f9;">
+            <strong>הקראת המאמר:</strong>
+            <button id="tts-play" style="margin-right: 5px;">הפעל</button>
+            <button id="tts-pause" style="margin-right: 5px;">השהה</button>
+            <button id="tts-stop">עצור</button>
+        </div>';
+        
+        // החזרת הכפתורים + התוכן המקורי של המאמר
+        return $tts_controls_html . $content;
+    }
+    
+    // אם זה לא עמוד מאמר, פשוט החזר את התוכן המקורי
+    return $content;
+}
+add_filter('the_content', 'add_tts_controls_before_content');
+
+/**
+ * טוען את סקריפט ה-TTS רק בעמודי מאמר.
+ */
+function my_theme_enqueue_tts_script() {
+    
+    // טעינה רק בעמודי מאמר
+    if (is_single()) {
+        wp_enqueue_script(
+            'my-tts-script', // שם ייחודי לסקריפט
+            get_template_directory_uri() . '/js/tts-script.js', // הנתיב לקובץ שיצרנו
+            array(), // תלויות (במקרה זה אין)
+            '1.0.0', // מספר גרסה
+            true // האם לטעון בפוטר (מומלץ)
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'my_theme_enqueue_tts_script');
