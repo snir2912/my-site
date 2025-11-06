@@ -407,11 +407,8 @@ add_action( 'init', 'create_client_taxonomy' );
  * מוסיף כפתורי שליטה להקראת טקסט לפני תוכן המאמר.
  */
 function add_tts_controls_before_content($content) {
-    
-    // אנחנו רוצים להוסיף את הכפתורים רק בעמודי מאמר (לא בעמוד הבית או ארכיונים)
-    // ורק בתוך הלולאה הראשית.
-    if (is_single() && in_the_loop() && is_main_query()) {
-        
+    // הורדנו את כל התנאים לבדיקה
+    if (is_single()) { 
         $tts_controls_html = '
         <div class="tts-controls" style="padding: 10px; border: 1px solid #eee; margin-bottom: 20px; background: #f9f9f9;">
             <strong>הקראת המאמר:</strong>
@@ -420,13 +417,12 @@ function add_tts_controls_before_content($content) {
             <button id="tts-stop">עצור</button>
         </div>';
         
-        // החזרת הכפתורים + התוכן המקורי של המאמר
         return $tts_controls_html . $content;
     }
-    
-    // אם זה לא עמוד מאמר, פשוט החזר את התוכן המקורי
     return $content;
 }
+// ודא שהפילטר מחובר
+remove_filter('the_content', 'add_tts_controls_before_content'); // נסיר קודם ליתר ביטחון
 add_filter('the_content', 'add_tts_controls_before_content');
 
 /**
