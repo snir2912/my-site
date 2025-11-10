@@ -1515,7 +1515,7 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 }
 
 /* =======================================
-   Single Client Page Styles (v5 - Gallery Added)
+   Single Client Page Styles (v6 - Screenshot Mockup)
    ======================================= */
 .single-client-page {
   width: 100%;
@@ -1571,7 +1571,8 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   color: var(--primary-color);
   text-decoration: underline;
 }
-.single-client-page .client-banner .banner-content .banner-breadcrumbs span, .single-client-page .client-banner .banner-content .banner-breadcrumbs strong {
+.single-client-page .client-banner .banner-content .banner-breadcrumbs span,
+.single-client-page .client-banner .banner-content .banner-breadcrumbs strong {
   color: #f0f0f0;
 }
 .single-client-page .client-content-wrapper {
@@ -1629,7 +1630,9 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   color: var(--text-color);
   line-height: 1.7;
 }
-.single-client-page .client-main-content .client-description h2, .single-client-page .client-main-content .client-description h3, .single-client-page .client-main-content .client-description h4 {
+.single-client-page .client-main-content .client-description h2,
+.single-client-page .client-main-content .client-description h3,
+.single-client-page .client-main-content .client-description h4 {
   color: var(--text-color);
   font-weight: 700;
   margin-top: 1.5em;
@@ -1693,6 +1696,47 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 .single-client-page .client-main-content .project-gallery-section .gallery-item:hover img {
   transform: scale(1.05);
 }
+.single-client-page .client-main-content .screenshot-section {
+  margin-top: 3rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2.5rem;
+}
+.single-client-page .client-main-content .screenshot-section h2 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+.single-client-page .client-main-content .screenshot-section .browser-mockup {
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  overflow: hidden;
+}
+.single-client-page .client-main-content .screenshot-section .browser-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--border-color);
+}
+.single-client-page .client-main-content .screenshot-section .browser-header .browser-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.single-client-page .client-main-content .screenshot-section .browser-body {
+  max-height: 600px;
+  overflow-y: scroll;
+  background-color: var(--bg-color);
+}
+.single-client-page .client-main-content .screenshot-section .browser-body img {
+  width: 100%;
+  display: block;
+}
 .single-client-page .client-contact-sidebar {
   position: sticky;
   top: 2rem;
@@ -1712,9 +1756,6 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   color: var(--text-color);
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
-}
-.single-client-page .client-contact-sidebar .client-contact-form .wpcf7 {
-  padding: 1.5rem;
 }
 .single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form {
   display: flex;

@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying a single Client post.
- * (v9 - קוד נקי. הלוגיקה של הלייטבוקס עברה ל-main.js)
+ * (v10 - נוסף אזור צילום מסך אינטראקטיבי)
  */
 
 get_header(); 
@@ -12,6 +12,7 @@ $client_title = get_the_title();
 $client_description = get_field('client_description');
 $client_website_url = get_field('client_website_url');
 $project_gallery = get_field('project_gallery'); 
+$homepage_screenshot = get_field('homepage_screenshot'); // *** חדש: קבלת צילום המסך ***
 
 $client_categories = get_the_terms($client_id, 'client_category');
 $primary_category = null;
@@ -74,11 +75,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                             <?php foreach ($project_gallery as $image_data) : ?>
                                 
                                 <?php
-                                // הנתונים שלך מושלמים, אבל נשאיר את הבדיקה ליתר ביטחון
-                                
-                                if (empty($image_data)) {
-                                    continue; 
-                                }
+                                if (empty($image_data)) { continue; }
 
                                 $image_full_url = '';
                                 $image_thumb_url = '';
@@ -86,13 +83,11 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                 $image_caption = '';
 
                                 if (is_array($image_data)) {
-                                    // זה המצב שלך - הנתונים הם "מערך תמונה"
                                     $image_full_url = $image_data['url'];
                                     $image_thumb_url = $image_data['sizes']['medium_large'];
                                     $image_alt = $image_data['alt'];
                                     $image_caption = $image_data['caption'];
                                 } else {
-                                    // גיבוי למקרה שהנתונים ישתבשו בעתיד
                                     $image_id = (int) $image_data;
                                     $image_full_url = wp_get_attachment_url($image_id);
                                     $image_thumb_url = wp_get_attachment_image_url($image_id, 'medium_large');
@@ -101,7 +96,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                                 }
                                 ?>
 
-                                <?php if ($image_full_url && $image_thumb_url) : // ודא שיש לנו קישורים לעבוד איתם ?>
+                                <?php if ($image_full_url && $image_thumb_url) : ?>
                                     <a href="<?php echo esc_url($image_full_url); ?>" 
                                        class="gallery-item"
                                        data-caption="<?php echo esc_attr($image_caption); ?>">
@@ -116,8 +111,23 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     </section>
                 <?php endif; ?>
 
-
-            </div>
+                <?php if ($homepage_screenshot) : ?>
+                    <section class="screenshot-section">
+                        <h2>מבט כולל על האתר</h2>
+                        <div class="browser-mockup">
+                            <div class="browser-header">
+                                <span class="browser-dot" style="background-color: #f44336;"></span>
+                                <span class="browser-dot" style="background-color: #ffeb3b;"></span>
+                                <span class="browser-dot" style="background-color: #4caf50;"></span>
+                            </div>
+                            <div class="browser-body">
+                                <img src="<?php echo esc_url($homepage_screenshot['url']); ?>" 
+                                     alt="<?php echo esc_attr($homepage_screenshot['alt'] ?: 'צילום מסך של עמוד הבית'); ?>" />
+                            </div>
+                        </div>
+                    </section>
+                <?php endif; ?>
+                </div>
 
             <aside class="client-contact-sidebar">
                 <div class="client-contact-form">
