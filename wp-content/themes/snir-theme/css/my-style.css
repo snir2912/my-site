@@ -1534,6 +1534,12 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   text-align: center;
   padding: 2rem;
 }
+@media (max-width: 768px) {
+  .single-client-page .client-banner {
+    min-height: 230px;
+    height: 30vh;
+  }
+}
 .single-client-page .client-banner .banner-content {
   z-index: 2;
   position: relative;
