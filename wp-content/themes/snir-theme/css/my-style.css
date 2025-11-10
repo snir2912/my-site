@@ -1711,6 +1711,7 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding: 1.5rem;
 }
 .single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=text],
 .single-client-page .client-contact-sidebar .client-contact-form .wpcf7-form input[type=email],

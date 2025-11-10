@@ -84,7 +84,6 @@ $cf_paragraph = get_field('cf_paragraph');
     <div class="container">
         <h2 class="section-title"><?php echo $why_us_headline ?></h2>
         <p><?php echo $why_us_paragraph ?></p>
-        <!-- <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?> -->
     </div>
 </section>
 
