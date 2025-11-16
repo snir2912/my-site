@@ -114,11 +114,11 @@ $cf_paragraph = get_field('cf_paragraph');
                         <?php endif; ?>
                         <div class="card-content">
                             <?php
-                                                    $post_categories = get_the_category();
-                                                    if (! empty($post_categories)) {
-                                                        $first_category = $post_categories[0];
-                                                        echo '<div class="card-category"><a href="' . esc_url(get_category_link($first_category->term_id)) . '">' . esc_html($first_category->name) . '</a></div>';
-                                                    }
+                                                $post_categories = get_the_category();
+                                                if (! empty($post_categories)) {
+                                                    $first_category = $post_categories[0];
+                                                    echo '<div class="card-category"><a href="' . esc_url(get_category_link($first_category->term_id)) . '">' . esc_html($first_category->name) . '</a></div>';
+                                                }
                             ?>
                             <h3 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                             <div class="card-excerpt">
@@ -134,7 +134,7 @@ $cf_paragraph = get_field('cf_paragraph');
                                                 wp_reset_postdata(); // חשוב לאפס את נתוני הפוסט לאחר לולאה משנית
                                             else :
                                                 // אם אין פוסטים להציג
-                ?>
+                                        ?>
                 <p><?php esc_html_e('אין עדיין פוסטים בבלוג.', 'snir-theme'); ?></p>
             <?php endif; ?>
         </div>
@@ -211,6 +211,48 @@ if ($video_background) {
         </div>
     </div>
 </section>
+
+<?php
+// שימוש ב-have_rows לשליפה נכונה מ-Repeater ב-Options Page
+if (have_rows('reviews', 'option')) : 
+?>
+    <section class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">לקוחות ממליצים</h2>
+            
+            <div class="swiper reviews-slider">
+                <div class="swiper-wrapper">
+                    
+                    <?php 
+                    // לולאה על ה-Repeater
+                    while (have_rows('reviews', 'option')) : the_row();
+                        $name = get_sub_field('name');
+                        $review_content = get_sub_field('review-content');
+                    ?>
+                        <div class="swiper-slide">
+                            <div class="review-card">
+                                <span class="review-quote-icon">"</span>
+                                <div class="review-content">
+                                    <?php echo wp_kses_post($review_content); ?>
+                                </div>
+                                <div class="review-author">
+                                    - <?php echo esc_html($name); ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+
+                </div>
+            </div>
+            
+            <div class="swiper-button-prev reviews-arrow-prev"></div>
+            <div class="swiper-button-next reviews-arrow-next"></div>
+
+        </div>
+    </section>
+<?php 
+endif; 
+?>
 <div class="contact-form" id="contact">
     <div class="cintainer">
         <h2><?php echo $cf_headline ?></h2>

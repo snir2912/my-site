@@ -239,3 +239,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // סוף 'DOMContentLoaded'
+
+/* =======================================
+   Reviews Carousel Initialization
+   ======================================= */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ... (קוד הגלריה שלך נמצא כאן) ...
+
+    // הפעלת קרוסלת המלצות (אם היא קיימת בעמוד)
+    const reviewsSlider = document.querySelector('.reviews-slider');
+    
+    if (reviewsSlider) {
+        // ודא שהספרייה Swiper נטענה
+        if (typeof Swiper === 'function') {
+            
+            new Swiper('.reviews-slider', {
+                // הגדרות
+                loop: true, // לולאה אינסופית
+                slidesPerView: 1, // ברירת מחדל (מובייל)
+                spaceBetween: 30, // רווח בין הכרטיסים
+                
+                // חצים (Navigation)
+                navigation: {
+                    nextEl: '.reviews-arrow-next',
+                    prevEl: '.reviews-arrow-prev',
+                },
+                
+                // נקודות שבירה (Breakpoints) - כפי שביקשת
+                breakpoints: {
+                    // טאבלט
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30
+                    },
+                    // דסקטופ
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    }
+                }
+            });
+
+        } else {
+            console.error('Swiper.js library is not loaded.');
+        }
+    }
+
+}); // סוף 'DOMContentLoaded'

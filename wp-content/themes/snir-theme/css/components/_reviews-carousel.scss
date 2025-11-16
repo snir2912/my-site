@@ -1,0 +1,161 @@
+/* =======================================
+   Reviews Carousel Styles
+   ======================================= */
+
+// שימוש במשתנים גלובליים מהתבנית שלך
+// $font-heebo, $breakpoint-tablet, $breakpoint-desktop
+
+.reviews-section {
+    position: relative;
+    padding: 5rem 0;
+    font-family: $font-heebo;
+
+    // רקע הגרדיאנט המעניין שביקשת
+    // משתמש במשתני ה-CSS הגלובליים שלך
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    overflow: hidden; // מונע מהחצים לברוח מהאזור
+
+    .container {
+        position: relative; // כדי שהחצים יוכלו להיות בתוכו
+        z-index: 2;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .section-title {
+        color: #fff; // כותרת לבנה על הרקע הכהה
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 3rem;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    // הגדרות הקרוסלה
+    .reviews-slider {
+        padding-bottom: 1rem; // ריווח תחתון
+    }
+
+    // כרטיס ההמלצה ("הבועה הבהירה")
+    .review-card {
+        background: var(--card-background); // משתמש במשתנה הגלובלי שלך
+        // במצב בהיר זה יהיה לבן, בכהה זה יהיה אפור כהה.
+        // אם אתה רוצה שזה *תמיד* יהיה בהיר, שנה ל:
+        // background: #fff; 
+        
+        border: 1px solid var(--border-color);
+        color: var(--text-color); // טקסט בהתאם למצב בהיר/כהה
+        // אם הרקע תמיד לבן, שנה ל:
+        // color: #333;
+
+        border-radius: 12px;
+        padding: 2.5rem 2rem 2rem;
+        height: 100%; // גורם לכל הכרטיסים באותה שורה להיות באותו גובה
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 8px 25px var(--shadow-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        // אפקט ה-Hover המקצועי
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px var(--shadow-color);
+        }
+
+        // אייקון המרכאות
+        .review-quote-icon {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 6rem;
+            color: var(--primary-color);
+            opacity: 0.1;
+            z-index: 1;
+            line-height: 1;
+        }
+
+        .review-content {
+            position: relative;
+            z-index: 2;
+            font-size: 1rem;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            flex-grow: 1; // דוחף את שם המחבר לתחתית
+        }
+
+        .review-author {
+            position: relative;
+            z-index: 2;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color); // שם המחבר בצבע הראשי
+            text-align: left;
+        }
+    }
+}
+
+// עיצוב "החצים היפים"
+// ממקם אותם מחוץ לקונטיינר הראשי, על רקע הגרדיאנט
+.reviews-arrow-prev,
+.reviews-arrow-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    
+    // &::after זה האייקון של החץ עצמו
+    &::after {
+        font-size: 1.2rem; // גודל האייקון
+        font-weight: 900;
+        color: #fff; // צבע לבן
+        background-color: rgba(255, 255, 255, 0.1); // רקע שקוף
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    &:hover::after {
+        background-color: var(--primary-color); // רקע קרימזון בהובר
+        border-color: var(--primary-color);
+    }
+}
+
+// מיקום ספציפי לחצים (מחוץ ל-container הראשי)
+.reviews-arrow-prev {
+    left: calc(50% - 650px - 40px); // (חצי מרוחב הקונטיינר + רווח)
+    
+    @media (max-width: 1400px) { // התאמה למסכים קטנים יותר
+        left: 20px;
+    }
+}
+
+.reviews-arrow-next {
+    right: calc(50% - 650px - 40px); // (חצי מרוחב הקונטיינר + רווח)
+
+    @media (max-width: 1400px) { // התאמה למסכים קטנים יותר
+        right: 20px;
+    }
+}
+
+// הסתרת חצים במובייל כשהם לא נחוצים
+@media (max-width: $breakpoint-tablet) {
+    .reviews-arrow-prev,
+    .reviews-arrow-next {
+        display: none;
+    }
+
+    .reviews-section .container {
+        padding: 0 1rem; // פחות פדינג במובייל
+    }
+}
