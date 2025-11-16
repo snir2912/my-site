@@ -287,3 +287,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // סוף 'DOMContentLoaded'
+
+/* =======================================
+   Projects Carousel Initialization
+   ======================================= */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ... (קוד הגלריה וקרוסלת ההמלצות שלך...) ...
+
+    // הפעלת קרוסלת פרויקטים (אם היא קיימת בעמוד)
+    const projectsSliderEl = document.querySelector('.projects-slider');
+    
+    if (projectsSliderEl) {
+        // ודא שהספרייה Swiper נטענה
+        if (typeof Swiper === 'function') {
+            
+            new Swiper('.projects-slider', {
+                // הגדרות
+                loop: true, // לולאה אינסופית
+                slidesPerView: 1, // ברירת מחדל (מובייל)
+                spaceBetween: 30, // רווח בין הכרטיסים
+                
+                // חצים (Navigation)
+                navigation: {
+                    nextEl: '.projects-arrow-next',
+                    prevEl: '.projects-arrow-prev',
+                },
+                
+                // נקודות שבירה (Breakpoints) - כפי שביקשת
+                breakpoints: {
+                    // טאבלט
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30
+                    },
+                    // דסקטופ
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    }
+                }
+            });
+
+        } else {
+            console.error('Swiper.js library is not loaded.');
+        }
+    }
+
+}); // סוף 'DOMContentLoaded'

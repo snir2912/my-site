@@ -1,5 +1,5 @@
 /* =======================================
-   Reviews Carousel Styles
+   Reviews Carousel Styles (v2 - with button)
    ======================================= */
 
 // שימוש במשתנים גלובליים מהתבנית שלך
@@ -11,12 +11,11 @@
     font-family: $font-heebo;
 
     // רקע הגרדיאנט המעניין שביקשת
-    // משתמש במשתני ה-CSS הגלובליים שלך
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     overflow: hidden; // מונע מהחצים לברוח מהאזור
 
     .container {
-        position: relative; // כדי שהחצים יוכלו להיות בתוכו
+        position: relative; 
         z-index: 2;
         max-width: 1300px;
         margin: 0 auto;
@@ -37,16 +36,9 @@
 
     // כרטיס ההמלצה ("הבועה הבהירה")
     .review-card {
-        background: var(--card-background); // משתמש במשתנה הגלובלי שלך
-        // במצב בהיר זה יהיה לבן, בכהה זה יהיה אפור כהה.
-        // אם אתה רוצה שזה *תמיד* יהיה בהיר, שנה ל:
-        // background: #fff; 
-        
+        background: var(--card-background); 
         border: 1px solid var(--border-color);
-        color: var(--text-color); // טקסט בהתאם למצב בהיר/כהה
-        // אם הרקע תמיד לבן, שנה ל:
-        // color: #333;
-
+        color: var(--text-color); 
         border-radius: 12px;
         padding: 2.5rem 2rem 2rem;
         height: 100%; // גורם לכל הכרטיסים באותה שורה להיות באותו גובה
@@ -57,13 +49,11 @@
         position: relative;
         overflow: hidden;
 
-        // אפקט ה-Hover המקצועי
         &:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 35px var(--shadow-color);
         }
 
-        // אייקון המרכאות
         .review-quote-icon {
             position: absolute;
             top: -10px;
@@ -82,7 +72,7 @@
             line-height: 1.7;
             font-style: italic;
             margin-bottom: 1.5rem;
-            flex-grow: 1; // דוחף את שם המחבר לתחתית
+            flex-grow: 1; 
         }
 
         .review-author {
@@ -90,14 +80,13 @@
             z-index: 2;
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary-color); // שם המחבר בצבע הראשי
+            color: var(--primary-color); 
             text-align: left;
         }
     }
 }
 
 // עיצוב "החצים היפים"
-// ממקם אותם מחוץ לקונטיינר הראשי, על רקע הגרדיאנט
 .reviews-arrow-prev,
 .reviews-arrow-next {
     position: absolute;
@@ -107,12 +96,11 @@
     width: 50px;
     height: 50px;
     
-    // &::after זה האייקון של החץ עצמו
     &::after {
-        font-size: 1.2rem; // גודל האייקון
+        font-size: 1.2rem; 
         font-weight: 900;
-        color: #fff; // צבע לבן
-        background-color: rgba(255, 255, 255, 0.1); // רקע שקוף
+        color: #fff; 
+        background-color: rgba(255, 255, 255, 0.1); 
         border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 50%;
         width: 50px;
@@ -124,29 +112,27 @@
     }
 
     &:hover::after {
-        background-color: var(--primary-color); // רקע קרימזון בהובר
+        background-color: var(--primary-color); 
         border-color: var(--primary-color);
     }
 }
 
-// מיקום ספציפי לחצים (מחוץ ל-container הראשי)
 .reviews-arrow-prev {
-    left: calc(50% - 650px - 40px); // (חצי מרוחב הקונטיינר + רווח)
+    left: calc(50% - 650px - 40px); 
     
-    @media (max-width: 1400px) { // התאמה למסכים קטנים יותר
+    @media (max-width: 1400px) { 
         left: 20px;
     }
 }
 
 .reviews-arrow-next {
-    right: calc(50% - 650px - 40px); // (חצי מרוחב הקונטיינר + רווח)
+    right: calc(50% - 650px - 40px); 
 
-    @media (max-width: 1400px) { // התאמה למסכים קטנים יותר
+    @media (max-width: 1400px) { 
         right: 20px;
     }
 }
 
-// הסתרת חצים במובייל כשהם לא נחוצים
 @media (max-width: $breakpoint-tablet) {
     .reviews-arrow-prev,
     .reviews-arrow-next {
@@ -154,6 +140,31 @@
     }
 
     .reviews-section .container {
-        padding: 0 1rem; // פחות פדינג במובייל
+        padding: 0 1rem; 
+    }
+}
+
+// ======== *** עיצוב כפתור "לכל ההמלצות" (חדש) *** ========
+.section-btn-container {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.reviews-btn-all {
+    // עיצוב "רפאים" לבן וניגודי
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 50px; // גלול
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #fff;
+        color: var(--primary-color); // טקסט בצבע קרימזון בהובר
+        transform: translateY(-3px);
     }
 }

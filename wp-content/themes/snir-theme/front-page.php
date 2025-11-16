@@ -6,20 +6,31 @@ Template Name: Front Page Template
 
 <?php get_header(); ?>
 <?php
+// שליפת כל השדות של עמוד הבית
 $h1 = get_field('h1');
 $hero_paragraph = get_field('hero_paragraph');
 $services_headline = get_field('services_headline');
+
+// *** חדש: שדות לפרויקטים ***
+$project_headline = get_field('project_headline');
+$project_btn = get_field('project_btn');
+
 $why_us_headline = get_field('why_us_headline');
 $why_us_paragraph = get_field('why_us_paragraph');
 $cf_headline = get_field('cf_headline');
 $cf_paragraph = get_field('cf_paragraph');
+
+// *** חדש: שדות להמלצות ***
+$reviews_headline = get_field('reviews_headline');
+$reviews_btn = get_field('reviews_btn');
+$reviews_btn_link = get_field('reviews_btn_link'); // זה שדה Page Link, יחזיר URL
 ?>
 
 <section class="hero-section" id="hero">
     <div class="container">
         <div class="hero-content">
-            <h1><?php echo $h1 ?></h1>
-            <p><?php echo $hero_paragraph ?></p>
+            <h1><?php echo esc_html($h1); ?></h1>
+            <p><?php echo esc_html($hero_paragraph); ?></p>
             <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
         </div>
     </div>
@@ -27,30 +38,21 @@ $cf_paragraph = get_field('cf_paragraph');
 
 <section class="services-section" id="services">
     <div class="container">
-        <h2 class="section-title"><?php echo $services_headline ?></h2>
+        <h2 class="section-title"><?php echo esc_html($services_headline); ?></h2>
         <?php
-        // הגדרת הארגומנטים לשאילתה
         $args = array(
-            'post_type'      => 'services', // הפוסט טייפ שביקשת
-            'posts_per_page' => -1,         // הצגת כל הפוסטים מהפוסט טייפ הזה
+            'post_type'      => 'services',
+            'posts_per_page' => -1,
             'post_status'    => 'publish',
         );
-
-        // יצירת שאילתה חדשה
         $services_query = new WP_Query($args);
-
-        // בדיקה אם יש פוסטים להציג
         if ($services_query->have_posts()) :
         ?>
-
             <div class="services-loop-container">
-                <?php
-                // התחלת הלולאה
-                while ($services_query->have_posts()) : $services_query->the_post();
-                    // משתנים שימושיים
+                <?php while ($services_query->have_posts()) : $services_query->the_post();
                     $service_link = get_permalink();
                     $service_title = get_the_title();
-                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'medium'); // אפשר גם 'large' או גודל מותאם אישית
+                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
                 ?>
                     <a href="<?php echo esc_url($service_link); ?>" class="service-card" aria-label="<?php echo esc_attr($service_title); ?>">
                         <div class="folder-cover"></div>
@@ -63,49 +65,113 @@ $cf_paragraph = get_field('cf_paragraph');
                         </div>
                         <h3 class="service-card-title"><?php echo esc_html($service_title); ?></h3>
                     </a>
-
                 <?php endwhile; ?>
             </div>
-
         <?php
-            // איפוס נתוני הפוסט
             wp_reset_postdata();
-
         else :
-            // הודעה אם אין פוסטים
             echo '<p>אין שירותים זמינים כרגע.</p>';
         endif;
         ?>
-
     </div>
 </section>
 
+<?php
+// שליפת 9 פרויקטים (לקוחות) אחרונים
+$projects_args = array(
+    'post_type'      => 'client',
+    'posts_per_page' => 9,
+    'post_status'    => 'publish',
+);
+$projects_query = new WP_Query($projects_args);
+
+if ($projects_query->have_posts()) :
+?>
+<section class="projects-carousel-section">
+    <div class="container">
+        <h2 class="section-title"><?php echo esc_html($project_headline); ?></h2>
+
+        <div class="swiper projects-slider">
+            <div class="swiper-wrapper">
+                
+                <?php 
+                while ($projects_query->have_posts()) : $projects_query->the_post(); 
+                    // קבלת הקטגוריה (כמו בעמוד לקוח)
+                    $related_id = get_the_ID();
+                    $related_categories = get_the_terms($related_id, 'client_category');
+                    $related_primary_category = null;
+                    if (!empty($related_categories) && !is_wp_error($related_categories)) {
+                        $related_primary_category = $related_categories[0];
+                    }
+                ?>
+                    <div class="swiper-slide">
+                        <a href="<?php the_permalink(); ?>" class="client-card">
+                            <div class="card-image-wrapper">
+                                <?php if (has_post_thumbnail()) : ?>
+                                    <?php the_post_thumbnail('medium_large'); ?>
+                                <?php else : ?>
+                                    <div class="card-image-placeholder"></div>
+                                <?php endif; ?>
+                                <div class="card-image-overlay"></div>
+                            </div>
+                            <div class="card-content">
+                                <?php if ($related_primary_category) : ?>
+                                    <span class="card-category-badge">
+                                        <?php echo esc_html($related_primary_category->name); ?>
+                                    </span>
+                                <?php endif; ?>
+                                <h3 class="card-title"><?php the_title(); ?></h3>
+                            </div>
+                        </a>
+                    </div>
+                <?php endwhile; ?>
+
+            </div>
+        </div>
+        
+        <div class="swiper-button-prev projects-arrow-prev"></div>
+        <div class="swiper-button-next projects-arrow-next"></div>
+
+        <?php 
+        $projects_archive_link = get_post_type_archive_link('client'); 
+        if ($project_btn && $projects_archive_link) :
+        ?>
+            <div class="section-btn-container">
+                <a href="<?php echo esc_url($projects_archive_link); ?>" class="btn secondary-btn">
+                    <?php echo esc_html($project_btn); ?>
+                </a>
+            </div>
+        <?php endif; ?>
+
+    </div>
+</section>
+<?php 
+endif; 
+wp_reset_postdata(); // איפוס השאילתה
+?>
 <section class="about-our-service-section" id="why-us">
     <div class="container">
-        <h2 class="section-title"><?php echo $why_us_headline ?></h2>
-        <p><?php echo $why_us_paragraph ?></p>
+        <h2 class="section-title"><?php echo esc_html($why_us_headline); ?></h2>
+        <p><?php echo esc_html($why_us_paragraph); ?></p>
     </div>
 </section>
 
 <section class="latest-blog-posts">
     <div class="container">
         <h2 class="section-title"><?php esc_html_e('מאמרים אחרונים', 'snir-theme'); ?></h2>
-        <div class="related-posts-grid"> <?php
-                                            // שאילתה לפוסטים האחרונים
-                                            $latest_posts_args = array(
-                                                'post_type'      => 'post',
-                                                'posts_per_page' => 3, // כמה פוסטים להציג (כדי שיתאים ל-3 בעמודה)
-                                                'orderby'        => 'date',
-                                                'order'          => 'DESC',
-                                                'ignore_sticky_posts' => true, // לא להתייחס לפוסטים נעוצים
-                                            );
-
-                                            $latest_posts_query = new WP_Query($latest_posts_args);
-
-                                            if ($latest_posts_query->have_posts()) :
-                                                while ($latest_posts_query->have_posts()) : $latest_posts_query->the_post();
-                                                    // שימוש בקומפוננטת כרטיס המאמר הקיימת
-                                            ?>
+        <div class="related-posts-grid">
+            <?php
+            $latest_posts_args = array(
+                'post_type'      => 'post',
+                'posts_per_page' => 3,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'ignore_sticky_posts' => true,
+            );
+            $latest_posts_query = new WP_Query($latest_posts_args);
+            if ($latest_posts_query->have_posts()) :
+                while ($latest_posts_query->have_posts()) : $latest_posts_query->the_post();
+            ?>
                     <div class="article-card">
                         <?php if (has_post_thumbnail()) : ?>
                             <a href="<?php the_permalink(); ?>">
@@ -114,11 +180,11 @@ $cf_paragraph = get_field('cf_paragraph');
                         <?php endif; ?>
                         <div class="card-content">
                             <?php
-                                                $post_categories = get_the_category();
-                                                if (! empty($post_categories)) {
-                                                    $first_category = $post_categories[0];
-                                                    echo '<div class="card-category"><a href="' . esc_url(get_category_link($first_category->term_id)) . '">' . esc_html($first_category->name) . '</a></div>';
-                                                }
+                            $post_categories = get_the_category();
+                            if (! empty($post_categories)) {
+                                $first_category = $post_categories[0];
+                                echo '<div class="card-category"><a href="' . esc_url(get_category_link($first_category->term_id)) . '">' . esc_html($first_category->name) . '</a></div>';
+                            }
                             ?>
                             <h3 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                             <div class="card-excerpt">
@@ -129,21 +195,18 @@ $cf_paragraph = get_field('cf_paragraph');
                             </a>
                         </div>
                     </div>
-                <?php
-                                                endwhile;
-                                                wp_reset_postdata(); // חשוב לאפס את נתוני הפוסט לאחר לולאה משנית
-                                            else :
-                                                // אם אין פוסטים להציג
-                                        ?>
+            <?php
+                endwhile;
+                wp_reset_postdata();
+            else :
+            ?>
                 <p><?php esc_html_e('אין עדיין פוסטים בבלוג.', 'snir-theme'); ?></p>
             <?php endif; ?>
         </div>
     </div>
 
-
     <?php
-    // אופציונלי: כפתור "לכל הפוסטים"
-    $blog_page_id = get_option('page_for_posts'); // מזהה עמוד הבלוג הראשי אם הוגדר
+    $blog_page_id = get_option('page_for_posts');
     if ($blog_page_id) :
     ?>
         <div style="text-align: center; margin-top: 40px;">
@@ -151,27 +214,19 @@ $cf_paragraph = get_field('cf_paragraph');
                 <?php esc_html_e('לכל הפוסטים בבלוג', 'snir-theme'); ?>
             </a>
         </div>
-    <?php
-    endif;
-    ?>
-
-    </div>
+    <?php endif; ?>
 </section>
 
 <?php
-// בדיקה אם יש רקע וידאו או תמונה שהוגדרו ב-ACF
 $video_background = get_field('video_background');
 $img_background = get_field('img_backgrond');
-
 $section_style = '';
 $has_background = false;
 
 if ($video_background) {
-    // אם יש וידאו, נגדיר אותו כרקע
     $section_style .= 'background: url(' . esc_url($video_background['url']) . ') no-repeat center center / cover;';
     $has_background = true;
 } elseif ($img_background) {
-    // אם אין וידאו אבל יש תמונה, נשתמש בה
     $section_style .= 'background: url(' . esc_url($img_background['url']) . ') no-repeat center center / cover;';
     $has_background = true;
 }
@@ -218,13 +273,12 @@ if (have_rows('reviews', 'option')) :
 ?>
     <section class="reviews-section">
         <div class="container">
-            <h2 class="section-title">לקוחות ממליצים</h2>
+            <h2 class="section-title"><?php echo esc_html($reviews_headline); ?></h2>
             
             <div class="swiper reviews-slider">
                 <div class="swiper-wrapper">
                     
                     <?php 
-                    // לולאה על ה-Repeater
                     while (have_rows('reviews', 'option')) : the_row();
                         $name = get_sub_field('name');
                         $review_content = get_sub_field('review-content');
@@ -248,6 +302,14 @@ if (have_rows('reviews', 'option')) :
             <div class="swiper-button-prev reviews-arrow-prev"></div>
             <div class="swiper-button-next reviews-arrow-next"></div>
 
+            <?php if ($reviews_btn && $reviews_btn_link) : ?>
+                <div class="section-btn-container">
+                    <a href="<?php echo esc_url($reviews_btn_link); ?>" class="btn reviews-btn-all">
+                        <?php echo esc_html($reviews_btn); ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+
         </div>
     </section>
 <?php 
@@ -255,8 +317,8 @@ endif;
 ?>
 <div class="contact-form" id="contact">
     <div class="cintainer">
-        <h2><?php echo $cf_headline ?></h2>
-        <p><?php echo $cf_paragraph ?></p>
+        <h2><?php echo esc_html($cf_headline); ?></h2>
+        <p><?php echo esc_html($cf_paragraph); ?></p>
         <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
 </div>

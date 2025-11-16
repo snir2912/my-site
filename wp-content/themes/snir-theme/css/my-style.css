@@ -2681,7 +2681,7 @@ body.light-mode .faq-section .background-overlay {
 }
 
 /* =======================================
-   Reviews Carousel Styles
+   Reviews Carousel Styles (v2 - with button)
    ======================================= */
 .reviews-section {
   position: relative;
@@ -2809,6 +2809,28 @@ body.light-mode .faq-section .background-overlay {
     padding: 0 1rem;
   }
 }
+.section-btn-container {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.reviews-btn-all {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.reviews-btn-all:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-content {
