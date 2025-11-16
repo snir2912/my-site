@@ -11,26 +11,26 @@ $h1 = get_field('h1');
 $hero_paragraph = get_field('hero_paragraph');
 $services_headline = get_field('services_headline');
 
-// *** חדש: שדות לפרויקטים ***
-$project_headline = get_field('project_headline');
-$project_btn = get_field('project_btn');
+// *** תיקון: שימוש בשמות עם מקף (-) ***
+$project_headline = get_field('project-headline');
+$project_btn = get_field('project-btn');
 
 $why_us_headline = get_field('why_us_headline');
 $why_us_paragraph = get_field('why_us_paragraph');
 $cf_headline = get_field('cf_headline');
 $cf_paragraph = get_field('cf_paragraph');
 
-// *** חדש: שדות להמלצות ***
-$reviews_headline = get_field('reviews_headline');
-$reviews_btn = get_field('reviews_btn');
-$reviews_btn_link = get_field('reviews_btn_link'); // זה שדה Page Link, יחזיר URL
+// *** תיקון: שימוש בשמות עם מקף (-) ***
+$reviews_headline = get_field('reviews-headline');
+$reviews_btn = get_field('reviews-btn');
+$reviews_btn_link = get_field('reviews-btn-link'); // זה שדה Page Link, יחזיר URL
 ?>
 
 <section class="hero-section" id="hero">
     <div class="container">
         <div class="hero-content">
             <h1><?php echo esc_html($h1); ?></h1>
-            <p><?php echo esc_html($hero_paragraph); ?></p>
+            <p><?php echo wp_kses_post($hero_paragraph); ?></p>
             <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
         </div>
     </div>
@@ -77,7 +77,6 @@ $reviews_btn_link = get_field('reviews_btn_link'); // זה שדה Page Link, י�
 </section>
 
 <?php
-// שליפת 9 פרויקטים (לקוחות) אחרונים
 $projects_args = array(
     'post_type'      => 'client',
     'posts_per_page' => 9,
@@ -96,7 +95,6 @@ if ($projects_query->have_posts()) :
                 
                 <?php 
                 while ($projects_query->have_posts()) : $projects_query->the_post(); 
-                    // קבלת הקטגוריה (כמו בעמוד לקוח)
                     $related_id = get_the_ID();
                     $related_categories = get_the_terms($related_id, 'client_category');
                     $related_primary_category = null;
@@ -147,12 +145,12 @@ if ($projects_query->have_posts()) :
 </section>
 <?php 
 endif; 
-wp_reset_postdata(); // איפוס השאילתה
+wp_reset_postdata(); 
 ?>
 <section class="about-our-service-section" id="why-us">
     <div class="container">
         <h2 class="section-title"><?php echo esc_html($why_us_headline); ?></h2>
-        <p><?php echo esc_html($why_us_paragraph); ?></p>
+        <p><?php echo wp_kses_post($why_us_paragraph); ?></p>
     </div>
 </section>
 
@@ -254,7 +252,7 @@ if ($video_background) {
                             </div>
                         </div>
                         <div class="faq-answer">
-                            <?php echo $answer; ?>
+                            <?php echo wp_kses_post($answer); ?>
                         </div>
                     </div>
                 <?php
@@ -268,7 +266,6 @@ if ($video_background) {
 </section>
 
 <?php
-// שימוש ב-have_rows לשליפה נכונה מ-Repeater ב-Options Page
 if (have_rows('reviews', 'option')) : 
 ?>
     <section class="reviews-section">
@@ -318,7 +315,7 @@ endif;
 <div class="contact-form" id="contact">
     <div class="cintainer">
         <h2><?php echo esc_html($cf_headline); ?></h2>
-        <p><?php echo esc_html($cf_paragraph); ?></p>
+        <p><?php echo wp_kses_post($cf_paragraph); ?></p>
         <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
 </div>
