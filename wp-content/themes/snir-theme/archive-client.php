@@ -1,20 +1,24 @@
 <?php
+
 /**
  * The template for displaying Client Archive pages.
  * כולל באנר מעוצב וסינון פרויקטים חי.
  */
 
-get_header(); 
+get_header();
 ?>
 
 <section class="archive-banner">
     <div class="banner-content container">
-        <h1 class="archive-title">הפרויקטים שלנו</h1> <div class="breadcrumbs">
-            <?php
-            if (function_exists('snir_theme_breadcrumbs')) {
-                snir_theme_breadcrumbs();
-            }
-            ?>
+        <h1 class="archive-title">הפרויקטים שלנו</h1>
+        <div class="breadcrumbs">
+            <div class="banner-breadcrumbs">
+                <?php
+                if (function_exists('snir_theme_breadcrumbs')) {
+                    snir_theme_breadcrumbs();
+                }
+                ?>
+            </div>
         </div>
     </div>
 </section>
@@ -38,12 +42,12 @@ get_header();
         }
         ?>
     </section>
-    
-    <?php if ( have_posts() ) : ?>
-        
+
+    <?php if (have_posts()) : ?>
+
         <section class="client-archive-grid">
-            <?php while ( have_posts() ) : the_post(); 
-                
+            <?php while (have_posts()) : the_post();
+
                 // שליפת נתונים לכרטיס
                 $client_id = get_the_ID();
                 $client_categories = get_the_terms($client_id, 'client_category');
@@ -52,7 +56,7 @@ get_header();
 
                 if (!empty($client_categories) && !is_wp_error($client_categories)) {
                     $primary_category = $client_categories[0];
-                    
+
                     // יצירת רשימת קלאסים לסינון (למשל: "tech finance")
                     foreach ($client_categories as $cat) {
                         $item_classes .= ' ' . $cat->slug;
@@ -61,7 +65,7 @@ get_header();
             ?>
 
                 <div class="project-item <?php echo esc_attr($item_classes); ?>">
-                    
+
                     <a href="<?php the_permalink(); ?>" class="client-card">
                         <div class="card-image-wrapper">
                             <?php if (has_post_thumbnail()) : ?>
@@ -88,12 +92,12 @@ get_header();
 
         <div class="pagination-wrapper">
             <?php
-            the_posts_pagination( array(
-                'prev_text'          => '<i class="fas fa-chevron-right"></i>', 
+            the_posts_pagination(array(
+                'prev_text'          => '<i class="fas fa-chevron-right"></i>',
                 'next_text'          => '<i class="fas fa-chevron-left"></i>',
                 'mid_size'           => 2,
-                'screen_reader_text' => __( 'Posts navigation', 'snir-theme' ),
-            ) );
+                'screen_reader_text' => __('Posts navigation', 'snir-theme'),
+            ));
             ?>
         </div>
 
