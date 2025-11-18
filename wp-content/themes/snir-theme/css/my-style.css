@@ -1889,97 +1889,122 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
 /* =======================================
    Client Archive Page Styles
    ======================================= */
-.client-archive-page {
-  font-family: "Heebo", sans-serif;
-  background-color: var(--bg-color);
-  padding-bottom: 5rem;
-}
-.client-archive-page .archive-hero {
-  text-align: center;
-  padding: 4rem 0 2rem;
-  background-color: var(--card-background);
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 3rem;
-}
-.client-archive-page .archive-hero .page-title {
-  font-size: 3rem;
-  font-weight: 900;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-.client-archive-page .archive-hero .page-subtitle {
-  font-size: 1.1rem;
-  color: var(--text-color);
-  opacity: 0.8;
-  max-width: 600px;
-  margin: 0 auto 1.5rem;
-}
-.client-archive-page .archive-hero .archive-breadcrumbs {
-  font-size: 0.9rem;
-  color: var(--text-color);
-}
-.client-archive-page .projects-filter-section {
-  margin-bottom: 3rem;
-}
-.client-archive-page .projects-filter-section .filter-buttons-group {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.client-archive-page .projects-filter-section .filter-buttons-group .filter-btn {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-  padding: 0.5rem 1.5rem;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-.client-archive-page .projects-filter-section .filter-buttons-group .filter-btn:hover {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-}
-.client-archive-page .projects-filter-section .filter-buttons-group .filter-btn.active {
+.archive-banner {
   background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  padding: 60px 0;
+  text-align: center;
   color: #fff;
-  box-shadow: 0 4px 10px rgba(220, 20, 60, 0.4);
 }
-.client-archive-page .projects-grid {
+.archive-banner .banner-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.archive-banner .banner-content .archive-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.archive-banner .banner-content .breadcrumbs {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.archive-banner .banner-content .breadcrumbs a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+.archive-banner .banner-content .breadcrumbs a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.archive-banner .banner-content .breadcrumbs span, .archive-banner .banner-content .breadcrumbs strong {
+  color: #fff;
+}
+
+.client-archive-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }
 @media (max-width: 1024px) {
-  .client-archive-page .projects-grid {
+  .client-archive-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 768px) {
-  .client-archive-page .projects-grid {
+  .client-archive-grid {
     grid-template-columns: 1fr;
   }
 }
-.client-archive-page .projects-grid .project-item {
-  animation: fadeInUp 0.5s ease forwards;
+
+.client-archive-grid .client-card {
+  display: block;
+  text-decoration: none;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: all 0.3s ease-in-out;
+  height: 100%;
 }
-.client-archive-page .projects-grid .project-item.hide {
-  display: none;
+.client-archive-grid .client-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+.client-archive-grid .client-card .card-image-wrapper {
+  width: 100%;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+}
+.client-archive-grid .client-card .card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.client-archive-grid .client-card .card-image-wrapper .card-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
+}
+.client-archive-grid .client-card:hover .card-image-wrapper img {
+  transform: scale(1.05);
+}
+.client-archive-grid .client-card .card-content {
+  padding: 1.5rem;
+}
+.client-archive-grid .client-card .card-category-badge {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.client-archive-grid .client-card .card-title {
+  color: var(--text-color);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.pagination {
+  text-align: center;
+  margin-bottom: 4rem;
 }
+
 .btn {
   display: inline-block;
   padding: 15px 30px;

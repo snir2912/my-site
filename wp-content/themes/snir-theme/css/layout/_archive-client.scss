@@ -2,112 +2,139 @@
    Client Archive Page Styles
    ======================================= */
 
-.client-archive-page {
-    font-family: $font-heebo; // המשתנה הגלובלי שלך
-    background-color: var(--bg-color);
-    padding-bottom: 5rem;
+// שימוש במשתנים גלובליים
+// $theme-colors, $font-heebo, $breakpoint-tablet
 
-    // 1. Hero Section
-    .archive-hero {
-        text-align: center;
-        padding: 4rem 0 2rem;
-        background-color: var(--card-background); // רקע מעט שונה מהגוף
-        border-bottom: 1px solid var(--border-color);
-        margin-bottom: 3rem;
+// 1. עיצוב הבאנר (הועתק מהקוד ששלחת)
+.archive-banner {
+    background-color: var(--primary-color); // שימוש במשתנה CSS ליתר ביטחון
+    padding: 60px 0;
+    text-align: center;
+    color: #fff;
 
-        .page-title {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--primary-color); // הכותרת בקרימזון
-            margin-bottom: 0.5rem;
+    .banner-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        .archive-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #fff;
         }
 
-        .page-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .archive-breadcrumbs {
+        // התאמת פירורי הלחם לבאנר
+        .breadcrumbs {
             font-size: 0.9rem;
-            color: var(--text-color);
-        }
-    }
-
-    // 2. Filter Bar
-    .projects-filter-section {
-        margin-bottom: 3rem;
-        
-        .filter-buttons-group {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-
-            .filter-btn {
-                background: transparent;
-                border: 1px solid var(--border-color);
-                color: var(--text-color);
-                padding: 0.5rem 1.5rem;
-                border-radius: 50px;
-                cursor: pointer;
-                font-weight: 500;
-                font-size: 1rem;
-                transition: all 0.3s ease;
-
-                &:hover {
-                    border-color: var(--primary-color);
-                    color: var(--primary-color);
-                }
-
-                &.active {
-                    background-color: var(--primary-color);
-                    border-color: var(--primary-color);
-                    color: #fff;
-                    box-shadow: 0 4px 10px rgba(220, 20, 60, 0.4); // צללית קרימזון
-                }
-            }
-        }
-    }
-
-    // 3. Grid Layout
-    .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-
-        @media (max-width: $breakpoint-desktop) { // 1024px
-            grid-template-columns: repeat(2, 1fr);
-        }
-        @media (max-width: $breakpoint-tablet) { // 768px
-            grid-template-columns: 1fr;
-        }
-
-        // האנימציה של הסינון
-        .project-item {
-            animation: fadeInUp 0.5s ease forwards;
+            color: rgba(255, 255, 255, 0.8);
             
-            &.hide {
-                display: none; // מוסתר ע"י JS
+            a {
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                &:hover {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+            }
+            span, strong {
+                 color: #fff;
             }
         }
     }
-
-    // שימוש חוזר בעיצוב הכרטיס (אם לא קיים כבר בגלובלי)
-    // אם כבר יש לך את זה ב-_projects-carousel.scss, אין צורך להעתיק שוב
-    // אבל ליתר ביטחון, ודא שהקלאסים .client-card, .card-image-wrapper וכו' זמינים כאן.
 }
 
-// אנימציה פשוטה
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+// 2. הגריד של הלקוחות
+.client-archive-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // *** 3 בשורה ***
+    gap: 2rem; // רווח יפה בין הכרטיסים
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+
+    // רספונסיביות
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr); // 2 בטאבלט/לפטופ קטן
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr; // 1 במובייל
     }
+}
+
+
+// 3. עיצוב הכרטיס (הכרטיס המושלם - הותאם לארכיון)
+// שמתי אותו ישירות תחת הגריד כדי לוודא שהוא נתפס
+.client-archive-grid .client-card {
+    display: block;
+    text-decoration: none;
+    background-color: var(--bg-color); // רקע הכרטיס
+    border-radius: 8px; // $client-border-radius
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: all 0.3s ease-in-out;
+    height: 100%; // שומר על גובה אחיד
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    .card-image-wrapper {
+        width: 100%;
+        height: 240px; // גובה קבוע לתמונה בארכיון (קצת יותר גבוה)
+        position: relative;
+        overflow: hidden;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+        }
+    }
+    
+    &:hover .card-image-wrapper img {
+            transform: scale(1.05);
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-category-badge {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 0.3rem 0.7rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+        color: var(--text-color);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+}
+
+// עיצוב הפגינציה (אם צריך)
+.pagination {
+    text-align: center;
+    margin-bottom: 4rem;
+    // ... שאר העיצוב שלך לפגינציה
 }
