@@ -1,0 +1,113 @@
+/* =======================================
+   Client Archive Page Styles
+   ======================================= */
+
+.client-archive-page {
+    font-family: $font-heebo; // המשתנה הגלובלי שלך
+    background-color: var(--bg-color);
+    padding-bottom: 5rem;
+
+    // 1. Hero Section
+    .archive-hero {
+        text-align: center;
+        padding: 4rem 0 2rem;
+        background-color: var(--card-background); // רקע מעט שונה מהגוף
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 3rem;
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-color); // הכותרת בקרימזון
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .archive-breadcrumbs {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+    }
+
+    // 2. Filter Bar
+    .projects-filter-section {
+        margin-bottom: 3rem;
+        
+        .filter-buttons-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            .filter-btn {
+                background: transparent;
+                border: 1px solid var(--border-color);
+                color: var(--text-color);
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    border-color: var(--primary-color);
+                    color: var(--primary-color);
+                }
+
+                &.active {
+                    background-color: var(--primary-color);
+                    border-color: var(--primary-color);
+                    color: #fff;
+                    box-shadow: 0 4px 10px rgba(220, 20, 60, 0.4); // צללית קרימזון
+                }
+            }
+        }
+    }
+
+    // 3. Grid Layout
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+
+        @media (max-width: $breakpoint-desktop) { // 1024px
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: $breakpoint-tablet) { // 768px
+            grid-template-columns: 1fr;
+        }
+
+        // האנימציה של הסינון
+        .project-item {
+            animation: fadeInUp 0.5s ease forwards;
+            
+            &.hide {
+                display: none; // מוסתר ע"י JS
+            }
+        }
+    }
+
+    // שימוש חוזר בעיצוב הכרטיס (אם לא קיים כבר בגלובלי)
+    // אם כבר יש לך את זה ב-_projects-carousel.scss, אין צורך להעתיק שוב
+    // אבל ליתר ביטחון, ודא שהקלאסים .client-card, .card-image-wrapper וכו' זמינים כאן.
+}
+
+// אנימציה פשוטה
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

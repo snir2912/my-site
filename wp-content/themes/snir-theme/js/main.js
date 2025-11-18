@@ -372,3 +372,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+
+/* =======================================
+   Portfolio Filter Logic (Archive Page)
+   ======================================= */
+document.addEventListener('DOMContentLoaded', function() {
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    // אם אין כפתורי סינון, אל תריץ את הקוד
+    if (filterButtons.length === 0) return;
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            
+            // 1. הסרת הקלאס active מכל הכפתורים והוספה לנוכחי
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 2. קבלת ערך הסינון (ה-Slug של הקטגוריה)
+            const filterValue = btn.getAttribute('data-filter');
+
+            // 3. לולאה על הפרויקטים
+            projectItems.forEach(item => {
+                if (filterValue === 'all') {
+                    // אם בחרנו "הכל", הצג הכל
+                    item.classList.remove('hide');
+                    item.style.animation = 'none'; // איפוס אנימציה
+                    item.offsetHeight; /* trigger reflow */
+                    item.style.animation = 'fadeInUp 0.5s ease forwards'; // הפעלה מחדש
+                } else {
+                    // בדיקה אם לפרויקט יש את הקלאס של הקטגוריה שנבחרה
+                    if (item.classList.contains(filterValue)) {
+                        item.classList.remove('hide');
+                        item.style.animation = 'none';
+                        item.offsetHeight; 
+                        item.style.animation = 'fadeInUp 0.5s ease forwards';
+                    } else {
+                        item.classList.add('hide');
+                    }
+                }
+            });
+
+        });
+    });
+
+});
