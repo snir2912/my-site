@@ -312,131 +312,221 @@ p {
   transition-delay: 0.6s;
 }
 
-/* --- Footer Styles --- */
+/* =======================================
+   Footer Styles
+   ======================================= */
 .main-footer {
-  padding: 30px 0;
-  font-size: 0.9rem;
-  transition: background-color 0.4s ease, color 0.4s ease, border-top-color 0.4s ease;
-  background-color: #1a1a1a;
-  border-top: 1px solid #333;
-  color: #f0f0f0;
+  background-color: #111;
+  color: #aaa;
+  padding-top: 5rem;
+  font-family: "Heebo", sans-serif;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
 }
-body.light-mode .main-footer {
-  background-color: #f9f9f9;
-  border-top-color: #ddd;
-  color: #333;
+.main-footer .container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
-
-.footer-content {
-  display: flex;
-  flex-direction: column; /* ממיר את הפוטר לתצוגה טורית */
-  align-items: center; /* ממקם את הפריטים במרכז */
-  text-align: center; /* ממקם את הטקסט במרכז */
-  gap: 20px;
-  padding: 0 20px; /* מוסיף ריפוד פנימי */
+.main-footer .footer-widgets-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 3rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-.footer-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+@media (max-width: 1024px) {
+  .main-footer .footer-widgets-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
-
-.footer-logo {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+@media (max-width: 600px) {
+  .main-footer .footer-widgets-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+}
+.main-footer .footer-title {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+.main-footer .footer-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+@media (max-width: 600px) {
+  .main-footer .footer-title::after {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+.main-footer .about-col .footer-logo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
   display: block;
-  color: crimson;
+  margin-bottom: 1rem;
 }
-
-.copyright {
-  margin-bottom: 0;
-}
-
-.footer-text-area {
-  margin-top: 15px;
-  max-width: 600px;
+.main-footer .about-col .footer-tagline {
   line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
-
-.footer-nav-area {
+.main-footer .about-col .footer-socials {
   display: flex;
-  justify-content: center;
+  gap: 15px;
 }
-
-.footer-nav ul {
+@media (max-width: 600px) {
+  .main-footer .about-col .footer-socials {
+    justify-content: center;
+  }
+}
+.main-footer .about-col .footer-socials a {
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.main-footer .about-col .footer-socials a:hover {
+  background: var(--primary-color);
+  transform: translateY(-3px);
+}
+.main-footer .nav-col .footer-menu-list {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
   padding: 0;
   margin: 0;
 }
-.footer-nav ul li a {
+.main-footer .nav-col .footer-menu-list li {
+  margin-bottom: 0.8rem;
+}
+.main-footer .nav-col .footer-menu-list li a {
+  color: #aaa;
   text-decoration: none;
-  color: #f0f0f0;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
-body.light-mode .footer-nav ul li a {
-  color: #333;
+.main-footer .nav-col .footer-menu-list li a:hover {
+  color: var(--primary-color);
+  padding-right: 5px;
 }
-.footer-nav ul li a:hover {
-  color: crimson;
+.main-footer .newsletter-col .wpcf7-form .newsletter-form-inner {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+@media (max-width: 600px) {
+  .main-footer .newsletter-col .wpcf7-form .newsletter-form-inner {
+    flex-direction: column;
+  }
+}
+.main-footer .newsletter-col .wpcf7-form input[type=email] {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+  outline: none;
+}
+.main-footer .newsletter-col .wpcf7-form input[type=email]:focus {
+  border-color: var(--primary-color);
+}
+.main-footer .newsletter-col .wpcf7-form input[type=submit] {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+.main-footer .newsletter-col .wpcf7-form input[type=submit]:hover {
+  background: var(--secondary-color);
+}
+.main-footer .newsletter-col .wpcf7-form .wpcf7-not-valid-tip {
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+.main-footer .footer-bottom {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+@media (max-width: 600px) {
+  .main-footer .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.main-footer .footer-bottom a {
+  color: #fff;
+  text-decoration: none;
+}
+.main-footer .footer-bottom a:hover {
+  color: var(--primary-color);
 }
 
-/* --- WhatsApp Floating Button Styles --- */
 .whatsapp-float {
   position: fixed;
-  bottom: 25px;
-  left: 25px;
+  bottom: 30px;
+  left: 30px;
   z-index: 999;
   display: flex;
   align-items: center;
+  gap: 10px;
   text-decoration: none;
-  transition: transform 0.3s ease-in-out;
 }
-.whatsapp-float:hover {
-  transform: scale(1.05);
-}
-
-.whatsapp-icon {
+.whatsapp-float .whatsapp-icon {
   width: 60px;
   height: 60px;
+  background-color: #25d366;
+  color: #fff;
   border-radius: 50%;
-  background-color: #25D366;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
+  font-size: 30px;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s ease;
 }
-.whatsapp-icon svg {
-  fill: #fff;
-  width: 35px;
-  height: 35px;
-}
-
-.whatsapp-bubble {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  left: 80px; /* מיקום הבועה כשהיא מופיעה */
-  transform: translateX(0);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  background-color: white;
+.whatsapp-float .whatsapp-bubble {
+  background: #fff;
   color: #333;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease;
+  pointer-events: none;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
+.whatsapp-float:hover .whatsapp-icon {
+  transform: scale(1.1);
+}
 .whatsapp-float:hover .whatsapp-bubble {
   opacity: 1;
-  visibility: visible;
   transform: translateX(0);
 }
 
@@ -2327,6 +2417,73 @@ body.light-mode .related-posts-section {
   margin-bottom: 4rem;
 }
 
+/* =======================================
+   404 Page Styles
+   ======================================= */
+.error-404-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--bg-color);
+  padding: 4rem 0;
+}
+.error-404-page .error-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.error-404-page .error-code {
+  font-size: clamp(6rem, 15vw, 10rem);
+  font-weight: 900;
+  color: var(--primary-color);
+  line-height: 1;
+  margin: 0;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+  animation: glitch 2s infinite;
+}
+.error-404-page .error-title {
+  font-size: 2rem;
+  margin-top: 1rem;
+  color: var(--text-color);
+}
+.error-404-page .error-text {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+.error-404-page .error-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+@media (max-width: 500px) {
+  .error-404-page .error-buttons {
+    flex-direction: column;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
 .btn {
   display: inline-block;
   padding: 15px 30px;
