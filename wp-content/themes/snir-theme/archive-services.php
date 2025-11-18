@@ -32,8 +32,14 @@ get_header(); // כולל את קובץ ה-header.php
             <div class="archive-description"><?php echo get_the_archive_description(); ?></div>
         <?php
         endif;
-        // ... (הוספת breadcrumbs אם יש קוד עבורם) ...
         ?>
+        <div class="breadcrumbs">
+            <?php
+            if (function_exists('snir_theme_breadcrumbs')) {
+                snir_theme_breadcrumbs();
+            }
+            ?>
+        </div>
     </div>
 </section>
 
