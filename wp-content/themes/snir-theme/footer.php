@@ -24,9 +24,9 @@
                     <nav class="footer-nav">
                         <?php
                         wp_nav_menu( array(
-                            'theme_location' => 'footer-menu',
+                            'theme_location' => 'header-menu', // *** שינוי: מושך את תפריט ההדר ***
                             'container'      => false,
-                            'menu_class'     => 'footer-menu-list',
+                            'menu_class'     => 'footer-menu-list', // משאיר את העיצוב של הפוטר (רשימה אנכית)
                             'fallback_cb'    => false
                         ) );
                         ?>
@@ -48,7 +48,7 @@
                     <h3 class="footer-title">הישארו מעודכנים</h3>
                     <p>הירשמו לניוזלטר שלנו לקבלת עדכונים וטיפים חמים.</p>
                     <div class="footer-newsletter-form">
-                        <?php echo do_shortcode('[contact-form-7 id="32358bc" title="Newsletter Footer"]'); ?>
+                        <?php echo do_shortcode('[contact-form-7 id="1234" title="Newsletter Footer"]'); ?>
                     </div>
                 </div>
 
@@ -70,7 +70,8 @@
     ?>
         <a href="<?php echo esc_url($whatsapp_link); ?>" class="whatsapp-float" target="_blank" aria-label="שלח לנו הודעה בוואטסאפ">
             <div class="whatsapp-icon">
-                 <i class="fab fa-whatsapp"></i> </div>
+                 <i class="fab fa-whatsapp"></i>
+            </div>
             <?php if ($whatsapp_text) : ?>
                 <div class="whatsapp-bubble"><?php echo esc_html($whatsapp_text); ?></div>
             <?php endif; ?>
@@ -86,8 +87,7 @@
                 <div class="search-spinner"></div>
             </div>
             
-            <div id="live-search-results" class="search-results-grid">
-                </div>
+            <div id="live-search-results" class="search-results-grid"></div>
         </div>
     </div>
 
