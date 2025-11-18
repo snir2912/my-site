@@ -1,52 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- לוגיקת תפריט המבורגר ---
+
+    /* ==========================================================================
+       1. Mobile Menu Logic (Updated) - תפריט מובייל מעודכן
+       ========================================================================== */
     const hamburger = document.querySelector('.hamburger-menu');
-    const mainNav = document.querySelector('.main-nav');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
     const body = document.body;
-    const navLinks = document.querySelectorAll('.main-menu-list a');
+    
+    if (hamburger && mobileMenuOverlay) {
+        // פתיחה/סגירה בלחיצה על ההמבורגר
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active'); // אנימציית ה-X בכפתור
+            mobileMenuOverlay.classList.toggle('active'); // החלקת התפריט פנימה
+            body.classList.toggle('no-scroll'); // מניעת גלילה ברקע
+        });
 
-    // בדיקה לוודא שהאלמנטים קיימים לפני הוספת אירועים
-    if (hamburger && mainNav && body) {
-        // פונקציה לפתיחת/סגירת התפריט
-        function toggleMenu() {
-            hamburger.classList.toggle('active');
-            mainNav.classList.toggle('active'); // זהו הקלאס שפותח/סוגר את תפריט המובייל
-            body.classList.toggle('no-scroll');
-        }
-
-        // אירוע לחיצה על כפתור ההמבורגר
-        hamburger.addEventListener('click', toggleMenu);
-
-        // אירוע לחיצה על כל קישור בתפריט (רק אם יש קישורים)
-        if (navLinks.length > 0) {
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    const isMobileView = window.getComputedStyle(hamburger).display !== 'none';
-                    if (isMobileView && mainNav.classList.contains('active')) {
-                        toggleMenu(); // סוגר את תפריט המובייל רק אם הוא פתוח ובמצב מובייל
-                    }
-
-                    if (this.hash !== '') {
-                        const targetId = this.hash;
-                        const targetElement = document.querySelector(targetId);
-
-                        if (targetElement) {
-                            event.preventDefault();
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
+        // סגירת התפריט בלחיצה על קישור פנימי
+        const mobileLinks = mobileMenuOverlay.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                body.classList.remove('no-scroll');
             });
-        }
-    } else {
-        console.warn('One or more required elements for the hamburger menu were not found. Please check your HTML structure: .hamburger-menu, .main-nav');
+        });
     }
 
-    // --- לוגיקת Dark/Light Mode ---
+    /* ==========================================================================
+       2. Dark/Light Mode Toggle - מצב לילה/יום
+       ========================================================================== */
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
+        // בדיקת העדפה שמורה בטעינה
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        // החלפת מצב בלחיצה
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             if (document.body.classList.contains('light-mode')) {
@@ -55,30 +46,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('theme', 'dark');
             }
         });
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-        }
-    } else {
-        console.warn('Theme toggle button with ID "theme-toggle" not found. Dark/Light mode functionality will not work.');
     }
 
-    // (אופציונלי) טיפול בשינוי גודל חלון - לסגור את המובייל אם עוברים לדסקטופ
-    window.addEventListener('resize', function() {
-        const desktopBreakpoint = 768; // הגדר את נקודת השבירה שלך בפיקסלים
-        if (window.innerWidth > desktopBreakpoint && mainNav && mainNav.classList.contains('active')) {
-            toggleMenu(); // סגור את התפריט
-        }
-    });
-
-    // --- לוגיקת הגדלה/הקטנה של הפונט ---
+    /* ==========================================================================
+       3. Font Size Control (Accessibility) - נגישות פונטים
+       ========================================================================== */
     const contentContainer = document.querySelector('.single-post-content');
     const increaseBtn = document.getElementById('increase-font-size');
     const decreaseBtn = document.getElementById('decrease-font-size');
     const storageKey = 'user-font-size';
-    
-    // בודק אם הכפתורים והקונטיינר קיימים בעמוד לפני שממשיך
+
     if (contentContainer && increaseBtn && decreaseBtn) {
         const pElements = contentContainer.querySelectorAll('p');
         const defaultFontSize = 16;
@@ -94,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentFontSize !== defaultFontSize) {
             setFontSize(currentFontSize);
         }
-        
+
         increaseBtn.addEventListener('click', () => {
             currentFontSize += 1;
             setFontSize(currentFontSize);
@@ -106,10 +83,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 setFontSize(currentFontSize);
             }
         });
-    } else {
-        console.warn('Font size controls or content container not found. Font size functionality will not work.');
     }
-// --- לוגיקת אקורדיון FAQ ---
+
+    /* ==========================================================================
+       4. FAQ Accordion - אקורדיון שאלות ותשובות
+       ========================================================================== */
     const faqQuestions = document.querySelectorAll('.faq-question');
 
     if (faqQuestions.length > 0) {
@@ -122,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     question.classList.remove('active');
                     answer.classList.remove('active');
                 } else {
-                    // סגירת כל שאר השאלות הפתוחות לפני הפתיחה הנוכחית
+                    // סגירת שאלות אחרות (אופציונלי)
                     faqQuestions.forEach(otherQuestion => {
                         otherQuestion.classList.remove('active');
                         otherQuestion.nextElementSibling.classList.remove('active');
@@ -133,14 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-    } else {
-        console.warn('FAQ questions were not found. Accordion functionality will not work.');
     }
-});
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to check if an element is in the viewport
+    /* ==========================================================================
+       5. Scroll Animations - אנימציות בגלילה
+       ========================================================================== */
     function isElementInViewport(el) {
         var rect = el.getBoundingClientRect();
         return (
@@ -151,274 +126,228 @@ document.addEventListener("DOMContentLoaded", function() {
         );
     }
 
-    // Function to handle the scroll event
     function handleScroll() {
-        var elements = document.querySelectorAll('.image-col');
-        elements.forEach(function(el) {
-            if (isElementInViewport(el)) {
-                el.classList.add('visible');
-            }
+        // אלמנטים מסוג image-col
+        const imageCols = document.querySelectorAll('.image-col');
+        imageCols.forEach(el => {
+            if (isElementInViewport(el)) el.classList.add('visible');
+        });
+
+        // אלמנטים מסוג fade-in-up
+        const fadeElements = document.querySelectorAll('.fade-in-up');
+        fadeElements.forEach(el => {
+            if (isElementInViewport(el)) el.classList.add('visible');
         });
     }
 
-    // Run the function once on load and add a scroll listener
-    handleScroll();
     window.addEventListener('scroll', handleScroll);
-});
+    handleScroll(); // הפעלה ראשונית
 
-
-document.addEventListener("DOMContentLoaded", function() {
-    function isElementInViewport(el) {
-        var rect = el.getBoundingClientRect();
-        var distance = (window.innerHeight || document.documentElement.clientHeight);
-        return (
-            rect.top <= distance && rect.bottom >= 0
-        );
-    }
-
-    function handleScroll() {
-        var elements = document.querySelectorAll('.fade-in-up');
-        elements.forEach(function(el) {
-            if (isElementInViewport(el)) {
-                el.classList.add('visible');
-            }
-        });
-    }
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-});
-
-/**
- * הפעלת גלריית לקוח בעמוד הנכון
- *
- * הקוד בודק אם אנחנו בעמוד הנכון (ע"י חיפוש הגלריה),
- * ורק אז טוען ומפעיל את הלייטבוקס.
- */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. בודק אם הגלריה (.project-gallery-grid) קיימת בעמוד הנוכחי
+    /* ==========================================================================
+       6. Client Gallery Lightbox (BaguetteBox) - לייטבוקס
+       ========================================================================== */
     const galleryContainer = document.querySelector('.project-gallery-grid');
     
     if (galleryContainer) {
-        
-        // 2. אם הגלריה קיימת, בודק אם הספרייה 'baguetteBox' כבר נטענה
         if (typeof baguetteBox === 'function') {
-            // אם כן, פשוט הפעל אותה
             try {
                 baguetteBox.run('.project-gallery-grid');
             } catch (e) {
                 console.error("BaguetteBox failed to run: ", e);
             }
         } else {
-            // 3. אם לא, טען דינמית את הקבצים ורק אז הפעל אותה
-            
-            // טעינת קובץ ה-CSS
+            // טעינה דינמית אם הספרייה חסרה
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
             cssLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css';
             document.head.appendChild(cssLink);
 
-            // טעינת קובץ ה-JS
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js';
             script.async = true;
             
-            // הפעלת הלייטבוקס *רק אחרי* שהסקריפט סיים להיטען
             script.onload = function() {
                 try {
                     baguetteBox.run('.project-gallery-grid');
                 } catch (e) {
-                    console.error("BaguetteBox failed to initialize and run: ", e);
+                    console.error("BaguetteBox failed to initialize: ", e);
                 }
             };
-            
-            // הוספת הסקריפט לסוף העמוד
             document.body.appendChild(script);
         }
     }
 
-}); // סוף 'DOMContentLoaded'
-
-/* =======================================
-   Reviews Carousel Initialization
-   ======================================= */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ... (קוד הגלריה שלך נמצא כאן) ...
-
-    // הפעלת קרוסלת המלצות (אם היא קיימת בעמוד)
+    /* ==========================================================================
+       7. Swiper Carousels (Reviews & Projects) - קרוסלות
+       ========================================================================== */
+    // א. קרוסלת המלצות
     const reviewsSlider = document.querySelector('.reviews-slider');
-    
-    if (reviewsSlider) {
-        // ודא שהספרייה Swiper נטענה
-        if (typeof Swiper === 'function') {
-            
-            new Swiper('.reviews-slider', {
-                // הגדרות
-                loop: true, // לולאה אינסופית
-                slidesPerView: 1, // ברירת מחדל (מובייל)
-                spaceBetween: 30, // רווח בין הכרטיסים
-                
-                // חצים (Navigation)
-                navigation: {
-                    nextEl: '.reviews-arrow-next',
-                    prevEl: '.reviews-arrow-prev',
-                },
-                
-                // נקודות שבירה (Breakpoints) - כפי שביקשת
-                breakpoints: {
-                    // טאבלט
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 30
-                    },
-                    // דסקטופ
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 30
-                    }
-                }
-            });
-
-        } else {
-            console.error('Swiper.js library is not loaded.');
-        }
+    if (reviewsSlider && typeof Swiper === 'function') {
+        new Swiper('.reviews-slider', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.reviews-arrow-next',
+                prevEl: '.reviews-arrow-prev',
+            },
+            breakpoints: {
+                768: { slidesPerView: 2, spaceBetween: 30 },
+                1024: { slidesPerView: 3, spaceBetween: 30 }
+            }
+        });
     }
 
-}); // סוף 'DOMContentLoaded'
-
-/* =======================================
-   Projects Carousel Initialization
-   ======================================= */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ... (קוד הגלריה וקרוסלת ההמלצות שלך...) ...
-
-    // הפעלת קרוסלת פרויקטים (אם היא קיימת בעמוד)
+    // ב. קרוסלת פרויקטים
     const projectsSliderEl = document.querySelector('.projects-slider');
-    
-    if (projectsSliderEl) {
-        // ודא שהספרייה Swiper נטענה
-        if (typeof Swiper === 'function') {
-            
-            new Swiper('.projects-slider', {
-                // הגדרות
-                loop: true, // לולאה אינסופית
-                slidesPerView: 1, // ברירת מחדל (מובייל)
-                spaceBetween: 30, // רווח בין הכרטיסים
-                
-                // חצים (Navigation)
-                navigation: {
-                    nextEl: '.projects-arrow-next',
-                    prevEl: '.projects-arrow-prev',
-                },
-                
-                // נקודות שבירה (Breakpoints) - כפי שביקשת
-                breakpoints: {
-                    // טאבלט
-                    768: {
-                        slidesPerView: 2,
-                        spaceBetween: 30
-                    },
-                    // דסקטופ
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 30
-                    }
-                }
-            });
-
-        } else {
-            console.error('Swiper.js library is not loaded.');
-        }
+    if (projectsSliderEl && typeof Swiper === 'function') {
+        new Swiper('.projects-slider', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.projects-arrow-next',
+                prevEl: '.projects-arrow-prev',
+            },
+            breakpoints: {
+                768: { slidesPerView: 2, spaceBetween: 30 },
+                1024: { slidesPerView: 3, spaceBetween: 30 }
+            }
+        });
     }
 
-}); // סוף 'DOMContentLoaded'
-
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // === לוגיקת נגן וידאו מעוצב ===
+    /* ==========================================================================
+       8. Custom Video Player - נגן וידאו מעוצב
+       ========================================================================== */
     const videoContainer = document.querySelector('.custom-video-player');
     
     if (videoContainer) {
         const video = videoContainer.querySelector('video');
         const playBtn = videoContainer.querySelector('.play-overlay-btn');
 
-        // פונקציה להפעלת הוידאו
         function playVideo() {
             videoContainer.classList.add('is-playing');
             video.play();
-            video.controls = true; // מציג את הפקדים הרגילים אחרי שמתחילים לנגן
+            video.controls = true;
         }
 
-        // האזנה ללחיצה על הכפתור המעוצב
-        playBtn.addEventListener('click', playVideo);
-
-        // האזנה ללחיצה על הוידאו עצמו (אם המשתמש לוחץ על התמונה)
-        video.addEventListener('click', function() {
-            if (video.paused) {
-                playVideo();
-            }
-        });
+        if (playBtn) playBtn.addEventListener('click', playVideo);
         
-        // אופציונלי: אם הוידאו נעצר, אפשר להחזיר את הכפתור (אני מעדיף שלא, כדי לא להציק)
-        /*
-        video.addEventListener('pause', function() {
-             videoContainer.classList.remove('is-playing');
-             video.controls = false;
-        });
-        */
+        if (video) {
+            video.addEventListener('click', function() {
+                if (video.paused) playVideo();
+            });
+        }
     }
 
-});
-
-/* =======================================
-   Portfolio Live Filter (Archive)
-   ======================================= */
-document.addEventListener('DOMContentLoaded', function() {
-
+    /* ==========================================================================
+       9. Portfolio Filter (Archive Page) - סינון פרויקטים
+       ========================================================================== */
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
 
-    // בודק אם אנחנו בעמוד הארכיון
     if (filterButtons.length > 0 && projectItems.length > 0) {
-        
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                
-                // 1. ניהול הקלאס Active לכפתורים
+                // ניהול קלאס active
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // 2. קבלת הקטגוריה לסינון
                 const filterValue = btn.getAttribute('data-filter');
 
-                // 3. סינון הפריטים
                 projectItems.forEach(item => {
-                    
                     if (filterValue === 'all') {
-                        // הצג הכל
                         item.classList.remove('hide');
-                        // טריק לאיפוס האנימציה
+                        // Reset animation
                         item.style.animation = 'none';
                         item.offsetHeight; /* trigger reflow */
-                        item.style.animation = null; 
+                        item.style.animation = null;
                     } else {
-                        // בדוק אם לפריט יש את הקלאס של הקטגוריה
                         if (item.classList.contains(filterValue)) {
                             item.classList.remove('hide');
                             item.style.animation = 'none';
-                            item.offsetHeight; 
-                            item.style.animation = null; 
+                            item.offsetHeight;
+                            item.style.animation = null;
                         } else {
                             item.classList.add('hide');
                         }
                     }
                 });
-
             });
         });
     }
 
-});
+    /* ==========================================================================
+       10. AJAX Live Search - חיפוש חי
+       ========================================================================== */
+    const searchTrigger = document.getElementById('search-trigger-btn');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchClose = document.querySelector('.search-close-btn');
+    const searchInput = document.getElementById('live-search-input');
+    const searchResults = document.getElementById('live-search-results');
+    const searchSpinner = document.querySelector('.search-spinner');
+
+    // פתיחה וסגירה
+    if(searchTrigger && searchOverlay) {
+        searchTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            searchOverlay.classList.add('active');
+            setTimeout(() => searchInput.focus(), 100);
+        });
+
+        searchClose.addEventListener('click', function() {
+            searchOverlay.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                searchOverlay.classList.remove('active');
+            }
+        });
+    }
+
+    // לוגיקת החיפוש עם Debounce
+    let typingTimer;
+    const doneTypingInterval = 500;
+
+    if(searchInput) {
+        searchInput.addEventListener('keyup', function() {
+            clearTimeout(typingTimer);
+            const keyword = this.value;
+            
+            if (keyword.length < 2) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            searchSpinner.classList.add('loading');
+
+            typingTimer = setTimeout(function() {
+                // שימוש ב-snirAjax שמוגדר ב-footer.php
+                if (typeof snirAjax !== 'undefined') {
+                    const ajaxUrl = snirAjax.ajax_url;
+                    const formData = new FormData();
+                    formData.append('action', 'snir_live_search');
+                    formData.append('keyword', keyword);
+
+                    fetch(ajaxUrl, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        searchResults.innerHTML = html;
+                        searchSpinner.classList.remove('loading');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        searchSpinner.classList.remove('loading');
+                    });
+                } else {
+                    console.error('snirAjax variable is not defined.');
+                }
+            }, doneTypingInterval);
+        });
+    }
+
+}); // End DOMContentLoaded

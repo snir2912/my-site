@@ -67,5 +67,26 @@
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <div id="search-overlay" class="search-overlay">
+    <div class="search-close-btn">&times;</div>
+    
+    <div class="search-container">
+        <div class="search-input-wrapper">
+            <input type="text" id="live-search-input" placeholder="הקלידו לחיפוש לקוח, שירות או מאמר..." autocomplete="off">
+            <div class="search-spinner"></div>
+        </div>
+        
+        <div id="live-search-results" class="search-results-grid">
+            </div>
+    </div>
+</div>
+
+<script>
+    var snirAjax = { 
+        ajax_url: "<?php echo admin_url('admin-ajax.php'); ?>" 
+    };
+</script>
+
+<?php wp_footer(); ?>
 </body>
 </html>

@@ -463,3 +463,76 @@ function create_client_taxonomy() {
     register_taxonomy( 'client_category', array( 'client' ), $args ); // משייך את הטקסונומיה לפוסט טייפ 'client'
 }
 add_action( 'init', 'create_client_taxonomy' );
+
+/* =======================================
+   AJAX Live Search Handler
+   ======================================= */
+add_action('wp_ajax_snir_live_search', 'snir_live_search_handler');
+add_action('wp_ajax_nopriv_snir_live_search', 'snir_live_search_handler');
+
+function snir_live_search_handler() {
+    // ניקוי קלט
+    $keyword = sanitize_text_field($_POST['keyword']);
+
+    if (empty($keyword)) {
+        wp_die();
+    }
+
+    // הגדרת השאילתה: חיפוש בפוסטים, שירותים ולקוחות
+    $args = array(
+        'post_type'      => array('post', 'services', 'client'),
+        'post_status'    => 'publish',
+        'posts_per_page' => 6, // מקסימום תוצאות
+        's'              => $keyword,
+    );
+
+    $search_query = new WP_Query($args);
+
+    if ($search_query->have_posts()) :
+        while ($search_query->have_posts()) : $search_query->the_post();
+            
+            $post_type = get_post_type();
+            $post_type_label = '';
+            $badge_color = '';
+
+            // התאמת תווית וצבע לפי סוג
+            switch ($post_type) {
+                case 'client':
+                    $post_type_label = 'פרויקט/לקוח';
+                    $badge_color = '#e91e63'; // קרימזון
+                    break;
+                case 'services':
+                    $post_type_label = 'שירות';
+                    $badge_color = '#00bcd4'; // ציאן
+                    break;
+                case 'post':
+                    $post_type_label = 'מאמר';
+                    $badge_color = '#4caf50'; // ירוק
+                    break;
+            }
+
+            // בדיקת תמונה
+            $thumbnail = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') : ''; 
+            ?>
+
+            <a href="<?php the_permalink(); ?>" class="search-result-card animated-item">
+                <div class="result-image" style="background-image: url('<?php echo $thumbnail ? esc_url($thumbnail) : ''; ?>');">
+                    <?php if(!$thumbnail): ?><div class="no-img-placeholder"></div><?php endif; ?>
+                </div>
+                <div class="result-content">
+                    <span class="result-type" style="background-color: <?php echo $badge_color; ?>">
+                        <?php echo esc_html($post_type_label); ?>
+                    </span>
+                    <h4 class="result-title"><?php the_title(); ?></h4>
+                </div>
+            </a>
+
+            <?php
+        endwhile;
+        wp_reset_postdata();
+    else :
+        echo '<div class="no-results">לא מצאנו תוצאות עבור "' . esc_html($keyword) . '" :(</div>';
+    endif;
+
+    wp_die();
+}
