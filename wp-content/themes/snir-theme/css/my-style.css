@@ -1886,6 +1886,100 @@ body.light-mode .archive-banner .banner-content .archive-title, body.light-mode 
   margin: 0;
 }
 
+/* =======================================
+   Client Archive Page Styles
+   ======================================= */
+.client-archive-page {
+  font-family: "Heebo", sans-serif;
+  background-color: var(--bg-color);
+  padding-bottom: 5rem;
+}
+.client-archive-page .archive-hero {
+  text-align: center;
+  padding: 4rem 0 2rem;
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 3rem;
+}
+.client-archive-page .archive-hero .page-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+.client-archive-page .archive-hero .page-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+.client-archive-page .archive-hero .archive-breadcrumbs {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+.client-archive-page .projects-filter-section {
+  margin-bottom: 3rem;
+}
+.client-archive-page .projects-filter-section .filter-buttons-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.client-archive-page .projects-filter-section .filter-buttons-group .filter-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.client-archive-page .projects-filter-section .filter-buttons-group .filter-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+.client-archive-page .projects-filter-section .filter-buttons-group .filter-btn.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(220, 20, 60, 0.4);
+}
+.client-archive-page .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 1024px) {
+  .client-archive-page .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .client-archive-page .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.client-archive-page .projects-grid .project-item {
+  animation: fadeInUp 0.5s ease forwards;
+}
+.client-archive-page .projects-grid .project-item.hide {
+  display: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .btn {
   display: inline-block;
   padding: 15px 30px;
