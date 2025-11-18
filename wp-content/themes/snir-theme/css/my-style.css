@@ -2999,6 +2999,110 @@ body.light-mode .faq-section .background-overlay {
   margin: 0;
 }
 
+/* =======================================
+   Video Presentation Section
+   ======================================= */
+.video-presentation-section {
+  padding: 4rem 0;
+  background-color: var(--bg-color);
+}
+.video-presentation-section .video-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--text-color);
+  font-size: 2.5rem;
+}
+.video-presentation-section .video-wrapper-outer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.video-presentation-section .custom-video-player {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px var(--shadow-color);
+  background-color: #000;
+  border: 1px solid var(--border-color);
+}
+.video-presentation-section .custom-video-player video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.video-presentation-section .custom-video-player .play-overlay-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+.video-presentation-section .custom-video-player .play-overlay-btn .play-icon {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  animation: pulse-white 2s infinite;
+  transition: all 0.3s ease;
+}
+.video-presentation-section .custom-video-player .play-overlay-btn .play-icon::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid var(--primary-color);
+  margin-left: 5px;
+}
+.video-presentation-section .custom-video-player .play-overlay-btn:hover .play-icon {
+  background-color: #fff;
+  transform: scale(1.1);
+}
+.video-presentation-section .custom-video-player.is-playing .play-overlay-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+@media (max-width: 768px) {
+  .video-presentation-section .video-title {
+    font-size: 1.8rem;
+  }
+  .custom-video-player .play-overlay-btn .play-icon {
+    width: 60px;
+    height: 60px;
+  }
+  .custom-video-player .play-overlay-btn .play-icon::after {
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 16px solid var(--primary-color);
+  }
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-content {

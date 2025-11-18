@@ -9,21 +9,21 @@ Template Name: Front Page Template
 // שליפת כל השדות של עמוד הבית
 $h1 = get_field('h1');
 $hero_paragraph = get_field('hero_paragraph');
-$services_headline = get_field('services_headline');
 
-// *** תיקון: שימוש בשמות עם מקף (-) ***
+// *** חדש: שדות וידאו ***
+$video_headline = get_field('video-headline');
+$promo_video = get_field('promo-video');
+
+$services_headline = get_field('services_headline');
 $project_headline = get_field('project-headline');
 $project_btn = get_field('project-btn');
-
 $why_us_headline = get_field('why_us_headline');
 $why_us_paragraph = get_field('why_us_paragraph');
 $cf_headline = get_field('cf_headline');
 $cf_paragraph = get_field('cf_paragraph');
-
-// *** תיקון: שימוש בשמות עם מקף (-) ***
 $reviews_headline = get_field('reviews-headline');
 $reviews_btn = get_field('reviews-btn');
-$reviews_btn_link = get_field('reviews-btn-link'); // זה שדה Page Link, יחזיר URL
+$reviews_btn_link = get_field('reviews-btn-link');
 ?>
 
 <section class="hero-section" id="hero">
@@ -36,6 +36,30 @@ $reviews_btn_link = get_field('reviews-btn-link'); // זה שדה Page Link, י�
     </div>
 </section>
 
+<?php if ($promo_video) : ?>
+<section class="video-presentation-section">
+    <div class="container">
+        
+        <?php if ($video_headline) : ?>
+            <h2 class="section-title video-title"><?php echo esc_html($video_headline); ?></h2>
+        <?php endif; ?>
+
+        <div class="video-wrapper-outer">
+            <div class="custom-video-player">
+                <video id="main-promo-video" preload="metadata">
+                    <source src="<?php echo esc_url($promo_video['url']); ?>" type="<?php echo esc_attr($promo_video['mime_type']); ?>">
+                    הדפדפן שלך לא תומך בתגית וידאו.
+                </video>
+                
+                <button class="play-overlay-btn" aria-label="נגן וידאו">
+                    <div class="play-icon"></div>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+<?php endif; ?>
 <section class="services-section" id="services">
     <div class="container">
         <h2 class="section-title"><?php echo esc_html($services_headline); ?></h2>
@@ -147,6 +171,7 @@ if ($projects_query->have_posts()) :
 endif; 
 wp_reset_postdata(); 
 ?>
+
 <section class="about-our-service-section" id="why-us">
     <div class="container">
         <h2 class="section-title"><?php echo esc_html($why_us_headline); ?></h2>

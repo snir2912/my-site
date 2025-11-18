@@ -1,0 +1,123 @@
+/* =======================================
+   Video Presentation Section
+   ======================================= */
+.video-presentation-section {
+    padding: 4rem 0;
+    background-color: var(--bg-color);
+
+    .video-title {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        color: var(--text-color);
+        font-size: 2.5rem;
+    }
+
+    .video-wrapper-outer {
+        max-width: 1000px; // רוחב מקסימלי לנגן
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .custom-video-player {
+        position: relative;
+        width: 100%;
+        border-radius: 16px; // פינות מעוגלות
+        overflow: hidden; // לחיתוך הוידאו לפי הפינות
+        box-shadow: 0 15px 40px var(--shadow-color); // צללית עמוקה ומרשימה
+        background-color: #000; // רקע שחור לפני שהוידאו נטען
+        border: 1px solid var(--border-color);
+        
+        // טריק לשמירה על יחס גובה-רוחב (אם רוצים) או פשוט לתת לוידאו לקבוע
+        video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            cursor: pointer; // כדי שיראה לחיץ
+        }
+
+        // === הכפתור המעוצב ===
+        .play-overlay-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+
+            .play-icon {
+                width: 80px;
+                height: 80px;
+                background-color: rgba(255, 255, 255, 0.9); // כפתור לבן חצי שקוף
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                animation: pulse-white 2s infinite; // אנימציית הפעימה
+                transition: all 0.3s ease;
+
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 0; 
+                    height: 0; 
+                    border-top: 12px solid transparent;
+                    border-bottom: 12px solid transparent;
+                    border-left: 20px solid var(--primary-color); // המשולש בצבע הלוגו
+                    margin-left: 5px; // תיקון אופטי למרכז
+                }
+            }
+
+            &:hover .play-icon {
+                background-color: #fff;
+                transform: scale(1.1); // הגדלה קלה בהובר
+            }
+        }
+
+        // מצב ניגון (הכפתור מוסתר)
+        &.is-playing {
+            .play-overlay-btn {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    }
+}
+
+// אנימציית הפעימה
+@keyframes pulse-white {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+// רספונסיביות
+@media (max-width: 768px) {
+    .video-presentation-section .video-title {
+        font-size: 1.8rem;
+    }
+    
+    .custom-video-player .play-overlay-btn .play-icon {
+        width: 60px;
+        height: 60px;
+        
+        &::after {
+            border-top: 9px solid transparent;
+            border-bottom: 9px solid transparent;
+            border-left: 16px solid var(--primary-color);
+        }
+    }
+}
