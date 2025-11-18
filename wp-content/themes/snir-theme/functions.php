@@ -74,22 +74,84 @@ add_filter('excerpt_length', 'my_excerpt_length');
 //  5. פונקציית פירורי לחם (Breadcrumbs)
 // ----------------------------------------------------
 function snir_theme_breadcrumbs() {
-    echo '<div class="breadcrumbs">';
-    if ( ! is_home() ) {
-        echo '<a href="' . esc_url( home_url() ) . '">' . esc_html__( 'דף הבית', 'snir-theme' ) . '</a> <span class="separator">/</span> ';
-        if ( is_single() ) {
-            $categories = get_the_category();
-            if ( ! empty( $categories ) ) {
-                echo '<a href="' . esc_url( get_category_link( $categories[0]->term_id ) ) . '">' . esc_html( $categories[0]->name ) . '</a> <span class="separator">/</span> ';
+
+    // הגדרות
+    $delimiter = '<i class="fas fa-chevron-left" style="font-size: 0.8em; margin: 0 8px; opacity: 0.7;"></i>'; // המפריד (אייקון או טקסט)
+    $home = 'דף הבית'; // הטקסט של דף הבית
+    $before = '<span class="current">'; // עטיפה לטקסט הנוכחי
+    $after = '</span>';
+
+    if ( !is_home() && !is_front_page() || is_paged() ) {
+
+        echo '<nav class="breadcrumbs-nav">'; // עטיפה ראשית
+
+        global $post;
+        
+        // קישור לדף הבית
+        echo '<a href="' . home_url() . '">' . $home . '</a>' . $delimiter;
+
+        // === בדיקות עבור ארכיונים (כאן השינוי שלך) ===
+        
+        if ( is_post_type_archive('client') ) {
+            // עבור עמוד הלקוחות
+            echo $before . 'הפרויקטים שלנו' . $after;
+            
+        } elseif ( is_post_type_archive('services') ) {
+            // עבור עמוד השירותים (אם זה ארכיון פוסט טייפ)
+            echo $before . 'השירותים שלנו' . $after;
+            
+        } elseif ( is_page('services') ) { 
+            // אם השירותים זה "עמוד" רגיל ולא ארכיון
+            echo $before . get_the_title() . $after;
+
+        } elseif ( is_category() ) {
+            // קטגוריות רגילות (בלוג)
+            global $wp_query;
+            $cat_obj = $wp_query->get_queried_object();
+            $thisCat = $cat_obj->term_id;
+            $thisCat = get_category($thisCat);
+            $parentCat = get_category($thisCat->parent);
+            if ($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+            echo $before . single_cat_title('', false) . $after;
+
+        } elseif ( is_search() ) {
+            // תוצאות חיפוש
+            echo $before . 'תוצאות חיפוש עבור "' . get_search_query() . '"' . $after;
+
+        } elseif ( is_single() && !is_attachment() ) {
+            // עמוד פוסט בודד (Single)
+            if ( get_post_type() != 'post' ) {
+                // פוסט טייפ מותאם אישית (כמו פרויקט בודד)
+                $post_type = get_post_type_object(get_post_type());
+                $slug = $post_type->rewrite;
+                
+                // כאן נגדיר ידנית את שם הארכיון בנתיב
+                $archive_title = $post_type->labels->singular_name;
+                if ($post_type->name == 'client') {
+                    $archive_title = 'הפרויקטים שלנו';
+                } elseif ($post_type->name == 'services') {
+                    $archive_title = 'השירותים שלנו';
+                }
+
+                echo '<a href="' . home_url() . '/' . $slug['slug'] . '/">' . $archive_title . '</a>';
+                echo $delimiter . $before . get_the_title() . $after;
+            } else {
+                // פוסט רגיל (בלוג)
+                $cat = get_the_category(); $cat = $cat[0];
+                echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+                echo $before . get_the_title() . $after;
             }
-            echo '<span class="current">' . esc_html( get_the_title() ) . '</span>';
-        } elseif ( is_category() || is_archive() ) {
-            single_cat_title();
-        } elseif ( is_page() ) {
-            echo '<span class="current">' . esc_html( get_the_title() ) . '</span>';
+
+        } elseif ( is_page() && !$post->post_parent ) {
+            // עמוד רגיל (ללא הורה)
+            echo $before . get_the_title() . $after;
+
+        } elseif ( is_404() ) {
+            echo $before . 'שגיאה 404' . $after;
         }
+
+        echo '</nav>'; // סגירת עטיפה ראשית
     }
-    echo '</div>';
 }
 
 // ----------------------------------------------------
