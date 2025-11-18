@@ -2,10 +2,7 @@
    AJAX Search Overlay Styles
    ======================================= */
 
-// משתנים (התאם לשלך)
-// $theme-colors, $font-heebo
-
-// 1. כפתור הטריגר (בהדר)
+// 1. כפתור הטריגר
 .search-trigger-icon {
     background: none;
     border: none;
@@ -21,15 +18,15 @@
     }
 }
 
-// 2. האוברליי (המסך המלא)
+// 2. האוברליי
 .search-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(10, 10, 10, 0.95); // כהה מאוד ושקוף
-    backdrop-filter: blur(10px); // אפקט הזכוכית
+    background-color: rgba(10, 10, 10, 0.95); 
+    backdrop-filter: blur(10px);
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
@@ -44,7 +41,6 @@
         visibility: visible;
     }
 
-    // כפתור סגירה
     .search-close-btn {
         position: absolute;
         top: 30px;
@@ -78,7 +74,7 @@
             width: 100%;
             background: transparent;
             border: none;
-            font-size: 2.5rem;
+            font-size: 2.5rem; // דסקטופ
             color: #fff;
             padding: 15px 0;
             font-family: $font-heebo;
@@ -86,13 +82,22 @@
             outline: none;
             text-align: center;
             
+            // *** התיקון למובייל ***
+            @media (max-width: 768px) {
+                font-size: 1.4rem; 
+                padding: 10px 0;
+            }
+            
             &::placeholder {
                 color: rgba(255,255,255,0.3);
                 font-weight: 300;
+
+                @media (max-width: 768px) {
+                    font-size: 1.2rem; 
+                }
             }
         }
         
-        // ספינר טעינה
         .search-spinner {
             position: absolute;
             left: 0;
@@ -122,11 +127,10 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     width: 100%;
-    max-height: 60vh; // אם יש הרבה תוצאות, שתהיה גלילה
+    max-height: 60vh;
     overflow-y: auto;
     padding-bottom: 50px;
 
-    // גלילה יפה
     &::-webkit-scrollbar { width: 6px; }
     &::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
 
@@ -148,7 +152,7 @@
     overflow: hidden;
     text-decoration: none;
     transition: all 0.3s ease;
-    text-align: right; // ודא שעברית מיושרת לימין
+    text-align: right;
 
     &:hover {
         background: rgba(255, 255, 255, 0.1);
@@ -188,7 +192,6 @@
     }
 }
 
-// אנימציה קטנה להופעת התוצאות
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }

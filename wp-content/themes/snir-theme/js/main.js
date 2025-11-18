@@ -1,43 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     /* ==========================================================================
-       1. Mobile Menu Logic (Updated) - תפריט מובייל מעודכן
+       1. Mobile Menu Logic (With Close Button)
        ========================================================================== */
     const hamburger = document.querySelector('.hamburger-menu');
     const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileCloseBtn = document.querySelector('.mobile-menu-close'); // כפתור הסגירה החדש
     const body = document.body;
     
+    // פונקציה לסגירת התפריט
+    function closeMobileMenu() {
+        if(hamburger) hamburger.classList.remove('active');
+        if(mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+        if(body) body.classList.remove('no-scroll');
+    }
+
     if (hamburger && mobileMenuOverlay) {
         // פתיחה/סגירה בלחיצה על ההמבורגר
         hamburger.addEventListener('click', function() {
-            this.classList.toggle('active'); // אנימציית ה-X בכפתור
-            mobileMenuOverlay.classList.toggle('active'); // החלקת התפריט פנימה
-            body.classList.toggle('no-scroll'); // מניעת גלילה ברקע
+            this.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            body.classList.toggle('no-scroll');
         });
+
+        // סגירה בלחיצה על כפתור ה-X החדש
+        if (mobileCloseBtn) {
+            mobileCloseBtn.addEventListener('click', closeMobileMenu);
+        }
 
         // סגירת התפריט בלחיצה על קישור פנימי
         const mobileLinks = mobileMenuOverlay.querySelectorAll('a');
         mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                body.classList.remove('no-scroll');
-            });
+            link.addEventListener('click', closeMobileMenu);
         });
     }
 
     /* ==========================================================================
-       2. Dark/Light Mode Toggle - מצב לילה/יום
+       2. Dark/Light Mode Toggle
        ========================================================================== */
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
-        // בדיקת העדפה שמורה בטעינה
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.body.classList.add('light-mode');
         }
 
-        // החלפת מצב בלחיצה
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             if (document.body.classList.contains('light-mode')) {
@@ -49,72 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /* ==========================================================================
-       3. Font Size Control (Accessibility) - נגישות פונטים
-       ========================================================================== */
-    const contentContainer = document.querySelector('.single-post-content');
-    const increaseBtn = document.getElementById('increase-font-size');
-    const decreaseBtn = document.getElementById('decrease-font-size');
-    const storageKey = 'user-font-size';
-
-    if (contentContainer && increaseBtn && decreaseBtn) {
-        const pElements = contentContainer.querySelectorAll('p');
-        const defaultFontSize = 16;
-        let currentFontSize = parseFloat(localStorage.getItem(storageKey)) || defaultFontSize;
-
-        const setFontSize = (size) => {
-            pElements.forEach(p => {
-                p.style.fontSize = `${size}px`;
-            });
-            localStorage.setItem(storageKey, size);
-        };
-
-        if (currentFontSize !== defaultFontSize) {
-            setFontSize(currentFontSize);
-        }
-
-        increaseBtn.addEventListener('click', () => {
-            currentFontSize += 1;
-            setFontSize(currentFontSize);
-        });
-
-        decreaseBtn.addEventListener('click', () => {
-            if (currentFontSize > 12) {
-                currentFontSize -= 1;
-                setFontSize(currentFontSize);
-            }
-        });
-    }
-
-    /* ==========================================================================
-       4. FAQ Accordion - אקורדיון שאלות ותשובות
-       ========================================================================== */
-    const faqQuestions = document.querySelectorAll('.faq-question');
-
-    if (faqQuestions.length > 0) {
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const isExpanded = question.classList.contains('active');
-
-                if (isExpanded) {
-                    question.classList.remove('active');
-                    answer.classList.remove('active');
-                } else {
-                    // סגירת שאלות אחרות (אופציונלי)
-                    faqQuestions.forEach(otherQuestion => {
-                        otherQuestion.classList.remove('active');
-                        otherQuestion.nextElementSibling.classList.remove('active');
-                    });
-                    
-                    question.classList.add('active');
-                    answer.classList.add('active');
-                }
-            });
-        });
-    }
-
-    /* ==========================================================================
-       5. Scroll Animations - אנימציות בגלילה
+       3. Scroll Animations & Elements Viewport
        ========================================================================== */
     function isElementInViewport(el) {
         var rect = el.getBoundingClientRect();
@@ -127,70 +69,48 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleScroll() {
-        // אלמנטים מסוג image-col
-        const imageCols = document.querySelectorAll('.image-col');
-        imageCols.forEach(el => {
-            if (isElementInViewport(el)) el.classList.add('visible');
-        });
-
-        // אלמנטים מסוג fade-in-up
-        const fadeElements = document.querySelectorAll('.fade-in-up');
+        const fadeElements = document.querySelectorAll('.fade-in-up, .image-col');
         fadeElements.forEach(el => {
             if (isElementInViewport(el)) el.classList.add('visible');
         });
     }
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // הפעלה ראשונית
+    handleScroll(); 
 
     /* ==========================================================================
-       6. Client Gallery Lightbox (BaguetteBox) - לייטבוקס
+       4. Client Gallery Lightbox (BaguetteBox)
        ========================================================================== */
     const galleryContainer = document.querySelector('.project-gallery-grid');
-    
     if (galleryContainer) {
         if (typeof baguetteBox === 'function') {
-            try {
-                baguetteBox.run('.project-gallery-grid');
-            } catch (e) {
-                console.error("BaguetteBox failed to run: ", e);
-            }
+            try { baguetteBox.run('.project-gallery-grid'); } catch (e) {}
         } else {
-            // טעינה דינמית אם הספרייה חסרה
+            // טעינה דינמית אם צריך
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js';
+            script.async = true;
+            script.onload = function() { try { baguetteBox.run('.project-gallery-grid'); } catch (e) {} };
+            document.body.appendChild(script);
+            
             const cssLink = document.createElement('link');
             cssLink.rel = 'stylesheet';
             cssLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css';
             document.head.appendChild(cssLink);
-
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js';
-            script.async = true;
-            
-            script.onload = function() {
-                try {
-                    baguetteBox.run('.project-gallery-grid');
-                } catch (e) {
-                    console.error("BaguetteBox failed to initialize: ", e);
-                }
-            };
-            document.body.appendChild(script);
         }
     }
 
     /* ==========================================================================
-       7. Swiper Carousels (Reviews & Projects) - קרוסלות
+       5. Swiper Carousels (Reviews & Projects)
        ========================================================================== */
-    // א. קרוסלת המלצות
+    // Reviews
     const reviewsSlider = document.querySelector('.reviews-slider');
     if (reviewsSlider && typeof Swiper === 'function') {
         new Swiper('.reviews-slider', {
             loop: true,
             slidesPerView: 1,
             spaceBetween: 30,
-            navigation: {
-                nextEl: '.reviews-arrow-next',
-                prevEl: '.reviews-arrow-prev',
-            },
+            navigation: { nextEl: '.reviews-arrow-next', prevEl: '.reviews-arrow-prev' },
             breakpoints: {
                 768: { slidesPerView: 2, spaceBetween: 30 },
                 1024: { slidesPerView: 3, spaceBetween: 30 }
@@ -198,17 +118,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ב. קרוסלת פרויקטים
+    // Projects
     const projectsSliderEl = document.querySelector('.projects-slider');
     if (projectsSliderEl && typeof Swiper === 'function') {
         new Swiper('.projects-slider', {
             loop: true,
             slidesPerView: 1,
             spaceBetween: 30,
-            navigation: {
-                nextEl: '.projects-arrow-next',
-                prevEl: '.projects-arrow-prev',
-            },
+            navigation: { nextEl: '.projects-arrow-next', prevEl: '.projects-arrow-prev' },
             breakpoints: {
                 768: { slidesPerView: 2, spaceBetween: 30 },
                 1024: { slidesPerView: 3, spaceBetween: 30 }
@@ -217,10 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /* ==========================================================================
-       8. Custom Video Player - נגן וידאו מעוצב
+       6. Custom Video Player
        ========================================================================== */
     const videoContainer = document.querySelector('.custom-video-player');
-    
     if (videoContainer) {
         const video = videoContainer.querySelector('video');
         const playBtn = videoContainer.querySelector('.play-overlay-btn');
@@ -232,16 +148,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (playBtn) playBtn.addEventListener('click', playVideo);
-        
-        if (video) {
-            video.addEventListener('click', function() {
-                if (video.paused) playVideo();
-            });
-        }
+        if (video) video.addEventListener('click', function() { if (video.paused) playVideo(); });
     }
 
     /* ==========================================================================
-       9. Portfolio Filter (Archive Page) - סינון פרויקטים
+       7. Portfolio Filter (Archive Page)
        ========================================================================== */
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
@@ -249,18 +160,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (filterButtons.length > 0 && projectItems.length > 0) {
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // ניהול קלאס active
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 const filterValue = btn.getAttribute('data-filter');
 
                 projectItems.forEach(item => {
                     if (filterValue === 'all') {
                         item.classList.remove('hide');
-                        // Reset animation
                         item.style.animation = 'none';
-                        item.offsetHeight; /* trigger reflow */
+                        item.offsetHeight; 
                         item.style.animation = null;
                     } else {
                         if (item.classList.contains(filterValue)) {
@@ -278,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /* ==========================================================================
-       10. AJAX Live Search - חיפוש חי
+       8. AJAX Live Search
        ========================================================================== */
     const searchTrigger = document.getElementById('search-trigger-btn');
     const searchOverlay = document.getElementById('search-overlay');
@@ -287,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchResults = document.getElementById('live-search-results');
     const searchSpinner = document.querySelector('.search-spinner');
 
-    // פתיחה וסגירה
     if(searchTrigger && searchOverlay) {
         searchTrigger.addEventListener('click', function(e) {
             e.preventDefault();
@@ -306,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // לוגיקת החיפוש עם Debounce
     let typingTimer;
     const doneTypingInterval = 500;
 
@@ -323,28 +229,21 @@ document.addEventListener('DOMContentLoaded', function() {
             searchSpinner.classList.add('loading');
 
             typingTimer = setTimeout(function() {
-                // שימוש ב-snirAjax שמוגדר ב-footer.php
                 if (typeof snirAjax !== 'undefined') {
-                    const ajaxUrl = snirAjax.ajax_url;
                     const formData = new FormData();
                     formData.append('action', 'snir_live_search');
                     formData.append('keyword', keyword);
 
-                    fetch(ajaxUrl, {
-                        method: 'POST',
-                        body: formData
-                    })
+                    fetch(snirAjax.ajax_url, { method: 'POST', body: formData })
                     .then(response => response.text())
                     .then(html => {
                         searchResults.innerHTML = html;
                         searchSpinner.classList.remove('loading');
                     })
                     .catch(error => {
-                        console.error('Error:', error);
+                        console.error(error);
                         searchSpinner.classList.remove('loading');
                     });
-                } else {
-                    console.error('snirAjax variable is not defined.');
                 }
             }, doneTypingInterval);
         });

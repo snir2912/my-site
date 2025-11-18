@@ -9,13 +9,13 @@
     padding: 15px 0;
     transition: all 0.3s ease;
     
-    // אפקט זכוכית (Glassmorphism)
-    background-color: rgba(var(--bg-color-rgb, 26, 26, 26), 0.85); // דורש הגדרת RGB, או השתמש בצבע רגיל
+    // אפקט זכוכית
+    background-color: rgba(var(--bg-color-rgb, 26, 26, 26), 0.85); 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
 
-    // אם אין לך משתנה RGB לרקע, השתמש בזה:
+    // גיבוי לצבע רקע
     background-color: var(--card-background); 
     opacity: 0.95;
 
@@ -23,16 +23,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 60px; // גובה קבוע לתוכן
+        height: 60px; 
     }
 }
 
 /* --- 1. Logo --- */
 .header-logo {
-    flex-shrink: 0; // שלא יתכווץ
+    flex-shrink: 0;
 
     .custom-logo-link img {
-        height: 50px; // גובה לוגו תמונה (הגדל לפי הצורך)
+        height: 50px;
         width: auto;
         display: block;
         transition: transform 0.3s ease;
@@ -43,7 +43,7 @@
     }
 
     .site-title-text {
-        font-size: 2rem; // לוגו טקסט גדול יותר
+        font-size: 2rem;
         font-weight: 800;
         color: var(--primary-color);
         text-decoration: none;
@@ -55,9 +55,9 @@
 .main-nav {
     flex-grow: 1;
     display: flex;
-    justify-content: center; // מרכוז התפריט
+    justify-content: center;
 
-    @media (max-width: 992px) { // הסתרה בטאבלט/מובייל
+    @media (max-width: 992px) {
         display: none;
     }
 
@@ -83,14 +83,13 @@
                     color: var(--primary-color);
                 }
 
-                // קו תחתון באנימציה
                 &::after {
                     content: '';
                     position: absolute;
                     width: 0;
                     height: 2px;
                     bottom: 0;
-                    right: 0; // עברית
+                    right: 0;
                     background-color: var(--primary-color);
                     transition: width 0.3s ease;
                 }
@@ -101,7 +100,6 @@
                 }
             }
             
-            // סימון פריט נוכחי (Active)
             &.current-menu-item a {
                 color: var(--primary-color);
             }
@@ -135,7 +133,6 @@
         }
     }
 
-    // כפתור ההמבורגר (מוצג רק במובייל/טאבלט)
     .hamburger-menu {
         display: none;
         flex-direction: column;
@@ -146,7 +143,7 @@
         border: none;
         cursor: pointer;
         padding: 0;
-        z-index: 1100; // מעל הכל
+        z-index: 1100; 
 
         .bar {
             width: 100%;
@@ -156,7 +153,6 @@
             transition: all 0.3s ease;
         }
 
-        // אנימציית ה-X
         &.active {
             .bar:nth-child(1) {
                 transform: translateY(9px) rotate(45deg);
@@ -181,7 +177,7 @@
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
-    right: -100%; // מוחבא בצד ימין
+    right: -100%; 
     width: 100%;
     height: 100vh;
     background-color: var(--bg-color);
@@ -192,7 +188,28 @@
     transition: right 0.4s ease-in-out;
     
     &.active {
-        right: 0; // החלקה למרכז
+        right: 0; 
+    }
+
+    // כפתור סגירה X
+    .mobile-menu-close {
+        position: absolute;
+        top: 25px;
+        left: 25px; 
+        background: none;
+        border: none;
+        font-size: 3.5rem;
+        color: var(--text-color);
+        cursor: pointer;
+        line-height: 0.5;
+        transition: transform 0.3s ease, color 0.3s ease;
+        padding: 10px;
+        z-index: 1100;
+
+        &:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
     }
 
     .mobile-nav-list {
@@ -202,7 +219,7 @@
 
         li {
             margin: 25px 0;
-            opacity: 0; // לאנימציית כניסה
+            opacity: 0; 
             transform: translateY(20px);
             transition: all 0.4s ease;
 
@@ -220,12 +237,10 @@
         }
     }
 
-    // אנימציית פריטים כשהתפריט נפתח
     &.active .mobile-nav-list li {
         opacity: 1;
         transform: translateY(0);
         
-        // דיליי מדורג לכל פריט
         @for $i from 1 through 6 {
             &:nth-child(#{$i}) {
                 transition-delay: #{$i * 0.1}s;

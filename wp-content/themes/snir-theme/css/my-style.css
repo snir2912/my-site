@@ -250,6 +250,24 @@ p {
 .mobile-menu-overlay.active {
   right: 0;
 }
+.mobile-menu-overlay .mobile-menu-close {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: none;
+  border: none;
+  font-size: 3.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  line-height: 0.5;
+  transition: transform 0.3s ease, color 0.3s ease;
+  padding: 10px;
+  z-index: 1100;
+}
+.mobile-menu-overlay .mobile-menu-close:hover {
+  color: var(--primary-color);
+  transform: rotate(90deg);
+}
 .mobile-menu-overlay .mobile-nav-list {
   list-style: none;
   padding: 0;
@@ -1645,6 +1663,12 @@ body.light-mode .related-posts-section {
   outline: none;
   text-align: center;
 }
+@media (max-width: 768px) {
+  .search-container .search-input-wrapper input {
+    font-size: 1.4rem;
+    padding: 10px 0;
+  }
+}
 .search-container .search-input-wrapper input::-moz-placeholder {
   color: rgba(255, 255, 255, 0.3);
   font-weight: 300;
@@ -1652,6 +1676,14 @@ body.light-mode .related-posts-section {
 .search-container .search-input-wrapper input::placeholder {
   color: rgba(255, 255, 255, 0.3);
   font-weight: 300;
+}
+@media (max-width: 768px) {
+  .search-container .search-input-wrapper input::-moz-placeholder {
+    font-size: 1.2rem;
+  }
+  .search-container .search-input-wrapper input::placeholder {
+    font-size: 1.2rem;
+  }
 }
 .search-container .search-input-wrapper .search-spinner {
   position: absolute;
