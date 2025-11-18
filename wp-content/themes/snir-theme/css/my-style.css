@@ -3187,7 +3187,7 @@ body.light-mode .wp-block-table table tbody tr:hover {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: #fff;
   font-size: 1.1rem;
-  font-weight: 800;
+  font-weight: 700;
   padding: 14px 40px;
   border: none;
   border-radius: 50px;
