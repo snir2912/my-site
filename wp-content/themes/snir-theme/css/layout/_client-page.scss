@@ -1,5 +1,5 @@
 /* =======================================
-   Single Client Page Styles (v6 - Screenshot Mockup)
+   Single Client Page Styles (v7 - Sidebar Form Fix)
    ======================================= */
 
 // משתנים מקומיים לעמוד
@@ -27,9 +27,9 @@ $client-transition: all 0.3s ease-in-out;
     justify-content: center;
     text-align: center;
     padding: 2rem;
+    
     @media (max-width: $breakpoint-tablet) {
       min-height: 230px;
-
       height: 30vh;
     }
 
@@ -255,10 +255,11 @@ $client-transition: all 0.3s ease-in-out;
         }
       }
     }
-    // ======== *** סוף עיצוב חדש *** ========
   }
 
-  // 2e. טופס יצירת קשר (סיידבר)
+  // =================================================
+  // 2e. טופס יצירת קשר (סיידבר) - תיקון מלא
+  // =================================================
   .client-contact-sidebar {
     position: sticky;
     top: 2rem;
@@ -273,46 +274,86 @@ $client-transition: all 0.3s ease-in-out;
       h3 {
         color: var(--primary-color);
         margin-top: 0;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
       }
       p {
         color: var(--text-color);
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         margin-bottom: 1.5rem;
+        opacity: 0.9;
+      }
+
+      // איפוס העיצוב הפנימי של CF7 כדי למנוע "קופסה בתוך קופסה"
+      .wpcf7 {
+        padding: 0 !important;
+        margin: 0 !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
       }
 
       .wpcf7-form {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 1rem;
 
+        // שדות הקלט
         input[type="text"],
         input[type="email"],
         textarea {
-          width: 100%;
-          padding: 0.8rem;
+          width: 100%; // רוחב מלא
+          padding: 0.8rem 1rem;
           border: 1px solid var(--border-color);
           background-color: var(--bg-color);
           color: var(--text-color);
-          border-radius: 4px;
+          border-radius: 8px;
+          font-size: 1rem;
+          box-sizing: border-box; // חשוב! מונע חריגה ברוחב
 
           &:focus {
-            outline: 1px solid var(--primary-color);
+            outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.15);
+          }
+
+          &::placeholder {
+              opacity: 0.6;
           }
         }
 
+        textarea {
+             min-height: 100px;
+             resize: vertical;
+        }
+
+        // כפתור השליחה
         input[type="submit"] {
+          width: 100%; // כפתור לכל הרוחב
           background-color: var(--primary-color);
           color: #fff;
           border: none;
-          padding: 0.8rem 1.5rem;
-          border-radius: 4px;
+          padding: 1rem;
+          border-radius: 50px; // כפתור עגול ומודרני
           cursor: pointer;
           font-weight: 700;
+          font-size: 1.1rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
           transition: $client-transition;
+          margin-top: 0.5rem;
+
           &:hover {
             background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
           }
+        }
+        
+        // הסתרת/עיצוב הודעות שגיאה
+        .wpcf7-not-valid-tip {
+             font-size: 0.85rem;
+             margin-top: 0.2rem;
         }
       }
     }

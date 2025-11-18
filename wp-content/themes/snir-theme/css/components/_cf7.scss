@@ -2,49 +2,60 @@
    Modern CF7 Form Styles
    ======================================= */
 
-// עטיפה חיצונית לכל הטופס (משתלב עם המשתנים שלך)
 .wpcf7 {
-    background-color: var(--card-background); // רקע הכרטיס
+    background-color: var(--card-background);
     border: 1px solid var(--border-color);
-    border-radius: 16px; // פינות עגולות יותר
-    padding: 3rem;
-    box-shadow: 0 10px 30px var(--shadow-color); // צללית עמוקה
+    border-radius: 16px;
+    padding: 3rem; // ברירת מחדל לטופס מלא
+    box-shadow: 0 10px 30px var(--shadow-color);
     font-family: 'Heebo', sans-serif;
-    max-width: 800px; // רוחב מקסימלי יפה
-    margin: 0 auto; // מרכוז
+    max-width: 800px;
+    margin: 0 auto;
 
-    // התאמה למובייל
     @media (max-width: 768px) {
         padding: 1.5rem;
     }
-}
 
-// --- המבנה הפנימי ---
+    // *** חדש: עבור טפסי ניוזלטר או טפסים בסיידבר ***
+    // (הקלאס footer-newsletter-form או sidebar-contact-form יוגדר ב-HTML)
+    &.compact-form { 
+        padding: 1.5rem; // צמצום משמעותי
+        border-radius: 12px;
+        box-shadow: none; // בלי צללית
+        background-color: var(--card-background-darker); // רקע מעט כהה יותר
+        border: none; // בלי גבול
+        
+        .modern-form-wrapper {
+            gap: 1rem; // רווח קטן יותר בין שדות
+        }
+
+        input[type="submit"] {
+            width: 100%; // תמיד לכל הרוחב
+        }
+    }
+}
 
 .modern-form-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; // רווח בין שורות
+    gap: 1.5rem;
 }
 
-// שורה בטופס
 .form-row {
     width: 100%;
 
-    // אם יש קלאס של שתי עמודות (למשל שם וטלפון)
     &.two-columns {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
 
         @media (max-width: 768px) {
-            grid-template-columns: 1fr; // במובייל חוזר לעמודה אחת
+            grid-template-columns: 1fr;
             gap: 1.5rem;
         }
     }
 }
 
-// קבוצת שדה (לייבל + אינפוט)
 .form-group {
     display: flex;
     flex-direction: column;
@@ -56,20 +67,18 @@
         font-weight: 600;
         color: var(--text-color);
         opacity: 0.9;
-        margin-bottom: 0; // איפוס
+        margin-bottom: 0;
     }
 }
-
-// --- עיצוב השדות (Input & Textarea) ---
 
 .wpcf7 input[type="text"],
 .wpcf7 input[type="email"],
 .wpcf7 input[type="tel"],
 .wpcf7 textarea {
     width: 100%;
-    background-color: var(--bg-color); // רקע כהה/בהיר בהתאם לתימה
-    border: 2px solid transparent; // גבול שקוף כברירת מחדל
-    border-bottom-color: var(--border-color); // רק קו תחתון בהתחלה (עיצוב נקי)
+    background-color: var(--bg-color);
+    border: 2px solid transparent;
+    border-bottom-color: var(--border-color);
     color: var(--text-color);
     padding: 12px 16px;
     font-size: 1rem;
@@ -77,34 +86,29 @@
     transition: all 0.3s ease;
     font-family: 'Heebo', sans-serif;
 
-    // פלייסהולדר
     &::placeholder {
         color: var(--text-color);
         opacity: 0.4;
-        font-weight: 300;
+        font-weight: 700; // *** תיקון: משקל פונט לפלייסהולדר ***
     }
 
-    // מצב פוקוס (כשלוחצים על השדה)
     &:focus {
         outline: none;
         background-color: var(--bg-color);
-        border-color: var(--primary-color); // כל המסגרת נצבעת בצבע הראשי
-        box-shadow: 0 0 0 4px rgba(220, 20, 60, 0.15); // הילה עדינה בצבע קרימזון
-        transform: translateY(-2px); // קפיצה קטנה למעלה
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(220, 20, 60, 0.15);
+        transform: translateY(-2px);
     }
 }
 
-// תיקון גובה ל-Textarea
 .wpcf7 textarea {
     min-height: 120px;
-    resize: vertical; // מאפשר למשתמש לשנות גובה
+    resize: vertical;
 }
-
-// --- כפתור השליחה ---
 
 .submit-row {
     margin-top: 1rem;
-    text-align: center; // כפתור ממורכז? או שנה ל-left/right
+    text-align: center;
 }
 
 .wpcf7 input[type="submit"] {
@@ -114,31 +118,29 @@
     font-weight: 800;
     padding: 14px 40px;
     border: none;
-    border-radius: 50px; // כפתור עגול (Pill shape)
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     text-transform: uppercase;
     letter-spacing: 1px;
-    width: 100%; // כפתור לכל הרוחב
+    width: 100%;
 
     @media (min-width: 768px) {
-        width: auto; // בדסקטופ כפתור בגודל התוכן
+        width: auto;
         min-width: 200px;
     }
 
     &:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4); // צללית קרימזון חזקה
-        filter: brightness(1.1); // הבהרה קלה
+        box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4);
+        filter: brightness(1.1);
     }
 
     &:active {
         transform: translateY(-1px);
     }
 }
-
-// --- הודעות שגיאה/הצלחה של CF7 ---
 
 .wpcf7-not-valid-tip {
     color: #ff4444;
@@ -172,7 +174,6 @@
     }
 }
 
-// ספינר טעינה
 .wpcf7-spinner {
     position: absolute; 
     margin-top: 15px;

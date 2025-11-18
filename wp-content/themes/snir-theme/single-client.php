@@ -133,7 +133,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                 <div class="client-contact-form">
                     <h3>מעוניינים בפרויקט דומה?</h3>
                     <p>דברו איתנו ונשמח לעזור.</p>
-                    <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
+                    <?php echo do_shortcode('[contact-form-7 id="a355a11" title="project-cf" html_class="compact-form"]'); ?>
                 </div>
             </aside>
         </div>

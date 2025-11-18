@@ -124,51 +124,66 @@
 
     // Col 4: Newsletter (CF7 Styling)
     .newsletter-col {
-        .wpcf7-form {
-            .newsletter-form-inner {
-                display: flex;
-                gap: 10px;
-                margin-top: 1rem;
+        
+        // *** עדכון קריטי: איפוס העיצוב הכללי של CF7 ***
+        // זה מונע מהטופס להיראות כמו "קופסה" בתוך הפוטר
+        .wpcf7 { 
+            padding: 0;
+            box-shadow: none;
+            border: none;
+            background-color: transparent;
+        }
+        
+        .footer-newsletter-form {
+            .wpcf7-form {
+                .newsletter-form-inner {
+                    display: flex;
+                    gap: 10px;
+                    margin-top: 1rem;
+                    
+                    @media (max-width: 600px) {
+                        flex-direction: column;
+                    }
+                }
+
+                input[type="email"] {
+                    width: 100%;
+                    padding: 10px 15px;
+                    border-radius: 8px; // התאמה לעיצוב החדש
+                    border: 1px solid #333;
+                    background: #222;
+                    color: #fff;
+                    outline: none;
+                    font-size: 0.95rem;
+
+                    &:focus {
+                        border-color: var(--primary-color);
+                    }
+                }
+
+                input[type="submit"] {
+                    background: var(--primary-color);
+                    color: #fff;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px; // התאמה לעיצוב החדש
+                    cursor: pointer;
+                    font-weight: 700;
+                    transition: background 0.3s;
+                    white-space: nowrap;
+                    font-size: 0.95rem;
+
+                    &:hover {
+                        background: var(--secondary-color);
+                    }
+                }
                 
-                @media (max-width: 600px) {
-                    flex-direction: column;
+                // הסתרת הודעות שגיאה/הצלחה מתחת לשדה כדי לא לשבור עיצוב
+                .wpcf7-not-valid-tip, .wpcf7-response-output {
+                    font-size: 0.8rem;
+                    margin-top: 5px;
+                    text-align: right; // בעברית
                 }
-            }
-
-            input[type="email"] {
-                width: 100%;
-                padding: 10px 15px;
-                border-radius: 4px;
-                border: 1px solid #333;
-                background: #222;
-                color: #fff;
-                outline: none;
-                
-                &:focus {
-                    border-color: var(--primary-color);
-                }
-            }
-
-            input[type="submit"] {
-                background: var(--primary-color);
-                color: #fff;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 4px;
-                cursor: pointer;
-                font-weight: 700;
-                transition: background 0.3s;
-                white-space: nowrap;
-
-                &:hover {
-                    background: var(--secondary-color);
-                }
-            }
-            
-            // הסתרת הודעות שגיאה/הצלחה מתחת לשדה כדי לא לשבור עיצוב
-            .wpcf7-not-valid-tip {
-                font-size: 0.8rem;
-                margin-top: 5px;
             }
         }
     }

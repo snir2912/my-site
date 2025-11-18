@@ -48,7 +48,7 @@
                     <h3 class="footer-title">הישארו מעודכנים</h3>
                     <p>הירשמו לניוזלטר שלנו לקבלת עדכונים וטיפים חמים.</p>
                     <div class="footer-newsletter-form">
-                        <?php echo do_shortcode('[contact-form-7 id="1234" title="Newsletter Footer"]'); ?>
+                        <?php echo do_shortcode('[contact-form-7 id="1234" title="Newsletter Footer" html_class="compact-form"]'); ?>
                     </div>
                 </div>
 
