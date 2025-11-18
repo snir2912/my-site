@@ -1,83 +1,179 @@
-/* Custom Styles for Contact Form 7 */
+/* =======================================
+   Modern CF7 Form Styles
+   ======================================= */
 
-/* Container and overall form styling */
+// עטיפה חיצונית לכל הטופס (משתלב עם המשתנים שלך)
 .wpcf7 {
-  font-family: 'Heebo', sans-serif;
-  background-color: var(--card-background);
-  color: var(--text-color);
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow-color);
-  transition: all 0.3s ease-in-out;
+    background-color: var(--card-background); // רקע הכרטיס
+    border: 1px solid var(--border-color);
+    border-radius: 16px; // פינות עגולות יותר
+    padding: 3rem;
+    box-shadow: 0 10px 30px var(--shadow-color); // צללית עמוקה
+    font-family: 'Heebo', sans-serif;
+    max-width: 800px; // רוחב מקסימלי יפה
+    margin: 0 auto; // מרכוז
+
+    // התאמה למובייל
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
 }
 
-/* Style for each form field and label */
-.wpcf7 label {
-  display: block;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--primary-color);
+// --- המבנה הפנימי ---
+
+.modern-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; // רווח בין שורות
 }
 
-/* Styling for input, textarea fields */
-.wpcf7 .form-field {
-  width: 100%;
-  padding: 0.8rem 1.2rem;
-  margin-top: 0.5rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-size: 1rem;
-  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+// שורה בטופס
+.form-row {
+    width: 100%;
+
+    // אם יש קלאס של שתי עמודות (למשל שם וטלפון)
+    &.two-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr; // במובייל חוזר לעמודה אחת
+            gap: 1.5rem;
+        }
+    }
 }
 
-/* Focus state for form fields */
-.wpcf7 .form-field:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.2);
+// קבוצת שדה (לייבל + אינפוט)
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+
+    label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-bottom: 0; // איפוס
+    }
 }
 
-/* Styling for the submit button */
-.wpcf7 .btn-field {
-  width: 100%;
-  cursor: pointer;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+// --- עיצוב השדות (Input & Textarea) ---
+
+.wpcf7 input[type="text"],
+.wpcf7 input[type="email"],
+.wpcf7 input[type="tel"],
+.wpcf7 textarea {
+    width: 100%;
+    background-color: var(--bg-color); // רקע כהה/בהיר בהתאם לתימה
+    border: 2px solid transparent; // גבול שקוף כברירת מחדל
+    border-bottom-color: var(--border-color); // רק קו תחתון בהתחלה (עיצוב נקי)
+    color: var(--text-color);
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: 'Heebo', sans-serif;
+
+    // פלייסהולדר
+    &::placeholder {
+        color: var(--text-color);
+        opacity: 0.4;
+        font-weight: 300;
+    }
+
+    // מצב פוקוס (כשלוחצים על השדה)
+    &:focus {
+        outline: none;
+        background-color: var(--bg-color);
+        border-color: var(--primary-color); // כל המסגרת נצבעת בצבע הראשי
+        box-shadow: 0 0 0 4px rgba(220, 20, 60, 0.15); // הילה עדינה בצבע קרימזון
+        transform: translateY(-2px); // קפיצה קטנה למעלה
+    }
 }
 
-/* Hover and active states for the button */
-.wpcf7 .btn-field:hover {
-  background-color: var(--secondary-color);
-  box-shadow: 0 0 15px var(--primary-color);
-  transform: translateY(-2px);
+// תיקון גובה ל-Textarea
+.wpcf7 textarea {
+    min-height: 120px;
+    resize: vertical; // מאפשר למשתמש לשנות גובה
 }
 
-.wpcf7 .btn-field:active {
-  transform: translateY(0);
+// --- כפתור השליחה ---
+
+.submit-row {
+    margin-top: 1rem;
+    text-align: center; // כפתור ממורכז? או שנה ל-left/right
 }
 
-/* Styling for the contact form container */
-.contact-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem 1rem;
+.wpcf7 input[type="submit"] {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 50px; // כפתור עגול (Pill shape)
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%; // כפתור לכל הרוחב
+
+    @media (min-width: 768px) {
+        width: auto; // בדסקטופ כפתור בגודל התוכן
+        min-width: 200px;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(220, 20, 60, 0.4); // צללית קרימזון חזקה
+        filter: brightness(1.1); // הבהרה קלה
+    }
+
+    &:active {
+        transform: translateY(-1px);
+    }
 }
 
-/* Styling for the inner container (the form itself) */
-.contact-form .cintainer {
-  width: 100%;
-  max-width: 1200px;
+// --- הודעות שגיאה/הצלחה של CF7 ---
+
+.wpcf7-not-valid-tip {
+    color: #ff4444;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.wpcf7-response-output {
+    border: none !important;
+    border-radius: 8px;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    text-align: center;
+    font-weight: 600;
+    
+    &.wpcf7-display-none {
+        display: none;
+    }
+
+    &.wpcf7-validation-errors {
+        background-color: rgba(255, 68, 68, 0.1);
+        color: #ff4444;
+        border: 1px solid #ff4444 !important;
+    }
+
+    &.wpcf7-mail-sent-ok {
+        background-color: rgba(76, 175, 80, 0.1);
+        color: #4caf50;
+        border: 1px solid #4caf50 !important;
+    }
+}
+
+// ספינר טעינה
+.wpcf7-spinner {
+    position: absolute; 
+    margin-top: 15px;
 }
