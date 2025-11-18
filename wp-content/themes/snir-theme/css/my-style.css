@@ -3291,133 +3291,78 @@ body.light-mode .wp-block-table table tbody tr:hover {
   font-size: 14px; /* גודל הטקסט "הגדל" / "הקטן" */
 }
 
-/* --- FAQ Section Styling --- */
+/* =======================================
+   FAQ Accordion Styles (Fixed)
+   ======================================= */
 .faq-section {
-  padding: 60px 0;
-  color: var(--text-color);
-  position: relative; /* הוספה: חיוני למיקום שכבת הצבע */
-  z-index: 1; /* הוספה: מבטיח שהתוכן יהיה מעל השכבה */
-  overflow: hidden; /* הוספה: מבטיח שכל תוכן שחורג מהאזור לא יראה */
+  padding: 5rem 0;
+  background-color: var(--bg-color);
 }
-
-/* שכבת צבע שקופה לבנה שיושבת מעל הרקע הדינמי */
-.faq-section .background-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1; /* ממוקם מתחת לתוכן של הסקשן */
-  background-color: rgba(51, 51, 51, 0.2); /* שימוש בצבע --text-color: #333 עם 20% אטימות */
-}
-
-/* התאמת שכבת הצבע למצב בהיר */
-body.light-mode .faq-section .background-overlay {
-  background-color: rgba(249, 249, 249, 0.2); /* צבע בהיר עם 20% אטימות */
-}
-
 .faq-section .section-title {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 3rem;
+  color: var(--text-color);
 }
-
-.faq-accordion {
+.faq-section .faq-accordion {
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.faq-section .faq-item {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
-.faq-item {
-  border-bottom: 1px solid var(--border-color);
-}
-
-.faq-item:last-child {
-  border-bottom: none;
-}
-
-.faq-question {
-  display: flex;
-  align-items: center;
-  padding: 20px 25px;
-  cursor: pointer;
-  background-color: var(--card-background);
-  color: var(--text-color);
   transition: all 0.3s ease;
 }
-
-.faq-question:hover,
-.faq-question.active {
-  background-color: var(--primary-color);
-  color: var(--light-text-color);
+.faq-section .faq-item.active {
+  border-color: var(--primary-color);
+  box-shadow: 0 5px 15px var(--shadow-color);
 }
-
-/* זה השינוי הראשון: צבע כותרת השאלה במעבר ובמצב פעיל */
-.faq-question:hover .question-text,
-.faq-question.active .question-text {
-  color: var(--light-text-color);
-}
-
-.faq-icon {
-  font-size: 20px;
+.faq-section .faq-item.active .faq-question .toggle-icon i {
+  transform: rotate(45deg);
   color: var(--primary-color);
-  width: 30px;
-  text-align: center;
-  line-height: 1;
-  margin-left: 15px;
-  font-weight: bold;
-  transition: color 0.3s ease;
 }
-
-.faq-question.active .faq-icon,
-.faq-question:hover .faq-icon {
-  color: var(--light-text-color);
+.faq-section .faq-question {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: transparent;
 }
-
-.question-text {
-  flex-grow: 1;
+.faq-section .faq-question .question-text {
   margin: 0;
   font-size: 1.1rem;
-  font-weight: 500;
-  transition: color 0.3s ease; /* הוספתי מעבר צבע חלק */
+  font-weight: 700;
+  color: var(--text-color);
+  flex-grow: 1;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
-
-/* אייקון הפתיחה/סגירה */
-.toggle-icon {
-  font-size: 20px;
+.faq-section .faq-question .faq-icon {
+  font-weight: bold;
   color: var(--primary-color);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 1.2rem;
 }
-
-.faq-question.active .toggle-icon,
-.faq-question:hover .toggle-icon {
-  transform: rotate(45deg);
-  color: var(--light-text-color);
+.faq-section .faq-question .toggle-icon i {
+  transition: transform 0.3s ease, color 0.3s ease;
+  color: var(--text-color);
 }
-
-/* זה השינוי השני: צבעי התשובה */
-.faq-answer {
-  display: none;
-  padding: 0 25px 0 65px;
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: var(--border-color); /* צבע הרקע הוא --border-color */
-  color: var(--text-color); /* צבע הטקסט הוא --text-color */
+.faq-section .faq-answer {
+  max-height: 0;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: max-height 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.02);
 }
-
-.faq-answer p {
+.faq-section .faq-answer p, .faq-section .faq-answer div {
+  padding: 0 1.5rem 1.5rem 1.5rem;
   margin: 0;
-}
-
-.faq-answer.active {
-  display: block;
-  padding-top: 20px;
+  color: var(--text-color);
+  opacity: 0.9;
+  line-height: 1.6;
 }
 
 /* =======================================
