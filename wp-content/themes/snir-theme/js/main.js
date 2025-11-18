@@ -78,26 +78,34 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); 
 
-    /* ==========================================================================
-       4. Client Gallery Lightbox (BaguetteBox)
+/* ==========================================================================
+       4. FAQ Accordion - אקורדיון שאלות ותשובות (מתוקן)
        ========================================================================== */
-    const galleryContainer = document.querySelector('.project-gallery-grid');
-    if (galleryContainer) {
-        if (typeof baguetteBox === 'function') {
-            try { baguetteBox.run('.project-gallery-grid'); } catch (e) {}
-        } else {
-            // טעינה דינמית אם צריך
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js';
-            script.async = true;
-            script.onload = function() { try { baguetteBox.run('.project-gallery-grid'); } catch (e) {} };
-            document.body.appendChild(script);
-            
-            const cssLink = document.createElement('link');
-            cssLink.rel = 'stylesheet';
-            cssLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css';
-            document.head.appendChild(cssLink);
-        }
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    if (faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // 1. סגירת כל השאלות האחרות
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    if(otherAnswer) otherAnswer.style.maxHeight = null;
+                });
+
+                // 2. אם השאלה הנוכחית לא הייתה פתוחה - נפתח אותה
+                if (!isActive) {
+                    item.classList.add('active');
+                    // הגדרת גובה דינמית לאנימציה חלקה
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                } 
+            });
+        });
     }
 
     /* ==========================================================================
