@@ -11,7 +11,6 @@ $client_title = get_the_title();
 
 $client_description = get_field('client_description');
 $client_website_url = get_field('client_website_url');
-$project_gallery = get_field('project_gallery'); 
 $homepage_screenshot = get_field('homepage_screenshot'); // *** חדש: קבלת צילום המסך ***
 
 $client_categories = get_the_terms($client_id, 'client_category');
@@ -64,51 +63,6 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
                     <div class="client-description">
                         <?php echo wp_kses_post($client_description); ?>
                     </div>
-                <?php endif; ?>
-
-                
-                <?php if ($project_gallery) : ?>
-                    <section class="project-gallery-section">
-                        <h2>תמונות מהפרויקט</h2>
-                        <div class="project-gallery-grid">
-                            
-                            <?php foreach ($project_gallery as $image_data) : ?>
-                                
-                                <?php
-                                if (empty($image_data)) { continue; }
-
-                                $image_full_url = '';
-                                $image_thumb_url = '';
-                                $image_alt = '';
-                                $image_caption = '';
-
-                                if (is_array($image_data)) {
-                                    $image_full_url = $image_data['url'];
-                                    $image_thumb_url = $image_data['sizes']['medium_large'];
-                                    $image_alt = $image_data['alt'];
-                                    $image_caption = $image_data['caption'];
-                                } else {
-                                    $image_id = (int) $image_data;
-                                    $image_full_url = wp_get_attachment_url($image_id);
-                                    $image_thumb_url = wp_get_attachment_image_url($image_id, 'medium_large');
-                                    $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
-                                    $image_caption = wp_get_attachment_caption($image_id);
-                                }
-                                ?>
-
-                                <?php if ($image_full_url && $image_thumb_url) : ?>
-                                    <a href="<?php echo esc_url($image_full_url); ?>" 
-                                       class="gallery-item"
-                                       data-caption="<?php echo esc_attr($image_caption); ?>">
-                                        
-                                        <img src="<?php echo esc_url($image_thumb_url); ?>" 
-                                             alt="<?php echo esc_attr($image_alt); ?>" />
-                                    </a>
-                                <?php endif; ?>
-
-                            <?php endforeach; ?>
-                        </div>
-                    </section>
                 <?php endif; ?>
 
                 <?php if ($homepage_screenshot) : ?>
