@@ -335,3 +335,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // סוף 'DOMContentLoaded'
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // === לוגיקת נגן וידאו מעוצב ===
+    const videoContainer = document.querySelector('.custom-video-player');
+    
+    if (videoContainer) {
+        const video = videoContainer.querySelector('video');
+        const playBtn = videoContainer.querySelector('.play-overlay-btn');
+
+        // פונקציה להפעלת הוידאו
+        function playVideo() {
+            videoContainer.classList.add('is-playing');
+            video.play();
+            video.controls = true; // מציג את הפקדים הרגילים אחרי שמתחילים לנגן
+        }
+
+        // האזנה ללחיצה על הכפתור המעוצב
+        playBtn.addEventListener('click', playVideo);
+
+        // האזנה ללחיצה על הוידאו עצמו (אם המשתמש לוחץ על התמונה)
+        video.addEventListener('click', function() {
+            if (video.paused) {
+                playVideo();
+            }
+        });
+        
+        // אופציונלי: אם הוידאו נעצר, אפשר להחזיר את הכפתור (אני מעדיף שלא, כדי לא להציק)
+        /*
+        video.addEventListener('pause', function() {
+             videoContainer.classList.remove('is-playing');
+             video.controls = false;
+        });
+        */
+    }
+
+});
