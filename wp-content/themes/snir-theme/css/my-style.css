@@ -81,7 +81,7 @@ p {
 }
 
 /* =======================================
-   Main Header & Mobile Menu Styles (CLEAN)
+   Main Header Styles (Final Fix - White Icons)
    ======================================= */
 html, body {
   overflow-x: hidden;
@@ -195,7 +195,7 @@ html, body {
 .header-controls .control-btn {
   background: none;
   border: none;
-  color: var(--text-color);
+  color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
   padding: 8px;
@@ -225,7 +225,7 @@ html, body {
 .header-controls .hamburger-menu .bar {
   width: 100%;
   height: 3px;
-  background-color: var(--text-color);
+  background-color: #fff;
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -246,7 +246,7 @@ html, body {
   }
 }
 
-/* --- 4. Mobile Menu Overlay (THE FIX) --- */
+/* --- 4. Mobile Menu Overlay --- */
 .mobile-menu-overlay {
   position: fixed;
   top: 0;
