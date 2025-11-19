@@ -1,7 +1,7 @@
 /* =======================================
    Main Header Styles
    ======================================= */
-
+html { overflow-x: hidden; }
 .main-header {
     position: sticky;
     top: 0;
@@ -173,16 +173,16 @@
     }
 }
 
-/* --- 4. Mobile Menu Overlay (FIXED) --- */
+/* --- 4. Mobile Menu Overlay (FIXED AND FINAL) --- */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
-    right: 0;
+    right: 0; // מיושר לקצה הימני
     
-    // *** התיקון ל-OVERFLOW: משתמשים ב-transform במקום ב-right: -100% ***
-    right: 0; // מציב את הקצה הימני ב-0
+    // *** התיקון: מעבר ל-transform ***
+    transform: translateX(100%); // דוחף את התפריט מחוץ למסך
     transition: transform 0.4s ease-in-out;
-    // -------------------------------------------------------------
+    // ---------------------------------------------
     
     width: 100%;
     height: 100vh;
@@ -197,7 +197,7 @@
     }
 
     // כפתור סגירה X
-.mobile-menu-close {
+    .mobile-menu-close {
         position: absolute;
         top: 25px;
         left: 25px; 
@@ -210,7 +210,7 @@
         transition: transform 0.3s ease, color 0.3s ease;
         padding: 10px;
         z-index: 1100;
-        
+
         &:hover {
             color: var(--primary-color);
             transform: rotate(90deg);
@@ -223,14 +223,14 @@
         text-align: center;
 
         li {
-            margin: 35px 0;
+            margin: 35px 0; // ריווח אנכי מוגבר (כדי לפתור את העומס)
             opacity: 0; 
             transform: translateY(20px);
             transition: all 0.4s ease;
 
             a {
                 text-decoration: none;
-                font-size: 2.2rem;
+                font-size: 2rem;
                 font-weight: 700;
                 color: var(--text-color);
                 transition: color 0.3s;
