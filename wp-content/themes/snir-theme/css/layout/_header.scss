@@ -177,10 +177,11 @@
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
+    right: 0;
     
     // *** התיקון ל-OVERFLOW: משתמשים ב-transform במקום ב-right: -100% ***
     right: 0; // מציב את הקצה הימני ב-0
-    transform: translateX(100%); // דוחף אותו מחוץ למסך ב-100% רוחב
+    transition: transform 0.4s ease-in-out;
     // -------------------------------------------------------------
     
     width: 100%;
@@ -190,14 +191,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.4s ease-in-out; // שינוי: מעבר ל-transform
     
     &.active {
         transform: translateX(0); // מחליק את התפריט פנימה
     }
 
     // כפתור סגירה X
-    .mobile-menu-close {
+.mobile-menu-close {
         position: absolute;
         top: 25px;
         left: 25px; 
@@ -210,7 +210,7 @@
         transition: transform 0.3s ease, color 0.3s ease;
         padding: 10px;
         z-index: 1100;
-
+        
         &:hover {
             color: var(--primary-color);
             transform: rotate(90deg);
