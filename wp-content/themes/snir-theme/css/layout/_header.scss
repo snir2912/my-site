@@ -173,11 +173,16 @@
     }
 }
 
-/* --- 4. Mobile Menu Overlay --- */
+/* --- 4. Mobile Menu Overlay (FIXED) --- */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
-    right: -100%; 
+    
+    // *** התיקון ל-OVERFLOW: משתמשים ב-transform במקום ב-right: -100% ***
+    right: 0; // מציב את הקצה הימני ב-0
+    transform: translateX(100%); // דוחף אותו מחוץ למסך ב-100% רוחב
+    // -------------------------------------------------------------
+    
     width: 100%;
     height: 100vh;
     background-color: var(--bg-color);
@@ -185,10 +190,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: right 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out; // שינוי: מעבר ל-transform
     
     &.active {
-        right: 0; 
+        transform: translateX(0); // מחליק את התפריט פנימה
     }
 
     // כפתור סגירה X

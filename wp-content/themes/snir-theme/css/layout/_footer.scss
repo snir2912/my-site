@@ -213,8 +213,7 @@
 .whatsapp-float {
     position: fixed;
     bottom: 30px;
-    right: 30px; // *** תיקון קריטי: העברה לצד ימין (RTL standard) ***
-    left: auto; // מבטל את ההשפעה של left
+    left: 30px; // צד שמאל למטה
     z-index: 999;
     display: flex;
     align-items: center;
@@ -236,9 +235,6 @@
     }
 
     .whatsapp-bubble {
-        position: absolute; // מציב את הבועה
-        right: 100%; // מציב את הבועה לצד שמאל של הכפתור
-        margin-right: 10px; // רווח מהכפתור
         background: #fff;
         color: #333;
         padding: 8px 15px;
@@ -247,7 +243,7 @@
         font-weight: 600;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         opacity: 0;
-        transform: translateX(10px); // *** תיקון: מוחבא בצד שמאל (נמשך ימינה) ***
+        transform: translateX(-20px);
         transition: all 0.3s ease;
         pointer-events: none;
         white-space: nowrap;
@@ -259,7 +255,7 @@
         }
         .whatsapp-bubble {
             opacity: 1;
-            transform: translateX(0); // *** תיקון: מגיע למצב אפס (מיושר) ***
+            transform: translateX(0);
         }
     }
 }
