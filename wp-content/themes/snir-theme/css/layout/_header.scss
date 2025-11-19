@@ -1,23 +1,34 @@
 /* =======================================
-   Main Header Styles
+   Main Header & Mobile Menu Styles (CLEAN)
    ======================================= */
-html { overflow-x: hidden; }
+
+// 1. רשת ביטחון גלובלית - חובה למניעת גלילה צידית
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* --- Main Header --- */
 .main-header {
     position: sticky;
     top: 0;
     z-index: 1000;
     padding: 15px 0;
     transition: all 0.3s ease;
+    width: 100%;
     
-    // אפקט זכוכית
+    // אפקט זכוכית להדר עצמו
     background-color: rgba(var(--bg-color-rgb, 26, 26, 26), 0.85); 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
 
-    // גיבוי לצבע רקע
-    background-color: var(--card-background); 
-    opacity: 0.95;
+    // גיבוי אם המשתנה RGB לא מוגדר
+    @supports not (background-color: rgba(var(--bg-color-rgb), 0.85)) {
+        background-color: var(--card-background);
+        opacity: 0.98;
+    }
 
     .header-content {
         display: flex;
@@ -27,7 +38,7 @@ html { overflow-x: hidden; }
     }
 }
 
-/* --- 1. Logo --- */
+/* --- Logo --- */
 .header-logo {
     flex-shrink: 0;
 
@@ -51,14 +62,14 @@ html { overflow-x: hidden; }
     }
 }
 
-/* --- 2. Desktop Navigation --- */
+/* --- Desktop Navigation --- */
 .main-nav {
     flex-grow: 1;
     display: flex;
     justify-content: center;
 
     @media (max-width: 992px) {
-        display: none;
+        display: none; // מוסתר במובייל/טאבלט
     }
 
     .nav-list {
@@ -107,7 +118,7 @@ html { overflow-x: hidden; }
     }
 }
 
-/* --- 3. Header Controls --- */
+/* --- Header Controls --- */
 .header-controls {
     display: flex;
     align-items: center;
@@ -133,6 +144,7 @@ html { overflow-x: hidden; }
         }
     }
 
+    // המבורגר
     .hamburger-menu {
         display: none;
         flex-direction: column;
@@ -173,43 +185,51 @@ html { overflow-x: hidden; }
     }
 }
 
-/* --- 4. Mobile Menu Overlay (FIXED AND FINAL) --- */
+/* --- 4. Mobile Menu Overlay (THE FIX) --- */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
-    right: 0; // מיושר לקצה הימני
-    
-    // *** התיקון: מעבר ל-transform ***
-    transform: translateX(100%); // דוחף את התפריט מחוץ למסך
-    transition: transform 0.4s ease-in-out;
-    // ---------------------------------------------
-    
+    right: 0;
     width: 100%;
     height: 100vh;
-    background-color: var(--bg-color);
     z-index: 1050;
+    
+    // *** עיצוב זכוכית חלבית מושחרת ***
+    background-color: rgba(0, 0, 0, 0.85); // שחור חצי שקוף
+    backdrop-filter: blur(15px); // הטשטוש החזק
+    -webkit-backdrop-filter: blur(15px);
+    
+    // *** לוגיקת ההסתרה והאנימציה ***
+    transform: translateX(100%); // מחוץ למסך (ימינה)
+    visibility: hidden; // *** קריטי! מונע את הגלילה ואת המסך השחור ***
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.4s ease; 
+    // Cubic-bezier לתנועה חלקה ויוקרתית יותר
+    
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     
+    // מצב פתוח
     &.active {
-        transform: translateX(0); // מחליק את התפריט פנימה
+        transform: translateX(0); // מחליק פנימה
+        visibility: visible; // הופך לנראה
     }
 
     // כפתור סגירה X
     .mobile-menu-close {
         position: absolute;
-        top: 25px;
-        left: 25px; 
+        top: 30px;
+        left: 30px; 
         background: none;
         border: none;
         font-size: 3.5rem;
-        color: var(--text-color);
+        color: #fff; // תמיד לבן על הרקע הכהה
         cursor: pointer;
         line-height: 0.5;
-        transition: transform 0.3s ease, color 0.3s ease;
         padding: 10px;
         z-index: 1100;
+        transition: transform 0.3s ease, color 0.3s ease;
 
         &:hover {
             color: var(--primary-color);
@@ -217,23 +237,27 @@ html { overflow-x: hidden; }
         }
     }
 
+    // רשימת הקישורים
     .mobile-nav-list {
         list-style: none;
         padding: 0;
+        margin: 0;
         text-align: center;
+        width: 100%;
 
         li {
-            margin: 35px 0; // ריווח אנכי מוגבר (כדי לפתור את העומס)
+            margin: 30px 0;
             opacity: 0; 
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: all 0.4s ease;
 
             a {
                 text-decoration: none;
-                font-size: 2rem;
-                font-weight: 700;
-                color: var(--text-color);
+                font-size: 2.2rem;
+                font-weight: 800; // פונט עבה יותר
+                color: #fff; // טקסט לבן על הרקע הכהה
                 transition: color 0.3s;
+                letter-spacing: -1px;
 
                 &:hover {
                     color: var(--primary-color);
@@ -242,13 +266,14 @@ html { overflow-x: hidden; }
         }
     }
 
+    // אנימציית כניסה מדורגת לפריטים
     &.active .mobile-nav-list li {
         opacity: 1;
         transform: translateY(0);
         
-        @for $i from 1 through 6 {
+        @for $i from 1 through 8 {
             &:nth-child(#{$i}) {
-                transition-delay: #{$i * 0.1}s;
+                transition-delay: #{$i * 0.1 + 0.2}s; // דיליי קטן שיתחיל אחרי שהתפריט נפתח
             }
         }
     }
