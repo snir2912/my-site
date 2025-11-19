@@ -497,7 +497,8 @@ p {
 .whatsapp-float {
   position: fixed;
   bottom: 30px;
-  left: 30px;
+  right: 30px;
+  left: auto;
   z-index: 999;
   display: flex;
   align-items: center;
@@ -518,6 +519,9 @@ p {
   transition: transform 0.3s ease;
 }
 .whatsapp-float .whatsapp-bubble {
+  position: absolute;
+  right: 100%;
+  margin-right: 10px;
   background: #fff;
   color: #333;
   padding: 8px 15px;
@@ -526,7 +530,7 @@ p {
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   opacity: 0;
-  transform: translateX(-20px);
+  transform: translateX(10px);
   transition: all 0.3s ease;
   pointer-events: none;
   white-space: nowrap;
