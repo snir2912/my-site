@@ -136,18 +136,19 @@
         
         .footer-newsletter-form {
             .wpcf7-form {
-                .newsletter-form-inner {
-                    display: flex;
-                    gap: 10px;
-                    margin-top: 1rem;
-                    
-                    @media (max-width: 600px) {
-                        flex-direction: column;
-                    }
+.newsletter-form-inner {
+                display: flex; // *** FIX: הפעלת Flexbox ***
+                gap: 10px;
+                margin-top: 1rem;
+                
+                @media (max-width: 600px) {
+                    flex-direction: column;
                 }
+            }
 
                 input[type="email"] {
                     width: 100%;
+                    flex-grow: 1;
                     padding: 10px 15px;
                     border-radius: 8px; // התאמה לעיצוב החדש
                     border: 1px solid #333;
@@ -172,6 +173,9 @@
                     transition: background 0.3s;
                     white-space: nowrap;
                     font-size: 0.95rem;
+                    flex-shrink: 0; // *** FIX: מונע מהכפתור להתכווץ ***
+                    width: auto; // *** FIX: נותן לכפתור רוחב מינימלי ***
+                    min-width: 100px;
 
                     &:hover {
                         background: var(--secondary-color);

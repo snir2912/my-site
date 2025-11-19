@@ -38,19 +38,19 @@
 .modern-form-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.5rem; 
 }
 
 .form-row {
     width: 100%;
 
-    &.two-columns {
+&.two-columns {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
 
         @media (max-width: 768px) {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr; 
             gap: 1.5rem;
         }
     }
@@ -61,6 +61,7 @@
     flex-direction: column;
     gap: 0.5rem;
     position: relative;
+    width: 100%; // ודא שהוא תופס את כל הרוחב של תא הגריד
 
     label {
         font-size: 0.9rem;
@@ -86,10 +87,10 @@
     transition: all 0.3s ease;
     font-family: 'Heebo', sans-serif;
 
-    &::placeholder {
+&::placeholder {
         color: var(--text-color);
         opacity: 0.4;
-        font-weight: 700; // *** תיקון: משקל פונט לפלייסהולדר ***
+        font-weight: 700; // *** FIX: משקל 700 ***
     }
 
     &:focus {

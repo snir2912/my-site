@@ -275,14 +275,14 @@ p {
   text-align: center;
 }
 .mobile-menu-overlay .mobile-nav-list li {
-  margin: 25px 0;
+  margin: 35px 0;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease;
 }
 .mobile-menu-overlay .mobile-nav-list li a {
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--text-color);
   transition: color 0.3s;
@@ -443,6 +443,7 @@ p {
 }
 .main-footer .newsletter-col .footer-newsletter-form .wpcf7-form input[type=email] {
   width: 100%;
+  flex-grow: 1;
   padding: 10px 15px;
   border-radius: 8px;
   border: 1px solid #333;
@@ -465,6 +466,9 @@ p {
   transition: background 0.3s;
   white-space: nowrap;
   font-size: 0.95rem;
+  flex-shrink: 0;
+  width: auto;
+  min-width: 100px;
 }
 .main-footer .newsletter-col .footer-newsletter-form .wpcf7-form input[type=submit]:hover {
   background: var(--secondary-color);
@@ -3126,6 +3130,7 @@ body.light-mode .wp-block-table table tbody tr:hover {
   flex-direction: column;
   gap: 0.5rem;
   position: relative;
+  width: 100%;
 }
 .form-group label {
   font-size: 0.9rem;
