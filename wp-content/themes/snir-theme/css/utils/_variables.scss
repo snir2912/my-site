@@ -14,15 +14,10 @@
 body.light-mode {
     // Light Mode Overrides
     --bg-color: #f9f9f9;
-    --text-color: #333; // ודא שזה מוגדר!
-    --border-color: #ddd; // ודא שזה מוגדר!
-    --card-background: #fff; // ודא שזה מוגדר!
-    --shadow-color: rgba(0, 0, 0, 0.1); // ודא שזה מוגדר!
-    // ניתן גם לשנות את primary, secondary, accent אם רוצים צבעים שונים במצב בהיר
-    // לדוגמה:
-    // --primary-color: #FF5722;
-    // --secondary-color: #FF9800;
-    // --accent-color: rgb(76, 175, 80);
+    --text-color: #333;
+    --border-color: #ddd;
+    --card-background: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 $theme-colors: (
     // Dark Mode Defaults
