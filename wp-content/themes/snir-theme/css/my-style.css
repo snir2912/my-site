@@ -2561,6 +2561,178 @@ body.light-mode .related-posts-section {
     transform: translate(0, 0);
   }
 }
+/* =======================================
+   Business Guide Page Styles
+   ======================================= */
+.business-guide-page {
+  background-color: var(--bg-color);
+  font-family: "Heebo", sans-serif;
+}
+.business-guide-page .guide-intro {
+  padding: 4rem 0;
+  text-align: center;
+}
+.business-guide-page .guide-intro .intro-text {
+  font-size: 1.5rem;
+  font-weight: 300;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+.business-guide-page .guide-timeline-section {
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.business-guide-page .guide-timeline-section .timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.business-guide-page .guide-timeline-section .timeline::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  background-color: var(--border-color);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+  border-radius: 2px;
+}
+.business-guide-page .guide-timeline-section .timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+.business-guide-page .guide-timeline-section .timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.business-guide-page .guide-timeline-section .timeline-item.left {
+  left: 0;
+}
+.business-guide-page .guide-timeline-section .timeline-item.right {
+  left: 50%;
+}
+.business-guide-page .guide-timeline-section .timeline-item.right .timeline-icon {
+  left: -25px;
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-icon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: -25px;
+  top: 20px;
+  background-color: var(--card-background);
+  border: 4px solid var(--primary-color);
+  border-radius: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.business-guide-page .guide-timeline-section .timeline-item.right .timeline-icon {
+  right: auto;
+  left: -25px;
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-content {
+  padding: 2rem;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-content:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-content .step-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-content .step-header .step-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: rgba(var(--primary-color), 0.2);
+  line-height: 1;
+  color: var(--primary-color);
+  opacity: 0.3;
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-content .step-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--text-color);
+}
+.business-guide-page .guide-timeline-section .timeline-item .timeline-content .step-body {
+  color: var(--text-color);
+  opacity: 0.9;
+  line-height: 1.7;
+}
+@media (max-width: 768px) {
+  .business-guide-page .guide-timeline-section .timeline::after {
+    left: 30px;
+  }
+  .business-guide-page .guide-timeline-section .timeline-item {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 70px;
+  }
+  .business-guide-page .guide-timeline-section .timeline-item.left, .business-guide-page .guide-timeline-section .timeline-item.right {
+    left: 0;
+  }
+  .business-guide-page .guide-timeline-section .timeline-item .timeline-icon {
+    right: 5px;
+    left: auto !important;
+  }
+  .business-guide-page .guide-timeline-section .timeline-item .timeline-content::before {
+    content: " ";
+    position: absolute;
+    top: 26px;
+    right: -10px;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent var(--border-color);
+  }
+}
+.business-guide-page .guide-cta-section {
+  background-color: var(--card-background);
+  padding: 5rem 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+.business-guide-page .guide-cta-section .cta-content {
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+}
+.business-guide-page .guide-cta-section .cta-content .cta-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+.business-guide-page .guide-cta-section .cta-content .cta-text {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+.business-guide-page .guide-cta-section .guide-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .btn {
   display: inline-block;
   padding: 15px 30px;

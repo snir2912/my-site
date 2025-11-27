@@ -1,0 +1,219 @@
+/* =======================================
+   Business Guide Page Styles
+   ======================================= */
+
+.business-guide-page {
+    background-color: var(--bg-color);
+    font-family: $font-heebo;
+
+    // Reuse banner styles from client page (assumed loaded globally or imported)
+    
+    // 2. Intro
+    .guide-intro {
+        padding: 4rem 0;
+        text-align: center;
+        
+        .intro-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+    }
+
+    // 3. Timeline Section
+    .guide-timeline-section {
+        padding-bottom: 5rem;
+        position: relative;
+        overflow: hidden; // למניעת גלילה אופקית באנימציות
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+
+            // הקו האנכי המרכזי
+            &::after {
+                content: '';
+                position: absolute;
+                width: 4px;
+                background-color: var(--border-color);
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                margin-left: -2px;
+                border-radius: 2px;
+            }
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            opacity: 0; // מוסתר עד לגלילה
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+
+            &.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            // צד שמאל (ברירת מחדל ל-LTR, אצלנו ב-RTL זה ימין בפועל)
+            &.left {
+                left: 0;
+                
+                .timeline-content { 
+                    // עיצוב מיוחד לצד אחד אם רוצים
+                }
+            }
+
+            // צד ימין
+            &.right {
+                left: 50%;
+
+                .timeline-icon {
+                    left: -25px; // מרכז האייקון על הקו
+                }
+            }
+            
+            // ב-RTL ה-Left 0 זה ימין, וה-Left 50% זה שמאל. נסדר את האייקונים:
+            
+            .timeline-icon {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                right: -25px; // ממוקם על הקו המרכזי (עבור צד ימין ויזואלית)
+                top: 20px;
+                background-color: var(--card-background);
+                border: 4px solid var(--primary-color);
+                border-radius: 50%;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                color: var(--text-color);
+                box-shadow: 0 0 0 4px rgba(0,0,0,0.2);
+            }
+            
+            // תיקון מיקום האייקון לצד השני (שמאל ויזואלית)
+            &.right .timeline-icon {
+                right: auto;
+                left: -25px;
+            }
+
+            .timeline-content {
+                padding: 2rem;
+                background-color: var(--card-background);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                position: relative;
+                box-shadow: 0 5px 15px var(--shadow-color);
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    border-color: var(--primary-color);
+                }
+
+                .step-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 1rem;
+                    border-bottom: 1px solid var(--border-color);
+                    padding-bottom: 1rem;
+
+                    .step-number {
+                        font-size: 2.5rem;
+                        font-weight: 900;
+                        color: rgba(var(--primary-color), 0.2); // שקיפות של הצבע הראשי
+                        line-height: 1;
+                        // אם ה-rgba לא עובד עם המשתנה שלך, אפשר להשתמש ב-opacity על אלמנט נפרד
+                        color: var(--primary-color);
+                        opacity: 0.3;
+                    }
+
+                    h3 {
+                        margin: 0;
+                        font-size: 1.3rem;
+                        color: var(--text-color);
+                    }
+                }
+
+                .step-body {
+                    color: var(--text-color);
+                    opacity: 0.9;
+                    line-height: 1.7;
+                }
+            }
+        }
+
+        // === רספונסיביות למובייל (ציר זמן בצד) ===
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 30px; // מזיז את הקו לצד ימין
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 0;
+                padding-right: 70px; // רווח לאייקון
+                
+                &.left, &.right {
+                    left: 0; // מבטל את החלוקה ל-50%
+                }
+
+                .timeline-icon {
+                    right: 5px; // ממקם את האייקון על הקו החדש
+                    left: auto !important;
+                }
+                
+                // חיצים קטנים שמצביעים לתוכן (אופציונלי)
+                .timeline-content::before {
+                    content: " ";
+                    position: absolute;
+                    top: 26px;
+                    right: -10px; // חץ מצד ימין
+                    border-width: 10px 0 10px 10px;
+                    border-color: transparent transparent transparent var(--border-color);
+                }
+            }
+        }
+    }
+
+    // 4. CTA Section
+    .guide-cta-section {
+        background-color: var(--card-background);
+        padding: 5rem 0;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+
+            .cta-title {
+                font-size: 2.5rem;
+                font-weight: 900;
+                margin-bottom: 1rem;
+                color: var(--primary-color);
+            }
+
+            .cta-text {
+                font-size: 1.2rem;
+                color: var(--text-color);
+            }
+        }
+
+        .guide-form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            // שימוש בקלאס compact-form שכבר עיצבנו ידאג שזה יראה מעולה
+        }
+    }
+}

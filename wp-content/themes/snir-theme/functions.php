@@ -536,3 +536,4 @@ function snir_live_search_handler() {
 
     wp_die();
 }
+

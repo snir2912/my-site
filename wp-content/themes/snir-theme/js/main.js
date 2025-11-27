@@ -258,3 +258,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 }); // End DOMContentLoaded
+
+/* ==========================================================================
+       Timeline Scroll Animation
+       ========================================================================== */
+    const timelineItems = document.querySelectorAll('.js-scroll-trigger');
+
+    if (timelineItems.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // האלמנט צריך להיות 20% בתוך המסך כדי שהאנימציה תקרה
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // אופציונלי: להפסיק לעקוב אחרי שזה הופיע פעם אחת
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        timelineItems.forEach(item => {
+            observer.observe(item);
+        });
+    }
