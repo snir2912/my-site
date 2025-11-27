@@ -2515,7 +2515,7 @@ body.light-mode .related-posts-section {
 }
 
 /* =======================================
-   404 Page Styles
+   404 Page Styles (Final Updated)
    ======================================= */
 .error-404-page {
   min-height: 70vh;
@@ -2529,6 +2529,7 @@ body.light-mode .related-posts-section {
 .error-404-page .error-content {
   max-width: 600px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 .error-404-page .error-code {
   font-size: clamp(6rem, 15vw, 10rem);
@@ -2543,6 +2544,7 @@ body.light-mode .related-posts-section {
   font-size: 2rem;
   margin-top: 1rem;
   color: var(--text-color);
+  font-weight: 700;
 }
 .error-404-page .error-text {
   font-size: 1.1rem;
@@ -2553,12 +2555,57 @@ body.light-mode .related-posts-section {
 .error-404-page .error-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  align-items: center;
+  gap: 25px;
+  margin-top: 2.5rem;
 }
 @media (max-width: 500px) {
   .error-404-page .error-buttons {
     flex-direction: column;
+    width: 100%;
   }
+}
+.error-404-page .error-buttons .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 40px;
+  font-size: 1.1rem;
+  font-family: "Heebo", sans-serif;
+  font-weight: 800;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+@media (max-width: 500px) {
+  .error-404-page .error-buttons .btn {
+    width: 100%;
+  }
+}
+.error-404-page .error-buttons .btn.primary-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(220, 20, 60, 0.4);
+}
+.error-404-page .error-buttons .btn.primary-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(220, 20, 60, 0.6);
+  background-color: var(--secondary-color);
+}
+.error-404-page .error-buttons .btn.secondary-btn {
+  background-color: transparent;
+  border-color: var(--text-color);
+  color: var(--text-color);
+  opacity: 0.7;
+}
+.error-404-page .error-buttons .btn.secondary-btn:hover {
+  opacity: 1;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px);
 }
 
 @keyframes glitch {
