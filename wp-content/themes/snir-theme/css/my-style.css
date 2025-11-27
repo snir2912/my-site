@@ -2612,7 +2612,6 @@ body.light-mode .related-posts-section {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2px;
-  z-index: 1;
   height: var(--line-progress, 0%);
   max-height: 100%;
   transition: height 0.1s linear;

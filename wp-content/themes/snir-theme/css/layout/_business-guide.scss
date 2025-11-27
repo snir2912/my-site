@@ -58,9 +58,7 @@
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
-                border-radius: 2px;
-                z-index: 1; // יושב מעל קו הבסיס
-                
+                border-radius: 2px;                
                 // *** כאן הקסם: הגובה נשלט ע"י JS ***
                 height: var(--line-progress, 0%); 
                 max-height: 100%;
