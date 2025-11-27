@@ -2607,7 +2607,6 @@ body.light-mode .related-posts-section {
   content: "";
   position: absolute;
   width: 4px;
-  background-color: var(--primary-color);
   top: 0;
   left: 50%;
   transform: translateX(-50%);
