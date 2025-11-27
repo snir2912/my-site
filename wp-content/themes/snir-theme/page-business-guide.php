@@ -16,25 +16,23 @@ $guide_cta_text = get_field('guide_cta_text');
 
 <main id="primary" class="site-main business-guide-page">
 
-    <header class="client-banner" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('<?php echo esc_url($banner_image_url); ?>');">
-        <section class="post-banner"
+    <section class="post-banner"
+        <?php
+        // נמשוך את התמונה הראשית כ-inline style עבור background-image
+        if (has_post_thumbnail()) {
+            echo 'style="background-image: url(\'' . esc_url(get_the_post_thumbnail_url(null, 'full')) . '\');"';
+        }
+        ?>>
+        <div class="banner-content">
+            <h1 class="post-title"><?php the_title(); ?></h1>
             <?php
-            // נמשוך את התמונה הראשית כ-inline style עבור background-image
-            if (has_post_thumbnail()) {
-                echo 'style="background-image: url(\'' . esc_url(get_the_post_thumbnail_url(null, 'full')) . '\');"';
+            // פירורי לחם (Breadcrumbs)
+            if (function_exists('snir_theme_breadcrumbs')) {
+                snir_theme_breadcrumbs();
             }
-            ?>>
-            <div class="banner-content">
-                <h1 class="post-title"><?php the_title(); ?></h1>
-                <?php
-                // פירורי לחם (Breadcrumbs)
-                if (function_exists('snir_theme_breadcrumbs')) {
-                    snir_theme_breadcrumbs();
-                }
-                ?>
-            </div>
-        </section>
-    </header>
+            ?>
+        </div>
+    </section>
 
     <?php if ($guide_subtitle) : ?>
         <section class="guide-intro">
