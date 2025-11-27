@@ -5,12 +5,10 @@ Template Name: Business Guide Template
 
 get_header(); 
 
-// משתנים (כמו בעמוד לקוח)
 $page_id = get_the_ID();
 $page_title = get_the_title();
 $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($page_id, 'full') : ''; 
 
-// שדות ACF ייחודיים למדריך
 $guide_subtitle = get_field('guide_subtitle');
 $guide_cta_title = get_field('guide_cta_title');
 $guide_cta_text = get_field('guide_cta_text');
@@ -21,13 +19,8 @@ $guide_cta_text = get_field('guide_cta_text');
     <header class="client-banner" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('<?php echo esc_url($banner_image_url); ?>');">
         <div class="banner-content">
             <h1 class="banner-title"><?php echo esc_html($page_title); ?></h1>
-            
             <div class="banner-breadcrumbs">
-                <?php
-                if (function_exists('snir_theme_breadcrumbs')) {
-                    snir_theme_breadcrumbs();
-                }
-                ?>
+                <?php if (function_exists('snir_theme_breadcrumbs')) snir_theme_breadcrumbs(); ?>
             </div>
         </div>
     </header>
@@ -52,12 +45,11 @@ $guide_cta_text = get_field('guide_cta_text');
                     $icon = get_sub_field('step_icon');
                     $title = get_sub_field('step_title');
                     $content = get_sub_field('step_content');
-                    
-                    // קלאס להבחנה בין צד ימין לצד שמאל
-                    $side_class = ($step_count % 2 != 0) ? 'left' : 'right';
                 ?>
-                    
-                    <div class="timeline-item <?php echo $side_class; ?> js-scroll-trigger">
+                    <div class="timeline-item js-scroll-trigger">
+                        <div class="timeline-icon">
+                            <i class="<?php echo esc_attr($icon); ?>"></i>
+                        </div>
                         <div class="timeline-content">
                             <div class="step-header">
                                 <div class="step-number">0<?php echo $step_count; ?></div>
@@ -66,9 +58,6 @@ $guide_cta_text = get_field('guide_cta_text');
                             <div class="step-body">
                                 <?php echo wp_kses_post($content); ?>
                             </div>
-                        </div>
-                        <div class="timeline-icon">
-                            <i class="<?php echo esc_attr($icon); ?>"></i>
                         </div>
                     </div>
 

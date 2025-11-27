@@ -260,28 +260,26 @@ document.addEventListener('DOMContentLoaded', function() {
 }); // End DOMContentLoaded
 
 /* ==========================================================================
-       Timeline Scroll Animation
+       Timeline Scroll Animation (Robust Version)
        ========================================================================== */
     const timelineItems = document.querySelectorAll('.js-scroll-trigger');
 
-    if (timelineItems.length > 0) {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.2 // האלמנט צריך להיות 20% בתוך המסך כדי שהאנימציה תקרה
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // אופציונלי: להפסיק לעקוב אחרי שזה הופיע פעם אחת
-                    // observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
+    function checkTimelineScroll() {
+        const triggerBottom = window.innerHeight / 5 * 4; // נקודת הטריגר (80% מהמסך)
 
         timelineItems.forEach(item => {
-            observer.observe(item);
+            const itemTop = item.getBoundingClientRect().top;
+
+            if (itemTop < triggerBottom) {
+                item.classList.add('visible');
+            } else {
+                // אופציונלי: להסיר את הקלאס אם גוללים למעלה (כרגע מכובה)
+                // item.classList.remove('visible');
+            }
         });
+    }
+
+    if (timelineItems.length > 0) {
+        window.addEventListener('scroll', checkTimelineScroll);
+        checkTimelineScroll(); // הרצה ראשונית ליתר ביטחון
     }

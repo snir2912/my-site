@@ -1,13 +1,11 @@
 /* =======================================
-   Business Guide Page Styles
+   Business Guide Page Styles (RTL Fixed)
    ======================================= */
 
 .business-guide-page {
     background-color: var(--bg-color);
     font-family: $font-heebo;
 
-    // Reuse banner styles from client page (assumed loaded globally or imported)
-    
     // 2. Intro
     .guide-intro {
         padding: 4rem 0;
@@ -27,12 +25,13 @@
     .guide-timeline-section {
         padding-bottom: 5rem;
         position: relative;
-        overflow: hidden; // למניעת גלילה אופקית באנימציות
+        overflow: hidden; 
 
         .timeline {
             position: relative;
             max-width: 1000px;
             margin: 0 auto;
+            padding: 20px 0;
 
             // הקו האנכי המרכזי
             &::after {
@@ -42,19 +41,22 @@
                 background-color: var(--border-color);
                 top: 0;
                 bottom: 0;
-                left: 50%;
-                margin-left: -2px;
+                left: 50%; // בדיוק באמצע
+                transform: translateX(-50%); // מרכוז מדויק
                 border-radius: 2px;
             }
         }
 
         .timeline-item {
-            padding: 10px 40px;
             position: relative;
-            width: 50%;
+            width: 50%; // תופס חצי רוחב
+            padding: 0 40px; // ריווח מהקו
             box-sizing: border-box;
-            opacity: 0; // מוסתר עד לגלילה
-            transform: translateY(50px);
+            margin-bottom: 3rem;
+            
+            // אנימציה התחלתית (מוסתר)
+            opacity: 0;
+            transform: translateY(30px);
             transition: all 0.6s ease-out;
 
             &.visible {
@@ -62,62 +64,84 @@
                 transform: translateY(0);
             }
 
-            // צד שמאל (ברירת מחדל ל-LTR, אצלנו ב-RTL זה ימין בפועל)
-            &.left {
-                left: 0;
+            // === RTL Logic (Odd = Right, Even = Left) ===
+            
+            // פריטים אי-זוגיים (1, 3, 5...) -> צד ימין
+            &:nth-child(odd) {
+                left: auto;
+                right: 0; // מתחיל מימין
+                text-align: right; // טקסט מיושר לימין (ברירת מחדל בעברית)
                 
-                .timeline-content { 
-                    // עיצוב מיוחד לצד אחד אם רוצים
-                }
-            }
-
-            // צד ימין
-            &.right {
-                left: 50%;
-
                 .timeline-icon {
-                    left: -25px; // מרכז האייקון על הקו
+                    left: -25px; // המיקום על הקו המרכזי
+                }
+                
+                // החץ של הבועה
+                .timeline-content::before {
+                    left: -10px;
+                    border-width: 10px 10px 10px 0;
+                    border-color: transparent var(--border-color) transparent transparent;
                 }
             }
-            
-            // ב-RTL ה-Left 0 זה ימין, וה-Left 50% זה שמאל. נסדר את האייקונים:
-            
+
+            // פריטים זוגיים (2, 4...) -> צד שמאל
+            &:nth-child(even) {
+                left: 0; // מתחיל משמאל (אחרי ה-50% הימניים)
+                margin-right: 50%; // דוחף את עצמו שמאלה
+                
+                .timeline-icon {
+                    right: -25px; // המיקום על הקו המרכזי
+                }
+
+                // החץ של הבועה
+                .timeline-content::before {
+                    right: -10px;
+                    border-width: 10px 0 10px 10px;
+                    border-color: transparent transparent transparent var(--border-color);
+                }
+            }
+
+            // === The Icon (Circle) ===
             .timeline-icon {
                 position: absolute;
+                top: 20px;
                 width: 50px;
                 height: 50px;
-                right: -25px; // ממוקם על הקו המרכזי (עבור צד ימין ויזואלית)
-                top: 20px;
-                background-color: var(--card-background);
-                border: 4px solid var(--primary-color);
+                background-color: var(--bg-color); // צבע רקע האתר כדי להסתיר את הקו מאחוריו
+                border: 3px solid var(--primary-color);
                 border-radius: 50%;
-                z-index: 1;
+                z-index: 2;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-size: 1.2rem;
-                color: var(--text-color);
-                box-shadow: 0 0 0 4px rgba(0,0,0,0.2);
-            }
-            
-            // תיקון מיקום האייקון לצד השני (שמאל ויזואלית)
-            &.right .timeline-icon {
-                right: auto;
-                left: -25px;
+                color: var(--primary-color);
+                box-shadow: 0 0 0 4px rgba(220, 20, 60, 0.1); // הילה עדינה
             }
 
+            // === The Content Box ===
             .timeline-content {
-                padding: 2rem;
                 background-color: var(--card-background);
                 border: 1px solid var(--border-color);
                 border-radius: 12px;
+                padding: 2rem;
                 position: relative;
-                box-shadow: 0 5px 15px var(--shadow-color);
+                box-shadow: 0 5px 20px var(--shadow-color);
                 transition: transform 0.3s ease;
 
                 &:hover {
                     transform: translateY(-5px);
                     border-color: var(--primary-color);
+                }
+
+                // משולש קטן (חץ) שמצביע לקו
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 30px;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
                 }
 
                 .step-header {
@@ -129,19 +153,22 @@
                     padding-bottom: 1rem;
 
                     .step-number {
-                        font-size: 2.5rem;
+                        font-size: 3rem;
                         font-weight: 900;
-                        color: rgba(var(--primary-color), 0.2); // שקיפות של הצבע הראשי
+                        color: var(--primary-color); // *** תיקון: צבע קרימזון בולט ***
+                        opacity: 0.2; // שקיפות קלה לאפקט רקע
                         line-height: 1;
-                        // אם ה-rgba לא עובד עם המשתנה שלך, אפשר להשתמש ב-opacity על אלמנט נפרד
-                        color: var(--primary-color);
-                        opacity: 0.3;
+                        position: absolute;
+                        top: 15px;
+                        left: 20px; // המספר בפינה השמאלית
                     }
 
                     h3 {
                         margin: 0;
-                        font-size: 1.3rem;
+                        font-size: 1.4rem;
                         color: var(--text-color);
+                        position: relative;
+                        z-index: 1;
                     }
                 }
 
@@ -153,34 +180,36 @@
             }
         }
 
-        // === רספונסיביות למובייל (ציר זמן בצד) ===
+        // === רספונסיביות למובייל (קו בצד ימין) ===
         @media (max-width: 768px) {
             .timeline::after {
-                left: 30px; // מזיז את הקו לצד ימין
+                left: 30px; // הקו זז ימינה
+                transform: none;
             }
 
             .timeline-item {
                 width: 100%;
                 padding-left: 0;
-                padding-right: 70px; // רווח לאייקון
+                padding-right: 70px; // מפנה מקום לאייקון מימין
+                margin-right: 0 !important; // מאפס את ההזחה של צד שמאל
                 
-                &.left, &.right {
-                    left: 0; // מבטל את החלוקה ל-50%
-                }
+                // גם זוגי וגם אי-זוגי נראים אותו דבר במובייל
+                &:nth-child(odd), &:nth-child(even) {
+                    right: auto;
+                    left: auto;
+                    text-align: right;
 
-                .timeline-icon {
-                    right: 5px; // ממקם את האייקון על הקו החדש
-                    left: auto !important;
-                }
-                
-                // חיצים קטנים שמצביעים לתוכן (אופציונלי)
-                .timeline-content::before {
-                    content: " ";
-                    position: absolute;
-                    top: 26px;
-                    right: -10px; // חץ מצד ימין
-                    border-width: 10px 0 10px 10px;
-                    border-color: transparent transparent transparent var(--border-color);
+                    .timeline-icon {
+                        left: auto;
+                        right: 5px; // ממקם את האייקון על הקו החדש
+                    }
+
+                    .timeline-content::before {
+                        left: auto;
+                        right: -10px; // החץ תמיד מימין
+                        border-width: 10px 0 10px 10px;
+                        border-color: transparent transparent transparent var(--border-color);
+                    }
                 }
             }
         }
@@ -213,7 +242,6 @@
         .guide-form-wrapper {
             max-width: 600px;
             margin: 0 auto;
-            // שימוש בקלאס compact-form שכבר עיצבנו ידאג שזה יראה מעולה
         }
     }
 }
