@@ -260,39 +260,48 @@ document.addEventListener('DOMContentLoaded', function() {
 }); // End DOMContentLoaded
 
 /* ==========================================================================
-       Timeline Progress Line Animation
+       Timeline Animation Bundle (Line Progress + Items Fade In)
        ========================================================================== */
-    function updateTimelineProgress() {
-        const timeline = document.querySelector('.timeline');
-        if (!timeline) return; // אם אין טיימליין בעמוד, צא
+    
+    const timelineSection = document.querySelector('.guide-timeline-section');
+    const timeline = document.querySelector('.timeline');
+    const timelineItems = document.querySelectorAll('.js-scroll-trigger');
 
-        // חישובים
-        const timelineTop = timeline.offsetTop; // איפה הטיימליין מתחיל בדף
-        const timelineHeight = timeline.offsetHeight; // הגובה הכולל של הטיימליין
-        const windowHeight = window.innerHeight; // גובה החלון
-        const scrollY = window.scrollY || window.pageYOffset; // כמה גללנו
+    function handleTimelineAnimations() {
+        if (!timeline) return;
 
-        // נקודת הטריגר: אמצע המסך
-        // הקו יתחיל להתמלא כשאמצע המסך יגיע לתחילת הטיימליין
-        const triggerPoint = scrollY + windowHeight / 2;
-
-        // חישוב ההתקדמות בפיקסלים
-        let progressPx = triggerPoint - timelineTop;
+        // 1. לוגיקת הקו המתמלא (The Red Line)
+        const timelineTop = timeline.offsetTop;
+        const timelineHeight = timeline.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY || window.pageYOffset;
         
-        // המרה לאחוזים
+        // הקו מתחיל להתמלא כשאמצע המסך מגיע לתחילת הטיימליין
+        const triggerPoint = scrollY + windowHeight / 2;
+        let progressPx = triggerPoint - timelineTop;
         let progressPercent = (progressPx / timelineHeight) * 100;
-
-        // הגבלת הערך בין 0 ל-100
         progressPercent = Math.max(0, Math.min(100, progressPercent));
-
-        // עדכון משתנה ה-CSS באלמנט הטיימליין
+        
         timeline.style.setProperty('--line-progress', `${progressPercent}%`);
+
+        // 2. לוגיקת הופעת הכרטיסים (Fade In Items)
+        const itemTriggerBottom = window.innerHeight / 5 * 4; // 80% גובה מסך
+
+        timelineItems.forEach(item => {
+            const itemTop = item.getBoundingClientRect().top;
+
+            if (itemTop < itemTriggerBottom) {
+                item.classList.add('visible'); // זה הקלאס שמחזיר את ה-Opacity ל-1
+            }
+        });
     }
 
-    // הפעלת הפונקציה באירועים רלוונטיים
-    if (document.querySelector('.timeline')) {
-        window.addEventListener('scroll', updateTimelineProgress, { passive: true }); // passive לביצועים טובים יותר
-        window.addEventListener('resize', updateTimelineProgress);
-        // הפעלה ראשונית ליתר ביטחון
-        document.addEventListener('DOMContentLoaded', updateTimelineProgress);
+    // הפעלה
+    if (timelineSection) {
+        window.addEventListener('scroll', handleTimelineAnimations, { passive: true });
+        window.addEventListener('resize', handleTimelineAnimations);
+        // הרצה ראשונית כדי שמה שכבר במסך יופיע מיד
+        handleTimelineAnimations();
+        // בדיקה נוספת לאחר טעינת כל המשאבים (למקרה של שינויי גובה)
+        window.addEventListener('load', handleTimelineAnimations);
     }

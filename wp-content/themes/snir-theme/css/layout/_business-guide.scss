@@ -68,20 +68,21 @@
             }
         }
 
-        .timeline-item {
+.timeline-item {
             position: relative;
-            width: 50%; // תופס חצי רוחב
-            padding: 0 40px; // ריווח מהקו
+            width: 50%; 
+            padding: 0 40px; 
             box-sizing: border-box;
             margin-bottom: 3rem;
             
-            // אנימציית הופעה (Fade In Up)
-            opacity: 0;
+            // --- מצב התחלתי (מוסתר) ---
+            opacity: 0; 
             transform: translateY(30px);
             transition: all 0.6s ease-out;
 
+            // --- מצב גלוי (כשה-JS מוסיף את הקלאס) ---
             &.visible {
-                opacity: 1;
+                opacity: 1; // חייב להיות 1!
                 transform: translateY(0);
             }
 
