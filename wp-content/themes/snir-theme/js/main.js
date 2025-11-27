@@ -260,26 +260,39 @@ document.addEventListener('DOMContentLoaded', function() {
 }); // End DOMContentLoaded
 
 /* ==========================================================================
-       Timeline Scroll Animation (Robust Version)
+       Timeline Progress Line Animation
        ========================================================================== */
-    const timelineItems = document.querySelectorAll('.js-scroll-trigger');
+    function updateTimelineProgress() {
+        const timeline = document.querySelector('.timeline');
+        if (!timeline) return; // אם אין טיימליין בעמוד, צא
 
-    function checkTimelineScroll() {
-        const triggerBottom = window.innerHeight / 5 * 4; // נקודת הטריגר (80% מהמסך)
+        // חישובים
+        const timelineTop = timeline.offsetTop; // איפה הטיימליין מתחיל בדף
+        const timelineHeight = timeline.offsetHeight; // הגובה הכולל של הטיימליין
+        const windowHeight = window.innerHeight; // גובה החלון
+        const scrollY = window.scrollY || window.pageYOffset; // כמה גללנו
 
-        timelineItems.forEach(item => {
-            const itemTop = item.getBoundingClientRect().top;
+        // נקודת הטריגר: אמצע המסך
+        // הקו יתחיל להתמלא כשאמצע המסך יגיע לתחילת הטיימליין
+        const triggerPoint = scrollY + windowHeight / 2;
 
-            if (itemTop < triggerBottom) {
-                item.classList.add('visible');
-            } else {
-                // אופציונלי: להסיר את הקלאס אם גוללים למעלה (כרגע מכובה)
-                // item.classList.remove('visible');
-            }
-        });
+        // חישוב ההתקדמות בפיקסלים
+        let progressPx = triggerPoint - timelineTop;
+        
+        // המרה לאחוזים
+        let progressPercent = (progressPx / timelineHeight) * 100;
+
+        // הגבלת הערך בין 0 ל-100
+        progressPercent = Math.max(0, Math.min(100, progressPercent));
+
+        // עדכון משתנה ה-CSS באלמנט הטיימליין
+        timeline.style.setProperty('--line-progress', `${progressPercent}%`);
     }
 
-    if (timelineItems.length > 0) {
-        window.addEventListener('scroll', checkTimelineScroll);
-        checkTimelineScroll(); // הרצה ראשונית ליתר ביטחון
+    // הפעלת הפונקציה באירועים רלוונטיים
+    if (document.querySelector('.timeline')) {
+        window.addEventListener('scroll', updateTimelineProgress, { passive: true }); // passive לביצועים טובים יותר
+        window.addEventListener('resize', updateTimelineProgress);
+        // הפעלה ראשונית ליתר ביטחון
+        document.addEventListener('DOMContentLoaded', updateTimelineProgress);
     }

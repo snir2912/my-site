@@ -2562,7 +2562,8 @@ body.light-mode .related-posts-section {
   }
 }
 /* =======================================
-   Business Guide Page Styles (RTL Fixed)
+   Business Guide Page Styles (Final Version)
+   עם קו מתמלא בגלילה
    ======================================= */
 .business-guide-page {
   background-color: var(--bg-color);
@@ -2583,7 +2584,6 @@ body.light-mode .related-posts-section {
 .business-guide-page .guide-timeline-section {
   padding-bottom: 5rem;
   position: relative;
-  overflow: hidden;
 }
 .business-guide-page .guide-timeline-section .timeline {
   position: relative;
@@ -2591,7 +2591,7 @@ body.light-mode .related-posts-section {
   margin: 0 auto;
   padding: 20px 0;
 }
-.business-guide-page .guide-timeline-section .timeline::after {
+.business-guide-page .guide-timeline-section .timeline::before {
   content: "";
   position: absolute;
   width: 4px;
@@ -2601,6 +2601,21 @@ body.light-mode .related-posts-section {
   left: 50%;
   transform: translateX(-50%);
   border-radius: 2px;
+  z-index: 0;
+}
+.business-guide-page .guide-timeline-section .timeline::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  background-color: var(--primary-color);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  z-index: 1;
+  height: var(--line-progress, 0%);
+  max-height: 100%;
+  transition: height 0.1s linear;
 }
 .business-guide-page .guide-timeline-section .timeline-item {
   position: relative;
@@ -2709,8 +2724,10 @@ body.light-mode .related-posts-section {
   line-height: 1.7;
 }
 @media (max-width: 768px) {
+  .business-guide-page .guide-timeline-section .timeline::before,
   .business-guide-page .guide-timeline-section .timeline::after {
-    left: 30px;
+    left: auto;
+    right: 30px;
     transform: none;
   }
   .business-guide-page .guide-timeline-section .timeline-item {
