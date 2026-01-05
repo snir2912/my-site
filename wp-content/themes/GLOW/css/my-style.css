@@ -1839,12 +1839,16 @@ body.light-mode .related-posts-section {
   /* הצגת המסגרת הצבעונית */
   /* זוהר חיצוני עדין לכרטיס כולו */
   box-shadow: 0 10px 40px -10px rgba(183, 33, 255, 0.25);
+  /* --- כאן השינוי: החזרת האייקון לצבע המקורי --- */
 }
 .service-card:hover::before {
   opacity: 1;
 }
 .service-card:hover::after {
   opacity: 1;
+}
+.service-card:hover .service-icon {
+  filter: grayscale(0%) brightness(100%);
 }
 
 /* סגנון החלק העליון (חץ + אייקון) */
@@ -1871,7 +1875,10 @@ body.light-mode .related-posts-section {
 .card-header .service-icon-wrapper .service-icon {
   width: 100%;
   height: auto;
+  /* ברירת מחדל: אפור ובהיר */
   filter: grayscale(100%) brightness(200%);
+  /* הוספנו transition למעבר חלק */
+  transition: filter 0.3s ease;
 }
 
 /* בריחוף: החץ נצבע בתכלת וזז */
