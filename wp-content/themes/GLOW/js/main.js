@@ -343,22 +343,27 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ==========================================================================
        11. Interactive Service Cards Glow Effect (New!)
        ========================================================================== */
-    const serviceCards = document.querySelectorAll('.service-card');
+    document.addEventListener("DOMContentLoaded", function() {
+    const heroSection = document.querySelector(".hero-section");
 
-    if (serviceCards.length > 0) {
-        serviceCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                // קבלת מיקום וגודל הכרטיס במסך
-                const rect = card.getBoundingClientRect();
-                // חישוב מיקום העכבר יחסית לפינה השמאלית-עליונה של הכרטיס
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+    if (heroSection) {
+        heroSection.addEventListener("mousemove", (e) => {
+            // חישוב המיקום היחסי בתוך ההירו
+            const rect = heroSection.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-                // עדכון משתני CSS דינמיים בתוך האלמנט הספציפי
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
+            // עדכון המשתנים ב-CSS
+            heroSection.style.setProperty("--mouse-x", `${x}px`);
+            heroSection.style.setProperty("--mouse-y", `${y}px`);
+        });
+        
+        // אופציונלי: איפוס למרכז כשהעכבר יוצא (כדי שהאור לא "ייתקע" בצד)
+        heroSection.addEventListener("mouseleave", () => {
+             heroSection.style.setProperty("--mouse-x", `50%`);
+             heroSection.style.setProperty("--mouse-y", `50%`);
         });
     }
+});
 
 }); // End DOMContentLoaded

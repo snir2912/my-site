@@ -1748,16 +1748,13 @@ body.light-mode .related-posts-section {
   opacity: 0.05;
 }
 
-/* --- Glassmorphism Services Loop --- */
-/* משתנים לאפקט (אפשר לשחק איתם) */
-/* צבע האור שעוקב אחרי העכבר */
+/* --- Colorful Services Loop (Updated) --- */
+/* משתנים מקומיים לכרטיס */
 /* הגדרות הקונטיינר */
 .services-loop-container {
   display: grid;
-  gap: 1.5rem; /* רווחים קטנים יותר למראה מודרני */
+  gap: 1.5rem;
   padding: 2rem 0;
-  /* וודא שהרקע של הסקשן כהה, אחרת לא יראו את האפקט */
-  /* background-color: #0f172a;  <-- בטל הערה אם הרקע שלך לא כהה */
 }
 @media (min-width: 1024px) {
   .services-loop-container {
@@ -1773,18 +1770,22 @@ body.light-mode .related-posts-section {
 /* הכרטיס עצמו */
 .service-card {
   position: relative;
+  /* רקע כהה חצי-שקוף כברירת מחדל */
   background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 2px; /* רווח קטן בשביל הגבול הפנימי */
+  padding: 2px; /* המרווח שמאפשר לראות את הבורדר הצבעוני */
   overflow: hidden;
   text-decoration: none;
-  transition: transform 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  /* אפקט הזוהר שזז (ה-Blob) */
-  /* תוכן הכרטיס - יושב מעל הזוהר */
+  transition: transform 0.3s ease;
+  /* בורדר דק ועדין למצב רגיל (לפני ריחוף) */
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  /* 1. אפקט ה"פנס" הצבעוני שעוקב אחרי העכבר */
+  /* 2. אפקט מסגרת (Border) בגרדיאנט - נדלק בריחוף */
+  /* תוכן הכרטיס - יושב מעל הכל */
+  /* --- מצב HOVER (ריחוף) --- */
 }
 .service-card::before {
   content: "";
@@ -1794,18 +1795,38 @@ body.light-mode .related-posts-section {
   right: 0;
   bottom: 0;
   border-radius: 16px;
-  padding: 2px;
-  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.15), transparent 40%);
   z-index: 1;
   opacity: 0; /* מוסתר כברירת מחדל */
   transition: opacity 0.5s ease;
   pointer-events: none;
+  /* הגרדיאנט הצבעוני (סגול במרכז, תכלת מסביב) */
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(183, 33, 255, 0.4), rgba(33, 212, 253, 0.15) 25%, transparent 50%);
+}
+.service-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  z-index: 2;
+  padding: 1px; /* עובי המסגרת הצבעונית */
+  /* צבעי המותג שלך בגרדיאנט */
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-purple), var(--color-pink));
+  /* טכניקת Mask כדי להשאיר רק את המסגרת */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0; /* מוסתר כברירת מחדל */
+  transition: opacity 0.4s ease;
 }
 .service-card .card-content {
   position: relative;
-  z-index: 2;
-  background-color: rgba(20, 20, 30, 0.85); /* רקע פנימי כהה */
-  border-radius: calc(16px - 2px);
+  z-index: 3;
+  /* רקע פנימי כהה שמסתיר את מה שקורה מתחת, חוץ מהשוליים */
+  background-color: var(--card-background, #1a1b26);
+  border-radius: calc(16px - 2px); /* התאמה רדיוס פנימי */
   height: 100%;
   padding: 2rem;
   display: flex;
@@ -1814,10 +1835,16 @@ body.light-mode .related-posts-section {
 }
 .service-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.2);
+  /* הצגת האור הצבעוני */
+  /* הצגת המסגרת הצבעונית */
+  /* זוהר חיצוני עדין לכרטיס כולו */
+  box-shadow: 0 10px 40px -10px rgba(183, 33, 255, 0.25);
 }
 .service-card:hover::before {
-  opacity: 1; /* מציג את הזוהר בריחוף */
+  opacity: 1;
+}
+.service-card:hover::after {
+  opacity: 1;
 }
 
 /* סגנון החלק העליון (חץ + אייקון) */
@@ -1837,9 +1864,6 @@ body.light-mode .related-posts-section {
 .card-header .service-icon-wrapper {
   width: 48px;
   height: 48px;
-  /* אפשר להוסיף רקע לאייקון אם רוצים */
-  /* background: rgba(255,255,255,0.1); */
-  /* border-radius: 12px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1847,23 +1871,23 @@ body.light-mode .related-posts-section {
 .card-header .service-icon-wrapper .service-icon {
   width: 100%;
   height: auto;
-  filter: grayscale(100%) brightness(200%); /* הופך אייקונים ללבנים/אפורים */
+  filter: grayscale(100%) brightness(200%);
 }
 
-/* בריחוף על הכרטיס, החץ זז ונדלק */
+/* בריחוף: החץ נצבע בתכלת וזז */
 .service-card:hover .card-header .arrow-icon {
-  color: #fff;
+  color: var(--color-cyan, #21D4FD); /* שימוש במשתנה שלך */
   transform: translate(5px, -5px);
 }
 
 /* גוף הכרטיס (טקסטים) */
 .card-body .service-card-title {
-  font-family: "Heebo", sans-serif; /* או הפונט שלך */
+  font-family: "Heebo", sans-serif, sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 0.75rem;
-  text-align: right; /* תמיכה בעברית */
+  text-align: right;
 }
 .card-body .service-excerpt {
   font-size: 0.95rem;
