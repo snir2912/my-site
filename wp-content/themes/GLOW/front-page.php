@@ -81,8 +81,10 @@ $reviews_btn_link = get_field('reviews-btn-link');
                 <?php while ($services_query->have_posts()) : $services_query->the_post();
                     $service_link = get_permalink();
                     $service_title = get_the_title();
-                    // שיניתי לגודל 'thumbnail' שיהיה קטן כמו אייקון, אפשר לשנות לפי הצורך
-                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'); 
+                    
+                    // שינוי 1: שליפת שדה התמונה מ-ACF
+                    // הנחה: השדה מוגדר להחזיר "Image Array"
+                    $icon_image = get_field('icon'); 
                 ?>
                     <a href="<?php echo esc_url($service_link); ?>" class="service-card glass-card" aria-label="<?php echo esc_attr($service_title); ?>">
                         <div class="card-glow"></div>
@@ -94,8 +96,10 @@ $reviews_btn_link = get_field('reviews-btn-link');
                                 </span>
                                 
                                 <div class="service-icon-wrapper">
-                                    <?php if (has_post_thumbnail()) : ?>
-                                        <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php echo esc_attr($service_title); ?>" class="service-icon">
+                                    <?php 
+                                    // שינוי 2: בדיקה אם השדה קיים והצגתו
+                                    if( $icon_image ) : ?>
+                                        <img src="<?php echo esc_url($icon_image['url']); ?>" alt="<?php echo esc_attr($icon_image['alt']); ?>" class="service-icon">
                                     <?php endif; ?>
                                 </div>
                             </div>
