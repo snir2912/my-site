@@ -1,0 +1,187 @@
+.article-card {
+    background-color: map-get($theme-colors, card-background);
+    border: 1px solid map-get($theme-colors, border-color);
+    border-radius: 10px; // קצת יותר עגול
+    box-shadow: 0 6px 15px map-get($theme-colors, shadow-color); // צל עמוק יותר
+    overflow: hidden;
+    // אנימציות חלקה יותר
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, border-color 0.4s ease, background-color 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    position: relative; // עבור אפקטים פנימיים
+    z-index: 1; // ודא שמופיע מעל אלמנטים אחרים ב-hover
+
+    body.light-mode & {
+        background-color: map-get($theme-colors, light-card-background);
+        border-color: map-get($theme-colors, light-border-color);
+        box-shadow: 0 6px 15px map-get($theme-colors, light-shadow-color);
+    }
+
+    // אפקט זוהר/גבול בריחוף
+    &:hover {
+        transform: translateY(-8px); // קצת יותר ניכר
+        box-shadow: 0 12px 25px map-get($theme-colors, shadow-color); // צל חזק יותר בריחוף
+        border-color: map-get($theme-colors, primary-color); // גבול זוהר בצבע ראשי
+        z-index: 2; // כדי שיקפוץ קדימה מעל כרטיסים שכנים
+    }
+
+    // אפקט שכבה עליונה (Overlay) בריחוף
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(map-get($theme-colors, primary-color), 0.05), rgba(map-get($theme-colors, secondary-color), 0.05));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none; // לוודא שלא חוסם קליקים
+        z-index: 1; // ודא שמעל התמונה אך מתחת לתוכן
+    }
+    &:hover::before {
+        opacity: 1; // שכבה עדינה שמופיעה בריחוף
+    }
+
+    .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease-out; // אנימציה לתמונה
+    }
+
+    &:hover .card-image {
+        transform: scale(1.05); // הגדלת התמונה קלות בריחוף
+    }
+
+    .card-content {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-category {
+        font-size: 0.95rem; // מעט יותר גדול
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: map-get($theme-colors, accent-color); // צבע בולט לקטגוריה
+        transition: color 0.3s ease;
+
+        a {
+            color: inherit; // יורש את צבע הקטגוריה
+            text-decoration: none;
+            &:hover {
+                color: map-get($theme-colors, primary-color); // שינוי צבע בריחוף על הקישור
+            }
+        }
+    }
+
+.card-title {
+        font-size: 1.5rem; // קצת יותר גדול
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: 1.4; // רווח שורות טוב יותר
+        color: map-get($theme-colors, primary-color); // **שינוי כאן: צבע ברירת מחדל PRIMARY**
+        transition: color 0.3s ease; // עדיין יש מעבר חלק
+
+        a {
+            color: inherit; // יורש את צבע הכותרת
+            text-decoration: none;
+            &:hover {
+                color: map-get($theme-colors, secondary-color); // **שינוי כאן: צבע ב-hover הוא SECONDARY**
+            }
+        }
+    }
+
+    .card-excerpt {
+        font-size: 1rem; // קצת יותר גדול
+        line-height: 1.7; // ריווח שורות נוח
+        margin-bottom: 20px; // מרווח גדול יותר לפני הכפתור
+        color: map-get($theme-colors, text-color);
+        opacity: 0.9; // מעט שקוף
+        flex-grow: 1;
+        display: -webkit-box; // חיתוך טקסט מבוסס שורות
+        -webkit-line-clamp: 3; // הגבל ל-3 שורות
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis; // הוסף '...' אם הטקסט ארוך מדי
+
+        body.light-mode & {
+            color: map-get($theme-colors, light-text-color);
+        }
+    }
+
+    .card-button {
+        align-self: flex-end; // יישר את הכפתור לימין (אם RTL)
+        display: inline-block;
+        padding: 12px 25px; // גדול יותר
+        border-radius: 50px; // כפתור עגול יותר (Pill shape)
+        text-decoration: none;
+        font-weight: 700; // מודגש יותר
+        font-size: 1rem;
+        letter-spacing: 0.5px; // רווח אותיות קל
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        border: 2px solid map-get($theme-colors, primary-color); // גבול לכפתור
+        cursor: pointer;
+        background-color: map-get($theme-colors, primary-color);
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(map-get($theme-colors, primary-color), 0.3); // צל על הכפתור
+
+        &:hover {
+            background-color: map-get($theme-colors, secondary-color);
+            transform: translateY(-3px); // קופץ קצת יותר
+            box-shadow: 0 6px 15px rgba(map-get($theme-colors, secondary-color), 0.4); // צל חזק יותר
+            border-color: map-get($theme-colors, secondary-color); // שינוי גבול
+        }
+
+        &:active {
+            transform: translateY(0); // אפקט לחיצה
+            box-shadow: 0 2px 5px rgba(map-get($theme-colors, secondary-color), 0.2);
+        }
+    }
+}
+
+// קונטיינר כללי לכותרת של הבלוג
+.latest-blog-section {
+    text-align: center;
+    padding: 80px 0;
+    
+    .section-title {
+        font-size: 2.5em;
+        margin-bottom: 50px;
+        color: map-get($theme-colors, primary-color);
+        position: relative;
+        display: inline-block;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 80px;
+            height: 4px;
+            background-color: map-get($theme-colors, accent-color);
+            border-radius: 2px;
+        }
+    }
+
+    .blog-posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // כרטיסים מעט רחבים יותר
+        gap: 30px; // מרווח קבוע
+        margin-top: 40px;
+
+        @media (max-width: 992px) {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr; // עמודה אחת במובייל
+            padding: 0 15px;
+        }
+    }
+}

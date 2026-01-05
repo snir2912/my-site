@@ -1,0 +1,277 @@
+{
+    "version": 2,
+    "settings": {
+        "color": {
+            "palette": [
+                {
+                    "slug": "background-color",
+                    "color": "#1a1a1a",
+                    "name": "רקע (כהה)"
+                },
+                {
+                    "slug": "text-color",
+                    "color": "#f0f0f0",
+                    "name": "טקסט (כהה)"
+                },
+                {
+                    "slug": "primary-color",
+                    "color": "crimson",
+                    "name": "ראשי (מותג)"
+                },
+                {
+                    "slug": "secondary-color",
+                    "color": "rgb(238, 52, 89)",
+                    "name": "משני"
+                },
+                {
+                    "slug": "accent-color",
+                    "color": "#00bcd4",
+                    "name": "הדגשה"
+                },
+                {
+                    "slug": "border-color",
+                    "color": "#333",
+                    "name": "גבול (כהה)"
+                },
+                {
+                    "slug": "card-background",
+                    "color": "#2b2b2b",
+                    "name": "רקע כרטיס (כהה)"
+                },
+                {
+                    "slug": "light-background-color",
+                    "color": "#f9f9f9",
+                    "name": "רקע (בהיר)"
+                },
+                {
+                    "slug": "light-text-color",
+                    "color": "#333",
+                    "name": "טקסט (בהיר)"
+                },
+                {
+                    "slug": "light-border-color",
+                    "color": "#ddd",
+                    "name": "גבול (בהיר)"
+                },
+                {
+                    "slug": "light-card-background",
+                    "color": "#fff",
+                    "name": "רקע כרטיס (בהיר)"
+                }
+            ],
+            "custom": true,
+            "defaultPalette": false,
+            "defaultGradients": false,
+            "defaultDuotone": false
+        },
+        "typography": {
+            "fontFamilies": [
+                {
+                    "fontFamily": "'Heebo', sans-serif",
+                    "name": "Heebo",
+                    "slug": "heebo"
+                }
+            ],
+            "fontSizes": [
+                {
+                    "slug": "small",
+                    "size": "0.8em",
+                    "name": "קטן"
+                },
+                {
+                    "slug": "normal",
+                    "size": "1em",
+                    "name": "רגיל"
+                },
+                {
+                    "slug": "medium",
+                    "size": "1.25em",
+                    "name": "בינוני"
+                },
+                {
+                    "slug": "large",
+                    "size": "1.75em",
+                    "name": "גדול"
+                },
+                {
+                    "slug": "x-large",
+                    "size": "2.25em",
+                    "name": "ענק"
+                }
+            ],
+            "customFontSize": true,
+            "lineHeight": true,
+            "dropCap": true,
+            "textDecoration": true,
+            "textTransform": true
+        },
+        "layout": {
+            "contentSize": "800px",
+            "wideSize": "1200px"
+        },
+        "spacing": {
+            "units": ["px", "em", "rem", "vh", "vw", "%"],
+            "spacingSizes": [
+                {
+                    "size": "0.5rem",
+                    "slug": "20",
+                    "name": "קטן מאוד"
+                },
+                {
+                    "size": "1rem",
+                    "slug": "30",
+                    "name": "קטן"
+                },
+                {
+                    "size": "1.5rem",
+                    "slug": "40",
+                    "name": "בינוני"
+                },
+                {
+                    "size": "2.5rem",
+                    "slug": "50",
+                    "name": "גדול"
+                },
+                {
+                    "size": "4rem",
+                    "slug": "60",
+                    "name": "גדול מאוד"
+                }
+            ],
+            "blockGap": true,
+            "margin": true,
+            "padding": true
+        },
+        "border": {
+            "color": true,
+            "radius": true,
+            "style": true,
+            "width": true
+        },
+        "shadow": {
+            "presets": [
+                {
+                    "name": "צל כהה",
+                    "slug": "dark-shadow",
+                    "shadow": "rgba(0, 0, 0, 0.4) 0px 4px 12px"
+                },
+                {
+                    "name": "צל בהיר",
+                    "slug": "light-shadow",
+                    "shadow": "rgba(0, 0, 0, 0.1) 0px 4px 12px"
+                }
+            ],
+            "custom": true
+        }
+    },
+    "styles": {
+        "color": {
+            "background": "var:preset|color|background-color",
+            "text": "var:preset|color|text-color"
+        },
+        "typography": {
+            "fontFamily": "var:preset|font-family|heebo",
+            "fontSize": "var:preset|font-size|normal",
+            "lineHeight": "1.6"
+        },
+        "blocks": {
+            "core/post-title": {
+                "typography": {
+                    "fontFamily": "var:preset|font-family|heebo",
+                    "fontSize": "var:preset|font-size|x-large",
+                    "lineHeight": "1.2"
+                }
+            },
+            "core/heading": {
+                "typography": {
+                    "fontFamily": "var:preset|font-family|heebo"
+                },
+                "elements": {
+                    "h1": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|x-large"
+                        }
+                    },
+                    "h2": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|large"
+                        }
+                    },
+                    "h3": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|medium"
+                        }
+                    },
+                    "h4": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|normal"
+                        }
+                    },
+                    "h5": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|small"
+                        }
+                    },
+                    "h6": {
+                        "typography": {
+                            "fontSize": "var:preset|font-size|small"
+                        }
+                    }
+                }
+            },
+            "core/paragraph": {
+                "typography": {
+                    "fontFamily": "var:preset|font-family|heebo",
+                    "fontSize": "var:preset|font-size|normal"
+                }
+            },
+            "core/button": {
+                "color": {
+                    "background": "var:preset|color|primary-color",
+                    "text": "var:preset|color|light-text-color"
+                },
+                "border": {
+                    "radius": "5px"
+                },
+                "spacing": {
+                    "padding": {
+                        "top": "1rem",
+                        "right": "1.5rem",
+                        "bottom": "1rem",
+                        "left": "1.5rem"
+                    }
+                }
+            },
+            "core/group": {
+                "spacing": {
+                    "blockGap": "1.5rem"
+                }
+            },
+            "core/table": {
+                "elements": {
+                    "thead": {
+                        "color": {
+                            "background": "var:preset|color|text-color",
+                            "text": "var:preset|color|primary-color"
+                        },
+                        "typography": {
+                            "fontWeight": "700"
+                        }
+                    }
+                }
+            }
+        },
+        "elements": {
+            "link": {
+                "color": {
+                    "text": "var:preset|color|primary-color"
+                },
+                ":hover": {
+                    "color": {
+                        "text": "var:preset|color|secondary-color"
+                    }
+                }
+            }
+        }
+    }
+}

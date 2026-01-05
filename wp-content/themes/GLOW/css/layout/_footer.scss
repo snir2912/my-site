@@ -1,0 +1,265 @@
+/* =======================================
+   Footer Styles
+   ======================================= */
+
+.main-footer {
+    background-color: #111; // רקע כהה מאוד (כמעט שחור)
+    color: #aaa; // טקסט אפור בהיר
+    padding-top: 5rem;
+    font-family: $font-heebo;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    // Grid Layout
+    .footer-widgets-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1.5fr; // חלוקת רוחב
+        gap: 3rem;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr 1fr; // 2 עמודות בטאבלט
+        }
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr; // עמודה אחת במובייל
+            gap: 2.5rem;
+            text-align: center;
+        }
+    }
+
+    // כותרות
+    .footer-title {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+
+        &::after { // קו קטן מתחת לכותרת
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary-color);
+            
+            @media (max-width: 600px) {
+                right: 50%;
+                transform: translateX(50%);
+            }
+        }
+    }
+
+    // Col 1: About
+    .about-col {
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .footer-tagline {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+            
+            @media (max-width: 600px) {
+                justify-content: center;
+            }
+
+            a {
+                width: 35px;
+                height: 35px;
+                background: rgba(255,255,255,0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                color: #fff;
+                text-decoration: none;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: var(--primary-color);
+                    transform: translateY(-3px);
+                }
+            }
+        }
+    }
+
+    // Col 2: Nav
+    .nav-col .footer-menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 0.8rem;
+            a {
+                color: #aaa;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                
+                &:hover {
+                    color: var(--primary-color);
+                    padding-right: 5px; // הזזה קטנה בהובר
+                }
+            }
+        }
+    }
+
+    // Col 4: Newsletter (CF7 Styling)
+    .newsletter-col {
+        
+        // *** עדכון קריטי: איפוס העיצוב הכללי של CF7 ***
+        // זה מונע מהטופס להיראות כמו "קופסה" בתוך הפוטר
+        .wpcf7 { 
+            padding: 0;
+            box-shadow: none;
+            border: none;
+            background-color: transparent;
+        }
+        
+        .footer-newsletter-form {
+            .wpcf7-form {
+.newsletter-form-inner {
+                display: flex; // *** FIX: הפעלת Flexbox ***
+                gap: 10px;
+                margin-top: 1rem;
+                
+                @media (max-width: 600px) {
+                    flex-direction: column;
+                }
+            }
+
+                input[type="email"] {
+                    width: 100%;
+                    flex-grow: 1;
+                    padding: 10px 15px;
+                    border-radius: 8px; // התאמה לעיצוב החדש
+                    border: 1px solid #333;
+                    background: #222;
+                    color: #fff;
+                    outline: none;
+                    font-size: 0.95rem;
+
+                    &:focus {
+                        border-color: var(--primary-color);
+                    }
+                }
+
+                input[type="submit"] {
+                    background: var(--primary-color);
+                    color: #fff;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px; // התאמה לעיצוב החדש
+                    cursor: pointer;
+                    font-weight: 700;
+                    transition: background 0.3s;
+                    white-space: nowrap;
+                    font-size: 0.95rem;
+                    flex-shrink: 0; // *** FIX: מונע מהכפתור להתכווץ ***
+                    width: auto; // *** FIX: נותן לכפתור רוחב מינימלי ***
+                    min-width: 100px;
+
+                    &:hover {
+                        background: var(--secondary-color);
+                    }
+                }
+                
+                // הסתרת הודעות שגיאה/הצלחה מתחת לשדה כדי לא לשבור עיצוב
+                .wpcf7-not-valid-tip, .wpcf7-response-output {
+                    font-size: 0.8rem;
+                    margin-top: 5px;
+                    text-align: right; // בעברית
+                }
+            }
+        }
+    }
+
+    // Bottom Area
+    .footer-bottom {
+        padding: 2rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+
+        @media (max-width: 600px) {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            &:hover { color: var(--primary-color); }
+        }
+    }
+}
+
+// כפתור וואטסאפ צף
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    left: 30px; // צד שמאל למטה
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    
+    .whatsapp-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #25d366;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        transition: transform 0.3s ease;
+    }
+
+    .whatsapp-bubble {
+        background: #fff;
+        color: #333;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    &:hover {
+        .whatsapp-icon {
+            transform: scale(1.1);
+        }
+        .whatsapp-bubble {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}

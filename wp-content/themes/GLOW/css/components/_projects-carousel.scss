@@ -1,0 +1,195 @@
+/* =======================================
+   Projects Carousel Styles (Homepage)
+   ======================================= */
+
+// שימוש במשתנים גלובליים מהתבנית שלך
+// $font-heebo, $breakpoint-tablet, $breakpoint-desktop, $client-border-radius, $client-transition
+
+.projects-carousel-section {
+    position: relative;
+    padding: 5rem 0;
+    font-family: $font-heebo;
+    
+    // עיצוב "קטלני" ונקי: שימוש ברקע הכרטיס ליצירת הפרדה
+    background-color: var(--card-background); 
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+
+    .container {
+        position: relative; // כדי שהחצים יוכלו להיות בתוכו
+        z-index: 2;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .section-title {
+        color: var(--text-color); // צבע טקסט רגיל
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .projects-slider {
+        padding-bottom: 1rem;
+    }
+
+    // כפתור "לכל הפרויקטים" (בתחתית)
+    // משתמש באותו עיצוב של כפתור ההמלצות, אבל עם צבעים הפוכים
+    .section-btn-container {
+        text-align: center;
+        margin-top: 2.5rem;
+    }
+    
+    // סגנון כפתור משני (דומה לכפתור הבלוג)
+    .secondary-btn {
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: 2px solid var(--primary-color);
+
+        &:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+    }
+}
+
+// עיצוב חצים (דומה להמלצות, אבל בצבעי האתר)
+.projects-arrow-prev,
+.projects-arrow-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    
+    &::after {
+        font-size: 1.2rem; 
+        font-weight: 900;
+        color: var(--primary-color); // צבע ראשי
+        background-color: rgba(0,0,0,0.1); // רקע שקוף
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:hover::after {
+        background-color: var(--primary-color); 
+        color: #fff; // טקסט לבן בהובר
+    }
+}
+
+.projects-arrow-prev {
+    left: calc(50% - 650px - 40px); 
+    
+    @media (max-width: 1400px) { 
+        left: 20px;
+    }
+}
+
+.projects-arrow-next {
+    right: calc(50% - 650px - 40px); 
+
+    @media (max-width: 1400px) { 
+        right: 20px;
+    }
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .projects-arrow-prev,
+    .projects-arrow-next {
+        display: none;
+    }
+
+    .projects-carousel-section .container {
+        padding: 0 1rem; 
+    }
+}
+
+
+/* =======================================
+   העתקת עיצוב "הכרטיס המושלם"
+   כדי שיעבוד גם בעמוד הבית
+   ======================================= */
+.projects-carousel-section {
+    
+    .client-card {
+        display: block;
+        text-decoration: none;
+        background-color: var(--bg-color); 
+        border-radius: 8px; // $client-border-radius
+        overflow: hidden; 
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 10px var(--shadow-color);
+        transition: all 0.3s ease-in-out; // $client-transition
+        height: 100%;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .card-image-wrapper {
+            width: 100%;
+            height: 200px; 
+            position: relative;
+            overflow: hidden;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; 
+                transition: transform 0.4s ease;
+            }
+
+            .card-image-overlay { 
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+            }
+        }
+        
+        &:hover .card-image-wrapper img {
+             transform: scale(1.05);
+        }
+
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-category-badge {
+            display: inline-block;
+            background-color: var(--primary-color); // Crimson
+            color: #fff;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px; 
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem; 
+        }
+
+        .card-title {
+            color: var(--text-color);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0; 
+        }
+    }
+}

@@ -1,0 +1,46 @@
+// Variables - SCSS Map for better organization
+:root {
+    // Dark Mode Defaults
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --primary-color: crimson;
+    --secondary-color: rgb(238, 52, 89);
+    --accent-color: rgb(0, 188, 212); // שיניתי ל-rgb כדי ש-rgba() יעבוד
+    --border-color: #333;
+    --card-background: #2b2b2b;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-mode {
+    // Light Mode Overrides
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --border-color: #ddd;
+    --card-background: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+$theme-colors: (
+    // Dark Mode Defaults
+    background-color: #1a1a1a,
+    text-color: #f0f0f0,
+    primary-color: crimson, 
+    secondary-color: rgb(238, 52, 89), 
+    accent-color: #00bcd4,
+    border-color: #333,
+    card-background: #2b2b2b,
+    shadow-color: rgba(0, 0, 0, 0.4),
+
+    // Light Mode Overrides
+    light-background-color: #f9f9f9,
+    light-text-color: #333,
+    light-border-color: #ddd,
+    light-card-background: #fff,
+    light-shadow-color: rgba(0, 0, 0, 0.1)
+);
+
+// Global Font Variables
+$font-heebo: 'Heebo', sans-serif;
+
+// Breakpoints for Responsive Design
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;

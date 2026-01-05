@@ -1,0 +1,273 @@
+/* =======================================
+   Business Guide Page Styles (Final Version)
+   עם קו מתמלא בגלילה
+   ======================================= */
+
+.business-guide-page {
+    background-color: var(--bg-color);
+    font-family: $font-heebo;
+
+    // 1. Intro Section (הקדמה)
+    .guide-intro {
+        padding: 4rem 0;
+        text-align: center;
+        
+        .intro-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+    }
+
+    // 2. Timeline Section (ציר הזמן)
+    .guide-timeline-section {
+        padding-bottom: 5rem;
+        position: relative;
+        // חשוב: הסרנו overflow: hidden כדי לא לחתוך אלמנטים, 
+        // אבל וידאנו ב-Header שאין גלילה רוחבית באתר כולו.
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+
+            // === קו הבסיס (הרקע האפור של הקו) ===
+            &::before {
+                content: '';
+                position: absolute;
+                width: 4px;
+                background-color: var(--border-color); // צבע הבסיס
+                top: 0;
+                bottom: 0;
+                left: 50%; // ממורכז
+                transform: translateX(-50%);
+                border-radius: 2px;
+                z-index: 0;
+            }
+
+            // === הקו המתמלא (הצבע הפעיל) ===
+            &::after {
+                content: '';
+                position: absolute;
+                width: 4px;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 2px;                
+                // *** כאן הקסם: הגובה נשלט ע"י JS ***
+                height: var(--line-progress, 0%); 
+                max-height: 100%;
+                transition: height 0.1s linear; // מעבר חלק ומהיר
+            }
+        }
+
+.timeline-item {
+            position: relative;
+            width: 50%; 
+            padding: 0 40px; 
+            box-sizing: border-box;
+            margin-bottom: 3rem;
+            
+            // --- מצב התחלתי (מוסתר) ---
+            opacity: 0; 
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+
+            // --- מצב גלוי (כשה-JS מוסיף את הקלאס) ---
+            &.visible {
+                opacity: 1; // חייב להיות 1!
+                transform: translateY(0);
+            }
+
+            // === RTL Logic (סידור ימין/שמאל) ===
+            
+            // פריטים אי-זוגיים (1, 3, 5...) -> צד ימין
+            &:nth-child(odd) {
+                left: auto;
+                right: 0; // מתחיל מימין
+                text-align: right; 
+                
+                .timeline-icon {
+                    left: -25px; // המיקום על הקו המרכזי
+                }
+                
+                // החץ של הבועה
+                .timeline-content::before {
+                    left: -10px;
+                    border-width: 10px 10px 10px 0;
+                    border-color: transparent var(--border-color) transparent transparent;
+                }
+            }
+
+            // פריטים זוגיים (2, 4...) -> צד שמאל
+            &:nth-child(even) {
+                left: 0; 
+                margin-right: 50%; // דוחף את עצמו שמאלה
+                
+                .timeline-icon {
+                    right: -25px; // המיקום על הקו המרכזי
+                }
+
+                // החץ של הבועה
+                .timeline-content::before {
+                    right: -10px;
+                    border-width: 10px 0 10px 10px;
+                    border-color: transparent transparent transparent var(--border-color);
+                }
+            }
+
+            // === העיגול/אייקון ===
+            .timeline-icon {
+                position: absolute;
+                top: 20px;
+                width: 50px;
+                height: 50px;
+                
+                // *** חשוב: רקע אטום כדי שהקו לא ייראה "בתוך" העיגול ***
+                background-color: var(--bg-color); 
+                
+                border: 3px solid var(--primary-color);
+                border-radius: 50%;
+                z-index: 2; // *** חשוב: מעל הקווים (האפור והצבעוני) ***
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                color: var(--primary-color);
+                box-shadow: 0 0 0 4px rgba(220, 20, 60, 0.1); // הילה עדינה
+            }
+
+            // === תוכן השלב (הבועה) ===
+            .timeline-content {
+                background-color: var(--card-background);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 2rem;
+                position: relative;
+                box-shadow: 0 5px 20px var(--shadow-color);
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: translateY(-5px);
+                    border-color: var(--primary-color);
+                }
+
+                // החץ הקטן
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 30px;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                }
+
+                .step-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 1rem;
+                    border-bottom: 1px solid var(--border-color);
+                    padding-bottom: 1rem;
+
+                    .step-number {
+                        font-size: 3rem;
+                        font-weight: 900;
+                        color: var(--primary-color); // מספר בולט וצבעוני
+                        opacity: 0.2;
+                        line-height: 1;
+                        position: absolute;
+                        top: 15px;
+                        left: 20px; 
+                    }
+
+                    h3 {
+                        margin: 0;
+                        font-size: 1.4rem;
+                        color: var(--text-color);
+                        position: relative;
+                        z-index: 1;
+                    }
+                }
+
+                .step-body {
+                    color: var(--text-color);
+                    opacity: 0.9;
+                    line-height: 1.7;
+                }
+            }
+        }
+
+        // === רספונסיביות למובייל (הכל מתיישר לימין) ===
+        @media (max-width: 768px) {
+            
+            // הזזת הקווים (האפור והצבעוני) ימינה
+            .timeline::before,
+            .timeline::after {
+                left: auto; // ביטול המרכוז
+                right: 30px; // הצמדה לימין
+                transform: none;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 0;
+                padding-right: 70px; // מפנה מקום לאייקון מימין
+                margin-right: 0 !important; // מאפס את ההזחה של צד שמאל
+                
+                // איפוס: גם זוגי וגם אי-זוגי נראים אותו דבר במובייל
+                &:nth-child(odd), &:nth-child(even) {
+                    right: auto;
+                    left: auto;
+                    text-align: right;
+
+                    .timeline-icon {
+                        left: auto;
+                        right: 5px; // ממקם את האייקון על הקו החדש
+                    }
+
+                    .timeline-content::before {
+                        left: auto;
+                        right: -10px; // החץ תמיד מימין
+                        border-width: 10px 0 10px 10px;
+                        border-color: transparent transparent transparent var(--border-color);
+                    }
+                }
+            }
+        }
+    }
+
+    // 3. CTA Section (הנעה לפעולה)
+    .guide-cta-section {
+        background-color: var(--card-background);
+        padding: 5rem 0;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+
+            .cta-title {
+                font-size: 2.5rem;
+                font-weight: 900;
+                margin-bottom: 1rem;
+                color: var(--primary-color);
+            }
+
+            .cta-text {
+                font-size: 1.2rem;
+                color: var(--text-color);
+            }
+        }
+
+        .guide-form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+}

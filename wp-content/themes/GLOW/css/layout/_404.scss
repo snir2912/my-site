@@ -1,0 +1,115 @@
+/* =======================================
+   404 Page Styles (Final Updated)
+   ======================================= */
+
+.error-404-page {
+    min-height: 70vh; // תופס את רוב המסך
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--bg-color);
+    padding: 4rem 0;
+
+    .error-content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .error-code {
+        font-size: clamp(6rem, 15vw, 10rem);
+        font-weight: 900;
+        color: var(--primary-color);
+        line-height: 1;
+        margin: 0;
+        text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        animation: glitch 2s infinite; // אנימציית גליץ' עדינה
+    }
+
+    .error-title {
+        font-size: 2rem;
+        margin-top: 1rem;
+        color: var(--text-color);
+        font-weight: 700;
+    }
+
+    .error-text {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 2.5rem;
+    }
+
+    // --- עיצוב הכפתורים החדש ---
+    .error-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px; // רווח מרווח יותר בין הכפתורים
+        margin-top: 2.5rem;
+
+        @media (max-width: 500px) {
+            flex-direction: column; // במובייל אחד מתחת לשני
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 40px; // כפתורים רחבים ונוחים
+            font-size: 1.1rem;
+            font-family: $font-heebo;
+            font-weight: 800; // פונט שמן
+            text-decoration: none;
+            border-radius: 50px; // צורת גלולה (Pill)
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); // אנימציה חלקה
+            cursor: pointer;
+            border: 2px solid transparent; // הכנה לגבול
+
+            @media (max-width: 500px) {
+                width: 100%; // במובייל רוחב מלא
+            }
+
+            // === כפתור ראשי (חזרה לבית) ===
+            &.primary-btn {
+                background-color: var(--primary-color);
+                color: #fff;
+                box-shadow: 0 5px 20px rgba(220, 20, 60, 0.4); // הילה אדומה
+
+                &:hover {
+                    transform: translateY(-4px); // עולה למעלה
+                    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.6); // הילה חזקה יותר
+                    background-color: var(--secondary-color); // שינוי גוון קל
+                }
+            }
+
+            // === כפתור משני (חיפוש) ===
+            &.secondary-btn {
+                background-color: transparent; // שקוף
+                border-color: var(--text-color); // מסגרת בצבע הטקסט (מתאים גם ליום וגם ללילה)
+                color: var(--text-color);
+                opacity: 0.7;
+
+                &:hover {
+                    opacity: 1;
+                    border-color: var(--primary-color); // מסגרת נצבעת באדום
+                    color: var(--primary-color); // טקסט נצבע באדום
+                    background-color: rgba(255, 255, 255, 0.05); // רקע עדין מאוד
+                    transform: translateY(-4px);
+                }
+            }
+        }
+    }
+}
+
+// אנימציית גליץ'
+@keyframes glitch {
+    0% { transform: translate(0,0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0,0); }
+}

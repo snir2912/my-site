@@ -1,0 +1,192 @@
+/* =======================================
+   Client Archive Page Styles (Final)
+   ======================================= */
+
+// שימוש במשתנים גלובליים
+// $theme-colors, $font-heebo, $breakpoint-tablet
+
+// 1. עיצוב הבאנר (כמו שביקשת)
+.archive-banner {
+    background-color: var(--primary-color); 
+    padding: 60px 0;
+    text-align: center;
+    color: #fff;
+
+    .banner-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+
+        .archive-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .breadcrumbs {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            
+            a {
+                color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+                &:hover {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+            }
+            span, strong {
+                 color: #fff;
+            }
+        }
+    }
+}
+
+// 2. סרגל סינון (Filter Bar)
+.projects-filter-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+
+    .filter-btn {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 0.6rem 1.8rem;
+        border-radius: 50px; // צורת גלולה
+        cursor: pointer;
+        font-family: $font-heebo;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        &.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+    }
+}
+
+// 3. הגריד של הלקוחות
+.client-archive-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // *** 3 בשורה ***
+    gap: 2rem;
+    margin-bottom: 4rem;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr; 
+    }
+
+    // אנימציה לפריטים בזמן סינון
+    .project-item {
+        animation: fadeInUp 0.5s ease forwards;
+        
+        // קלאס שה-JS מוסיף כדי להסתיר פריטים
+        &.hide {
+            display: none;
+        }
+    }
+}
+
+// אנימציית הופעה
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+// 4. עיצוב הכרטיס (הכרטיס המושלם)
+.client-archive-grid .client-card {
+    display: block;
+    text-decoration: none;
+    background-color: var(--bg-color); 
+    border-radius: 8px; 
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: all 0.3s ease-in-out;
+    height: 100%; 
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    .card-image-wrapper {
+        width: 100%;
+        height: 240px; 
+        position: relative;
+        overflow: hidden;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+        }
+    }
+    
+    &:hover .card-image-wrapper img {
+            transform: scale(1.05);
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-category-badge {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 0.3rem 0.7rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+        color: var(--text-color);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+}
+
+.pagination-wrapper {
+    text-align: center;
+    margin-bottom: 4rem;
+}

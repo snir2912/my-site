@@ -1,0 +1,126 @@
+// scss/components/_tables.scss
+
+.wp-block-table {
+    width: 100%;
+    margin: 40px 0;
+    overflow-x: auto; // גלילה אופקית
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    padding-bottom: 10px;
+    
+    // עיצוב פס הגלילה (Scrollbar) למראה טכנולוגי
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--bg-color);
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+        &:hover {
+            background: var(--primary-color);
+        }
+    }
+
+    table {
+        width: 100%;
+        min-width: 600px; // מכריח גלילה במסכים קטנים
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 0.95rem;
+        box-shadow: 0 10px 30px var(--shadow-color); // צללית עמוקה יותר
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: var(--card-background);
+        color: var(--text-color);
+        direction: rtl;
+        border: 1px solid var(--border-color);
+
+        /* --- כותרות הטבלה (THEAD) --- */
+        thead {
+            tr {
+                th {
+                    background-color: var(--primary-color);
+                    color: #fff;
+                    text-align: right;
+                    padding: 15px;
+                    font-weight: 700;
+                    border-bottom: 2px solid rgba(0,0,0,0.1);
+                    white-space: nowrap; // מונע שבירת שורות בכותרת
+
+                    // קיבוע כותרת במובייל (Sticky Header)
+                    @media (max-width: 768px) { // $breakpoint-tablet
+                        position: sticky;
+                        top: 0;
+                        z-index: 10;
+                        // צללית קטנה שתפריד את הכותרת מהתוכן בגלילה
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+                    }
+                }
+            }
+        }
+
+        /* --- גוף הטבלה (TBODY) --- */
+        tbody {
+            tr {
+                transition: background-color 0.2s ease;
+
+                // שורות זוגיות (Zebra Striping)
+                &:nth-of-type(even) {
+                    background-color: rgba(0, 0, 0, 0.03); // כהה עדין מאוד
+                    
+                    // התאמה למצב כהה (בתוך משתנה CSS זה יתהפך לבד אם הגדרת נכון, או שנחזק כאן)
+                    [data-theme="dark"] & {
+                        background-color: rgba(255, 255, 255, 0.03); 
+                    }
+                }
+
+                // אפקט הובר על שורה
+                &:hover {
+                    background-color: rgba(var(--primary-color-rgb, 220, 20, 60), 0.1); // צבע ראשי בשקיפות
+                    
+                    td {
+                        color: var(--text-color); // שומר על קריאות
+                    }
+                }
+
+                // גבול תחתון לכל שורה
+                td {
+                    border-bottom: 1px solid var(--border-color);
+                }
+
+                // שורה אחרונה - ללא גבול
+                &:last-child td {
+                    border-bottom: none;
+                }
+            }
+
+            td {
+                padding: 12px 15px;
+                text-align: right;
+                vertical-align: middle;
+
+                // --- קיבוע עמודה ראשונה במובייל (Sticky Column RTL) ---
+                @media (max-width: 768px) { 
+                    &:first-child {
+                        position: sticky;
+                        right: 0; // RTL: נדבק לימין
+                        z-index: 5;
+                        background-color: var(--card-background); // חייב רקע אטום כדי להסתיר את מה שנגלל תחתיו
+                        font-weight: 700;
+                        border-left: 1px solid var(--border-color); // קו מפריד משמאל
+                        box-shadow: -2px 0 5px rgba(0,0,0,0.05); // צללית קלה להפרדה
+                    }
+                    
+                    // תיקון לרקע של העמודה הדביקה בשורות זוגיות
+                    tr:nth-of-type(even) &:first-child {
+                         background-color: var(--card-background); // או גוון טיפה שונה אם רוצים לשמור על הזברה
+                         filter: brightness(0.97); // טריק לשמירת אפקט הזברה גם ב-Sticky
+                    }
+                }
+            }
+        }
+    }
+}
