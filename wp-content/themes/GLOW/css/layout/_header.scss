@@ -1,15 +1,15 @@
 /* =======================================
-   Main Header Styles (Fixed Colors & Active State)
+   Header Styles - GLOW Edition 🌟
    ======================================= */
 
-// 1. רשת ביטחון גלובלית
+// Ensure global safety
 html, body {
     overflow-x: hidden;
     width: 100%;
     position: relative;
 }
 
-/* --- Main Header --- */
+/* --- Main Header Container --- */
 .main-header {
     position: sticky;
     top: 0;
@@ -18,15 +18,29 @@ html, body {
     transition: all 0.3s ease;
     width: 100%;
     
-    // אפקט זכוכית (תמיד כהה)
-    background-color: rgba(var(--bg-color-rgb, 26, 26, 26), 0.85); 
+    // רקע כהה עמוק עם שקיפות
+    background-color: rgba(15, 16, 22, 0.85); // מבוסס על ה-Dark Mode החדש
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-color);
+    
+    // ביטול בורדר רגיל והוספת פס גרדיאנט זוהר בתחתית
+    border-bottom: none;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--brand-gradient); // פס הניאון שלנו
+        opacity: 0.5; // עדין, לא צועק מדי
+        box-shadow: 0 0 10px rgba(33, 212, 253, 0.3); // הילה עדינה
+    }
 
-    // גיבוי
-    @supports not (background-color: rgba(var(--bg-color-rgb), 0.85)) {
-        background-color: #1a1a1a; // צבע כהה קבוע
+    // גיבוי לדפדפנים ישנים
+    @supports not (backdrop-filter: blur(12px)) {
+        background-color: var(--bg-color);
         opacity: 0.98;
     }
 
@@ -43,20 +57,26 @@ html, body {
     flex-shrink: 0;
 
     .custom-logo-link img {
-        height: 50px;
+        height: 50px; // גודל לוגו
         width: auto;
         display: block;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, filter 0.3s ease;
         
         &:hover {
             transform: scale(1.05);
+            // אפקט זוהר עדין ללוגו בהובר
+            filter: drop-shadow(0 0 5px rgba(183, 33, 255, 0.4));
         }
     }
 
+    // טקסט לוגו (אם אין תמונה)
     .site-title-text {
         font-size: 2rem;
         font-weight: 800;
-        color: var(--primary-color);
+        // טקסט עם גרדיאנט!
+        background: var(--brand-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         text-decoration: none;
         letter-spacing: -0.5px;
     }
@@ -84,29 +104,29 @@ html, body {
 
             a {
                 text-decoration: none;
-                
-                // *** תיקון 1: צבע לבן קבוע (כדי שיראו במצב יום על רקע כהה) ***
-                color: #fff; 
-                
+                color: #fff; // לבן נקי
                 font-weight: 600;
                 font-size: 1.05rem;
                 padding: 5px 0;
-                transition: color 0.3s ease;
+                transition: all 0.3s ease;
+                position: relative;
 
                 &:hover {
-                    color: var(--primary-color);
+                    color: var(--color-cyan); // שינוי צבע לתכלת ניאון
+                    text-shadow: 0 0 8px rgba(33, 212, 253, 0.6); // טקסט זוהר
                 }
 
-                // הקו התחתון
+                // הקו התחתון - עכשיו עם גרדיאנט
                 &::after {
                     content: '';
                     position: absolute;
                     width: 0;
                     height: 2px;
                     bottom: 0;
-                    right: 0;
-                    background-color: var(--primary-color);
+                    right: 0; // RTL
+                    background: var(--brand-gradient); // הקו הצבעוני
                     transition: width 0.3s ease;
+                    box-shadow: 0 0 5px var(--color-purple); // הילה לקו
                 }
 
                 &:hover::after {
@@ -115,8 +135,16 @@ html, body {
                 }
             }
             
+            // פריט תפריט פעיל (Active)
             &.current-menu-item a {
-                color: var(--primary-color);
+                color: var(--color-pink); // ורוד ניאון לפריט פעיל
+                font-weight: 700;
+                
+                &::after {
+                    width: 100%;
+                    background: var(--color-pink);
+                    box-shadow: 0 0 8px var(--color-pink);
+                }
             }
         }
     }
@@ -131,7 +159,7 @@ html, body {
     .control-btn {
         background: none;
         border: none;
-        color: #fff; // אייקונים תמיד בלבן כבסיס
+        color: #fff;
         font-size: 1.2rem;
         cursor: pointer;
         padding: 8px;
@@ -142,43 +170,46 @@ html, body {
         justify-content: center;
 
         &:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: var(--primary-color); // הובר הופך לקרימזון
+            background-color: rgba(255,255,255,0.05);
+            color: var(--color-cyan); // תכלת בהובר
             transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(33, 212, 253, 0.2);
         }
     }
 
-    // *** תיקון 2: לוגיקת צבעים לכפתור מצב לילה/יום ***
+    // Theme Toggle Logic
     #theme-toggle {
         .icon-dark, .icon-light {
             transition: color 0.3s ease, opacity 0.3s ease;
             margin: 0 2px;
         }
 
-        // ברירת מחדל (מצב לילה): הירח פעיל (קרימזון), השמש כבויה (אפור/לבן)
+        // Dark Mode (Default)
         .icon-dark {
-            color: var(--primary-color);
+            color: var(--color-purple); // ירח סגול
+            filter: drop-shadow(0 0 2px var(--color-purple));
             opacity: 1;
         }
         .icon-light {
             color: #fff;
-            opacity: 0.5;
+            opacity: 0.3;
         }
 
-        // כאשר אנו במצב יום (יש קלאס light-mode ב-body)
+        // Light Mode Active
         body.light-mode & {
             .icon-dark {
                 color: #fff;
-                opacity: 0.5;
+                opacity: 0.3;
             }
             .icon-light {
-                color: var(--primary-color); // השמש הופכת לקרימזון
+                color: var(--color-orange); // שמש כתומה
+                filter: drop-shadow(0 0 2px var(--color-orange));
                 opacity: 1;
             }
         }
     }
 
-    // המבורגר
+    // Hamburger Menu
     .hamburger-menu {
         display: none;
         flex-direction: column;
@@ -194,22 +225,29 @@ html, body {
         .bar {
             width: 100%;
             height: 3px;
-            background-color: #fff; // לבן קבוע
+            background: #fff;
             border-radius: 3px;
             transition: all 0.3s ease;
         }
 
+        // המבורגר בהובר - הופך לגרדיאנט
+        &:hover .bar {
+            background: var(--brand-gradient);
+            box-shadow: 0 0 5px rgba(183, 33, 255, 0.5);
+        }
+
         &.active {
+            .bar {
+                background: var(--color-pink); // ורוד כשהתפריט פתוח
+            }
             .bar:nth-child(1) {
                 transform: translateY(9px) rotate(45deg);
-                background-color: var(--primary-color);
             }
             .bar:nth-child(2) {
                 opacity: 0;
             }
             .bar:nth-child(3) {
                 transform: translateY(-9px) rotate(-45deg);
-                background-color: var(--primary-color);
             }
         }
 
@@ -219,7 +257,7 @@ html, body {
     }
 }
 
-/* --- 4. Mobile Menu Overlay --- */
+/* --- Mobile Menu Overlay --- */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
@@ -228,9 +266,10 @@ html, body {
     height: 100vh;
     z-index: 1050;
     
-    background-color: rgba(0, 0, 0, 0.9); // רקע כהה חזק יותר לתפריט
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    // רקע כהה מאוד, כמעט אטום
+    background-color: rgba(15, 16, 22, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     
     transform: translateX(100%); 
     visibility: hidden; 
@@ -241,12 +280,15 @@ html, body {
     align-items: center;
     justify-content: center;
     
+    // פס עליון צבעוני לתפריט מובייל
+    border-top: 3px solid transparent;
+    border-image: var(--brand-gradient) 1;
+
     &.active {
         transform: translateX(0); 
         visibility: visible;
     }
 
-    // כפתור סגירה X
     .mobile-menu-close {
         position: absolute;
         top: 30px;
@@ -262,7 +304,8 @@ html, body {
         transition: transform 0.3s ease, color 0.3s ease;
 
         &:hover {
-            color: var(--primary-color);
+            color: var(--color-pink);
+            text-shadow: 0 0 10px var(--color-pink);
             transform: rotate(90deg);
         }
     }
@@ -282,14 +325,20 @@ html, body {
 
             a {
                 text-decoration: none;
-                font-size: 2.2rem;
+                font-size: 2.5rem; // גדול יותר
                 font-weight: 800; 
-                color: #fff; // לבן קבוע גם בתפריט מובייל
-                transition: color 0.3s;
+                color: #fff;
+                transition: all 0.3s;
                 letter-spacing: -1px;
-
+                
+                // אפקט מגניב למובייל: רקע שקוף ובורדר טקסט
+                -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+                
                 &:hover {
-                    color: var(--primary-color);
+                    color: var(--color-cyan);
+                    -webkit-text-stroke: 0px; // מילוי מלא
+                    text-shadow: 0 0 20px rgba(33, 212, 253, 0.6);
+                    transform: scale(1.1);
                 }
             }
         }
@@ -301,7 +350,7 @@ html, body {
         
         @for $i from 1 through 8 {
             &:nth-child(#{$i}) {
-                transition-delay: #{$i * 0.1 + 0.2}s;
+                transition-delay: #{$i * 0.1 + 0.1}s;
             }
         }
     }

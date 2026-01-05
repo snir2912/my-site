@@ -1,41 +1,71 @@
-// Variables - SCSS Map for better organization
+// Variables - SCSS Map & CSS Custom Properties
+
 :root {
-    // Dark Mode Defaults
-    --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
-    --primary-color: crimson;
-    --secondary-color: rgb(238, 52, 89);
-    --accent-color: rgb(0, 188, 212); // שיניתי ל-rgb כדי ש-rgba() יעבוד
-    --border-color: #333;
-    --card-background: #2b2b2b;
-    --shadow-color: rgba(0, 0, 0, 0.4);
+    // --- Palette extracted from the "GLOW" Logo ---
+    --color-cyan: #21D4FD;   // ה-G
+    --color-purple: #B721FF; // ה-L
+    --color-pink: #F72585;   // ה-O
+    --color-orange: #FF914D; // ה-W
+
+    // --- Main Brand Gradient ---
+    // הגרדיאנט הזה ישמש אותנו לכפתורים, טקסטים מודגשים ובורדרים
+    --brand-gradient: linear-gradient(90deg, var(--color-cyan) 0%, var(--color-purple) 50%, var(--color-pink) 100%);
+    
+    // --- Dark Mode Defaults (The Main Look) ---
+    --bg-color: #0f1016; // רקע כהה עמוק יותר, כמעט שחור עם נגיעה קרה
+    --card-background: #1a1b26; // כרטיסיות מעט יותר בהירות
+    --text-color: #ffffff; // לבן נקי לקריאות מקסימלית
+    
+    // Primary כרגע יהיה הסגול-ורוד הדומיננטי, אבל נשתמש הרבה בגרדיאנט
+    --primary-color: #B721FF; 
+    --secondary-color: #21D4FD; // תכלת
+    --accent-color: #FF914D; // כתום
+    
+    --border-color: rgba(255, 255, 255, 0.1); // בורדרים עדינים ושקופים
+    
+    // Glow Effects
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --neon-glow: 0 0 10px rgba(183, 33, 255, 0.5), 0 0 20px rgba(33, 212, 253, 0.3); // אפקט זוהר משולב
 }
 
 body.light-mode {
     // Light Mode Overrides
-    --bg-color: #f9f9f9;
-    --text-color: #333;
-    --border-color: #ddd;
-    --card-background: #fff;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    // במצב בהיר נשמור על ניקיון אבל עם נגיעות של הגרדיאנט
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --card-background: #f4f5f7;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    
+    // במצב בהיר הצבעים הניאוניים צריכים להיות קצת יותר כהים כדי שיהיו קריאים
+    --primary-color: #9d1add; 
+    --secondary-color: #00acc1;
 }
+
+// SCSS Map for Sass usage (Loops, Mixins, etc.)
 $theme-colors: (
+    // Brand Colors
+    brand-cyan: #21D4FD,
+    brand-purple: #B721FF,
+    brand-pink: #F72585,
+    brand-orange: #FF914D,
+
     // Dark Mode Defaults
-    background-color: #1a1a1a,
-    text-color: #f0f0f0,
-    primary-color: crimson, 
-    secondary-color: rgb(238, 52, 89), 
-    accent-color: #00bcd4,
-    border-color: #333,
-    card-background: #2b2b2b,
-    shadow-color: rgba(0, 0, 0, 0.4),
+    background-color: #0f1016,
+    card-background: #1a1b26,
+    text-color: #ffffff,
+    primary-color: #B721FF,
+    secondary-color: #21D4FD,
+    accent-color: #FF914D,
+    border-color: rgba(255, 255, 255, 0.1),
+    shadow-color: rgba(0, 0, 0, 0.5),
 
     // Light Mode Overrides
-    light-background-color: #f9f9f9,
-    light-text-color: #333,
-    light-border-color: #ddd,
-    light-card-background: #fff,
-    light-shadow-color: rgba(0, 0, 0, 0.1)
+    light-background-color: #ffffff,
+    light-text-color: #1a1a1a,
+    light-card-background: #f4f5f7,
+    light-border-color: #e0e0e0,
+    light-shadow-color: rgba(0, 0, 0, 0.05)
 );
 
 // Global Font Variables
