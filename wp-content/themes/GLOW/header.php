@@ -37,7 +37,7 @@
                 <?php
                 wp_nav_menu(array(
                     'theme_location' => 'header-menu',
-                    'container'      => false, // ביטול עטיפת ה-div המיותרת
+                    'container'      => false, 
                     'menu_class'     => 'nav-list',
                     'fallback_cb'    => false
                 ));
@@ -66,6 +66,8 @@
     </header>
 
     <div class="mobile-menu-overlay">
+        <button class="mobile-menu-close" aria-label="סגור תפריט">&times;</button>
+
         <nav class="mobile-nav">
             <?php
             wp_nav_menu(array(
