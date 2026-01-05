@@ -1,38 +1,122 @@
+/* =======================================
+   Hero Section Styles - GLOW Edition 🌟
+   ======================================= */
+
 .hero-section {
-    min-height: 80vh;
+    position: relative;
+    min-height: 90vh; // תופס כמעט את כל הגובה
     display: flex;
     align-items: center;
-    text-align: right;
-    position: relative;
-    overflow: hidden; // Added here as it's specific to hero now
+    justify-content: center;
+    text-align: center;
+    padding: 150px 20px 100px; // ריווחים פנימיים
+    overflow: hidden;
 
-    .hero-content {
-        max-width: 800px;
-        margin-left: auto;
-        padding: 20px;
-        position: relative;
-        z-index: 2;
+    // --- 1. Spectacular Neon Background ---
+    // שילוב של רקע כהה עמוק עם נקודות אור צבעוניות שיוצרות עומק
+    background-color: #0f1016; // צבע בסיס עמוק
+    background-image:
+        // נקודת אור סגולה עדינה מצד שמאל למעלה
+        radial-gradient(circle at 20% 30%, rgba(183, 33, 255, 0.2) 0%, transparent 60%),
+        // נקודת אור תכלת עדינה מצד ימין למטה
+        radial-gradient(circle at 80% 70%, rgba(33, 212, 253, 0.2) 0%, transparent 60%),
+        // גרדיאנט בסיס כהה לכיסוי
+        linear-gradient(180deg, #0f1016 0%, #1a1b26 100%);
+    background-size: cover;
+    background-attachment: fixed; // אפקט פרלקס קל בגלילה
 
-        h1, p, .btn {
-            opacity: 0;
-            animation: fadeInRight 1s ease-out forwards;
-        }
-        h1 { animation-delay: 0.2s; }
-        p:nth-of-type(1) { animation-delay: 0.4s; }
-        p:nth-of-type(2) { animation-delay: 0.6s; }
-        .btn { animation-delay: 0.8s; }
-    }
-
+    // תוספת של "רשת" עדינה מעל הרקע (אופציונלי - נותן תחושה טכנולוגית)
     &::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, map-get($theme-colors, primary-color) 0%, transparent 70%);
-        opacity: 0.1;
-        z-index: 1;
-        animation: gradientFadeIn 2s ease-out forwards;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        pointer-events: none;
+        opacity: 0.3;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        position: relative;
+        z-index: 2; // מעל לרקע
+    }
+}
+
+/* --- 2. Neon Gradient Title --- */
+.hero-title {
+    font-size: clamp(3rem, 8vw, 5.5rem); // ריספונסיבי וענק
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+
+    // יישום גרדיאנט על הטקסט
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    // הילה זוהרת עדינה מסביב לטקסט (משתמש בפילטר לביצועים טובים יותר מצללית טקסט)
+    filter: drop-shadow(0 0 8px rgba(183, 33, 255, 0.3));
+}
+
+/* --- 3. Scroll Reveal Text Effect --- */
+// זה הטקסט שיהפוך ללבן בגלילה. ה-JS ישלוט במשתנה --hero-text-opacity
+.hero-text {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 45px auto;
+    color: #fff; // צבע היעד (לבן)
+
+    // התחלה: שקיפות נמוכה (כהה/שקוף)
+    // המשתנה יתעדכן ע"י JS בין 0.2 ל-1
+    opacity: var(--hero-text-opacity, 0.2);
+    // טרנזישן קצר מאוד לריכוך השינוי, אבל ה-JS יעשה את רוב העבודה החלקה
+    transition: opacity 0.1s linear;
+}
+
+/* --- 4. Gradient Button with Rounded Corners --- */
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 45px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    // עיצוב הכפתור
+    background: var(--brand-gradient); // הגרדיאנט שלנו
+    border-radius: 50px; // פינות עגולות לחלוטין (צורת גלולה)
+    box-shadow: 0 10px 30px rgba(183, 33, 255, 0.3); // צללית סגולה זוהרת
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:hover {
+        transform: translateY(-5px) scale(1.02); // עולה וגדל מעט
+        box-shadow: 0 15px 40px rgba(33, 212, 253, 0.5); // הצללית הופכת לתכלת וחזקה יותר
+        filter: brightness(1.1); // הבהרה קלה
+    }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 120px 20px 80px;
+        min-height: auto; // במובייל הגובה תלוי בתוכן
+    }
+    
+    .hero-text {
+        font-size: 1.1rem;
+    }
+    
+    .hero-btn {
+        width: 100%; // כפתור רחב במובייל
+        padding: 14px 30px;
     }
 }

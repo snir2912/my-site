@@ -1,17 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     /* ==========================================================================
-       1. Mobile Menu Logic (With Close Button)
+       1. Mobile Menu Logic (Fixed & Robust)
        ========================================================================== */
     const hamburger = document.querySelector('.hamburger-menu');
     const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-    const mobileCloseBtn = document.querySelector('.mobile-menu-close'); // כפתור הסגירה החדש
+    const mobileCloseBtn = document.querySelector('.mobile-menu-close'); 
     const body = document.body;
     
     // פונקציה לסגירת התפריט
     function closeMobileMenu() {
         if(hamburger) hamburger.classList.remove('active');
         if(mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+        // הסרת החסימה לגלילה אם הוספה
         if(body) body.classList.remove('no-scroll');
     }
 
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.addEventListener('click', function() {
             this.classList.toggle('active');
             mobileMenuOverlay.classList.toggle('active');
-            body.classList.toggle('no-scroll');
+            // body.classList.toggle('no-scroll'); // אופציונלי - אם רוצים למנוע גלילה ברקע
         });
 
         // סגירה בלחיצה על כפתור ה-X החדש
@@ -71,14 +72,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleScroll() {
         const fadeElements = document.querySelectorAll('.fade-in-up, .image-col');
         fadeElements.forEach(el => {
-            if (isElementInViewport(el)) el.classList.add('visible');
+            // הוספת בדיקה פשוטה יותר ל-viewport (קצת יותר סלחנית)
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                el.classList.add('visible');
+            }
         });
     }
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); 
 
-/* ==========================================================================
+    /* ==========================================================================
        4. FAQ Accordion - אקורדיון שאלות ותשובות (מתוקן)
        ========================================================================== */
     const faqItems = document.querySelectorAll('.faq-item');
@@ -175,14 +180,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 projectItems.forEach(item => {
                     if (filterValue === 'all') {
                         item.classList.remove('hide');
+                        // איפוס אנימציה כדי שתרוץ שוב
                         item.style.animation = 'none';
-                        item.offsetHeight; 
+                        item.offsetHeight; /* trigger reflow */
                         item.style.animation = null;
                     } else {
                         if (item.classList.contains(filterValue)) {
                             item.classList.remove('hide');
                             item.style.animation = 'none';
-                            item.offsetHeight;
+                            item.offsetHeight; 
                             item.style.animation = null;
                         } else {
                             item.classList.add('hide');
@@ -257,12 +263,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-}); // End DOMContentLoaded
-
-/* ==========================================================================
-       Timeline Animation Bundle (Line Progress + Items Fade In)
+    /* ==========================================================================
+       9. Hero Text Scroll Reveal Effect (New!)
        ========================================================================== */
+    function handleHeroTextReveal() {
+        const heroSection = document.querySelector('.hero-section');
+        const heroText = document.querySelector('.hero-text');
+
+        if (!heroSection || !heroText) return;
+
+        function updateTextOpacity() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const heroHeight = heroSection.offsetHeight;
+            const startOffset = heroSection.offsetTop;
+            const endOffset = startOffset + heroHeight * 0.6;
+            let progress = (scrollY - startOffset) / (endOffset - startOffset);
+            progress = Math.max(0, Math.min(1, progress));
+            
+            // מ-0.2 ל-1
+            const minOpacity = 0.2;
+            const maxOpacity = 1;
+            const currentOpacity = minOpacity + (progress * (maxOpacity - minOpacity));
+
+            heroText.style.setProperty('--hero-text-opacity', currentOpacity);
+        }
+
+        window.addEventListener('scroll', updateTextOpacity, { passive: true });
+        updateTextOpacity();
+    }
     
+    // הפעלה
+    handleHeroTextReveal();
+
+
+    /* ==========================================================================
+       10. Timeline Animation Bundle (Line Progress + Items Fade In)
+       ========================================================================== */
     const timelineSection = document.querySelector('.guide-timeline-section');
     const timeline = document.querySelector('.timeline');
     const timelineItems = document.querySelectorAll('.js-scroll-trigger');
@@ -300,8 +336,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (timelineSection) {
         window.addEventListener('scroll', handleTimelineAnimations, { passive: true });
         window.addEventListener('resize', handleTimelineAnimations);
-        // הרצה ראשונית כדי שמה שכבר במסך יופיע מיד
         handleTimelineAnimations();
-        // בדיקה נוספת לאחר טעינת כל המשאבים (למקרה של שינויי גובה)
         window.addEventListener('load', handleTimelineAnimations);
     }
+
+}); // End DOMContentLoaded
