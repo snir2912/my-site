@@ -1,87 +1,141 @@
-/* --- Services Loop Styles --- */
+/* --- Glassmorphism Services Loop --- */
 
-/* הגדרות כלליות למיכל של כל הכרטיסים */
+/* משתנים לאפקט (אפשר לשחק איתם) */
+$glass-bg: rgba(255, 255, 255, 0.03);
+$glass-border: rgba(255, 255, 255, 0.1);
+$card-radius: 16px;
+$glow-color: rgba(255, 255, 255, 0.15); /* צבע האור שעוקב אחרי העכבר */
+
+/* הגדרות הקונטיינר */
 .services-loop-container {
     display: grid;
-    gap: 3rem; /* רווח בין הכרטיסים */
+    gap: 1.5rem; /* רווחים קטנים יותר למראה מודרני */
     padding: 2rem 0;
+    
+    /* וודא שהרקע של הסקשן כהה, אחרת לא יראו את האפקט */
+    /* background-color: #0f172a;  <-- בטל הערה אם הרקע שלך לא כהה */
 
-    /* רספונסיביות: 3 כרטיסים בשורה בדסקטופ */
     @media (min-width: $breakpoint-desktop) {
         grid-template-columns: repeat(3, 1fr);
     }
-
-    /* רספונסיביות: 1 כרטיס בשורה במובייל */
     @media (max-width: $breakpoint-tablet) {
         grid-template-columns: 1fr;
     }
 }
 
-/* סגנון כללי לכרטיס (התיקייה) */
+/* הכרטיס עצמו */
 .service-card {
     position: relative;
-    padding: 2rem;
-    border-radius: 12px;
-    background-color: var(--card-background);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 10px 25px var(--shadow-color);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    background-color: $glass-bg;
+    border: 1px solid $glass-border;
+    border-radius: $card-radius;
+    padding: 2px; /* רווח קטן בשביל הגבול הפנימי */
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
-    overflow: hidden; /* כדי שהתמונה לא תצא מהגבולות לפני הריחוף */
+    display: flex;
+    flex-direction: column;
+
+    /* אפקט הזוהר שזז (ה-Blob) */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: $card-radius;
+        padding: 2px;
+        background: radial-gradient(
+            800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+            $glow-color, 
+            transparent 40%
+        );
+        z-index: 1;
+        opacity: 0; /* מוסתר כברירת מחדל */
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+    }
+
+    /* תוכן הכרטיס - יושב מעל הזוהר */
+    .card-content {
+        position: relative;
+        z-index: 2;
+        background-color: rgba(20, 20, 30, 0.85); /* רקע פנימי כהה */
+        border-radius: calc(#{$card-radius} - 2px);
+        height: 100%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
     &:hover {
-        transform: translateY(-8px); /* אפקט ריחוף עדין */
-        box-shadow: 0 15px 35px var(--shadow-color);
+        transform: translateY(-5px);
+        border-color: rgba(255, 255, 255, 0.2);
+        
+        &::before {
+            opacity: 1; /* מציג את הזוהר בריחוף */
+        }
     }
 }
 
-/* כותרת השירות - ממוקמת בתחתית הכרטיס */
-.service-card-title {
-    font-family: $font-heebo;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-color);
-    text-align: center;
-    margin-top: 1rem;
-    position: relative;
-    z-index: 2; /* כדי שיהיה מעל התמונה */
-}
+/* סגנון החלק העליון (חץ + אייקון) */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
 
-/* מיכל התמונה - המייצג את פנים התיקייה */
-.service-image-container {
-    position: relative;
-    width: 100%;
-    height: 250px; /* גובה קבוע לתמונה */
-    overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    transform-origin: bottom center; /* נקודת הסיבוב */
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* אנימציה חלקה */
-    z-index: 1; /* מתחת לכותרת */
+    .arrow-icon {
+        color: rgba(255, 255, 255, 0.4);
+        transition: color 0.3s ease, transform 0.3s ease;
+        
+        svg {
+            display: block;
+        }
+    }
 
-    .service-card:hover & {
-        transform: translateY(-15%) rotate(-5deg); /* הזזה למעלה וסיבוב קל */
+    .service-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        /* אפשר להוסיף רקע לאייקון אם רוצים */
+        /* background: rgba(255,255,255,0.1); */
+        /* border-radius: 12px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .service-icon {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) brightness(200%); /* הופך אייקונים ללבנים/אפורים */
+        }
     }
 }
 
-/* התמונה עצמה */
-.service-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* חותך את התמונה כדי שתתאים */
-    display: block;
+/* בריחוף על הכרטיס, החץ זז ונדלק */
+.service-card:hover .card-header .arrow-icon {
+    color: #fff;
+    transform: translate(5px, -5px);
 }
 
-/* סגנון למכסה התיקייה - אפקט ויזואלי */
-.folder-cover {
-    position: absolute;
-    top: -10px;
-    left: 10%;
-    width: 80%;
-    height: 20px;
-    background-color: var(--primary-color);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    z-index: 3;
-    transition: background-color 0.3s ease-in-out;
+/* גוף הכרטיס (טקסטים) */
+.card-body {
+    .service-card-title {
+        font-family: $font-heebo; /* או הפונט שלך */
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.75rem;
+        text-align: right; /* תמיכה בעברית */
+    }
+
+    .service-excerpt {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+        text-align: right;
+    }
 }

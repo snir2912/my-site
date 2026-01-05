@@ -10,7 +10,7 @@ Template Name: Front Page Template
 $h1 = get_field('h1');
 $hero_paragraph = get_field('hero_paragraph');
 
-// *** חדש: שדות וידאו ***
+// שדות וידאו
 $video_headline = get_field('video-headline');
 $promo_video = get_field('promo-video');
 
@@ -29,9 +29,11 @@ $reviews_btn_link = get_field('reviews-btn-link');
 <section class="hero-section" id="hero">
     <div class="container">
         <div class="hero-content">
-            <h1><?php echo esc_html($h1); ?></h1>
-            <p><?php echo wp_kses_post($hero_paragraph); ?></p>
-            <a href="#contact" class="btn primary-btn">בואו נדבר על הפרויקט שלכם</a>
+            <h1 class="hero-title"><?php echo esc_html($h1); ?></h1>
+            
+            <p class="hero-text"><?php echo wp_kses_post($hero_paragraph); ?></p>
+            
+            <a href="#contact" class="hero-btn">בואו נדבר על הפרויקט שלכם</a>
         </div>
     </div>
 </section>
@@ -60,9 +62,11 @@ $reviews_btn_link = get_field('reviews-btn-link');
     </div>
 </section>
 <?php endif; ?>
+
 <section class="services-section" id="services">
     <div class="container">
         <h2 class="section-title"><?php echo esc_html($services_headline); ?></h2>
+        
         <?php
         $args = array(
             'post_type'      => 'services',
@@ -70,24 +74,39 @@ $reviews_btn_link = get_field('reviews-btn-link');
             'post_status'    => 'publish',
         );
         $services_query = new WP_Query($args);
+        
         if ($services_query->have_posts()) :
         ?>
-            <div class="services-loop-container">
+            <div class="services-loop-container glass-grid">
                 <?php while ($services_query->have_posts()) : $services_query->the_post();
                     $service_link = get_permalink();
                     $service_title = get_the_title();
-                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+                    // שיניתי לגודל 'thumbnail' שיהיה קטן כמו אייקון, אפשר לשנות לפי הצורך
+                    $thumbnail_url = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'); 
                 ?>
-                    <a href="<?php echo esc_url($service_link); ?>" class="service-card" aria-label="<?php echo esc_attr($service_title); ?>">
-                        <div class="folder-cover"></div>
-                        <div class="service-image-container">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php echo esc_attr($service_title); ?>" class="service-image">
-                            <?php else: ?>
-                                <div class="placeholder-image">אין תמונה</div>
-                            <?php endif; ?>
+                    <a href="<?php echo esc_url($service_link); ?>" class="service-card glass-card" aria-label="<?php echo esc_attr($service_title); ?>">
+                        <div class="card-glow"></div>
+                        
+                        <div class="card-content">
+                            <div class="card-header">
+                                <span class="arrow-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                </span>
+                                
+                                <div class="service-icon-wrapper">
+                                    <?php if (has_post_thumbnail()) : ?>
+                                        <img src="<?php echo esc_url($thumbnail_url); ?>" alt="<?php echo esc_attr($service_title); ?>" class="service-icon">
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <h3 class="service-card-title"><?php echo esc_html($service_title); ?></h3>
+                                <div class="service-excerpt">
+                                    <?php echo wp_trim_words(get_the_excerpt(), 15, '...'); ?>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="service-card-title"><?php echo esc_html($service_title); ?></h3>
                     </a>
                 <?php endwhile; ?>
             </div>
@@ -337,8 +356,9 @@ if (have_rows('reviews', 'option')) :
 <?php 
 endif; 
 ?>
+
 <div class="contact-form" id="contact">
-    <div class="cintainer">
+    <div class="container">
         <h2><?php echo esc_html($cf_headline); ?></h2>
         <p><?php echo wp_kses_post($cf_paragraph); ?></p>
         <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>

@@ -340,4 +340,25 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('load', handleTimelineAnimations);
     }
 
+    /* ==========================================================================
+       11. Interactive Service Cards Glow Effect (New!)
+       ========================================================================== */
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    if (serviceCards.length > 0) {
+        serviceCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // קבלת מיקום וגודל הכרטיס במסך
+                const rect = card.getBoundingClientRect();
+                // חישוב מיקום העכבר יחסית לפינה השמאלית-עליונה של הכרטיס
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // עדכון משתני CSS דינמיים בתוך האלמנט הספציפי
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+
 }); // End DOMContentLoaded
