@@ -2,140 +2,58 @@
    Projects Carousel Styles (Homepage)
    ======================================= */
 
-// שימוש במשתנים גלובליים מהתבנית שלך
-// $font-heebo, $breakpoint-tablet, $breakpoint-desktop, $client-border-radius, $client-transition
+// הגדרת משתנה לגרדיינט לשימוש חוזר בקובץ זה
+$brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 
 .projects-carousel-section {
     position: relative;
     padding: 5rem 0;
     font-family: $font-heebo;
     
-    // עיצוב "קטלני" ונקי: שימוש ברקע הכרטיס ליצירת הפרדה
+    // רקע הכרטיס כבסיס
     background-color: var(--card-background); 
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
     overflow: hidden;
 
     .container {
-        position: relative; // כדי שהחצים יוכלו להיות בתוכו
+        position: relative;
         z-index: 2;
         max-width: 1300px;
         margin: 0 auto;
         padding: 0 2rem;
     }
 
+    // כותרת המקטע - גרדיינט טקסט
     .section-title {
-        color: var(--text-color); // צבע טקסט רגיל
         text-align: center;
         margin-bottom: 3rem;
+        font-weight: 800;
+        
+        // יצירת טקסט גרדיינט
+        background: $brand-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
     }
 
     .projects-slider {
         padding-bottom: 1rem;
     }
 
-    // כפתור "לכל הפרויקטים" (בתחתית)
-    // משתמש באותו עיצוב של כפתור ההמלצות, אבל עם צבעים הפוכים
-    .section-btn-container {
-        text-align: center;
-        margin-top: 2.5rem;
-    }
-    
-    // סגנון כפתור משני (דומה לכפתור הבלוג)
-    .secondary-btn {
-        background-color: var(--primary-color);
-        color: #fff;
-        padding: 0.75rem 2rem;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        border: 2px solid var(--primary-color);
-
-        &:hover {
-            background-color: transparent;
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-    }
-}
-
-// עיצוב חצים (דומה להמלצות, אבל בצבעי האתר)
-.projects-arrow-prev,
-.projects-arrow-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 50px;
-    height: 50px;
-    
-    &::after {
-        font-size: 1.2rem; 
-        font-weight: 900;
-        color: var(--primary-color); // צבע ראשי
-        background-color: rgba(0,0,0,0.1); // רקע שקוף
-        border: 1px solid var(--border-color);
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    &:hover::after {
-        background-color: var(--primary-color); 
-        color: #fff; // טקסט לבן בהובר
-    }
-}
-
-.projects-arrow-prev {
-    left: calc(50% - 650px - 40px); 
-    
-    @media (max-width: 1400px) { 
-        left: 20px;
-    }
-}
-
-.projects-arrow-next {
-    right: calc(50% - 650px - 40px); 
-
-    @media (max-width: 1400px) { 
-        right: 20px;
-    }
-}
-
-@media (max-width: $breakpoint-tablet) {
-    .projects-arrow-prev,
-    .projects-arrow-next {
-        display: none;
-    }
-
-    .projects-carousel-section .container {
-        padding: 0 1rem; 
-    }
-}
-
-
-/* =======================================
-   העתקת עיצוב "הכרטיס המושלם"
-   כדי שיעבוד גם בעמוד הבית
-   ======================================= */
-.projects-carousel-section {
-    
+    // --- עיצוב כרטיס הלקוח ---
     .client-card {
-        display: block;
+        display: block; // או flex אם צריך
         text-decoration: none;
-        background-color: var(--bg-color); 
-        border-radius: 8px; // $client-border-radius
+        background-color: var(--card-background); 
+        border-radius: 8px;
         overflow: hidden; 
         border: 1px solid var(--border-color);
         box-shadow: 0 4px 10px var(--shadow-color);
-        transition: all 0.3s ease-in-out; // $client-transition
+        transition: all 0.3s ease-in-out;
         height: 100%;
+        position: relative; // למיקום אלמנטים
 
         &:hover {
             transform: translateY(-5px);
@@ -161,7 +79,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%);
+                background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 50%);
             }
         }
         
@@ -169,20 +87,24 @@
              transform: scale(1.05);
         }
 
-
         .card-content {
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; // יישור לימין (בעברית)
         }
 
+        // קטגוריה: רקע גרדיינט, כיתוב לבן
         .card-category-badge {
             display: inline-block;
-            background-color: var(--primary-color); // Crimson
+            background: $brand-gradient; // שימוש בגרדיינט
             color: #fff;
-            padding: 0.3rem 0.7rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 50px; 
             font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem; 
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .card-title {
@@ -190,6 +112,119 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin: 0; 
+            margin-bottom: 1rem;
         }
+
+        // כפתור בתוך הכרטיס (אם קיים HTML כזה, או אם תרצה להוסיף)
+        .client-card-btn {
+            margin-top: auto;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            
+            // טכניקת מסגרת גרדיינט
+            background: linear-gradient(var(--card-background), var(--card-background)) padding-box,
+                        $brand-gradient border-box;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: $brand-gradient padding-box,
+                            $brand-gradient border-box;
+                box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.4);
+            }
+        }
+    }
+
+    // --- כפתור "לכל הפרויקטים" (בתחתית) ---
+    .section-btn-container {
+        text-align: center;
+        margin-top: 2.5rem;
+    }
+    
+    // עיצוב כפתור משני עם מסגרת גרדיינט
+    .secondary-btn {
+        display: inline-block;
+        padding: 0.75rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1rem;
+        color: #fff; // טקסט לבן
+
+        // טכניקת מסגרת גרדיינט עם רקע שקוף (בצבע הכרטיס/רקע)
+        background: linear-gradient(var(--card-background), var(--card-background)) padding-box,
+                    $brand-gradient border-box;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+        &:hover {
+            // במעבר עכבר: הרקע מתמלא בגרדיינט
+            background: $brand-gradient padding-box,
+                        $brand-gradient border-box;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(var(--primary-color), 0.4); // הנחה שקיים משתנה כזה או דומה
+            color: #fff;
+        }
+    }
+}
+
+// עיצוב חצים
+.projects-arrow-prev,
+.projects-arrow-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    
+    &::after {
+        font-family: "Font Awesome 5 Free"; // הנחה שזה הפונט, או שתשנה בהתאם
+        font-weight: 900;
+        font-size: 1.2rem; 
+        color: var(--primary-color);
+        background-color: var(--card-background); // רקע מלא כדי שלא יתנגש עם קווים
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    &:hover::after {
+        background: var(--primary-color); 
+        color: #fff;
+        border-color: var(--primary-color);
+    }
+}
+
+.projects-arrow-prev {
+    left: calc(50% - 650px - 25px); 
+    @media (max-width: 1400px) { left: 10px; }
+}
+
+.projects-arrow-next {
+    right: calc(50% - 650px - 25px); 
+    @media (max-width: 1400px) { right: 10px; }
+}
+
+@media (max-width: $breakpoint-tablet) {
+    .projects-arrow-prev,
+    .projects-arrow-next {
+        display: none;
+    }
+    .projects-carousel-section .container {
+        padding: 0 1rem; 
     }
 }
