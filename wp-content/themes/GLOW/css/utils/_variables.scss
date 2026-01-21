@@ -84,6 +84,7 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
 h1, h2, .section-title {
     font-family: $font-heebo; // הנחה שזה הפונט של הכותרות אצלך
     font-weight: 800;
+    text-align: center;
     
     // יצירת טקסט גרדיינט
     background: $brand-gradient;
