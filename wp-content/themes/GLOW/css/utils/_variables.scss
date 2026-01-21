@@ -74,3 +74,22 @@ $font-heebo: 'Heebo', sans-serif;
 // Breakpoints for Responsive Design
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
+
+/* --- Global Gradient for Titles --- */
+
+// משתנה לגרדיינט (אם כבר מוגדר אצלך בקובץ משתנים, אין צורך בשורה זו)
+$brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+
+// החלת הגרדיינט על כותרות H1, H2 ו-Section Title
+h1, h2, .section-title {
+    font-family: $font-heebo; // הנחה שזה הפונט של הכותרות אצלך
+    font-weight: 800;
+    
+    // יצירת טקסט גרדיינט
+    background: $brand-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    display: inline-block; // חשוב כדי שהגרדיינט יחול רק על הטקסט
+}

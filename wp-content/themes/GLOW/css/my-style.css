@@ -26,6 +26,17 @@ body.light-mode {
   --secondary-color: #00acc1;
 }
 
+/* --- Global Gradient for Titles --- */
+h1, h2, .section-title {
+  font-family: "Heebo", sans-serif;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -4007,12 +4018,6 @@ body.light-mode .pagination .page-numbers.dots {
 .projects-carousel-section .section-title {
   text-align: center;
   margin-bottom: 3rem;
-  font-weight: 800;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: inline-block;
 }
 .projects-carousel-section .projects-slider {
   padding-bottom: 1rem;
@@ -4081,23 +4086,6 @@ body.light-mode .pagination .page-numbers.dots {
   margin: 0;
   margin-bottom: 1rem;
 }
-.projects-carousel-section .client-card .client-card-btn {
-  margin-top: auto;
-  display: inline-block;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-decoration: none;
-  color: #fff;
-  background: linear-gradient(var(--card-background), var(--card-background)) padding-box, linear-gradient(90deg, var(--primary-color), var(--secondary-color)) border-box;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-}
-.projects-carousel-section .client-card .client-card-btn:hover {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) padding-box, linear-gradient(90deg, var(--primary-color), var(--secondary-color)) border-box;
-  box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.4);
-}
 .projects-carousel-section .section-btn-container {
   text-align: center;
   margin-top: 2.5rem;
@@ -4147,13 +4135,21 @@ body.light-mode .pagination .page-numbers.dots {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .projects-arrow-prev:hover::after,
 .projects-arrow-next:hover::after {
   background: var(--primary-color);
   color: #fff;
   border-color: var(--primary-color);
+}
+
+.projects-arrow-prev::after {
+  content: "\f053";
+}
+
+.projects-arrow-next::after {
+  content: "\f054";
 }
 
 .projects-arrow-prev {

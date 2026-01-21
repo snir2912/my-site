@@ -10,7 +10,6 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
     padding: 5rem 0;
     font-family: $font-heebo;
     
-    // רקע הכרטיס כבסיס
     background-color: var(--card-background); 
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
@@ -24,27 +23,20 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
         padding: 0 2rem;
     }
 
-    // כותרת המקטע - גרדיינט טקסט
+    // כותרת המקטע - ממורכזת ומקבלת את הגרדיינט הגלובלי
     .section-title {
-        text-align: center;
+        text-align: center; // מרכוז הכותרת
         margin-bottom: 3rem;
-        font-weight: 800;
-        
-        // יצירת טקסט גרדיינט
-        background: $brand-gradient;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        display: inline-block;
+        // שאר עיצוב הגרדיינט מגיע מההגדרה הגלובלית ב-h2/.section-title
     }
 
     .projects-slider {
         padding-bottom: 1rem;
     }
 
-    // --- עיצוב כרטיס הלקוח ---
+    // --- עיצוב כרטיס הלקוח (ללא שינוי מהפעם הקודמת) ---
     .client-card {
-        display: block; // או flex אם צריך
+        display: block;
         text-decoration: none;
         background-color: var(--card-background); 
         border-radius: 8px;
@@ -53,7 +45,7 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
         box-shadow: 0 4px 10px var(--shadow-color);
         transition: all 0.3s ease-in-out;
         height: 100%;
-        position: relative; // למיקום אלמנטים
+        position: relative;
 
         &:hover {
             transform: translateY(-5px);
@@ -91,13 +83,12 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; // יישור לימין (בעברית)
+            align-items: flex-start;
         }
 
-        // קטגוריה: רקע גרדיינט, כיתוב לבן
         .card-category-badge {
             display: inline-block;
-            background: $brand-gradient; // שימוש בגרדיינט
+            background: $brand-gradient;
             color: #fff;
             padding: 0.3rem 0.8rem;
             border-radius: 50px; 
@@ -114,30 +105,6 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
             margin: 0; 
             margin-bottom: 1rem;
         }
-
-        // כפתור בתוך הכרטיס (אם קיים HTML כזה, או אם תרצה להוסיף)
-        .client-card-btn {
-            margin-top: auto;
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: #fff;
-            
-            // טכניקת מסגרת גרדיינט
-            background: linear-gradient(var(--card-background), var(--card-background)) padding-box,
-                        $brand-gradient border-box;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-
-            &:hover {
-                background: $brand-gradient padding-box,
-                            $brand-gradient border-box;
-                box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.4);
-            }
-        }
     }
 
     // --- כפתור "לכל הפרויקטים" (בתחתית) ---
@@ -146,7 +113,6 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
         margin-top: 2.5rem;
     }
     
-    // עיצוב כפתור משני עם מסגרת גרדיינט
     .secondary-btn {
         display: inline-block;
         padding: 0.75rem 2.5rem;
@@ -154,9 +120,8 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
         text-decoration: none;
         font-weight: 700;
         font-size: 1rem;
-        color: #fff; // טקסט לבן
+        color: #fff;
 
-        // טכניקת מסגרת גרדיינט עם רקע שקוף (בצבע הכרטיס/רקע)
         background: linear-gradient(var(--card-background), var(--card-background)) padding-box,
                     $brand-gradient border-box;
         border: 2px solid transparent;
@@ -164,17 +129,16 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 
         &:hover {
-            // במעבר עכבר: הרקע מתמלא בגרדיינט
             background: $brand-gradient padding-box,
                         $brand-gradient border-box;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(var(--primary-color), 0.4); // הנחה שקיים משתנה כזה או דומה
+            box-shadow: 0 6px 20px rgba(var(--primary-color), 0.4);
             color: #fff;
         }
     }
 }
 
-// עיצוב חצים
+// --- עיצוב חצים לקרוסלה (מחליף את PREV/NEXT) ---
 .projects-arrow-prev,
 .projects-arrow-next {
     position: absolute;
@@ -185,12 +149,15 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
     height: 50px;
     cursor: pointer;
     
+    // יצירת העיגול והאייקון
     &::after {
-        font-family: "Font Awesome 5 Free"; // הנחה שזה הפונט, או שתשנה בהתאם
+        // חשוב: וודא שזהו ה-font-family הנכון לאייקונים אצלך (למשל FontAwesome)
+        font-family: "Font Awesome 5 Free"; 
         font-weight: 900;
+        
         font-size: 1.2rem; 
-        color: var(--primary-color);
-        background-color: var(--card-background); // רקע מלא כדי שלא יתנגש עם קווים
+        color: var(--primary-color); // צבע האייקון
+        background-color: var(--card-background); // רקע העיגול
         border: 1px solid var(--border-color);
         border-radius: 50%;
         width: 50px;
@@ -199,16 +166,26 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     &:hover::after {
-        background: var(--primary-color); 
-        color: #fff;
+        background: var(--primary-color); // רקע מלא בריחוף
+        color: #fff; // אייקון לבן בריחוף
         border-color: var(--primary-color);
     }
 }
 
+// קביעת האייקונים הספציפיים (לדוגמה, קודי FontAwesome)
+.projects-arrow-prev::after {
+    content: "\f053"; // קוד לאייקון חץ שמאלה
+}
+
+.projects-arrow-next::after {
+    content: "\f054"; // קוד לאייקון חץ ימינה
+}
+
+// מיקום החצים
 .projects-arrow-prev {
     left: calc(50% - 650px - 25px); 
     @media (max-width: 1400px) { left: 10px; }
@@ -219,6 +196,7 @@ $brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-co
     @media (max-width: 1400px) { right: 10px; }
 }
 
+// הסתרת החצים במובייל
 @media (max-width: $breakpoint-tablet) {
     .projects-arrow-prev,
     .projects-arrow-next {
