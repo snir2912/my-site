@@ -10,7 +10,7 @@ get_header(); // כולל את קובץ ה-header.php
 
 <section class="archive-banner">
     <div class="banner-content container">
-        <h1 class="archive-title">
+        <h1 class="archive-title withe-title">
             <?php
             // בדיקה האם מדובר בארכיון של סוג פוסט מותאם אישית
             if ( is_post_type_archive( 'services' ) ) :

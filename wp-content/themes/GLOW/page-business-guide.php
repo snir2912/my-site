@@ -24,7 +24,7 @@ $guide_cta_text = get_field('guide_cta_text');
         }
         ?>>
         <div class="banner-content">
-            <h1 class="post-title"><?php the_title(); ?></h1>
+            <h1 class="post-title withe-title"><?php the_title(); ?></h1>
             <?php
             // פירורי לחם (Breadcrumbs)
             if (function_exists('snir_theme_breadcrumbs')) {

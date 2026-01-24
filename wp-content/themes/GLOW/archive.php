@@ -9,7 +9,7 @@ get_header();
 
 <section class="archive-banner">
     <div class="banner-content container">
-        <h1 class="archive-title">
+        <h1 class="archive-title withe-title">
             <?php
             if ( is_category() ) :
                 single_cat_title();
