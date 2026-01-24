@@ -5,6 +5,8 @@
 // אם הם מוגדרים בקובץ נפרד (כמו _variables.scss), ודא שאתה מייבא אותם כאן:
 // @import 'variables';
 
+$brand-gradient: linear-gradient(90deg, map-get($theme-colors, primary-color), map-get($theme-colors, secondary-color));
+
 $theme-colors: (
     // Dark Mode Defaults
     background-color: #1a1a1a,
@@ -161,7 +163,7 @@ $font-heebo: 'Heebo', sans-serif;
                         a {
                             color: map-get($theme-colors, light-text-color);
                             &:hover {
-                                color: map-get($theme-colors, primary-color);
+                                color: map-get($brand-gradient);
                             }
                         }
                     }
