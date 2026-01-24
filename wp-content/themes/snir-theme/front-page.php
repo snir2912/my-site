@@ -295,7 +295,7 @@ if (have_rows('reviews', 'option')) :
 ?>
     <section class="reviews-section">
         <div class="container">
-            <h2 class="section-title withe-title"><?php echo esc_html($reviews_headline); ?></h2>
+            <h2 class="section-title white-title"><?php echo esc_html($reviews_headline); ?></h2>
             
             <div class="swiper reviews-slider">
                 <div class="swiper-wrapper">

@@ -29,7 +29,7 @@ $banner_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url($client_id
 
         <header class="client-banner" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('<?php echo esc_url($banner_image_url); ?>');">
             <div class="banner-content">
-                <h1 class="banner-title withe-title"><?php echo esc_html($client_title); ?></h1>
+                <h1 class="banner-title white-title"><?php echo esc_html($client_title); ?></h1>
                 
                 <div class="banner-breadcrumbs">
                     <?php

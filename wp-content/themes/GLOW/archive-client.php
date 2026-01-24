@@ -10,7 +10,7 @@ get_header();
 
 <section class="archive-banner">
     <div class="banner-content container">
-        <h1 class="archive-title withe-title">הפרויקטים שלנו</h1>
+        <h1 class="archive-title white-title">הפרויקטים שלנו</h1>
         <div class="breadcrumbs">
             <div class="banner-breadcrumbs">
                 <?php
