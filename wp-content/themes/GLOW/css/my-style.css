@@ -26,18 +26,33 @@ body.light-mode {
   --secondary-color: #00acc1;
 }
 
-/* --- Global Gradient for Titles --- */
-h1, h2, .section-title {
+/* --- Global Typography & Titles --- */
+h2, .section-title, .contact-form h2 {
   font-family: "Heebo", sans-serif;
   font-weight: 800;
   text-align: center;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  margin-bottom: 3rem;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(90deg, #B721FF, #21D4FD);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  position: relative;
+  z-index: 2;
 }
 
+/* --- תיקון ספציפי לאזור לקוחות ממליצים (Reviews) --- */
+/* מכיוון שהרקע שם צבעוני, הגרדיינט הרגיל לא יבלוט. נהפוך את הכותרת ללבנה וזוהרת */
+.reviews-section .section-title, .reviews-section .contact-form h2, .contact-form .reviews-section h2 {
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* --- תיקון לאזור צור קשר (שיהיה אחיד) --- */
 * {
   margin: 0;
   padding: 0;
@@ -1193,7 +1208,7 @@ body.light-mode .single-post-content blockquote {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: 60px;
 }
-.related-posts-section .section-title {
+.related-posts-section .section-title, .related-posts-section .contact-form h2, .contact-form .related-posts-section h2 {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   margin-bottom: 40px;
   color: #B721FF;
@@ -3098,7 +3113,7 @@ body.light-mode .hamburger-menu .line {
   text-align: center;
   padding: 80px 0;
 }
-.latest-blog-section .section-title {
+.latest-blog-section .section-title, .latest-blog-section .contact-form h2, .contact-form .latest-blog-section h2 {
   font-size: 2.5em;
   font-weight: 800;
   margin-bottom: 50px;
@@ -3109,7 +3124,7 @@ body.light-mode .hamburger-menu .line {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.latest-blog-section .section-title::after {
+.latest-blog-section .section-title::after, .latest-blog-section .contact-form h2::after, .contact-form .latest-blog-section h2::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -3779,7 +3794,7 @@ body.light-mode .pagination .page-numbers.dots {
   padding: 5rem 0;
   background-color: var(--bg-color);
 }
-.faq-section .section-title {
+.faq-section .section-title, .faq-section .contact-form h2, .contact-form .faq-section h2 {
   text-align: center;
   margin-bottom: 3rem;
   color: var(--text-color);
@@ -3863,7 +3878,7 @@ body.light-mode .pagination .page-numbers.dots {
   margin: 0 auto;
   padding: 0 2rem;
 }
-.reviews-section .section-title {
+.reviews-section .section-title, .reviews-section .contact-form h2, .contact-form .reviews-section h2 {
   color: #fff;
   text-align: center;
   margin-bottom: 3rem;
@@ -4016,7 +4031,7 @@ body.light-mode .pagination .page-numbers.dots {
   margin: 0 auto;
   padding: 0 2rem;
 }
-.projects-carousel-section .section-title {
+.projects-carousel-section .section-title, .projects-carousel-section .contact-form h2, .contact-form .projects-carousel-section h2 {
   text-align: center;
   margin-bottom: 3rem;
 }

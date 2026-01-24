@@ -75,26 +75,47 @@ $font-heebo: 'Heebo', sans-serif;
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
 
-/* --- Global Gradient for Titles --- */
+/* --- Global Typography & Titles --- */
 
-// משתנה לגרדיינט (אם כבר מוגדר אצלך בקובץ משתנים, אין צורך בשורה זו)
-$brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+// משתנה לגרדיינט (מותאם למשתנים שלך)
+$brand-gradient: linear-gradient(90deg, map-get($theme-colors, primary-color), map-get($theme-colors, secondary-color));
 
-// החלת הגרדיינט על כותרות H1, H2 ו-Section Title
-h1, h2, .section-title {
-    font-family: $font-heebo; // הנחה שזה הפונט של הכותרות אצלך
+// הגדרה גלובלית לכל הכותרות באתר
+h2, .section-title {
+    font-family: $font-heebo;
     font-weight: 800;
-    text-align: center;
+    text-align: center; // מרכוז הטקסט
+    margin-bottom: 3rem; // רווח תחתון קבוע
     
-    // יצירת טקסט גרדיינט
+    // הטריק למרכוז אלמנט עם גרדיינט טקסט
+    display: table; 
+    margin-left: auto;
+    margin-right: auto;
+
+    // צבע ברירת מחדל: גרדיינט המותג
     background: $brand-gradient;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     
-    display: inline-block; // חשוב כדי שהגרדיינט יחול רק על הטקסט
+    position: relative;
+    z-index: 2;
 }
 
-.white-title{
-    color: $text-color !important; 
+/* --- תיקון ספציפי לאזור לקוחות ממליצים (Reviews) --- */
+/* מכיוון שהרקע שם צבעוני, הגרדיינט הרגיל לא יבלוט. נהפוך את הכותרת ללבנה וזוהרת */
+.reviews-section {
+    .section-title {
+        background: none; // ביטול הגרדיינט רקע
+        -webkit-text-fill-color: #ffffff; // צבע לבן מלא
+        color: #ffffff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); // זוהר לבן עדין
+    }
+}
+
+/* --- תיקון לאזור צור קשר (שיהיה אחיד) --- */
+.contact-form {
+    h2 {
+        @extend .section-title; // יורש את כל התכונות של הכותרות הרגילות
+    }
 }

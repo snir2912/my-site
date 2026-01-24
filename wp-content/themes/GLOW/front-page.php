@@ -81,9 +81,6 @@ $reviews_btn_link = get_field('reviews-btn-link');
                 <?php while ($services_query->have_posts()) : $services_query->the_post();
                     $service_link = get_permalink();
                     $service_title = get_the_title();
-                    
-                    // שינוי 1: שליפת שדה התמונה מ-ACF
-                    // הנחה: השדה מוגדר להחזיר "Image Array"
                     $icon_image = get_field('icon'); 
                 ?>
                     <a href="<?php echo esc_url($service_link); ?>" class="service-card glass-card" aria-label="<?php echo esc_attr($service_title); ?>">
@@ -96,9 +93,7 @@ $reviews_btn_link = get_field('reviews-btn-link');
                                 </span>
                                 
                                 <div class="service-icon-wrapper">
-                                    <?php 
-                                    // שינוי 2: בדיקה אם השדה קיים והצגתו
-                                    if( $icon_image ) : ?>
+                                    <?php if( $icon_image ) : ?>
                                         <img src="<?php echo esc_url($icon_image['url']); ?>" alt="<?php echo esc_attr($icon_image['alt']); ?>" class="service-icon">
                                     <?php endif; ?>
                                 </div>
@@ -363,7 +358,7 @@ endif;
 
 <div class="contact-form" id="contact">
     <div class="container">
-        <h2><?php echo esc_html($cf_headline); ?></h2>
+        <h2 class="section-title"><?php echo esc_html($cf_headline); ?></h2>
         <p><?php echo wp_kses_post($cf_paragraph); ?></p>
         <?php echo do_shortcode('[contact-form-7 id="285c83c" title="טופס צור קשר"]'); ?>
     </div>
