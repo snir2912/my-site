@@ -128,7 +128,7 @@ $font-heebo: 'Heebo', sans-serif;
                 box-sizing: border-box; // לוודא ש-padding לא גורם לגלישה
 
                 &:hover {
-                    color: map-get($theme-colors, primary-color);
+                    color: map-get($brand-gradient);
                     text-decoration: underline;
                 }
             }
