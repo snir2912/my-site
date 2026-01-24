@@ -1,0 +1,107 @@
+/* --- Global Archive Banner Styles --- */
+
+// הגדרת משתנה לגרדיינט (אם לא קיים עדיין)
+// משלב בין הצבע הראשי למשני בזווית 135 מעלות למראה יוקרתי ועדין
+$banner-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+
+.archive-banner {
+    background: $banner-gradient;
+    padding: 80px 0; // מרווח נשימה מלמעלה ולמטה
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    position: relative;
+    margin-bottom: 50px; // רווח בין הבאנר לתוכן העמוד
+
+    // שכבת Overlay עדינה (אופציונלי) - נותן עומק לגרדיינט
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+        pointer-events: none;
+    }
+
+    .banner-content {
+        position: relative;
+        z-index: 2; // מוודא שהטקסט מעל כל אפקט רקע
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    // כותרת הארכיון
+    .archive-title {
+        font-family: $font-heebo; // הפונט שלך
+        font-size: clamp(2.5rem, 5vw, 4rem); // רספונסיבי: מינימום 2.5rem, מקסימום 4rem
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 15px;
+        color: #ffffff;
+        
+        // צל עדין לטקסט לקריאות מקסימלית על הגרדיינט
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    }
+
+    // תיאור הארכיון (אם קיים)
+    .archive-description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        opacity: 0.95; // טיפה שקיפות למראה אלגנטי
+        margin-bottom: 25px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #ffffff;
+    }
+
+    // פירורי לחם (Breadcrumbs)
+    .breadcrumbs {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+
+            &:hover {
+                opacity: 1;
+                border-bottom-color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        // עיצוב למפרידים ולפריט הנוכחי
+        span, i {
+            opacity: 0.7;
+        }
+
+        // הפריט הנוכחי (דף הבית/עמוד נוכחי) מודגש
+        .current, strong {
+            color: #ffffff;
+            font-weight: 700;
+            opacity: 1;
+        }
+    }
+}
+
+// התאמה למובייל (אם צריך הקטנה נוספת)
+@media (max-width: 768px) {
+    .archive-banner {
+        padding: 50px 0;
+        
+        .archive-description {
+            font-size: 1rem;
+        }
+    }
+}
