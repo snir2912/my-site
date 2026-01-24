@@ -1,6 +1,6 @@
-/* Custom Post Type 'Service' Styling - Final version */
+/* Custom Post Type 'Service' Styling - Final version with Fixes */
 
-/* משתנה גרדיינט לשימוש חוזר (אם לא קיים אצלך, זה מגדיר אותו) */
+/* משתנה גרדיינט לשימוש חוזר */
 :root {
     --brand-gradient: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 }
@@ -143,15 +143,31 @@
     display: block;
 }
 
-/* Content Lists Styling */
-.service-content-main ul {
-    list-style: disc inside;
-}
+/* --- תיקון הזחות לרשימות (Lists Fixing) --- */
+.service-content-main ul,
 .service-content-main ol {
-    list-style: decimal inside;
+    /* מוציא את הבולטים/מספרים מחוץ לתיבת הטקסט */
+    list-style-position: outside; 
+    /* מוסיף מרווח מימין (ב-RTL) כדי שהבולטים לא ייחתכו */
+    padding-right: 1.5rem; 
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-/* --- CTA Button Section (עיצוב חדש) --- */
+.service-content-main ul {
+     list-style-type: disc;
+}
+
+.service-content-main ol {
+     list-style-type: decimal;
+}
+
+/* ריווח בין פריטי הרשימה */
+.service-content-main li {
+    margin-bottom: 10px;
+}
+
+/* CTA Button Section */
 .cta-section {
     text-align: center;
     padding: 20px 0;
@@ -163,34 +179,27 @@
     padding: 15px 40px;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #fff; /* טקסט לבן */
+    color: #fff;
     text-decoration: none;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.4s ease;
-    
-    /* הטריק למסגרת גרדיינט ורקע שקוף */
-    /* שכבה ראשונה: רקע האתר (מדמה שקיפות). שכבה שנייה: הגרדיינט */
     background: linear-gradient(var(--bg-color, #0f0f0f), var(--bg-color, #0f0f0f)) padding-box,
                 var(--brand-gradient, linear-gradient(90deg, var(--primary-color), var(--secondary-color))) border-box;
-    border: 3px solid transparent; /* גבול שקוף כדי לחשוף את הגרדיינט מתחת */
-    
+    border: 3px solid transparent;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cta-button:hover {
-    /* במעבר עכבר: הרקע מתמלא בגרדיינט */
     background: var(--brand-gradient, linear-gradient(90deg, var(--primary-color), var(--secondary-color))) border-box;
-    
-    transform: translateY(-5px); /* תזוזה למעלה */
-    box-shadow: 0 10px 25px rgba(var(--primary-color-rgb, 0,0,0), 0.5); /* צל זוהר */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(var(--primary-color-rgb, 0,0,0), 0.5);
     color: #fff;
 }
 
-/* --- Contact Form Section (עיצוב חדש) --- */
+/* --- Contact Form Section (תיקון כותרת לבנה) --- */
 .service-contact-form-section {
     padding: 40px 20px;
-    /* גרדיינט נעים יותר (סגול-כחול כהה או לפי צבעי המותג שלך) */
     background: var(--brand-gradient, linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)); 
     border-radius: 12px;
     margin: 40px auto;
@@ -198,10 +207,18 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
+/* תיקון ספציפי לכותרת H2 בתוך אזור יצירת הקשר */
 .service-contact-form-section h2 {
-    color: #ffffff; /* כותרת לבנה */
+    background: none !important; /* ביטול רקע הגרדיינט של הכותרות הגלובליות */
+    -webkit-text-fill-color: #ffffff !important; /* ביטול המילוי השקוף */
+    color: #ffffff !important; /* צבע לבן */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2); /* צל עדין לקריאות */
     margin-bottom: 20px;
     font-size: 2rem;
+    border: none; /* ביטול קו תחתון אם קיים */
+}
+.service-contact-form-section h2::after {
+    display: none; /* הסתרת הקו התחתון אם קיים */
 }
 
 /* Sidebar Styling */
@@ -216,13 +233,13 @@
     margin-bottom: 30px;
 }
 
-/* כותרת H3 בסיידבר - לבנה */
+/* כותרת H3 בסיידבר - לבנה (וידוא שזה קיים) */
 .sidebar-block h3 {
     font-size: 1.5rem;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
     margin-bottom: 20px;
-    color: #ffffff; /* שינוי ללבן */
+    color: #ffffff; /* צבע לבן */
 }
 
 .other-services ul {
